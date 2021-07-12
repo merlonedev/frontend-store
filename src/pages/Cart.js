@@ -1,5 +1,5 @@
 import React from 'react';
-/* ala */
+
 class Cart extends React.Component {
   render() {
     return (
