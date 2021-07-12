@@ -1,10 +1,14 @@
 import React from 'react';
 import Index from './components/Index';
+import Categories from './components/categoriesList';
 
 class App extends React.Component {
   render() {
     return (
-      <Index />
+      <div>
+        <Index />
+        <Categories />
+      </div>
     );
   }
 }
