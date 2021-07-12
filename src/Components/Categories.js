@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class Categories extends React.Component {
   render() {
@@ -19,5 +20,10 @@ class Categories extends React.Component {
     );
   }
 }
+
+Categories.propTypes = {
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+};
 
 export default Categories;
