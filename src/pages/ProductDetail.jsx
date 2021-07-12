@@ -2,6 +2,14 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 export default class ProductDetails extends Component {
+  constructor(props) {
+    super();
+    const { match: { params: { id } } } = props;
+    this.state = { id };
+  }
+
+  
+
   render() {
     return (
       <div>
