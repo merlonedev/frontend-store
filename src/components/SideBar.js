@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import Loading from './Loading';
-
-const API_URL = 'https://api.mercadolibre.com/sites/MLB/categories';
+import * as api from '../services/api';
 
 class SideBar extends Component {
   constructor() {
     super();
 
-    this.fetchSideBar = this.fetchSideBar.bind(this);
+    this.renderCategories = this.renderCategories.bind(this);
 
     this.state = {
       categorias: [],
@@ -16,15 +15,14 @@ class SideBar extends Component {
   }
 
   componentDidMount() {
-    this.fetchSideBar();
+    this.renderCategories();
   }
 
-  fetchSideBar() {
-    fetch(API_URL)
-      .then((response) => response.json())
-      .then((data) => {
+  renderCategories() {
+    api.getCategories()
+      .then((response) => {
         this.setState({
-          categorias: data,
+          categorias: response,
           loading: false,
         });
       });
