@@ -1,6 +1,7 @@
 import React from 'react';
 import * as api from '../services/api';
 import Product from './Product';
+import { Link } from 'react-router-dom';
 
 class ProductList extends React.Component {
   constructor(props) {
@@ -50,6 +51,8 @@ class ProductList extends React.Component {
         >
           Buscar
         </button>
+        <Link to="/productlist">ProductList</Link>
+        <input type="text" />
         <h2
           data-testid="home-initial-message"
         >
