@@ -3,11 +3,12 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Home from './Components/Home';
 import Cart from './Components/Cart';
 import './App.css';
+import NavBar from './Components/NavBar';
 
 class App extends React.Component {
   render() {
     return (
-      <main className="">
+      <main className="main">
         <div>
           <BrowserRouter>
             <Switch>
@@ -15,6 +16,7 @@ class App extends React.Component {
               <Route path="/" component={ Home } exact />
             </Switch>
           </BrowserRouter>
+          <NavBar />
         </div>
       </main>
     );
