@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import * as api from '../services/api';
 import Search from '../components/Search';
 import ProductsList from '../components/ProductList';
@@ -54,6 +55,9 @@ export default class ProductPage extends Component {
           Digite algum termo de pesquisa ou escolha uma categoria.
         </p>
         <CategoriesBar />
+        <Link to="/shoppingcart">
+          <button data-testid="shopping-cart-button" type="button">Carrinho</button>
+        </Link>
       </section>
     );
   }

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ProductCard from './ProductCard';
 
@@ -17,9 +16,6 @@ export default class ProductList extends Component {
           <p data-testid="home-initial-message">
             Digite algum termo de pesquisa ou escolha uma categoria.
           </p>
-          <Link to="/shoppingcart">
-            <button data-testid="shopping-cart-button" type="button">Carrinho</button>
-          </Link>
         </div>
       </section>
     );
