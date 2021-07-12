@@ -30,7 +30,6 @@ class ListItens extends React.Component {
     try {
       const { search } = this.state;
       const { results } = await api.getProductsFromCategoryAndQuery(1, search);
-      console.log(results);
       if (results.length) {
         return this.setState({
           products: [...results],
