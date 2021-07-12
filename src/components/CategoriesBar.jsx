@@ -3,10 +3,16 @@ import '../App.css';
 import PropTypes from 'prop-types';
 
 export default class CategoriesBar extends Component {
+  // constructor(){
+  //   super();
+  //   this.state = {
+  //     categories: '',
+  //   }
+  // }
   render() {
-    const { categories } = this.props;
+    const { categories, callback } = this.props;
     return (
-      <label htmlFor="category">
+      <label htmlFor="category" onChange={ callback }>
         Categorias
         {
           categories.map(({ id, name }) => (
@@ -33,4 +39,5 @@ CategoriesBar.propTypes = {
     name: PropTypes.string,
     map: PropTypes.func,
   })).isRequired,
+  callback: PropTypes.func.isRequired,
 };
