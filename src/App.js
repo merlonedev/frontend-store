@@ -38,21 +38,6 @@ class App extends React.Component {
             </Switch>
           </BrowserRouter>
         </div>
-        <header className="header">
-          <label
-            htmlFor="searchText"
-            data-testid="home-initial-message"
-            className="searchText"
-          >
-            <input
-              type="text"
-              name="seachText"
-              className="searchInput"
-              placeholder="Search"
-            />
-            Digite algum termo de pesquisa ou escolha uma categoria.
-          </label>
-        </header>
         <nav>
           <ul className="categoryList">
             {this.componentDidUpdate()}
