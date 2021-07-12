@@ -7,8 +7,8 @@ class CartItems extends React.Component {
       <div>
         <FiShoppingCart />
         Carrinho de Compras
-        <div>
-          Seu carrinho de compras está vazio
+        <div data-testid="shopping-cart-empty-message">
+          Seu carrinho está vazio
         </div>
       </div>
     );
