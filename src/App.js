@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import Home from './components/Home';
+import Home from './pages/Home';
+import ShoppingCart from './pages/ShoppingCart';
 
 export default class App extends Component {
   render() {
@@ -8,7 +9,8 @@ export default class App extends Component {
       <BrowserRouter>
         <h2>Frontend Online Store - Grupo 26</h2>
         <Switch>
-          <Route path="/" component={ Home } />
+          <Route exact path="/" component={ Home } />
+          <Route path="/shopping-cart" component={ ShoppingCart } />
         </Switch>
       </BrowserRouter>
     );
