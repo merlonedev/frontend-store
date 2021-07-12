@@ -28,7 +28,12 @@ export default class SearchBar extends Component {
     // const { products } = this.state;
     return (
       <div>
-        <input type="text" onChange={ this.handleChange } name="queryInput" />
+        <input
+          type="text"
+          data-testid="query-input"
+          onChange={ this.handleChange }
+          name="queryInput"
+        />
         <p
           data-testid="home-initial-message"
         >
