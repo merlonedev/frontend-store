@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 // Cria input do tipo texto e adicionar uma tag p dando instruções iniciais e o renderiza no App.
 class Index extends React.Component {
@@ -13,6 +14,7 @@ class Index extends React.Component {
         >
           Digite algum termo de pesquisa ou escolha uma categoria.
         </p>
+        <Link data-testid="shopping-cart-button" to="/cart">Carrinho</Link>
       </>
     );
   }
