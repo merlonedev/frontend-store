@@ -16,13 +16,13 @@
 }
 
 .product {
+  align-items: center;
+  border: 3px solid black;
   display: flex;
   flex-flow: column;
-  align-items: center;
-  text-align: center;
-  border: 3px solid black;
-  width: 250px;
   margin-bottom: 40px;
+  text-align: center;
+  width: 250px;
 }
 
 img {
