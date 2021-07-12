@@ -1,6 +1,9 @@
 import React from 'react';
-import * as api from '../services/api';
+import { Link } from 'react-router-dom';
+import { FiShoppingCart } from 'react-icons/fi';
 import ProductCard from '../components/ProductCard';
+import CategoriesFilter from '../components/CategoriesFilter';
+import * as api from '../services/api';
 
 class ListItens extends React.Component {
   constructor(props) {
@@ -9,10 +12,16 @@ class ListItens extends React.Component {
       search: '',
       products: [],
       checkList: true,
+      categories: [],
     };
 
     this.handleSearch = this.handleSearch.bind(this);
     this.filterProducts = this.filterProducts.bind(this);
+    this.fetchCategories = this.fetchCategories.bind(this);
+  }
+
+  componentDidMount() {
+    this.fetchCategories();
   }
 
   handleSearch(event) {
@@ -22,6 +31,13 @@ class ListItens extends React.Component {
       : event.target.value;
     this.setState({
       [name]: value,
+    });
+  }
+
+  async fetchCategories() {
+    const response = await api.getCategories();
+    this.setState({
+      categories: [...response],
     });
   }
 
@@ -45,7 +61,7 @@ class ListItens extends React.Component {
   }
 
   render() {
-    const { search, products, checkList } = this.state;
+    const { search, products, checkList, categories } = this.state;
     return (
       <div>
         <form>
@@ -67,9 +83,13 @@ class ListItens extends React.Component {
             </button>
           </label>
         </form>
+        <Link to="/cart" data-testid="shopping-cart-button">
+          <FiShoppingCart />
+        </Link>
         <div data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
         </div>
+        <CategoriesFilter categories={ categories } />
         <div>
           {
             checkList
