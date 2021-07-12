@@ -10,10 +10,10 @@ export default class App extends Component {
   constructor() {
     super();
     this.state = {
-      products: [],
+      // products: [],
       categories: [],
-      queryInput: '',
-      category: '',
+      // queryInput: '',
+      // category: '',
     };
   }
 
