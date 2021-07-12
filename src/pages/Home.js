@@ -1,15 +1,16 @@
 import React from 'react';
+import CartButton from '../Components/CartButton';
 
 class Home extends React.Component {
   render() {
     return (
-      <form>
-        <p
-          data-testid="home-initial-message"
-        >
+      <header>
+        <label htmlFor="searchBar" data-testid="home-initial-message">
+          <input name="searchBar" type="text" />
           Digite algum termo de pesquisa ou escolha uma categoria.
-        </p>
-      </form>
+        </label>
+        <CartButton />
+      </header>
     );
   }
 }
