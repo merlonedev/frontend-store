@@ -29,10 +29,6 @@ export default class App extends Component {
       });
   }
 
-  componentDidUpdate() {
-    this.setProducts();
-  }
-
   async setProducts() {
     const { queryInput, category } = this.state;
     console.log(this.state);
@@ -43,7 +39,7 @@ export default class App extends Component {
   }
 
   callback(input) {
-    this.setState({ queryInput: input });
+    this.setState({ queryInput: input }, () => this.setProducts());
   }
 
   render() {
