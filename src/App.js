@@ -12,6 +12,7 @@ function App() {
         <Route exact path="/" component={ ProductsPage } />
       </Switch>
     </BrowserRouter>
+
   );
 }
 
