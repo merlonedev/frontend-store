@@ -1,7 +1,8 @@
 import React from 'react';
-import CartButton from '../Components/CartButton';
 import * as api from '../services/api';
 import Products from './Products';
+import CartButton from '../Components/CartButton';
+import Category from '../Components/Categorias';
 
 class Home extends React.Component {
   constructor() {
@@ -34,14 +35,12 @@ class Home extends React.Component {
   render() {
     const { productList } = this.state;
     return (
-      <div>
-        <header>
-          <label htmlFor="searchBar" data-testid="home-initial-message">
-            <input name="searchBar" type="text" />
-            Digite algum termo de pesquisa ou escolha uma categoria.
-          </label>
-          <CartButton />
-        </header>
+      <form>
+        <p
+          data-testid="home-initial-message"
+        >
+          Digite algum termo de pesquisa ou escolha uma categoria.
+        </p>
         <input
           type="text"
           data-testid="query-input"
@@ -55,7 +54,9 @@ class Home extends React.Component {
           Clique Aqui
         </button>
         <Products productList={ productList } />
-      </div>
+        <CartButton />
+        <Category />
+      </form>
     );
   }
 }

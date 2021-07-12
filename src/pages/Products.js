@@ -8,6 +8,7 @@ class Products extends Component {
     if (productList.length === 0) {
       return <NotFound />;
     }
+
     return (
       <div>
         { productList.map((item) => (
