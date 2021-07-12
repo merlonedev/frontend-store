@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
+import SearchBar from '../Components/SearchBar';
 
 class Home extends Component {
   render() {
     return (
       <section>
-        <label htmlFor="message" data-testid="home-initial-message">
-          <input
-            type="search"
-            id="message"
-          />
-          Digite algum termo de pesquisa ou escolha uma categoria.
-        </label>
+        <div>
+          <SearchBar />
+        </div>
       </section>
     );
   }
