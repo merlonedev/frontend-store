@@ -1,15 +1,14 @@
 import React from 'react';
+import SearchBar from '../components/SearchBar';
+// import CartButton from '../components/CartButton';
 
 class Home extends React.Component {
   render() {
     return (
-      <form>
-        <p
-          data-testid="home-initial-message"
-        >
-          Digite algum termo de pesquisa ou escolha uma categoria.
-        </p>
-      </form>
+      <div>
+        <SearchBar />
+        {/* <CartButton /> */}
+      </div>
     );
   }
 }

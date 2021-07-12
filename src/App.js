@@ -1,15 +1,18 @@
 import React from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import './App.css';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Home from './pages/Home';
+import CartBasket from './pages/CartBasket';
 
-class App extends React.Component {
-  render() {
-    return (
-      <BrowserRouter>
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Switch>
         <Route path="/" component={ Home } />
-      </BrowserRouter>
-    );
-  }
+        <Route path="/cart-basket" component={ CartBasket } />
+      </Switch>
+    </BrowserRouter>
+  );
 }
-
 export default App;
