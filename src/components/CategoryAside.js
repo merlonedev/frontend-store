@@ -5,9 +5,15 @@ class CategoryAside extends React.Component {
   render() {
     const { categoryObj } = this.props;
     return (
-      <ol>
-        {categoryObj.map((category) => <li key={ category.id }>{ category.name }</li>)}
-      </ol>
+      <ul>
+        {categoryObj.map((category) => (
+          <li
+            key={ category.id }
+            data-testid="category"
+          >
+            { category.name }
+          </li>))}
+      </ul>
     );
   }
 }
