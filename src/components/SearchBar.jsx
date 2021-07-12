@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import * as API from '../services/api';
+// import * as API from '../services/api';
 
 export default class SearchBar extends Component {
   constructor() {
     super();
     this.state = {
-      products: [],
+      // products: [],
       queryInput: '',
-      category: '',
+      // category: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -50,3 +50,7 @@ export default class SearchBar extends Component {
     );
   }
 }
+
+SearchBar.propTypes = {
+  callback: PropTypes.func.isRequired,
+};
