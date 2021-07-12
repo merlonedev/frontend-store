@@ -1,10 +1,10 @@
 .categories {
   border: solid black;
-  width: 250px;
   text-align: end;
+  width: 250px;
 }
 
 .App {
-  text-align: center;
   align-self: center;
+  text-align: center;
 }
