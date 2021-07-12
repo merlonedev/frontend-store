@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+/* import PropTypes from 'prop-types'; */
 import NotFound from '../notFound/NotFound';
 
 class ProductsDisplay extends Component {
