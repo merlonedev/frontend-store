@@ -4,10 +4,10 @@ class SearchBar extends Component {
   render() {
     return (
       <section>
-        <label htmlFor="message" data-testid="home-initial-message">
+        <label htmlFor="search-bar" data-testid="home-initial-message">
           <input
             type="search"
-            id="message"
+            id="search-bar"
           />
           Digite algum termo de pesquisa ou escolha uma categoria.
         </label>
