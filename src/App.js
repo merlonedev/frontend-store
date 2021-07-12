@@ -4,6 +4,8 @@ import './App.css';
 import * as api from './services/api';
 import List from './Components/List';
 import Categories from './Components/Categories';
+import ShoppingCart from './Components/ShoppingCart';
+import ShoppingCartLink from './ShoppingCartLink';
 
 class App extends React.Component {
   constructor() {
@@ -38,8 +40,10 @@ class App extends React.Component {
       <div className="App">
         <BrowserRouter>
           <Switch>
-            <Route path="/" component={ List } />
+            <Route exact path="/" component={ List } />
+            <Route exact path="/shopping-cart" component={ ShoppingCart } />
           </Switch>
+          <ShoppingCartLink />
         </BrowserRouter>
         <p data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
