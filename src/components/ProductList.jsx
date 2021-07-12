@@ -1,7 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import * as api from '../services/api';
 import Product from './Product';
-import { Link } from 'react-router-dom';
 
 class ProductList extends React.Component {
   constructor(props) {
