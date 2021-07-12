@@ -7,3 +7,4 @@ export default class ShoppingCart extends React.Component {
     );
   }
 }
+// Neste componente está sendo retornado um H1 com o texto informado.

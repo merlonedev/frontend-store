@@ -14,6 +14,8 @@ class Index extends React.Component {
         >
           Digite algum termo de pesquisa ou escolha uma categoria.
         </p>
+        {/* Criado um link para que ao ser clicado redirecionar
+        para o component ShoppingCart */}
         <Link data-testid="shopping-cart-button" to="/cart">Carrinho</Link>
       </>
     );
