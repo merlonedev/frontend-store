@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import * as fetchApi from '../services/api';
+import { Link } from 'react-router-dom';
 import SearchBar from './SearchBar';
 
 class Home extends Component {
@@ -41,7 +42,6 @@ class Home extends Component {
           placeholder="Buscar produto"
           onChange={ this.handlerChange }
         />
-
         <button
           type="button"
           data-testid="query-button"
@@ -55,6 +55,12 @@ class Home extends Component {
           Digite algum termo de pesquisa ou escolha uma categoria.
         </p>
         <SearchBar product={ product } />
+        <header>
+          <Link to="/ShoppingCart" data-testid="shopping-cart-button">
+            Carrinho
+          </Link>
+          <SearchBar />
+        </header>
       </div>
     );
   }
