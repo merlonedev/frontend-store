@@ -7,7 +7,9 @@ class CategoriesFilter extends React.Component {
     return (
       <nav className="categories-bar">
         <ul>
-          { categories.map(({ id, name }) => <li key={ id }>{ name }</li>) }
+          { categories.map(({ id, name }) => (
+            <li data-testid="category" key={ id }>{ name }</li>
+          )) }
         </ul>
       </nav>
     );
