@@ -1,21 +1,23 @@
 import React from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './App.css';
-<<<<<<< HEAD
-import { getCategories } from './services/api';
+import * as api from './services/api';
+import List from './Components/List';
 
 class App extends React.Component {
   render() {
-    getCategories()
+    api.getCategories();
+    return (
+      <div className="App">
+        <BrowserRouter>
+          <Switch>
+            <Route path='/' component={ List } />
+          </Switch>
+        </BrowserRouter>
+          <p data-testid='home-initial-message'>Digite algum termo de pesquisa ou escolha uma categoria.</p>
+      </div>
+    );
   }
-=======
-import * as api from './services/api';
-
-function App() {
-  api.getCategories();
-  return (
-    <div className="App">Grupo 29</div>
-  );
->>>>>>> 743133ff1ed1140c306d6861f30cb87ffd5dd27e
 }
 
 export default App;
