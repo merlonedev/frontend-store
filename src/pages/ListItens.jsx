@@ -28,7 +28,6 @@ class ListItens extends React.Component {
   async filterProducts(event) {
     event.preventDefault();
     try {
-      // const { match: { params: { id } } } = this.props;
       const { search } = this.state;
       const { results } = await api.getProductsFromCategoryAndQuery(1, search);
       console.log(results);
