@@ -1,5 +1,6 @@
 import React from 'react';
 
+// Cria input do tipo texto e adicionar uma tag p dando instruções iniciais e o renderiza no App.
 class Index extends React.Component {
   render() {
     return (
