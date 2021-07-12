@@ -4,7 +4,7 @@ import './App.css';
 import * as api from './services/api';
 import List from './Components/List';
 import ShoppingCart from './Components/ShoppingCart';
-import ShoppingCartLink from './Home';
+import ShoppingCartLink from './ShoppingCartLink';
 
 class App extends React.Component {
   render() {
