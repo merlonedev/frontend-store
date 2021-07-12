@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom'
 import * as fetchApi from '../services/api';
-import { Link } from 'react-router-dom';
 import SearchBar from './SearchBar';
 
 class Home extends Component {
