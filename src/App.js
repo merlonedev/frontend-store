@@ -1,12 +1,11 @@
 import React from 'react';
 import './App.css';
-import * as api from './services/api';
+import SearchBar from './Components/SearchBar';
 
 function App() {
   return (
     <div>
-      { api.getCategories() }
-      { api.getProductsFromCategoryAndQuery() }
+      <SearchBar />
     </div>
   );
 }
