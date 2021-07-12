@@ -1,14 +1,15 @@
 import React from 'react';
-import { getCategories, getProductsFromCategoryAndQuery } from './services/api';
-// import logo from './logo.svg';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import SearchBar from './Pages/SearchBar';
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      {getCategories()}
-      {getProductsFromCategoryAndQuery('MLB5672', 'Acessórios para Veículos')}
-    </div>
+    <BrowserRouter>
+      <Switch>
+        <Route path="/" exact component={ SearchBar } />
+      </Switch>
+    </BrowserRouter>
   );
 }
 
