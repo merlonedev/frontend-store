@@ -1,41 +1,71 @@
 import React, { Component } from 'react';
-import getProductsFromCategoryAndQuery from '../services/api';
+import * as api from '../services/api';
 
 class SearchAndList extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      loading: true,
+      queryText: '',
+      productList: [],
     };
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.renderForm = this.renderForm.bind(this);
+    this.renderList = this.renderList.bind(this);
   }
 
-  componentDidMount() {
-
+  async handleSubmit() {
+    const { queryText } = this.state;
+    const { getProductsFromCategoryAndQuery } = api;
+    const results = await getProductsFromCategoryAndQuery('', queryText);
+    this.setState({
+      loading: false,
+      productList: results,
+    });
   }
 
-  handleSubmit(queryEvent) {
-    
-  }
-
-  render() {
+  renderForm() {
     return (
       <form>
-        <label htmlFor="query">
+        <label htmlFor="query" data-testid="query-input">
           <input
             placeholder="O que tu queres procurar?"
             id="query"
             type="text"
-            value={ title }
-            onChange={ (event) => this.updateMovie('title', event.target.value) }
+            onChange={ (event) => this.setState({ queryText: event.target.value }) }
           />
         </label>
         <button
+          data-testid="query-button"
           type="button"
           onClick={ this.handleSubmit }
         >
           Procurar
         </button>
       </form>
+    );
+  }
+
+  renderList() {
+    if (this.state.loading) return <p>Loading...</p>;
+    const { productList: { results } } = this.state;
+    return (
+      <div>
+        <ul>
+          { results.map(
+            (prod) => <li data-testid="product" key={ prod.id }>{ prod.title }</li>,
+          )}
+        </ul>
+      </div>
+    );
+  }
+
+  render() {
+    return (
+      <div>
+        {this.renderForm()}
+        {this.renderList()}
+      </div>
     );
   }
 }
