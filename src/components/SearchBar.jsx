@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
-import * as API from '../services/api';
+import PropTypes from 'prop-types';
+
+// import * as API from '../services/api';
 
 export default class SearchBar extends Component {
   constructor() {
     super();
     this.state = {
-      products: [],
+      // products: [],
       queryInput: '',
-      category: '',
+      // category: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -28,7 +30,12 @@ export default class SearchBar extends Component {
     // const { products } = this.state;
     return (
       <div>
-        <input type="text" onChange={ this.handleChange } name="queryInput" />
+        <input
+          type="text"
+          data-testid="query-input"
+          onChange={ this.handleChange }
+          name="queryInput"
+        />
         <p
           data-testid="home-initial-message"
         >
@@ -45,3 +52,7 @@ export default class SearchBar extends Component {
     );
   }
 }
+
+SearchBar.propTypes = {
+  callback: PropTypes.func.isRequired,
+};
