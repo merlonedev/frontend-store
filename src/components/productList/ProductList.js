@@ -1,4 +1,4 @@
-import React from 'react';
+/* import React from 'react';
 
 class ProductList extends React.Component {
   constructor() {
@@ -25,4 +25,4 @@ class ProductList extends React.Component {
   }
 }
 
-export default ProductList;
+export default ProductList; */
