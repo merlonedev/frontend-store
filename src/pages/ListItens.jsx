@@ -5,7 +5,9 @@ class ListItens extends React.Component {
     return (
       <div>
         <form>
-          <input type="text" />
+          <label htmlFor="search-bar">
+            <input id="search-bar" type="text" />
+          </label>
         </form>
         <div data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
