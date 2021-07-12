@@ -11,10 +11,12 @@ class App extends React.Component {
       <div className="App">
         <BrowserRouter>
           <Switch>
-            <Route path='/' component={ List } />
+            <Route path="/" component={ List } />
           </Switch>
         </BrowserRouter>
-          <p data-testid='home-initial-message'>Digite algum termo de pesquisa ou escolha uma categoria.</p>
+        <p data-testid="home-initial-message">
+          Digite algum termo de pesquisa ou escolha uma categoria.
+        </p>
       </div>
     );
   }

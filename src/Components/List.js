@@ -4,11 +4,9 @@ class List extends React.Component {
   render() {
     return (
       <div>
-        <label>
-          <input type='text' id='' placeholder='' />
-        </label>
+        <input type="text" id="" placeholder="" />
       </div>
-    )
+    );
   }
 }
 
