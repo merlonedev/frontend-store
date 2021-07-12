@@ -39,8 +39,7 @@ export default class App extends Component {
   }
 
   callback(input) {
-    this.setState({ queryInput: input });
-    this.setProducts();
+    this.setState({ queryInput: input }, () => this.setProducts());
   }
 
   render() {
