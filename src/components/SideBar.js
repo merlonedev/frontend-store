@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Loading from './Loading';
 import * as api from '../services/api';
+import './SideBar.css';
 
 class SideBar extends Component {
   constructor() {
@@ -9,7 +10,7 @@ class SideBar extends Component {
     this.renderCategories = this.renderCategories.bind(this);
 
     this.state = {
-      categorias: [],
+      categories: [],
       loading: true,
     };
   }
@@ -22,21 +23,22 @@ class SideBar extends Component {
     api.getCategories()
       .then((response) => {
         this.setState({
-          categorias: response,
+          categories: response,
           loading: false,
         });
       });
   }
 
   render() {
-    const { loading, categorias } = this.state;
+    const { loading, categories } = this.state;
     return (
-      <aside>
+      <aside className="categories">
         {loading && <Loading />}
-        <ul>
+        <ul className="categories-list">
           {
-            categorias.map((categoria) => (
+            categories.map((categoria) => (
               <li
+                className="categories-item"
                 data-testid="category"
                 key={ categoria.id }
               >

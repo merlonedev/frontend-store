@@ -9,8 +9,8 @@ function App() {
   return (
     <BrowserRouter>
       <SearchBar />
-      <SideBar />
       <Route exact path="/" component={ Main } />
+      <SideBar />
     </BrowserRouter>
   );
 }
