@@ -1,21 +1,60 @@
 import React from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './App.css';
-<<<<<<< HEAD
-import { getCategories } from './services/api';
+import * as api from './services/api';
+import List from './Components/List';
+import Categories from './Components/Categories'
 
 class App extends React.Component {
-  render() {
-    getCategories()
-  }
-=======
-import * as api from './services/api';
+  constructor() {
+    super()
 
-function App() {
-  api.getCategories();
-  return (
-    <div className="App">Grupo 29</div>
-  );
->>>>>>> 743133ff1ed1140c306d6861f30cb87ffd5dd27e
+    this.handleJonas = this.handleJonas.bind(this);
+
+    this.state = {
+      categories: [],
+      isLoading: true,
+    }
+  }
+
+  async handleJonas () {
+    const category = await api.getCategories();
+    this.setState({
+      categories: category,
+      isLoading: false,
+    })
+  }
+  
+  componentDidMount() {
+    this.handleJonas()
+  }
+
+  render() {
+    const { categories, isLoading } = this.state;
+    if(isLoading) {
+      return <p>Carregando</p>
+    }
+    return (
+      <div className="App">
+        <BrowserRouter>
+          <Switch>
+            <Route path="/" component={ List } />
+          </Switch>
+        </BrowserRouter>
+        <p data-testid="home-initial-message">
+          Digite algum termo de pesquisa ou escolha uma categoria.
+        </p>
+        <div className='categories'>
+          { categories.map((category) => 
+              <Categories
+              key={ category.id }
+              name={ category.name }
+              id={ category.id }
+            /> ) }
+        </div>
+      </div>
+    );
+  }
 }
 
 export default App;
