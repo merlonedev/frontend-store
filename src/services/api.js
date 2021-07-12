@@ -2,7 +2,7 @@ const url = 'https://api.mercadolibre.com/sites/MLB/categories';
 const urlCategorySelect = 'https://api.mercadolibre.com/sites/MLB/search?category=';
 
 export async function getCategories() {
-  const response = await fetch('https://api.mercadolibre.com/sites/MLB/categories');
+  const response = await fetch(url);
   const categories = await response.json();
   return categories;
 }
