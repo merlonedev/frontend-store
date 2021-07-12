@@ -1,12 +1,12 @@
 import React from 'react';
-import './App.css';
+import Index from './components/Index';
 
-function App() {
-  return (
-    <div className="App">
-      Iniciando o Projeto
-    </div>
-  );
+class App extends React.Component {
+  render() {
+    return (
+      <Index />
+    );
+  }
 }
 
 export default App;
