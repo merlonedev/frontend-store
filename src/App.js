@@ -3,7 +3,6 @@ import './App.css';
 import SearchBar from './Components/SearchBar';
 import FilterCategories from './Components/FilterCategories';
 
-
 function App() {
   return (
     <div>
