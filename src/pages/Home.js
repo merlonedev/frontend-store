@@ -1,6 +1,6 @@
 import React from 'react';
-import CartButton from '../components/CartButton';
-import Categorias from '../components/Categorias';
+import CartButton from '../Components/CartButton';
+import Categorias from '../Components/Categorias';
 
 class Home extends React.Component {
   render() {
