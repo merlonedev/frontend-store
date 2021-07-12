@@ -11,8 +11,12 @@ class Home extends Component {
         <h1 data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
         </h1>
-        <Link to="/carrinho" data-testid="shopping-cart-button">
-          <image src="carrinho.png" />
+        <Link
+          className="material-icons carrinho"
+          to="/carrinho"
+          data-testid="shopping-cart-button"
+        >
+          shopping_cart
         </Link>
       </div>
     );
