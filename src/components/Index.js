@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Categories from './categoriesList';
 
 // Cria input do tipo texto e adicionar uma tag p dando instruções iniciais e o renderiza no App.
 class Index extends React.Component {
@@ -17,6 +18,7 @@ class Index extends React.Component {
         {/* Criado um link para que ao ser clicado redirecionar
         para o component ShoppingCart */}
         <Link data-testid="shopping-cart-button" to="/cart">Carrinho</Link>
+        <Categories />
       </>
     );
   }
