@@ -1,31 +1,56 @@
 import React from 'react';
+import * as api from '../../services/api';
+import ProductsDisplay from '../../pages/productsDisplay/ProductsDisplay';
 
 class Search extends React.Component {
   constructor() {
     super();
-    this.eventHandler = this.eventHandler.bind(this);
     this.state = {
-      searchText: '',
+      search: '',
+      categoryId: '',
+      productList: [],
     };
+    this.inputList = this.inputList.bind(this);
+    this.requestProducts = this.requestProducts.bind(this);
   }
 
-  eventHandler({ target }) {
+  inputList({ target }) {
     this.setState({
-      [target.name]: target.value,
+      search: target.value,
     });
   }
 
+  requestProducts() {
+    const { categoryId, search } = this.state;
+    api.getProductsFromCategoryAndQuery(categoryId, search)
+      .then(({ results }) => (
+        this.setState({
+          productList: results,
+        })
+      ));
+  }
+
   render() {
-    const { searchText } = this.state;
+    const { productList } = this.state;
     return (
-      <label htmlFor="searchText">
+      <form>
+        <h1 data-testid="home-initial-message">
+          Digite algum termo de pesquisa ou escolha uma categoria.
+        </h1>
         <input
-          placeholder=""
-          onChange={ this.eventHandler }
-          name="searchText"
-          value={ searchText }
+          type="text"
+          data-testid="query-input"
+          onChange={ this.inputList }
         />
-      </label>
+        <button
+          type="button"
+          data-testid="query-button"
+          onClick={ this.requestProducts }
+        >
+          Clique Aqui
+        </button>
+        <ProductsDisplay productList={ productList } />
+      </form>
     );
   }
 }

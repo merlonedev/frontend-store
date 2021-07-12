@@ -1,6 +1,6 @@
 import React from 'react';
 import Search from '../../components/search/Search';
-import ProductList from '../../components/productList/ProductList';
+/* import ProductList from '../../components/productList/ProductList'; */
 import MarketButton from '../../components/marketButton/MarketButton';
 
 class Home extends React.Component {
@@ -16,7 +16,6 @@ class Home extends React.Component {
       <section>
         <Search />
         <MarketButton />
-        <ProductList />
       </section>
     );
   }
