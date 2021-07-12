@@ -13,7 +13,7 @@ class App extends React.Component {
 
     this.state = {
       categories: [],
-      isLoading: true,
+      // isLoading: true,
     };
   }
 
@@ -25,15 +25,15 @@ class App extends React.Component {
     const category = await api.getCategories();
     this.setState({
       categories: category,
-      isLoading: false,
+      // isLoading: false,
     });
   }
 
   render() {
-    const { categories, isLoading } = this.state;
-    if (isLoading) {
-      return <p>Carregando</p>;
-    }
+    const { categories /* isLoading */ } = this.state;
+    // if (isLoading) {
+    //   return <span>Carregando</span>;
+    // }
     return (
       <div className="App">
         <BrowserRouter>
