@@ -1,5 +1,6 @@
 import React from 'react';
 import CartButton from '../Components/CartButton';
+import Categorias from '../Components/Categorias';
 import * as api from '../services/api';
 import Products from './Products';
 
@@ -55,6 +56,7 @@ class Home extends React.Component {
           Clique Aqui
         </button>
         <Products productList={ productList } />
+        <Categorias />
       </div>
     );
   }

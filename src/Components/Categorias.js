@@ -32,7 +32,7 @@ class Category extends Component {
           {
             categories.map((category) => (
               <li key={ category.id } data-testid="category">
-                {category.name}
+                { category.name }
               </li>
             ))
           }
