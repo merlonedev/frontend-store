@@ -1,6 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { getProductsFromCategoryAndQuery } from '../services/api';
-
 import ProductCard from '../components/ProductCard';
 
 const initialState = {
@@ -66,6 +66,12 @@ class Home extends React.Component {
         >
           Pesquisar
         </button>
+        <Link
+          to="/shopping-cart"
+          data-testid="shopping-cart-button"
+        >
+          Carrinho de Compras
+        </Link>
         { (products.length > 0)
           ? products.map(({ id, title, thumbnail, price }) => (
             <ProductCard
