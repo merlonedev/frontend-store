@@ -1,14 +1,17 @@
 import React from 'react';
 
 class ListItens extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
-    return(
-      <h1>Teste</h1>
-    )
+    return (
+      <div>
+        <form>
+          <input type="text" />
+        </form>
+        <div data-testid="home-initial-message">
+          Digite algum termo de pesquisa ou escolha uma categoria.
+        </div>
+      </div>
+    );
   }
 }
 
