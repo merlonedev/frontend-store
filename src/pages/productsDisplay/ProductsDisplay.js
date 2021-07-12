@@ -22,11 +22,11 @@ class ProductsDisplay extends Component {
   }
 }
 
-ProductsDisplay.propTypes = {
+/* ProductsDisplay.propTypes = {
   productList: PropTypes.arrayOf(
     PropTypes.array,
     PropTypes.object,
   ).isRequired,
-};
+}; */
 
 export default ProductsDisplay;
