@@ -54,6 +54,23 @@ class App extends React.Component {
       </div>
     );
   }
+
+class App extends React.Component {
+  render() {
+    api.getCategories();
+    return (
+      <div className="App">
+        <BrowserRouter>
+          <Switch>
+            <Route path="/" component={ List } />
+          </Switch>
+        </BrowserRouter>
+        <p data-testid="home-initial-message">
+          Digite algum termo de pesquisa ou escolha uma categoria.
+        </p>
+      </div>
+    );
+  }
 }
 
 export default App;
