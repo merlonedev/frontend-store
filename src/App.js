@@ -5,13 +5,11 @@ import SearchBar from './components/SearchBar';
 class App extends React.Component {
   render() {
     return (
-      <div>
-        <BrowserRouter>
-          <Switch>
-            <Route path="/" component={ SearchBar } />
-          </Switch>
-        </BrowserRouter>
-      </div>
+      <BrowserRouter>
+        <Switch>
+          <Route path="/" component={ SearchBar } />
+        </Switch>
+      </BrowserRouter>
     );
   }
 }
