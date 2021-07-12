@@ -1,13 +1,15 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import SearchBar from './components/SearchBar';
+import HomePage from './pages/HomePage';
+import Cart from './pages/Cart';
 
 class App extends React.Component {
   render() {
     return (
       <BrowserRouter>
         <Switch>
-          <Route path="/" component={ SearchBar } />
+          <Route exact path="/" component={ HomePage } />
+          <Route path="/Cart" component={ Cart } />
         </Switch>
       </BrowserRouter>
     );
