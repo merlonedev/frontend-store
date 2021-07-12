@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import * as api from '../services/api';
+import ProductCard from './ProductCard';
 
 class SearchAndList extends Component {
   constructor(props) {
@@ -27,8 +28,9 @@ class SearchAndList extends Component {
   renderForm() {
     return (
       <form>
-        <label htmlFor="query" data-testid="query-input">
+        <label htmlFor="query">
           <input
+            data-testid="query-input"
             placeholder="O que tu queres procurar?"
             id="query"
             type="text"
@@ -47,13 +49,17 @@ class SearchAndList extends Component {
   }
 
   renderList() {
-    if (this.state.loading) return <p>Loading...</p>;
+    const { loading } = this.state;
+    if (loading) return <p>Loading...</p>;
     const { productList: { results } } = this.state;
     return (
       <div>
         <ul>
           { results.map(
-            (prod) => <li data-testid="product" key={ prod.id }>{ prod.title }</li>,
+            (prod) => (<ProductCard
+              key={ prod.id }
+              product={ prod }
+            />),
           )}
         </ul>
       </div>
