@@ -10,6 +10,7 @@ function App() {
         <Route to="/" component={ ProductsPage } />
       </Switch>
     </BrowserRouter>
+
   );
 }
 
