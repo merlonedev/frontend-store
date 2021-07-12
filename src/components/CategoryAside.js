@@ -13,10 +13,7 @@ class CategoryAside extends React.Component {
 }
 
 CategoryAside.propTypes = {
-  categoryObj: PropTypes.shape({
-    id: PropTypes.string,
-    name: PropTypes.string,
-  }).isRequired,
+  categoryObj: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default CategoryAside;
