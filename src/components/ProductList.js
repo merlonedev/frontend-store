@@ -40,6 +40,12 @@ class ProductList extends React.Component {
       );
     }
 
+    if (list.length === 0) {
+      return (
+        <p>Nenhum produto foi encontrado</p>
+      );
+    }
+
     return (
       <div>
         {
