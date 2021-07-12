@@ -16,4 +16,4 @@ export async function getProductsFromCategoryAndQuery(categoryId, query) {
   const response = await result.json();
   return response;
 }
-// Retorna uma promise das categorias de acordo com o id e query passados.
+// Retorna uma promise das categorias de acordo com o id e query passados
