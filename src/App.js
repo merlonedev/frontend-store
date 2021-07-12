@@ -30,7 +30,7 @@ class App extends React.Component {
   render() {
     return (
       <main className="main">
-      <div>
+        <div>
           <BrowserRouter>
             <Switch>
               <Route path="/Cart" component={ Cart } />
