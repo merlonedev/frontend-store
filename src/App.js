@@ -18,6 +18,7 @@ export default class App extends Component {
     };
     this.setProducts = this.setProducts.bind(this);
     this.callback = this.callback.bind(this);
+    this.callbackCategory = this.callbackCategory.bind(this);
   }
 
   componentDidMount() {
@@ -31,7 +32,6 @@ export default class App extends Component {
 
   async setProducts() {
     const { queryInput, category } = this.state;
-    console.log(this.state);
     const results = await API.getProductsFromCategoryAndQuery(category, queryInput);
     this.setState({
       products: results.results,
@@ -42,6 +42,10 @@ export default class App extends Component {
     this.setState({ queryInput: input }, () => this.setProducts());
   }
 
+  callbackCategory({ target }) {
+    this.setState({ category: target.value }, () => this.setProducts());
+  }
+
   render() {
     const { categories, products } = this.state;
     return (
@@ -50,7 +54,7 @@ export default class App extends Component {
         <Link to="/cart" data-testid="shopping-cart-button">Carrinho</Link>
         <Route exact path="/" />
         <Route exact path="/cart" component={ ShoppingCart } />
-        <CategoriesBar categories={ categories } />
+        <CategoriesBar categories={ categories } callback={ this.callbackCategory } />
         <ProductsList products={ products } />
       </BrowserRouter>
     );
