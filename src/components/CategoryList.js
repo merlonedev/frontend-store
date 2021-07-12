@@ -16,14 +16,11 @@ class CategoryList extends React.Component {
 
   async fetchAPI() {
     const { getCategories } = api;
-    await getCategories()
-      .then((res) => {
-        console.log(res);
-        this.setState({
-          categories: res,
-          loading: false,
-        });
-      });
+    const categoriesAPI = await getCategories();
+    this.setState({
+      categories: categoriesAPI,
+      loading: false,
+    });
   }
 
   render() {
@@ -37,7 +34,9 @@ class CategoryList extends React.Component {
     return (
       <div>
         <ul>
-          { categories.map((category) => <li data-testid="category" key={ category.id }>{ category.name }</li>) }
+          { categories.map(
+            (cat) => <li data-testid="category" key={ cat.id }>{ cat.name }</li>,
+          )}
         </ul>
       </div>
     );
