@@ -2,7 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import * as Api from '../services/api';
 import CategoryList from '../components/CategoryList';
+import ProductList from '../components/ProductList';
 import Loading from '../components/Loading';
+import '../App.css';
 
 class Home extends React.Component {
   constructor() {
@@ -10,19 +12,21 @@ class Home extends React.Component {
 
     this.state = ({
       categories: undefined,
+      products: undefined,
     });
 
     this.categories = this.categories.bind(this);
     this.callCategoryList = this.callCategoryList.bind(this);
+    this.callProductList = this.callProductList.bind(this);
   }
 
   async componentDidMount() {
     this.categories();
+    this.products();
   }
 
   async categories() {
     const categories = await Api.getCategories();
-    console.log(categories);
     this.setState({
       categories,
     });
@@ -39,10 +43,29 @@ class Home extends React.Component {
     }
   }
 
+  async products() {
+    const products = await Api.getProductsFromCategoryAndQuery();
+    // console.log(products);
+    this.setState({
+      products: products.results,
+    });
+  }
+
+  callProductList() {
+    const { products } = this.state;
+    if (products !== undefined) {
+      return (
+        <ProductList
+          products={ products }
+        />
+      );
+    }
+  }
+
   render() {
-    const { categories } = this.state;
+    const { categories, products } = this.state;
     return (
-      <section>
+      <section className="main">
         <input
           type="text"
         />
@@ -51,6 +74,7 @@ class Home extends React.Component {
         </h2>
         <Link data-testid="shopping-cart-button" to="/shopping-cart">Carrinho</Link>
         { categories === undefined ? <Loading /> : this.callCategoryList() }
+        { products === undefined ? <Loading /> : this.callProductList() }
       </section>
     );
   }

@@ -40,3 +40,18 @@
     transform: rotate(360deg);
   }
 }
+
+.productList {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.productItem {
+  width: 250px;
+  padding: 20px;
+  border: 1px solid #333;
+}
+
+.thumbnail {
+  width: 100%;  
+}
