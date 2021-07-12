@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import * as api from '../services/api';
 import Search from '../components/Search';
 import ProductsList from '../components/ProductList';
+import CategoriesBar from '../components/CategoriesSideBar';
 
 export default class ProductPage extends Component {
   constructor(props) {
@@ -52,6 +53,7 @@ export default class ProductPage extends Component {
         <p data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
         </p>
+        <CategoriesBar />
       </section>
     );
   }
