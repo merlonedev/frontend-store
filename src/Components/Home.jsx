@@ -7,10 +7,10 @@ class Home extends React.Component {
       <div>
         <header>
           <Link to="/Cart" data-testid="shopping-cart-button" />
-          <input type="text" />
-          <p data-testid="home-message">
+          <label htmlFor="searchText" data-testid="home-initial-message">
+            <input type="text" name="seachText" className="searchInput" />
             Digite algum termo de pesquisa ou escolha uma categoria.
-          </p>
+          </label>
         </header>
       </div>
     );
