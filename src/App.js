@@ -3,30 +3,9 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Home from './Components/Home';
 import Cart from './Components/Cart';
 import './App.css';
-import { getCategories } from './services/api';
+import NavBar from './Components/NavBar';
 
 class App extends React.Component {
-  constructor() {
-    super();
-
-    this.state = { categories: [] };
-  }
-
-  async componentDidMount() {
-    await getCategories().then((r) => this.setState({ categories: r }));
-  }
-
-  componentDidUpdate() {
-    const { categories } = this.state;
-    const results = [];
-    categories.forEach((r) => results.push(
-      <li data-testid="category" key={ r.id }>
-        {r.name}
-      </li>,
-    ));
-    return results;
-  }
-
   render() {
     return (
       <main className="main">
@@ -37,12 +16,8 @@ class App extends React.Component {
               <Route path="/" component={ Home } exact />
             </Switch>
           </BrowserRouter>
+          <NavBar />
         </div>
-        <nav>
-          <ul className="categoryList">
-            {this.componentDidUpdate()}
-          </ul>
-        </nav>
       </main>
     );
   }
