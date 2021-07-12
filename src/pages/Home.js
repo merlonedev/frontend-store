@@ -1,6 +1,12 @@
 import React from 'react';
+import getCategories from '../services/api';
 
 class Home extends React.Component {
+  componentDidMount() {
+    getCategories();
+    console.log(getCategories());
+  }
+
   render() {
     return (
       <section>
