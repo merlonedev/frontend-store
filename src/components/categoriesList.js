@@ -6,27 +6,33 @@ class Categories extends React.Component {
     super();
 
     this.state = {
-      categories: {},
+      categories: [],
     };
 
-    this.renderCategories = this.renderCategories.bind(this);
+    this.stateCategories = this.stateCategories.bind(this);
   }
 
+  // chama a função stateCategories.
   componentDidMount() {
-    this.renderCategories();
+    this.stateCategories();
   }
 
-  async renderCategories() {
+  // função stateCategorias faz a requisição e seta o estado com cada item do json.
+  async stateCategories() {
     const datas = await getCategories();
-    const categoriesName = datas.map((data) => data.name);
-    this.setState({ categories: categoriesName });
+    const categories = datas.map((data) => data.name);
+    this.setState({ categories });
   }
 
+  // pega o item categories setado no estado e renderiza cada um dos itens.name dentro de uma li.
   render() {
     const { categories } = this.state;
-    console.log(categories);
     return (
-      <p>teste</p>
+      <ul>
+        {
+          categories.map((item) => <li data-testid="category" key={ item }>{item}</li>)
+        }
+      </ul>
     );
   }
 }
