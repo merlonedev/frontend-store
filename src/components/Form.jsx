@@ -46,6 +46,7 @@ class Form extends Component {
           />
           <button
             type="submit"
+            className="btn"
           >
             Avaliar
           </button>

@@ -29,7 +29,7 @@
   width: 640px;
 }
 
-button {
+.btn {
   border: none;
   border-radius: 15px;
   box-shadow: 0 0 8px rgb(207, 207, 207);

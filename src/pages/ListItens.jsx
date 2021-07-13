@@ -67,6 +67,12 @@ class ListItens extends React.Component {
     });
   }
 
+  // addToStorage(product) {
+  //   // let products = {...product};
+  //   console.log(product.target);
+  //   localStorage.setItem(product.id, product);
+  // }
+
   render() {
     const { search, products, checkList, categories } = this.state;
     return (
@@ -109,7 +115,11 @@ class ListItens extends React.Component {
             checkList
               ? products
                 .map((product) => (
-                  <ProductCard key={ product.id } product={ product } />
+                  <ProductCard
+                    key={ product.id }
+                    product={ product }
+                    // addToCart={ this.addToStorage }
+                  />
                 ))
               : <span>Nenhum produto foi encontrado</span>
           }
