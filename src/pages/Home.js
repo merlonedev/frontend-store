@@ -2,6 +2,7 @@ import React from 'react';
 import List from '../Components/List';
 import SearchResult from '../Components/SearchResult';
 import * as api from '../services/api';
+import ShoppingCartLink from '../ShoppingCartLink';
 
 class Home extends React.Component {
   constructor() {
@@ -20,6 +21,10 @@ class Home extends React.Component {
     this.setState({
       input: change,
     });
+  }
+
+  getProductsToAddInCart() {
+    console.log('oi');
   }
 
   async doSearch() {
@@ -48,10 +53,11 @@ class Home extends React.Component {
           Pesquisar
         </button>
         {/* {clickSearch && <SearchResult textToSearch={ search } />} */}
-        <SearchResult products={ products } />
+        <SearchResult products={ products } addToCart={ this.getProductsToAddInCart } />
         <p data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
         </p>
+        <ShoppingCartLink />
       </div>
     );
   }
