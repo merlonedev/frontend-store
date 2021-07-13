@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 class Category extends React.Component {
   render() {
-    const { categories } = this.props;
+    const { categories, onClick } = this.props;
     return (
       <div>
         <ul>
@@ -12,7 +12,7 @@ class Category extends React.Component {
               data-testid="category"
               key={ id }
             >
-              { name }
+              <button type="button" onClick={ onClick }>{ name }</button>
             </li>
           ))}
         </ul>

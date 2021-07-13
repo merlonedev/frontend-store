@@ -20,6 +20,7 @@ class HomePage extends React.Component {
     this.fetchCategories = this.fetchCategories.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.handleLiClick = this.handleLiClick.bind(this);
   }
 
   componentDidMount() {
@@ -41,16 +42,26 @@ class HomePage extends React.Component {
     this.fetchProducts(categoryId, query);
   }
 
+  handleLiClick({ target }) {
+    const { categories, query, categoryId } = this.state;
+    const category = categories.find((e) => e.name === target.innerText);
+    const { id } = category;
+    this.setState({
+      categoryId: id,
+    });
+    this.fetchProducts(categoryId, query);
+  }
+
   async fetchCategories() {
     const { getCategories } = api;
     const response = await getCategories();
+    console.log(response);
     this.setState({
       categories: response,
     });
   }
 
-  async fetchProducts() {
-    const { categoryId, query } = this.state;
+  async fetchProducts(categoryId, query) {
     const { getProductsFromCategoryAndQuery } = api;
     const response = await getProductsFromCategoryAndQuery(categoryId, query);
     this.setState({
@@ -69,7 +80,7 @@ class HomePage extends React.Component {
           onChange={ this.handleChange }
           onClick={ this.handleClick }
         />
-        <Category categories={ categories } />
+        <Category categories={ categories } onClick={ this.handleLiClick } />
         <ProductList products={ products } />
         <CartItems />
         {
