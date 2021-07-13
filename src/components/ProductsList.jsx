@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 export default class ProductsList extends Component {
   render() {
@@ -13,6 +14,12 @@ export default class ProductsList extends Component {
               <h4>{title}</h4>
               <p>{ price }</p>
             </div>
+            <Link
+              data-testid="product-detail-link"
+              to={ `/productdetails/${id}` }
+            >
+              Detalhes
+            </Link>
           </div>
         ))}
       </div>
