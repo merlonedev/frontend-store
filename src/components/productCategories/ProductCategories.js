@@ -1,40 +1,32 @@
 import React, { Component } from 'react';
-import { getCategories } from '../../services/api';
+import PropTypes from 'prop-types';
 
 export default class ProductCategories extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      productCategories: [],
-    };
-
-    this.getProductCategories = this.getProductCategories.bind(this);
-  }
-
-  componentDidMount() {
-    this.getProductCategories();
-  }
-
-  async getProductCategories() {
-    const result = await getCategories();
-    this.setState({
-      productCategories: result,
-    });
-  }
-
   render() {
-    const { productCategories } = this.state;
+    const { productCategories } = this.props;
+    if (productCategories) {
+      return (
+        <ul>
+          {
+            productCategories.map((productCategory) => (
+              <li data-testid="category" key={ productCategory.id }>
+                {productCategory.name}
+              </li>
+            ))
+          }
+        </ul>
+      );
+    }
     return (
-      <ul>
-        {
-          productCategories.map((productCategory) => (
-            <li data-testid="category" key={ productCategory.id }>
-              {productCategory.name}
-            </li>
-          ))
-        }
-      </ul>
+      <h1>Carregando Categorias</h1>
     );
   }
 }
+
+ProductCategories.propTypes = {
+  productCategories: PropTypes.arrayOf(Object),
+};
+
+ProductCategories.defaultProps = {
+  productCategories: undefined,
+};
