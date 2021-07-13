@@ -5,6 +5,8 @@ import CategoryList from '../components/CategoryList';
 import ProductList from '../components/ProductList';
 import Loading from '../components/Loading';
 import '../App.css';
+// import CartList from '../components/CartList';
+import ShoppingCart from './ShoppingCart';
 
 let queryValue = 'QUERY';
 
@@ -16,6 +18,7 @@ class Home extends React.Component {
       searchBar: '',
       categories: undefined,
       products: undefined,
+      cart: [],
     });
 
     this.categories = this.categories.bind(this);
@@ -25,6 +28,10 @@ class Home extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleClickCategory = this.handleClickCategory.bind(this);
+    this.callCart = this.callCart.bind(this);
+    this.emptyCart = this.emptyCart.bind(this);
+    this.handleCart = this.handleCart.bind(this);
+    this.shouldUpdateCart = this.shouldUpdateCart.bind(this);
   }
 
   async componentDidMount() {
@@ -50,12 +57,19 @@ class Home extends React.Component {
 
   handleClickCategory({ target }) {
     const category = target.id;
-    console.log(category);
+    // console.log(category);
     queryValue = category;
     this.setState({
       searchBar: category,
     });
     this.products(category, undefined);
+  }
+
+  handleCart(product) {
+    const { cart } = this.state;
+    this.setState({
+      cart: [...cart, product],
+    });
   }
 
   callCategoryList() {
@@ -82,7 +96,7 @@ class Home extends React.Component {
 
   async products(categoryId, query) {
     const products = await api.getProductsFromCategoryAndQuery(categoryId, query);
-    console.log(products);
+    // console.log(products);
     this.setState({
       products,
     });
@@ -105,19 +119,46 @@ class Home extends React.Component {
   }
 
   callProductList() {
-    const { products } = this.state;
+    const { products, cart } = this.state;
     // console.log(products);
     if (products !== undefined) {
       return (
         <ProductList
+          cart={ cart }
           products={ products }
+          handleCart={ this.handleCart }
+          shouldUpdateCart={ this.shouldUpdateCart }
         />
       );
     }
   }
 
+  shouldUpdateCart() {
+    this.forceUpdate();
+  }
+
+  callCart() {
+    const { cart } = this.state;
+    return (
+      <ShoppingCart
+        cart={ cart }
+      />
+    );
+  }
+
+  emptyCart() {
+    const { cart } = this.state;
+    if (cart.length === 0) {
+      return (
+        <section>
+          Seu carrinho está vazio
+        </section>
+      );
+    }
+  }
+
   render() {
-    const { categories, products } = this.state;
+    const { categories, products, cart } = this.state;
     const { searchBar } = this.state;
     return (
       <section>
@@ -141,10 +182,16 @@ class Home extends React.Component {
         <h2 data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
         </h2>
-        <Link data-testid="shopping-cart-button" to="/shopping-cart">Carrinho</Link>
+        <Link
+          data-testid="shopping-cart-button"
+          to={ "/shopping-cart" }
+        >
+          Carrinho
+        </Link>
         <section className="main">
           { categories === undefined ? <Loading /> : this.callCategoryList() }
           { products === undefined ? <Loading /> : this.callProductList() }
+          { cart.length === 0 ? this.emptyCart() : this.callCart() }
         </section>
       </section>
     );
