@@ -7,16 +7,13 @@ import ProductList from '../components/ProductList';
 import Input from '../components/Input';
 
 const initialMsg = (
-  <p
-    data-testid="home-initial-message"
-  >
+  <p data-testid="home-initial-message">
     Digite algum termo de pesquisa ou escolha uma categoria.
   </p>
 );
 const notFoundMsg = <p>Nenhum produto foi encontrado</p>;
 
 const initialState = {
-  categoryId: '',
   queryText: '',
   products: [],
   didSearch: false,
@@ -26,7 +23,7 @@ class Home extends React.Component {
   constructor() {
     super();
     this.handleChange = this.handleChange.bind(this);
-    this.resulting = this.resulting.bind(this);
+    this.categoryAndQuery = this.categoryAndQuery.bind(this);
     this.categoryApi = this.categoryApi.bind(this);
 
     this.state = initialState;
@@ -46,9 +43,9 @@ class Home extends React.Component {
     this.setState({ categories: newCagories });
   }
 
-  async resulting() {
-    const { queryText, categoryId } = this.state;
-    const { results } = await getProductsFromCategoryAndQuery(categoryId, queryText);
+  async categoryAndQuery(id = '') {
+    const { queryText } = this.state;
+    const { results } = await getProductsFromCategoryAndQuery(id, queryText);
     this.setState({
       products: results,
       didSearch: true,
@@ -74,19 +71,21 @@ class Home extends React.Component {
           value={ queryText }
           handleChange={ this.handleChange }
         />
-        <button type="button" onClick={ this.resulting } data-testid="query-button">
+        <button
+          type="button"
+          onClick={ this.categoryAndQuery }
+          data-testid="query-button"
+        >
           Pesquisar
         </button>
         <Link to="/shopping-cart" data-testid="shopping-cart-button">
           Carrinho de Compras
         </Link>
-        <CategoryAside categoryObj={ categories } />
-        { (products.length > 0)
-          ? (
-            <ul>
-              <ProductList products={ products } />
-            </ul>
-          ) : msg }
+        <CategoryAside
+          categoryObj={ categories }
+          categoryAndQuery={ this.categoryAndQuery }
+        />
+        {(products.length > 0) ? <ul><ProductList products={ products } /></ul> : msg}
       </section>
     );
   }

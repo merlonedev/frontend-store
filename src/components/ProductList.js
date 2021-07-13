@@ -13,7 +13,8 @@ class ProductList extends React.Component {
         title={ title }
         thumbnail={ thumbnail }
         price={ price }
-      />));
+      />
+    ));
   }
 }
 
