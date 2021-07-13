@@ -30,7 +30,7 @@ export default class Category extends Component {
               data-testid="category"
               key={ category.id }
             >
-              { category.name}
+              { category.name }
             </li>
           ))}
         </ul>
