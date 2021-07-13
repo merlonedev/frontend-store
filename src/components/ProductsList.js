@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import Product from './Product';
+import ProductCard from './ProductCard';
 
-class Products extends Component {
+class ProductsList extends Component {
   render() {
     const { data } = this.props;
 
@@ -13,14 +13,14 @@ class Products extends Component {
 
     return (
       <section>
-        { data.map((product) => <Product key={ product.id } data={ product } />) }
+        { data.map((product) => <ProductCard key={ product.id } data={ product } />) }
       </section>
     );
   }
 }
 
-Products.propTypes = {
+ProductsList.propTypes = {
   data: PropTypes.arrayOf(Object).isRequired,
 };
 
-export default Products;
+export default ProductsList;

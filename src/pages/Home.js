@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import SearchInput from '../components/SearchInput';
 import CartButton from '../components/CartButton';
 import Categories from '../components/Categories';
-import Products from '../components/Products';
+import ProductsList from '../components/ProductsList';
 import * as api from '../services/api';
 
 class Home extends Component {
@@ -57,7 +57,7 @@ class Home extends Component {
         />
         <CartButton />
         <Categories categories={ categories } handleClick={ this.handleClick } />
-        <Products data={ data } />
+        <ProductsList data={ data } />
       </main>
     );
   }
