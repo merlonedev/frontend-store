@@ -38,7 +38,7 @@ class ItemDetails extends Component {
     return (
       <main>
         { loading && <Loading />}
-        <h1>{ title }</h1>
+        <h1 data-testid="product-detail-name">{ title }</h1>
         <img src={ thumbnail } alt={ title } />
         <h2>
           { `R$${price}` }
