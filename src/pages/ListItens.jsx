@@ -13,11 +13,13 @@ class ListItens extends React.Component {
       products: [],
       checkList: true,
       categories: [],
+      cartItens: [],
     };
 
     this.handleSearch = this.handleSearch.bind(this);
     this.filterProducts = this.filterProducts.bind(this);
     this.fetchCategories = this.fetchCategories.bind(this);
+    this.addProductToCart = this.addProductToCart.bind(this);
   }
 
   componentDidMount() {
@@ -60,6 +62,12 @@ class ListItens extends React.Component {
     }
   }
 
+  addProductToCart(product) {
+    this.setState({
+      cartItens: [...product],
+    })
+  }
+
   render() {
     const { search, products, checkList, categories } = this.state;
     return (
@@ -95,7 +103,11 @@ class ListItens extends React.Component {
             checkList
               ? products
                 .map((product) => (
-                  <ProductCard key={ product.id } product={ product } />
+                  <ProductCard
+                    key={ product.id }
+                    product={ product }
+                    addToCart={ this.addProductToCart }
+                  />
                 ))
               : <span>Nenhum produto foi encontrado</span>
           }
