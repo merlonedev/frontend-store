@@ -1,7 +1,26 @@
 import React, { Component } from 'react';
-import CheckoutInput from '../components/CheckoutInput';
 
 export default class Checkout extends Component {
+  constructor() {
+    super();
+    this.state = {
+      name: '',
+      email: '',
+      cpf: '',
+      phone: '',
+      adress: '',
+      cep: '',
+      complement: '',
+      number: '',
+      city: '',
+      isValid: false,
+    };
+  }
+
+  handleSubmit = () => {
+
+  }
+
   render() {
     const states = [
       'AC',
@@ -32,6 +51,19 @@ export default class Checkout extends Component {
       'SP',
       'TO',
     ];
+    const {
+      isValid,
+      name,
+      cpf,
+      cep,
+      adress,
+      number,
+      city,
+      phone,
+      email,
+      complement,
+    } = this.state;
+    const validateStyle = isValid ? 'valid' : 'invalid';
     return (
       <main className="checkout">
         <section className="products-resume">
@@ -39,62 +71,102 @@ export default class Checkout extends Component {
           <div>--PRODUCTS--</div>
           <p>Total: R$ XXX,XX</p>
         </section>
-        <form>
+        <form className="checkout-form">
           <h2>Informações do Comprador</h2>
-          <CheckoutInput
+          <input
+            name="name"
             id="checkout-fullname"
-            label="Nome completo"
-            tyoe="text"
+            placeholder="Nome completo"
+            value={ name }
+            type="text"
+            className={ validateStyle }
           />
-          <CheckoutInput
+          <input
+            name="cpf"
             id="checkout-cpf"
-            label="CPF"
-            tyoe="number"
+            placeholder="CPF"
+            value={ cpf }
+            type="number"
           />
-          <CheckoutInput
+          <input
+            name="email"
             id="checkout-email"
-            label="Email"
-            tyoe="text"
+            placeholder="Email"
+            value={ email }
+            type="text"
           />
-          <CheckoutInput
+          <input
+            name="phone"
             id="checkout-phone"
-            label="Telefone"
-            tyoe="text"
+            placeholder="Telefone"
+            value={ phone }
+            type="number"
           />
-          <CheckoutInput
+          <input
+            name="cep"
             id="checkout-cep"
-            label="CEP"
-            tyoe="text"
+            placeholder="CEP"
+            value={ cep }
+            type="number"
           />
-          <CheckoutInput
+          <input
+            name="adress"
             id="checkout-adress"
-            label="Endereço"
-            tyoe="text"
+            placeholder="Endereço"
+            value={ adress }
+            type="text"
           />
-          <CheckoutInput
+          <input
+            name="complement"
             id="checkout-complement"
-            label="Complemento"
-            tyoe="text"
+            placeholder="Complemento"
+            value={ complement }
+            type="text"
           />
-          <CheckoutInput
+          <input
+            name="number"
             id="checkout-number"
-            label="Número"
-            tyoe="text"
+            placeholder="Número"
+            value={ number }
+            type="number"
           />
-          <CheckoutInput
+          <input
+            name="city"
             id="checkout-city"
-            label="Cidade"
-            tyoe="text"
+            placeholder="Cidade"
+            value={ city }
+            type="text"
           />
-          <label htmlFor="state">
+          <label htmlFor="state-select">
             Estado
-            <select name="state" id="state">
+            <select name="state-select" id="state-select">
               {states.map((state) => (
-                <option value="state" key="state">{ state }</option>
+                <option value={ state } key={ state }>{ state }</option>
               ))}
             </select>
           </label>
         </form>
+        <section className="payment-checkout">
+          <h2>Método de Pagamento</h2>
+          <label htmlFor="payment">
+            <h4>Boleto</h4>
+            <input type="radio" name="payment" label="Boleto" id="boleto" />
+            <h4>Cartão de Crédito</h4>
+            <label htmlFor="visa">
+              Visa
+              <input type="radio" name="payment" label="Visa" id="visa" />
+            </label>
+            <label htmlFor="master">
+              MasterCard
+              <input type="radio" name="payment" label="MasterCard" id="master" />
+            </label>
+            <label htmlFor="elo">
+              Elo
+              <input type="radio" name="payment" label="Elo" id="elo" />
+            </label>
+          </label>
+        </section>
+        <button type="submit">Comprar</button>
       </main>
     );
   }

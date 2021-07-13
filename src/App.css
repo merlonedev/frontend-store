@@ -38,3 +38,7 @@
   height: 100%;
   width: 100%;
 }
+
+.invalid { 
+  border: red solid 1px;
+}
