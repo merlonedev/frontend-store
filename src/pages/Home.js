@@ -16,6 +16,7 @@ class Home extends React.Component {
       searchBar: '',
       categories: undefined,
       products: undefined,
+      productDetails: [],
     });
 
     this.categories = this.categories.bind(this);
@@ -57,6 +58,11 @@ class Home extends React.Component {
     });
     this.products(category, undefined);
   }
+
+  // async getProductDetails() {
+  //   const { productDetails } = this.state;
+  //   this.setState({ productDetails });
+  // }
 
   callCategoryList() {
     const { categories } = this.state;
@@ -105,12 +111,14 @@ class Home extends React.Component {
   }
 
   callProductList() {
-    const { products } = this.state;
+    const { products, productDetails } = this.state;
     // console.log(products);
     if (products !== undefined) {
       return (
         <ProductList
           products={ products }
+          productDetails={ productDetails }
+          getProductDetails={ this.getProductDetails }
         />
       );
     }
