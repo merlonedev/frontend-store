@@ -47,6 +47,16 @@ export default class ProductDetails extends Component {
           {title}
         </h1>
         <p>{price}</p>
+        <input
+          name="rating"
+          type="range"
+          min="1"
+          max="5"
+        />
+
+        <textarea data-testid="product-detail-evaluation" />
+        <button type="button">Submit</button>
+
         <Link to="/cart" data-testid="shopping-cart-button">Carrinho</Link>
         <Link to="/">Voltar</Link>
         <button
