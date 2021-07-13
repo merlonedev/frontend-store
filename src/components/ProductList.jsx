@@ -85,9 +85,7 @@ class ProductList extends React.Component {
             <img src="https://img.icons8.com/ios/50/000000/shopping-cart.png" alt="carrinho" className="cart-image" />
           </Link>
         </div>
-        <h2
-          data-testid="home-initial-message"
-        >
+        <h2 data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
         </h2>
         <main className="main">
@@ -105,7 +103,8 @@ class ProductList extends React.Component {
               searchResult.map((product) => (<Product
                 key={ product.id }
                 title={ product.title }
-                id={ product.id }
+                id={ product.category_id }
+                productId={ product.id }
                 price={ product.price }
                 thumbnail={ product.thumbnail }
               />))
