@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import SearchBar from './SearchBar';
-import Category from './Catergory';
+import Category from './Category';
 
 class Home extends Component {
   render() {
