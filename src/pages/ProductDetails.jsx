@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import ReviewForm from '../components/ReviewForm';
 
 export default class ProductDetails extends Component {
   constructor() {
@@ -60,6 +61,7 @@ export default class ProductDetails extends Component {
                 : false
             ))}
           </ul>
+          <ReviewForm />
         </section>
       </main>
     );
