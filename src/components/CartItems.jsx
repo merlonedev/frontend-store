@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+// import { reverse } from '../__mocks__/categories';
 // import { findIndex } from '../__mocks__/categories';
 
 export default class CartItems extends Component {
@@ -12,10 +13,12 @@ export default class CartItems extends Component {
     this.getProductFromId = this.getProductFromId.bind(this);
     this.increaseQty = this.increaseQty.bind(this);
     this.decreaseQty = this.decreaseQty.bind(this);
+    this.removeItem = this.removeItem.bind(this);
   }
 
   componentDidMount() {
     const { cartItems } = this.props;
+    // const reversed = cartItems.reverse();
     cartItems.forEach((cartItem) => this.getProductFromId(cartItem));
   }
 
@@ -31,7 +34,8 @@ export default class CartItems extends Component {
     });
   }
 
-  increaseQty({ target }) { // credits: https://stackoverflow.com/questions/37662708/react-updating-state-when-state-is-an-array-of-objects
+  increaseQty({ target }) {
+    // credits: https://stackoverflow.com/questions/37662708/react-updating-state-when-state-is-an-array-of-objects
     const { items } = this.state;
     const itemToIncrease = target.parentElement.id;
     const itemIndex = items.findIndex(({ id }) => id === itemToIncrease);
@@ -58,6 +62,14 @@ export default class CartItems extends Component {
     });
   }
 
+  removeItem({ target }) {
+    const { items } = this.state;
+    const itemToRemove = target.parentElement.id;
+    this.setState({
+      items: items.filter(({ id }) => id !== itemToRemove),
+    });
+  }
+
   render() {
     const { items } = this.state;
     return items.map((item) => (
@@ -66,19 +78,23 @@ export default class CartItems extends Component {
         <p>{item.price * item.qty}</p>
         <p data-testid="shopping-cart-product-quantity">{item.qty}</p>
         <button
-          data-testid="product-increase-quantity"
-          type="button"
-          onClick={ this.increaseQty }
-        >
-          +
-        </button>
-        <button
           data-testid="product-decrease-quantity"
           type="button"
           onClick={ this.decreaseQty }
         >
           -
         </button>
+        <button
+          data-testid="product-increase-quantity"
+          type="button"
+          onClick={ this.increaseQty }
+        >
+          +
+        </button>
+        <button type="button" onClick={ this.removeItem }>
+          x
+        </button>
+        <button type="button">Finalizar Compra</button>
       </div>
     ));
   }
