@@ -35,17 +35,27 @@ export default class ProductDetails extends Component {
       title: resultRequest.title,
       price: resultRequest.price,
       pictures: resultRequest.pictures[0],
+      freeShipping: resultRequest.shipping.free_shipping,
     });
   }
 
   render() {
-    const { title, price, pictures } = this.state;
+    const { title, price, pictures, freeShipping } = this.state;
     return (
       <div>
         <img src={ pictures.url } alt="Imagem do Produto" />
         <h1 data-testid="product-detail-name">
           {title}
         </h1>
+        {!freeShipping ? (
+          <span data-testid="shipping">
+            Confira os preços de frete para sua residência.
+          </span>
+        ) : (
+          <span data-testid="free-shipping">
+            Frete Gratuito para sua residência.
+          </span>
+        )}
         <p>{price}</p>
         <input
           name="rating"
