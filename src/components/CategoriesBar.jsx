@@ -3,12 +3,6 @@ import '../App.css';
 import PropTypes from 'prop-types';
 
 export default class CategoriesBar extends Component {
-  // constructor(){
-  //   super();
-  //   this.state = {
-  //     categories: '',
-  //   }
-  // }
   render() {
     const { categories, callback } = this.props;
     return (

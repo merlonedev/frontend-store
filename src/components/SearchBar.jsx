@@ -7,9 +7,7 @@ export default class SearchBar extends Component {
   constructor() {
     super();
     this.state = {
-      // products: [],
       queryInput: '',
-      // category: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -27,7 +25,6 @@ export default class SearchBar extends Component {
   }
 
   render() {
-    // const { products } = this.state;
     return (
       <div>
         <input
