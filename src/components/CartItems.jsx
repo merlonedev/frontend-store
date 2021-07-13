@@ -14,24 +14,40 @@ export default class CartItems extends Component {
     this.increaseQty = this.increaseQty.bind(this);
     this.decreaseQty = this.decreaseQty.bind(this);
     this.removeItem = this.removeItem.bind(this);
+    this.setItems = this.setItems.bind(this);
   }
 
   componentDidMount() {
     const { cartItems } = this.props;
     // const reversed = cartItems.reverse();
-    cartItems.forEach((cartItem) => this.getProductFromId(cartItem));
+    // cartItems.forEach((cartItem) => this.getProductFromId(cartItem));
+    if (cartItems) this.setItems(cartItems);
   }
 
-  async getProductFromId(id) {
-    const apiURL = `https://api.mercadolibre.com/items/${id}`;
-    const resultRequest = await fetch(apiURL);
+  async setItems(cartItems) {
+    let URL = 'https://api.mercadolibre.com/items?ids=';
+    cartItems.forEach((id) => { URL += `,${id}`; });
+    const allItemsObj = await this.getProductFromId(URL);
+    const items = allItemsObj.map((elem) => ({ ...elem.body, qty: 1 }));
+    // allItemsObj.forEach((elem) => console.log(elem));
+    this.setState({ items });
+  }
+
+  componentDidUpdate() {
+    console.log('didupdate');
+  }
+
+  async getProductFromId(url) {
+    // const apiURL = `https://api.mercadolibre.com/items/${id}`;
+    const resultRequest = await fetch(url);
     const result = await resultRequest.json();
-    result.qty = 1;
-    this.setState((prevState) => {
-      const previous = [...prevState.items];
-      previous.push(result);
-      return { items: previous };
-    });
+    // result.qty = 1;
+    return result;
+    // this.setState((prevState) => {
+    //   const previous = [...prevState.items];
+    //   previous.push(result);
+    //   return { items: previous };
+    // });
   }
 
   increaseQty({ target }) {
