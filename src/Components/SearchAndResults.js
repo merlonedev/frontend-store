@@ -57,3 +57,13 @@ class SearchAndResults extends React.Component {
 }
 
 export default SearchAndResults;
+
+/*
+Referencia Git Hub:
+Turma 11 - Grupo 35
+Ajudou a fazer função da requisição da api.
+https://github.com/tryber/sd-011-project-frontend-online-store/tree/requisito-5-grupo-35/src
+Turma 10 - Grupo 9:
+Ajudou no tratamento de informações da lista de produtos(função map product.js).
+https://github.com/tryber/sd-010-a-project-frontend-online-store/tree/grupo9-requisito-5/src
+*/
