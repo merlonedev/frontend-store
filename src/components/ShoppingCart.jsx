@@ -9,6 +9,7 @@ class ShoppingCart extends React.Component {
           Seu carrinho está vazio
         </span>
         <p>
+          <Link to="/checkout">Checkout</Link>
           <Link to="/">VOLTAR</Link>
         </p>
       </section>

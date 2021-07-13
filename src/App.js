@@ -5,6 +5,7 @@ import ShoppingCart from './components/ShoppingCart';
 import CategoriesBar from './components/CategoriesBar';
 import ProductsList from './components/ProductsList';
 import ProductDetails from './components/ProductDetails';
+import Checkout from './components/Checkout';
 import * as API from './services/api';
 import './App.css';
 
@@ -69,6 +70,7 @@ export default class App extends Component {
               </div>
             ) }
           />
+          <Route exact path="/checkout" component={ Checkout } />
         </Switch>
       </BrowserRouter>
     );
