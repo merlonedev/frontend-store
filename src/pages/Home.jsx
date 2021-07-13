@@ -4,7 +4,9 @@ import SearchBar from '../components/SearchBar';
 class Home extends Component {
   render() {
     return (
-      <SearchBar />
+      <div>
+        <SearchBar />
+      </div>
     );
   }
 }

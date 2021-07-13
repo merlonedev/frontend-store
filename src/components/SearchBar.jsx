@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import CartIcon from '../Icons/CartIcon';
 
 class SearchBar extends Component {
   render() {
@@ -7,11 +8,14 @@ class SearchBar extends Component {
         <label htmlFor="label-imput-search">
           <input data-testid="imput-search" />
         </label>
-        <h4
-          data-testid="home-initial-message"
-        >
-          Digite algum termo de pesquisa ou escolha uma categoria.
-        </h4>
+        <CartIcon />
+        <div>
+          <h4
+            data-testid="home-initial-message"
+          >
+            Digite algum termo de pesquisa ou escolha uma categoria.
+          </h4>
+        </div>
       </div>
     );
   }
