@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import NavBar from './NavBar';
 
 import { getProductsFromCategoryAndQuery } from '../services/api';
 import ProductFilter from './ProductFilter';
@@ -13,6 +14,7 @@ class Home extends React.Component {
     };
     this.onChange = this.onChange.bind(this);
     this.onClick = this.onClick.bind(this);
+    this.categoryChange = this.categoryChange.bind(this);
   }
 
   onChange({ target: { value } }) {
@@ -23,11 +25,18 @@ class Home extends React.Component {
 
   async onClick() {
     const { search } = this.state;
-    const products = await getProductsFromCategoryAndQuery('$categoryId', `$${search}`);
+    const products = await getProductsFromCategoryAndQuery('categoryId', `$${search}`);
     const { results } = products;
     this.setState({
       products: results,
       search: '',
+    });
+  }
+
+  async categoryChange(category) {
+    const products = await getProductsFromCategoryAndQuery(category, category);
+    this.setState({
+      products: products.results,
     });
   }
 
@@ -36,6 +45,9 @@ class Home extends React.Component {
     return (
       <div>
         <header className="header">
+          <p className="pageName">
+            Undenfined FrontEnd Online Store
+          </p>
           <Link to="/Cart" data-testid="shopping-cart-button" />
           <label
             htmlFor="searchText"
@@ -44,7 +56,7 @@ class Home extends React.Component {
           >
             <input
               type="text"
-              name="seachText"
+              name="searchText"
               className="searchInput"
               placeholder="Search"
               data-testid="query-input"
@@ -52,16 +64,19 @@ class Home extends React.Component {
               value={ search }
               onChange={ this.onChange }
             />
-            Digite algum termo de pesquisa ou escolha uma categoria.
+            <p className="infoText">
+              Digite algum termo de pesquisa ou escolha uma categoria.
+            </p>
+            <button
+              data-testid="query-button"
+              onClick={ this.onClick }
+              type="button"
+            >
+              Buscar
+            </button>
           </label>
-          <button
-            data-testid="query-button"
-            onClick={ this.onClick }
-            type="button"
-          >
-            Buscar
-          </button>
         </header>
+        <NavBar click={ this.categoryChange } />
         <ProductFilter products={ products } />
       </div>
     );
