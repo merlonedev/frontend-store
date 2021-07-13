@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-
 import { getProductsFromCategoryAndQuery } from '../services/api';
 
 class ProductDetail extends Component {
@@ -10,7 +9,6 @@ class ProductDetail extends Component {
     this.state = {
       product: {},
     };
-
     this.getProductDetail = this.getProductDetail.bind(this);
   }
 
@@ -23,8 +21,10 @@ class ProductDetail extends Component {
       match: {
         params: { id, categoryID },
       },
+
     } = this.props;
     const productList = await getProductsFromCategoryAndQuery(categoryID, '');
+
     const product = productList.results.find((prod) => prod.id === id);
     this.setState({
       product,

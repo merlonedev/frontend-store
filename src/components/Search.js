@@ -17,7 +17,6 @@ class Search extends Component {
     this.renderForm = this.renderForm.bind(this);
     this.renderList = this.renderList.bind(this);
     this.handleCategoryText = this.handleCategoryText.bind(this);
-    console.log(this.props);
   }
 
   async handleSubmit() {
@@ -96,5 +95,4 @@ class Search extends Component {
     );
   }
 }
-
 export default Search;
