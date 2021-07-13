@@ -66,12 +66,6 @@ class ListItens extends React.Component {
     });
   }
 
-  // addToStorage(product) {
-  //   // let products = {...product};
-  //   console.log(product.target);
-  //   localStorage.setItem(product.id, product);
-  // }
-
   render() {
     const { search, products, checkList, categories } = this.state;
     return (

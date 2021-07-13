@@ -20,7 +20,6 @@ class CartItems extends React.Component {
 
   render() {
     const { cartItens } = this.state;
-    console.log(cartItens);
     return (
       <div>
         <FiShoppingCart />
