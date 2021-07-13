@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import * as api from '../services/api';
 import CategoryList from './CategoryList';
 import ProductCard from './ProductCard';
+import ButtonToCart from './ButtonToCart';
 
 class Search extends Component {
   constructor(props) {
@@ -80,8 +81,13 @@ class Search extends Component {
   }
 
   render() {
+    console.log(this.props);
     return (
       <div>
+        <div data-testid="home-initial-message">
+          Digite algum termo de pesquisa ou escolha uma categoria.
+        </div>
+        <ButtonToCart />
         <CategoryList handleCategoryText={ this.handleCategoryText } />
         {this.renderForm()}
         {this.renderList()}

@@ -1,35 +1,31 @@
 import React from 'react';
-import { Link, Route, BrowserRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import ProductDetail from './ProductDetail';
 
 class ProductCard extends React.Component {
   render() {
     const { product } = this.props;
-    console.log(product);
-    const { title, price, thumbnail, id } = product;
+    const { title, price, thumbnail, id, category_id: categoryID } = product;
     return (
-      <BrowserRouter>
-        <Link data-testid="product-detail-link" to={ `/productdetail/${id}` }>
-          <div data-testid="product">
-            <img alt="Foto do produto" src={ thumbnail } />
-            <div className="product-card-body">
-              <h4 className="product-card-title">{title}</h4>
-              <h5 className="product-card-price">{`Preço: R$${price}`}</h5>
-            </div>
+      <Link
+        data-testid="product-detail-link"
+        to={ `/product-details/${categoryID}/${id}` }
+      >
+        <div data-testid="product">
+          <img alt="Foto do produto" src={ thumbnail } />
+          <div className="product-card-body">
+            <h4 className="product-card-title">{title}</h4>
+            <h5 className="product-card-price">{`Preço: R$${price}`}</h5>
           </div>
-        </Link>
-        <Route
-          path="/productdetail/:id"
-          render={ (props) => <ProductDetail { ...props } productTitle={ title } /> }
-        />
-      </BrowserRouter>
+        </div>
+      </Link>
     );
   }
 }
 
 ProductCard.propTypes = {
   product: PropTypes.shape({
+    category_id: PropTypes.string,
     title: PropTypes.string,
     price: PropTypes.number,
     thumbnail: PropTypes.string,
