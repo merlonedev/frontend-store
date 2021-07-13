@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import '../App.css';
+import './CardItem.css';
 
 class CardItem extends Component {
   render() {
@@ -8,17 +9,21 @@ class CardItem extends Component {
       title,
       thumbnail,
       price,
+      itemId,
+      query,
     } = this.props;
     return (
       <div className="card-item">
-        <p>
-          { title }
-        </p>
-        <img alt="" src={ thumbnail } />
-        <p>
-          R$
-          { price }
-        </p>
+        <Link to={ `/details/${query}/${itemId}` } data-testid="product-detail-link">
+          <p>
+            { title }
+          </p>
+          <img alt="" src={ thumbnail } />
+          <p>
+            R$
+            { price }
+          </p>
+        </Link>
       </div>
     );
   }
@@ -27,6 +32,8 @@ class CardItem extends Component {
 CardItem.propTypes = {
   title: PropTypes.string.isRequired,
   thumbnail: PropTypes.string.isRequired,
+  itemId: PropTypes.string.isRequired,
+  query: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
 };
 

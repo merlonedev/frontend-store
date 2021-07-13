@@ -1,6 +1,8 @@
-.categories { width: 20%; }
+.categories {
+  width: 20%;
+}
 
 .categories-item {
   list-style: none;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
 }
