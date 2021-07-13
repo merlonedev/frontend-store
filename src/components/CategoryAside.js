@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 class CategoryAside extends React.Component {
   render() {
-    const { categoryObj, handleCategory } = this.props;
+    const { categoryObj, categoryAndQuery } = this.props;
     return (
       <ul>
         {categoryObj.map(({ id, name }) => (
@@ -11,7 +11,7 @@ class CategoryAside extends React.Component {
             <button
               type="button"
               data-testid="category"
-              onClick={ () => { handleCategory(id); } }
+              onClick={ () => { categoryAndQuery(id); } }
             >
               { name }
             </button>
@@ -23,7 +23,7 @@ class CategoryAside extends React.Component {
 
 CategoryAside.propTypes = {
   categoryObj: PropTypes.arrayOf(PropTypes.object).isRequired,
-  handleCategory: PropTypes.func.isRequired,
+  categoryAndQuery: PropTypes.func.isRequired,
 };
 
 export default CategoryAside;

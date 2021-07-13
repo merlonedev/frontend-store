@@ -25,7 +25,6 @@ class Home extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.categoryAndQuery = this.categoryAndQuery.bind(this);
     this.categoryApi = this.categoryApi.bind(this);
-    this.handleCategory = this.handleCategory.bind(this);
 
     this.state = initialState;
   }
@@ -39,19 +38,14 @@ class Home extends React.Component {
     this.setState({ [name]: value });
   }
 
-  async handleCategory(id) {
-    const { queryText } = this.state;
-    const { results } = await getProductsFromCategoryAndQuery(id, queryText);
-    this.setState({ products: results });
-  }
-
   async categoryApi() {
     const newCagories = await getCategories();
     this.setState({ categories: newCagories });
   }
 
-  async categoryAndQuery(queryTxt) {
-    const { results } = await getProductsFromCategoryAndQuery('', queryTxt);
+  async categoryAndQuery(id = '') {
+    const { queryText } = this.state;
+    const { results } = await getProductsFromCategoryAndQuery(id, queryText);
     this.setState({
       products: results,
       didSearch: true,
@@ -79,7 +73,7 @@ class Home extends React.Component {
         />
         <button
           type="button"
-          onClick={ () => { this.categoryAndQuery(queryText); } }
+          onClick={ this.categoryAndQuery }
           data-testid="query-button"
         >
           Pesquisar
@@ -89,7 +83,7 @@ class Home extends React.Component {
         </Link>
         <CategoryAside
           categoryObj={ categories }
-          handleCategory={ this.handleCategory }
+          categoryAndQuery={ this.categoryAndQuery }
         />
         {(products.length > 0) ? <ul><ProductList products={ products } /></ul> : msg}
       </section>
