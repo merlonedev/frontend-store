@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import './App.css';
-import { Route, BrowserRouter, Switch } from 'react-router-dom';
+import ShoppingCard from './components/ShoppingCard';
 import Checkout from './pages/Checkout';
 import Details from './pages/Details';
 import Main from './pages/Main';
@@ -12,6 +13,7 @@ class App extends Component {
     return (
       <BrowserRouter>
         <Switch>
+          <Route exact path="/shopping-cart" component={ ShoppingCard } />
           <Route exact path="/checkout" component={ Checkout } />
           <Route exact path="/details" component={ Details } />
           <Route exact path="/cart" component={ ShoppingCart } />
