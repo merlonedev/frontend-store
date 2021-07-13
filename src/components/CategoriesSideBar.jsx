@@ -1,5 +1,6 @@
 import React from 'react';
 import { getCategories } from '../services/api';
+import { Link } from 'react-router-dom';
 
 export default class CategoriesBar extends React.Component {
   constructor() {
@@ -32,7 +33,7 @@ export default class CategoriesBar extends React.Component {
         data-testid="category"
         id={ category.id }
       >
-        {category.name}
+        <Link to={ `/${category.name.toLowerCase()}` }>{ category.name }</Link>
       </li>
     );
   }
