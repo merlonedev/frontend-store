@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import Categories from './categoriesList';
 import Card from './card';
 import { getProductsFromCategoryAndQuery } from '../services/api';
@@ -17,41 +16,17 @@ class Index extends React.Component {
     this.handleButton = this.handleButton.bind(this);
   }
 
-  // Local para carregar os dados das categorias
-  componentDidMount() {
-    this.fetchProductsByCategories();
-  }
-
-  // Local para alterar o DOM quando o usuário clicar em outras categorias
-  // Fonte: https://pt-br.reactjs.org/docs/react-component.html#componentdidmount
-  componentDidUpdate(prevProps) {
-    const { categoryId, query } = this.props;
-    if (prevProps.categoryId !== categoryId || prevProps.query !== query) {
-      this.fetchProductsByCategories();
-    }
-  }
-
   handleInput({ target }) {
     this.setState({
       searchBar: target.value,
     });
   }
 
-  async handleButton() {
-    const { searchBar } = this.state;
+  // funcao que captura os produtos por categoria
+  async handleButton(searchBar) {
     const response = await getProductsFromCategoryAndQuery('', searchBar);
     this.setState({
       items: response.results,
-    });
-  }
-
-  // funcao que captura os produtos por categoria
-  async fetchProductsByCategories() {
-    const { categoryId, query } = this.props;
-    const datas = await getProductsFromCategoryAndQuery(categoryId, query);
-    const { results } = datas;
-    this.setState({
-      items: results,
     });
   }
 
@@ -68,15 +43,12 @@ class Index extends React.Component {
           />
           <button
             type="button"
-            onClick={ this.handleButton }
+            onClick={ () => this.handleButton(searchBar) }
             data-testid="query-button"
           >
             Pesquisar
           </button>
         </div>
-        <input
-          type="text"
-        />
         <p
           data-testid="home-initial-message"
         >
@@ -95,10 +67,5 @@ class Index extends React.Component {
     );
   }
 }
-
-Index.propTypes = {
-  categoryId: PropTypes.string.isRequired,
-  query: PropTypes.string.isRequired,
-};
 
 export default Index;
