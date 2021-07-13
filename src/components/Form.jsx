@@ -47,7 +47,6 @@ class Form extends Component {
           <button
             type="submit"
             className="btn"
-            id="id"
           >
             Avaliar
           </button>
