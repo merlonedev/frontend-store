@@ -1,12 +1,12 @@
 .products {
+  align-items: center;
   border: 1px solid black;
-  width: 30%;
-  text-align: center;
-  margin: 17px 0;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: center;
+  margin: 17px 0;
+  text-align: center;
+  width: 30%;
 }
 
 .products-div {
@@ -20,6 +20,6 @@
 }
 
 .products:hover {
-  transform: scale(1.1);
   cursor: pointer;
+  transform: scale(1.1);
 }
