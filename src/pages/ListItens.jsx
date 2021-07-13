@@ -16,9 +16,11 @@ class ListItens extends React.Component {
       categoryId: '',
     };
 
-    this.handleChange = this.handleChange.bind(this);
+    this.handleChangeSearch = this.handleChangeSearch.bind(this);
+    this.handleChangeCategory = this.handleChangeCategory.bind(this);
     this.handleClick = this.handleClick.bind(this);
-    this.filterProducts = this.filterProducts.bind(this);
+    this.filterProductsForCategory = this.filterProductsForCategory.bind(this);
+    this.searchProducts = this.searchProducts.bind(this);
     this.fetchCategories = this.fetchCategories.bind(this);
   }
 
@@ -26,22 +28,42 @@ class ListItens extends React.Component {
     this.fetchCategories();
   }
 
-  handleChange(event) {
+  handleChangeSearch(event) {
     const { name } = event.target;
     const value = event.target.type === 'checkbox'
       ? event.target.checked
       : event.target.value;
     this.setState({
       [name]: value,
-    }, () => this.filterProducts());
+    });
+  }
+
+  handleChangeCategory(event) {
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value,
+    }, () => this.filterProductsForCategory());
   }
 
   handleClick(event) {
     event.preventDefault();
-    this.filterProducts();
+    this.searchProducts();
   }
 
-  async filterProducts() {
+  async filterProductsForCategory() {
+    try {
+      const { categoryId } = this.state;
+      const { results } = await api.getProductsFromCategoryAndQuery(categoryId, '');
+      this.setState({
+        products: [...results],
+        checkList: true,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async searchProducts() {
     try {
       const { search, categoryId } = this.state;
       const { results } = await api.getProductsFromCategoryAndQuery(categoryId, search);
@@ -78,7 +100,7 @@ class ListItens extends React.Component {
               data-testid="query-input"
               value={ search }
               name="search"
-              onChange={ this.handleChange }
+              onChange={ this.handleChangeSearch }
             />
             <button
               type="submit"
@@ -97,7 +119,7 @@ class ListItens extends React.Component {
         </div>
         <CategoriesFilter
           categories={ categories }
-          onChange={ this.handleChange }
+          onChange={ this.handleChangeCategory }
         />
         <div>
           {
@@ -107,7 +129,6 @@ class ListItens extends React.Component {
                   <ProductCard
                     key={ product.id }
                     product={ product }
-                    // addToCart={ this.addToStorage }
                   />
                 ))
               : <span>Nenhum produto foi encontrado</span>
