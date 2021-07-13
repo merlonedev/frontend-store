@@ -69,7 +69,7 @@ export default class ProductPage extends Component {
             onSearchChange={ this.handleSearch }
             onSearchClick={ this.handleSearchClick }
           />
-          <div>
+          <div className="search-bar-shoppingCart">
             <Link to="/shoppingcart">
               <button
                 data-testid="shopping-cart-button"
