@@ -38,27 +38,29 @@ class ItemDetails extends Component {
     const { item, loading } = this.state;
     const { title, price, thumbnail } = item;
     return (
-      <main className="item-details">
-        { loading && <Loading />}
-        <div className="item-details-left">
-          <h1
-            className="item-details-title"
-            data-testid="product-detail-name"
-          >
-            { title }
-          </h1>
-          <img className="item-details-image" src={ thumbnail } alt={ title } />
-          <h2 className="item-details-price">
-            { `R$${price}` }
-          </h2>
-        </div>
-        <div className="item-details-right">
-          <h2>Especificações Técnicas</h2>
-        </div>
+      <div>
+        <main className="item-details">
+          { loading && <Loading />}
+          <div className="item-details-left">
+            <h1
+              className="item-details-title"
+              data-testid="product-detail-name"
+            >
+              { title }
+            </h1>
+            <img className="item-details-image" src={ thumbnail } alt={ title } />
+            <h2 className="item-details-price">
+              { `R$${price}` }
+            </h2>
+          </div>
+          <div className="item-details-right">
+            <h2>Especificações Técnicas</h2>
+          </div>
+        </main>
         <div className="item-details-form">
           <Form />
         </div>
-      </main>
+      </div>
     );
   }
 }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import CardItem from './CardItem';
 import { getProductsFromCategoryAndQuery } from '../services/api';
+import SideBar from './SideBar';
 import './CardList.css';
 
 class CardList extends Component {
@@ -22,19 +23,31 @@ class CardList extends Component {
       });
   }
 
+  searchByCategorie = (id) => {
+    getProductsFromCategoryAndQuery(id, '')
+      .then(({ results }) => {
+        this.setState({
+          categories: results,
+        });
+      });
+  }
+
   render() {
     const { categories, query } = this.state;
     return (
-      <div className="card-list">
-        { categories.map((item) => (<CardItem
-          key={ item.id }
-          itemId={ item.id }
-          query={ query }
-          title={ item.title }
-          thumbnail={ item.thumbnail }
-          price={ item.price }
-        />)) }
-      </div>
+      <>
+        <SideBar searchByCategorie={ this.searchByCategorie } />
+        <div className="card-list">
+          { categories.map((item) => (<CardItem
+            key={ item.id }
+            itemId={ item.id }
+            query={ query }
+            title={ item.title }
+            thumbnail={ item.thumbnail }
+            price={ item.price }
+          />)) }
+        </div>
+      </>
     );
   }
 }

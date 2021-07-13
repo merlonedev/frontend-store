@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Loading from './Loading';
 import * as api from '../services/api';
 import './SideBar.css';
@@ -31,19 +32,22 @@ class SideBar extends Component {
 
   render() {
     const { loading, categories } = this.state;
+    const { searchByCategorie } = this.props;
     return (
       <aside className="categories">
         {loading && <Loading />}
         <ul className="categories-list">
           {
             categories.map((categoria) => (
-              <li
+              <button
                 className="categories-item"
                 data-testid="category"
+                type="button"
                 key={ categoria.id }
+                onClick={ () => searchByCategorie(categoria.id) }
               >
                 { categoria.name }
-              </li>
+              </button>
             ))
           }
         </ul>
@@ -51,5 +55,9 @@ class SideBar extends Component {
     );
   }
 }
+
+SideBar.propTypes = {
+  searchByCategorie: PropTypes.func.isRequired,
+};
 
 export default SideBar;
