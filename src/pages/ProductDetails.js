@@ -43,7 +43,7 @@ class ProductDetails extends React.Component {
           </p>
         </div>
         <Link to="/cart-basket" data-testid="shopping-cart-button">
-          <p>cart</p>
+          <p>Carrinho</p>
         </Link>
       </div>
     );
