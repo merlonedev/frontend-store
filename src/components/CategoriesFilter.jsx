@@ -3,21 +3,37 @@ import PropTypes from 'prop-types';
 
 class CategoriesFilter extends React.Component {
   render() {
-    const { categories } = this.props;
+    const { categories, onChange } = this.props;
     return (
       <nav className="categories-bar">
-        <ul>
+        <div>
           { categories.map(({ id, name }) => (
-            <li data-testid="category" key={ id }>{ name }</li>
+            <label
+              htmlFor={ id }
+              data-testid="category"
+              key={ id }
+            >
+              <input
+                id={ id }
+                type="radio"
+                name="categoryId"
+                value={ id }
+                onChange={ onChange }
+              />
+              { name }
+            </label>
           )) }
-        </ul>
+        </div>
       </nav>
     );
   }
 }
 
 CategoriesFilter.propTypes = {
-  categories: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
+  categories: PropTypes.arrayOf(
+    PropTypes.object.isRequired,
+  ).isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 export default CategoriesFilter;
