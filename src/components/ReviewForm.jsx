@@ -4,7 +4,17 @@ class ReviewForm extends React.Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
-    this.state = { review: '' };
+    this.handleChangeEmail = this.handleChangeEmail.bind(this);
+    this.state = {
+      review: '',
+      email: '',
+    };
+  }
+
+  handleChangeEmail(event) {
+    this.setState({
+      email: event.target.value,
+    });
   }
 
   handleChange(event) {
@@ -15,9 +25,16 @@ class ReviewForm extends React.Component {
 
   render() {
     const { review } = this.state;
+    const { email } = this.state;
     console.log(this.state);
     return (
       <form>
+        <input
+          type="text"
+          value={ email }
+          placeholder="Email"
+          onChange={ this.handleChangeEmail }
+        />
         <textarea
           type="text"
           data-testid="product-detail-evaluation"
