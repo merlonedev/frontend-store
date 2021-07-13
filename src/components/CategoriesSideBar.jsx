@@ -33,7 +33,7 @@ export default class CategoriesBar extends React.Component {
         data-testid="category"
         id={ category.id }
       >
-        <Link to={ `/${category.name.toLowerCase()}` }>{ category.name }</Link>
+        <Link to={ `/${category.id}` }>{ category.name }</Link>
       </li>
     );
   }
