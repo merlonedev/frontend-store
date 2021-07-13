@@ -2,6 +2,8 @@ import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Index from './components/Index';
 import Cart from './components/ShoppingCart';
+import Infos from './components/Infos';
+import './App.css';
 
 // Renderiza pagina de acordo com o que possuir após o / .
 class App extends React.Component {
@@ -33,6 +35,7 @@ class App extends React.Component {
     return (
       <BrowserRouter>
         <Switch>
+          <Route path="/infos/:id/:product" component={ Infos } />
           <Route path="/cart" render={ () => <Cart itemCart={ itemCart } /> } />
           <Route path="/" render={ () => <Index addCartItem={ this.addToCartItem } /> } />
         </Switch>

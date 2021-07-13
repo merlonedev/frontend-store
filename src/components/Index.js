@@ -65,7 +65,7 @@ class Index extends React.Component {
         para o component ShoppingCart */}
         <Link data-testid="shopping-cart-button" to="/cart">Carrinho</Link>
         <Categories handleClick={ this.handleClick } />
-        <div>
+        <div className="products-div">
           {items.length < 1
             ? <h3>Nenhum produto foi encontrado</h3>
             : items.map(
