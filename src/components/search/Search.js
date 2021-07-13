@@ -1,27 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class Search extends React.Component {
-  constructor() {
-    super();
-    this.eventHandler = this.eventHandler.bind(this);
-    this.state = {
-      searchText: '',
-    };
-  }
-
-  eventHandler({ target }) {
-    this.setState({
-      [target.name]: target.value,
-    });
-  }
-
   render() {
-    const { searchText } = this.state;
+    const { searchText, eventHandler } = this.props;
     return (
       <label htmlFor="searchText">
         <input
           placeholder=""
-          onChange={ this.eventHandler }
+          onChange={ eventHandler }
           name="searchText"
           value={ searchText }
         />
@@ -29,5 +16,10 @@ class Search extends React.Component {
     );
   }
 }
+
+Search.propTypes = {
+  searchText: PropTypes.string.isRequired,
+  eventHandler: PropTypes.func.isRequired,
+};
 
 export default Search;

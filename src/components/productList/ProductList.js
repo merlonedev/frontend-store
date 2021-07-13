@@ -1,15 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class ProductList extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      products: undefined,
-    };
-  }
-
   render() {
-    const { products } = this.state;
+    const { products } = this.props;
     if (products) {
       return (
         <section>Produtos aqui</section>
@@ -24,5 +18,13 @@ class ProductList extends React.Component {
     );
   }
 }
+
+ProductList.propTypes = {
+  products: PropTypes.arrayOf(Object),
+};
+
+ProductList.defaultProps = {
+  products: undefined,
+};
 
 export default ProductList;
