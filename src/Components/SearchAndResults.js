@@ -34,7 +34,6 @@ class SearchAndResults extends React.Component {
 
     return (
       <div>
-
         <input
           type="text"
           data-testid="query-input"
@@ -42,7 +41,9 @@ class SearchAndResults extends React.Component {
         />
         <p
           data-testid="home-initial-message"
-        />
+        >
+          Digite algum termo de pesquisa ou escolha uma categoria.
+        </p>
         <button
           type="button"
           data-testid="query-button"
