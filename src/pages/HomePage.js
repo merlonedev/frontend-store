@@ -13,6 +13,9 @@ class HomePage extends Component {
   }
 
   stateSearch = (value) => {
+    if (!value) {
+      return null;
+    }
     this.setState({
       search: value,
     });

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ItemCard from './ItemCard';
-import * as api from '../services/api';
+import { getProductsFromCategoryAndQuery } from '../services/api';
+import Loading from './Loading';
 
 class ItemList extends Component {
   constructor() {
@@ -9,27 +10,35 @@ class ItemList extends Component {
     this.state = {
       itens: [],
     };
+    this.handleChangeInput = this.handleChangeInput.bind(this);
   }
 
   componentDidMount() {
     this.handleChangeInput();
   }
 
-  handleChangeInput() {
+  // componentDidUpdate() {
+  //   this.handleChangeInput();
+  // }
+
+  async handleChangeInput() {
     const { input } = this.props;
-    api.getProductsFromCategoryAndQuery(false, input).then((item) => this.setState({
-      itens: item.results,
-    }));
+    const item = await getProductsFromCategoryAndQuery(false, input);
+    this.setState({ itens: item });
+    console.log(item);
   }
 
   render() {
     const { itens } = this.state;
-    if (itens.length === 0) return <p>Nenhum produto foi encontrado</p>;
+    if (itens === undefined) return <Loading />;
+    if ((itens.length === 0)) {
+      return <p>Nenhum produto foi encontrado</p>;
+    }
     return (
       <div>
         <div>
-          {itens.map((item) => (
-            <ItemCard item={ item } key={ item.id } />
+          {itens.results.map((item) => (
+            <ItemCard data-testid="product" item={ item } key={ item.id } />
           ))}
         </div>
       </div>
