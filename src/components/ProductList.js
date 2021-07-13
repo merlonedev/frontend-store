@@ -9,6 +9,7 @@ class ProductList extends React.Component {
     return products.map(({ id, title, thumbnail, price }) => {
       const cartElements = { id, title, price };
       return (<ProductCard
+        id={ id }
         key={ id }
         title={ title }
         thumbnail={ thumbnail }
