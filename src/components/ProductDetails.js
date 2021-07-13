@@ -22,7 +22,6 @@ class ProductDetails extends Component {
 
   render() {
     const { details } = this.state;
-    console.log(details);
     return (
       <>
         <h1 data-testid="product-detail-name">{details.title}</h1>
