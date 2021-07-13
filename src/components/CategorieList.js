@@ -20,10 +20,10 @@ class CategorieList extends Component {
     const { onClick } = this.props;
     return (
       <div>
-        <label data-testid="category" htmlFor="none">
+        {/* <label data-testid="category" htmlFor="none">
           <input id="none" type="radio" name="t" onClick={ () => onClick('') } />
           Sem Categoria
-        </label>
+        </label> */}
         {categorias.map((i) => (
           <label key={ i.name } data-testid="category" htmlFor={ i.id }>
             <input
