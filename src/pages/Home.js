@@ -24,7 +24,7 @@ class Home extends React.Component {
 
     this.setState({
       [name]: value,
-    });
+    }, () => this.getProductList());
   }
 
   async getProductList() {
@@ -70,7 +70,7 @@ class Home extends React.Component {
         <main className="main-content-container">
           { (buttonClick) ? <ProductList productList={ productList } /> : initialMsg }
         </main>
-        <Categories />
+        <Categories handleChange={ this.handleChange } />
       </div>
     );
   }
