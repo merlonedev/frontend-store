@@ -18,13 +18,6 @@ class Home extends React.Component {
     this.categoryChange = this.categoryChange.bind(this);
   }
 
-  componentDidMount() {
-    getProductsFromCategoryAndQuery('Computador', 'Computador')
-      .then((r) => this.setState({
-        products: r.results,
-      }));
-  }
-
   onChange({ target: { value } }) {
     this.setState({
       search: value,

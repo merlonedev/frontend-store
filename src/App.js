@@ -5,7 +5,7 @@ import Cart from './Components/Cart';
 import './App.css';
 
 class App extends React.Component {
-  componentDidMount() {
+  async componentDidUpdate() {
     document.title = 'Undefined - Group 28';
   }
 
@@ -15,7 +15,11 @@ class App extends React.Component {
         <BrowserRouter>
           <Switch>
             <Route path="/Cart" component={ Cart } />
-            <Route path="/" component={ Home } exact />
+            <Route
+              exact
+              path="/"
+              render={ (props) => <Home { ...props } /> }
+            />
           </Switch>
         </BrowserRouter>
       </main>
