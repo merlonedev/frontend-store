@@ -2,6 +2,8 @@ import React from 'react';
 import SearchInput from '../components/SearchInput';
 import ProductList from '../components/ProductList';
 import * as api from '../services/api';
+import CartItems from '../components/CartItems';
+import Category from '../components/Category';
 
 class HomePage extends React.Component {
   constructor() {
@@ -54,7 +56,7 @@ class HomePage extends React.Component {
     //     </div>);
     // }
     return (
-      <>
+      <div>
         <SearchInput
           name="query"
           value={ query }
@@ -62,7 +64,11 @@ class HomePage extends React.Component {
           onClick={ this.handleClick }
         />
         <ProductList products={ products } />
-      </>
+        <CartItems />
+        <aside>
+          <Category />
+        </aside>
+      </div>
     );
   }
 }
