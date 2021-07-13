@@ -11,25 +11,24 @@ class ItemList extends Component {
       itens: [],
     };
     this.handleFirstChangeInput = this.handleFirstChangeInput.bind(this);
-    // this.handleFutureInputs = this.handleFutureInputs.bind(this);
+    this.handleFutureInputs = this.handleFutureInputs.bind(this);
   }
 
   componentDidMount() {
     this.handleFirstChangeInput();
   }
 
-  // componentDidUpdate() {
-  //   const { input } = this.props;
-  //   const { itens } = this.state;
-  //   if (input !== itens) {
-  //     this.handleFutureInputs(input);
-  //   }
-  // }
+  componentDidUpdate(prevProps) {
+    const { input } = this.props;
+    if (input !== prevProps.input) {
+      this.handleFutureInputs(input);
+    }
+  }
 
-  // async handleFutureInputs(input) {
-  //   const item = await getProductsFromCategoryAndQuery(false, input);
-  //   this.setState(() => ({ itens: item }));
-  // }
+  async handleFutureInputs(input) {
+    const item = await getProductsFromCategoryAndQuery(false, input);
+    this.setState(() => ({ itens: item }));
+  }
 
   async handleFirstChangeInput() {
     const { input } = this.props;
