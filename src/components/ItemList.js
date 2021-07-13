@@ -10,21 +10,31 @@ class ItemList extends Component {
     this.state = {
       itens: [],
     };
-    this.handleChangeInput = this.handleChangeInput.bind(this);
+    this.handleFirstChangeInput = this.handleFirstChangeInput.bind(this);
+    // this.handleFutureInputs = this.handleFutureInputs.bind(this);
   }
 
   componentDidMount() {
-    this.handleChangeInput();
+    this.handleFirstChangeInput();
   }
 
   // componentDidUpdate() {
-  //   this.handleChangeInput();
+  //   const { input } = this.props;
+  //   const { itens } = this.state;
+  //   if (input !== itens) {
+  //     this.handleFutureInputs(input);
+  //   }
   // }
 
-  async handleChangeInput() {
+  // async handleFutureInputs(input) {
+  //   const item = await getProductsFromCategoryAndQuery(false, input);
+  //   this.setState(() => ({ itens: item }));
+  // }
+
+  async handleFirstChangeInput() {
     const { input } = this.props;
     const item = await getProductsFromCategoryAndQuery(false, input);
-    this.setState({ itens: item });
+    this.setState(() => ({ itens: item }));
     console.log(item);
   }
 
@@ -38,7 +48,7 @@ class ItemList extends Component {
       <div>
         <div>
           {itens.results.map((item) => (
-            <ItemCard data-testid="product" item={ item } key={ item.id } />
+            <ItemCard item={ item } key={ item.id } />
           ))}
         </div>
       </div>

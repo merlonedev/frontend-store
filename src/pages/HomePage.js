@@ -3,6 +3,7 @@ import SearchBar from '../components/SearchBar';
 import ButtonCart from '../components/ButtonCart';
 import ItemList from '../components/ItemList';
 import CategorieList from '../components/CategorieList';
+import Loading from '../components/Loading';
 
 class HomePage extends Component {
   constructor() {
@@ -13,21 +14,16 @@ class HomePage extends Component {
   }
 
   stateSearch = (value) => {
-    if (!value) {
-      return null;
-    }
-    this.setState({
-      search: value,
-    });
+    this.setState({ search: value });
   };
 
   render() {
     const { search } = this.state;
     return (
       <div>
-        <SearchBar change={ this.stateSearch } />
+        <SearchBar change={ this.stateSearch } onchange={ this.checkStateChange } />
         <ButtonCart />
-        <ItemList input={ search } />
+        {(search === '') ? <Loading /> : <ItemList input={ search } />}
         <CategorieList />
       </div>
     );
