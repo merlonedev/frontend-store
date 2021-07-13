@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import * as api from '../services/api';
+import CategoryList from './CategoryList';
 import ProductCard from './ProductCard';
 
 class Search extends Component {
@@ -9,20 +10,30 @@ class Search extends Component {
       loading: 'none',
       queryText: '',
       productList: [],
+      categoryText: '',
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.renderForm = this.renderForm.bind(this);
     this.renderList = this.renderList.bind(this);
+    this.handleCategoryText = this.handleCategoryText.bind(this);
   }
 
   async handleSubmit() {
-    const { queryText } = this.state;
+    const { queryText, categoryText } = this.state;
     const { getProductsFromCategoryAndQuery } = api;
-    const results = await getProductsFromCategoryAndQuery('', queryText);
+    const results = await getProductsFromCategoryAndQuery(categoryText, queryText);
     this.setState({
       loading: 'done',
       productList: results,
     });
+  }
+
+  handleCategoryText(event) {
+    const { id } = event.target;
+    this.setState({
+      categoryText: id,
+      queryText: '',
+    }, () => this.handleSubmit());
   }
 
   renderForm() {
@@ -71,6 +82,7 @@ class Search extends Component {
   render() {
     return (
       <div>
+        <CategoryList handleCategoryText={ this.handleCategoryText } />
         {this.renderForm()}
         {this.renderList()}
       </div>

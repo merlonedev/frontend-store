@@ -1,9 +1,10 @@
 import React from 'react';
+import Proptype from 'prop-types';
 import * as api from '../services/api';
 
 class CategoryList extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       categories: [],
       loading: true,
@@ -24,6 +25,7 @@ class CategoryList extends React.Component {
   }
 
   render() {
+    const { handleCategoryText } = this.props;
     const { categories, loading } = this.state;
     if (loading) {
       return (
@@ -33,13 +35,26 @@ class CategoryList extends React.Component {
     return (
       <div>
         <ul>
-          { categories.map(
-            (cat) => <li data-testid="category" key={ cat.id }>{ cat.name }</li>,
-          )}
+          { categories.map((cat) => (
+            <li
+              key={ cat.id }
+            >
+              <input
+                data-testid="category"
+                type="button"
+                id={ cat.id }
+                value={ cat.name }
+                onClick={ handleCategoryText }
+              />
+            </li>))}
         </ul>
       </div>
     );
   }
 }
+
+CategoryList.propTypes = {
+  handleCategoryText: Proptype.func.isRequired,
+};
 
 export default CategoryList;
