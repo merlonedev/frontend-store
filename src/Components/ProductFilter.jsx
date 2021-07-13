@@ -6,7 +6,7 @@ class ProductFilter extends Component {
   render() {
     const { products } = this.props;
     return (
-      <div>
+      <div className="cardDiv">
         { products.map((product) => (
           <Products
             key={ product.id }

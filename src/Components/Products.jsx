@@ -5,9 +5,9 @@ class Products extends Component {
   render() {
     const { title, img, price } = this.props;
     return (
-      <div data-testid="product">
+      <div data-testid="product" className="card">
         <p>{ title }</p>
-        <img src={ img } width="50px" alt="produto" />
+        <img src={ img } width="50px" alt="produto" className="photo" />
         <p>{ price }</p>
       </div>
     );

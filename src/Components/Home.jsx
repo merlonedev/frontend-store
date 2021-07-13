@@ -1,17 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import NavBar from './NavBar';
-
 import { getProductsFromCategoryAndQuery } from '../services/api';
 import ProductFilter from './ProductFilter';
 
 class Home extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
+    const initialState = {
       search: '',
       products: [],
     };
+
+    this.state = initialState;
     this.onChange = this.onChange.bind(this);
     this.onClick = this.onClick.bind(this);
     this.categoryChange = this.categoryChange.bind(this);
@@ -46,7 +47,7 @@ class Home extends React.Component {
       <div>
         <header className="header">
           <p className="pageName">
-            Undenfined FrontEnd Online Store
+            Undefined FrontEnd Online Store
           </p>
           <Link to="/Cart" data-testid="shopping-cart-button" />
           <label
@@ -71,13 +72,16 @@ class Home extends React.Component {
               data-testid="query-button"
               onClick={ this.onClick }
               type="button"
+              className="searchBtn"
             >
               Buscar
             </button>
           </label>
         </header>
-        <NavBar click={ this.categoryChange } />
-        <ProductFilter products={ products } />
+        <section className="mainSection">
+          <NavBar click={ this.categoryChange } />
+          <ProductFilter products={ products } />
+        </section>
       </div>
     );
   }
