@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 export default class ProductsList extends Component {
   render() {
-    const { products } = this.props;
+    const { products, callback } = this.props;
     return (
       <div>
         {products.map(({ title, id, thumbnail, price }) => (
@@ -12,7 +12,14 @@ export default class ProductsList extends Component {
             <img alt="Product Cover" src={ thumbnail } />
             <div>
               <h4>{title}</h4>
-              <p>{ price }</p>
+              <p>{price}</p>
+              <button
+                type="button"
+                data-testid="product-add-to-cart"
+                onClick={ () => callback(id) }
+              >
+                Adicionar ao Carrinho
+              </button>
             </div>
             <Link
               data-testid="product-detail-link"
@@ -28,10 +35,13 @@ export default class ProductsList extends Component {
 }
 
 ProductsList.propTypes = {
-  products: PropTypes.arrayOf(PropTypes.shape({
-    title: PropTypes.string,
-    id: PropTypes.string,
-    thumbnail: PropTypes.string,
-    price: PropTypes.number,
-  })).isRequired,
+  products: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.string,
+      id: PropTypes.string,
+      thumbnail: PropTypes.string,
+      price: PropTypes.number,
+    }),
+  ).isRequired,
+  callback: PropTypes.func.isRequired,
 };
