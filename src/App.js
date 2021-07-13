@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-
+import './App.css';
+import { BrowserRouter, Route } from 'react-router-dom';
+import ShoppingCart from './components/ShoppingCart';
 import ProductList from './components/ProductList';
 
 class App extends Component {
   render() {
     return (
-      <Router>
+      <BrowserRouter>
         <Route exact path="/" component={ ProductList } />
-      </Router>
+        <Route exact path="/ShoppingCart" component={ ShoppingCart } />
+      </BrowserRouter>
     );
   }
 }
