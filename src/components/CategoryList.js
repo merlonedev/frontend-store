@@ -4,7 +4,7 @@ import CategoryItem from './CategoryItem';
 
 class CategoryList extends React.Component {
   render() {
-    const { categories } = this.props;
+    const { categories, handleClickCategory } = this.props;
     return (
       <div className="categoryList">
         { categories
@@ -12,6 +12,7 @@ class CategoryList extends React.Component {
             <CategoryItem
               key={ category.id }
               category={ category }
+              handleClickCategory={ handleClickCategory }
             />))}
       </div>
     );
@@ -20,6 +21,7 @@ class CategoryList extends React.Component {
 
 CategoryList.propTypes = {
   categories: PropTypes.arrayOf(Object).isRequired,
+  handleClickCategory: PropTypes.func.isRequired,
 };
 
 export default CategoryList;

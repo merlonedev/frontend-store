@@ -1,10 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import * as Api from '../services/api';
+import * as api from '../services/api';
 import CategoryList from '../components/CategoryList';
 import ProductList from '../components/ProductList';
 import Loading from '../components/Loading';
 import '../App.css';
+
+let queryValue = 'QUERY';
 
 class Home extends React.Component {
   constructor() {
@@ -22,11 +24,12 @@ class Home extends React.Component {
     this.filterProduct = this.filterProduct.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.handleClickCategory = this.handleClickCategory.bind(this);
   }
 
   async componentDidMount() {
     this.categories();
-    this.products(undefined, 'QUERY');
+    this.products(undefined, queryValue);
   }
 
   handleChange({ target }) {
@@ -36,7 +39,7 @@ class Home extends React.Component {
     });
   }
 
-  handleClick() {
+  async handleClick() {
     const { searchBar } = this.state;
     if (searchBar !== '') {
       this.products(undefined, searchBar);
@@ -45,12 +48,23 @@ class Home extends React.Component {
     this.products();
   }
 
+  handleClickCategory({ target }) {
+    const category = target.id;
+    console.log(category);
+    queryValue = category;
+    this.setState({
+      searchBar: category,
+    });
+    this.products(category, undefined);
+  }
+
   callCategoryList() {
     const { categories } = this.state;
     if (categories !== undefined) {
       return (
         <CategoryList
           categories={ categories }
+          handleClickCategory={ this.handleClickCategory }
         />
       );
     }
@@ -67,7 +81,7 @@ class Home extends React.Component {
   }
 
   async products(categoryId, query) {
-    const products = await Api.getProductsFromCategoryAndQuery(categoryId, query);
+    const products = await api.getProductsFromCategoryAndQuery(categoryId, query);
     console.log(products);
     this.setState({
       products,
@@ -75,7 +89,7 @@ class Home extends React.Component {
   }
 
   async categories() {
-    const categories = await Api.getCategories();
+    const categories = await api.getCategories();
     this.setState({
       categories,
     });

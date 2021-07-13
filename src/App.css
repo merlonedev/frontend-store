@@ -65,15 +65,7 @@
 }
 
 .categoryItem {
-  border: 1px solid #333;
   padding: 5px;
-}
-
-.categoryItem:hover {
-  background-color: #333;
-  border: 1px solid #ccc;
-  color: #ccc;
-  cursor: pointer;
 }
 
 .productItem {
