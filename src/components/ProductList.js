@@ -12,8 +12,8 @@ class ProductList extends Component {
     this.getProducts = this.getProducts.bind(this);
   }
 
-  async getProducts(searchText) {
-    const products = await API.getProductsFromCategoryAndQuery(searchText);
+  async getProducts(_id, searchText) {
+    const products = await API.getProductsFromCategoryAndQuery(_id, searchText);
     this.setState({
       products: products.results,
     });
