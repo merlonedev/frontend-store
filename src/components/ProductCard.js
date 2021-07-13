@@ -8,10 +8,14 @@ class ProductCard extends React.Component {
 
     return (
       <li data-testid="product">
-        <h2>{ title }</h2>
-        <img src={ thumbnail } alt={ title } />
-        <p>{ `R$ ${price}` }</p>
-        <Link to={ `product/${id}` } data-testid="product-detail-link">Ver Detalhes</Link>
+        <Link
+          to={ `/product/${id}/${title}` }
+          data-testid="product-detail-link"
+        >
+          <h2>{ title }</h2>
+          <img src={ thumbnail } alt={ title } />
+          <p>{ `R$ ${price}` }</p>
+        </Link>
       </li>
     );
   }
@@ -21,6 +25,7 @@ ProductCard.propTypes = {
   title: PropTypes.string.isRequired,
   thumbnail: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
 };
 
 export default ProductCard;
