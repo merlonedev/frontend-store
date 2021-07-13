@@ -22,22 +22,22 @@ class Categories extends Component {
     return (
       <div>
         <nav>
-          <select
-            onChange={ handleChange }
-            name="categoryId"
-          >
-            {
-              categories
-                .map((category) => (
-                  <option
+          {
+            categories
+              .map(({ name, id }) => (
+                <label key={ id } htmlFor={ id }>
+                  <input
                     data-testid="category"
-                    key={ category.id }
-                  >
-                    {category.name}
-                  </option>
-                ))
-            }
-          </select>
+                    type="radio"
+                    name="categoryId"
+                    id={ id }
+                    value={ id }
+                    onChange={ handleChange }
+                  />
+                  { name }
+                </label>
+              ))
+          }
         </nav>
       </div>
     );
