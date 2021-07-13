@@ -1,21 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import ProductCard from './ProductCard';
+
 class SearchResult extends React.Component {
+  getProductToAddInCart(product) {
+    console.log(product);
+  }
+
   render() {
     const { products } = this.props;
 
     if (products.length !== 0) {
       return (
         products.map((current) => (
-          <div key={ current.id } data-testid="product">
-            <img src={ current.thumbnail } alt="Product" />
-            <p>
-              { current.title }
-              Preço:
-              { current.price }
-            </p>
-          </div>
+          <ProductCard
+            key={ current.id }
+            product={ current }
+            addToCart={ this.getProductToAddInCart }
+          />
         ))
       );
     }
