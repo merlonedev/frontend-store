@@ -4,8 +4,7 @@ import './App.css';
 import * as api from './services/api';
 import Home from './pages/Home';
 import Categories from './Components/Categories';
-import ShoppingCart from './Components/ShoppingCart';
-import ShoppingCartLink from './ShoppingCartLink';
+import ShoppingCart from './pages/ShoppingCart';
 
 class App extends React.Component {
   constructor() {
@@ -47,7 +46,6 @@ class App extends React.Component {
             <Route exact path="/" component={ Home } />
             <Route exact path="/shopping-cart" component={ ShoppingCart } />
           </Switch>
-          <ShoppingCartLink />
         </BrowserRouter>
         <div className="categories">
           { categories.map((category) => (<Categories
