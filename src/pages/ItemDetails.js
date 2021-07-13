@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Loading from '../components/Loading';
+import Form from '../components/Form';
+import './ItemDetails.css';
 import * as api from '../services/api';
 
 class ItemDetails extends Component {
@@ -36,14 +38,29 @@ class ItemDetails extends Component {
     const { item, loading } = this.state;
     const { title, price, thumbnail } = item;
     return (
-      <main>
-        { loading && <Loading />}
-        <h1 data-testid="product-detail-name">{ title }</h1>
-        <img src={ thumbnail } alt={ title } />
-        <h2>
-          { `R$${price}` }
-        </h2>
-      </main>
+      <div>
+        <main className="item-details">
+          { loading && <Loading />}
+          <div className="item-details-left">
+            <h1
+              className="item-details-title"
+              data-testid="product-detail-name"
+            >
+              { title }
+            </h1>
+            <img className="item-details-image" src={ thumbnail } alt={ title } />
+            <h2 className="item-details-price">
+              { `R$${price}` }
+            </h2>
+          </div>
+          <div className="item-details-right">
+            <h2>Especificações Técnicas</h2>
+          </div>
+        </main>
+        <div className="item-details-form">
+          <Form />
+        </div>
+      </div>
     );
   }
 }
