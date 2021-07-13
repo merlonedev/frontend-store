@@ -1,9 +1,9 @@
 .header {
-  display: flex;
-  background-color: red;
-  height: 50px;
   align-items: center;
-  justify-content:space-between;
+  background-color: red;
+  display: flex;
+  height: 50px;
+  justify-content: space-between;
   padding: 0 50px;
 }
 
@@ -13,7 +13,7 @@
 
 .category {
   display: flex;
-  width:300px;
+  width: 300px;
 }
 
 .product-list {
