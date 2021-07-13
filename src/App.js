@@ -21,6 +21,7 @@ class App extends React.Component {
   addToCartItem(item) {
     this.setState(({ itemCart }) => {
       const index = itemCart.findIndex(({ id }) => id === item.id);
+      item.quantity = 1;
       if (index < 0) {
         return { itemCart: [...itemCart, item] };
       }

@@ -37,16 +37,20 @@ export default class Card extends Component {
       return <Redirect to={ `/infos/${idState}/${titleState}` } />;
     }
     return (
-      <div
-        data-testid="product"
-        className="products"
-        role="presentation"
-        onClick={ () => this.itemClicked(id, title) }
-      >
-        <h4 data-testid="product-detail-link">{ title }</h4>
-        <p>{ price }</p>
-        <img src={ thumbnail } alt={ title } />
+      <div className="container-product">
+        <div
+          data-testid="product"
+          className="products"
+          role="presentation"
+          onClick={ () => this.itemClicked(id, title) }
+        >
+          <h4 data-testid="product-detail-link">{ title }</h4>
+          <p>{ price }</p>
+          <img className="thumbnail" src={ thumbnail } alt={ title } />
+
+        </div>
         <button
+          className="btn-cart"
           type="button"
           data-testid="product-add-to-cart"
           onClick={ () => this.onAddToCartItem(item) }

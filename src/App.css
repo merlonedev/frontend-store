@@ -1,12 +1,10 @@
 .products {
   align-items: center;
-  border: 1px solid black;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   margin: 17px 0;
   text-align: center;
-  width: 30%;
 }
 
 .products-div {
@@ -21,5 +19,23 @@
 
 .products:hover {
   cursor: pointer;
-  transform: scale(1.1);
+  transform: scale(1.05);
+}
+
+.container-product {
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  width: 40%;
+}
+
+.thumbnail {
+  width: 30%;
+}
+
+.btn-cart {
+  height: 30px;
+  margin: 10px auto;
+  width: 30%;
 }
