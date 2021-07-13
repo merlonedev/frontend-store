@@ -5,7 +5,7 @@ class Products extends React.Component {
   render() {
     const { productList } = this.props;
     if (productList.length === 0) {
-      return <div>Não Foi Encontrado o Produto</div>;
+      return <div>Nenhum Produto Foi Encontrado</div>;
     }
     return (
       <div>
