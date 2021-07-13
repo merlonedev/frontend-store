@@ -7,7 +7,6 @@ import SearchInput from '../Components/SearchInput';
 class Home extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       categories: [],
       products: [],
