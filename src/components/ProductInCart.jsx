@@ -7,9 +7,10 @@ class ProductInCart extends React.Component {
     console.log(title, thumbnail, price);
     return (
       <div data-testid="product">
-        <p>{title}</p>
+        <p data-testid="shopping-cart-product-name">{title}</p>
         <img src={ thumbnail.replace('I.jpg', 'O.jpg') } alt={ title } />
         <p>{price}</p>
+        <div data-testid="shopping-cart-product-quantity">1</div>
       </div>
     );
   }
