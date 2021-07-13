@@ -1,6 +1,7 @@
 import React from 'react';
 import List from '../Components/List';
 import SearchResult from '../Components/SearchResult';
+import * as api from '../services/api';
 
 class Home extends React.Component {
   constructor() {
@@ -8,7 +9,7 @@ class Home extends React.Component {
 
     this.state = {
       input: '',
-      textToSearch: '',
+      products: [],
     };
 
     this.getSearch = this.getSearch.bind(this);
@@ -21,15 +22,21 @@ class Home extends React.Component {
     });
   }
 
-  doSearch() {
+  async doSearch() {
+    const { getProductsFromCategoryAndQuery } = api;
     const { input } = this.state;
-    this.setState({
-      textToSearch: input,
-    });
+    try {
+      const allProducts = await getProductsFromCategoryAndQuery('', input);
+      this.setState({
+        products: allProducts.results,
+      });
+    } catch {
+      return <p>Nenhum produto foi encontrado</p>;
+    }
   }
 
   render() {
-    const { textToSearch } = this.state;
+    const { products } = this.state;
     return (
       <div>
         <List textChange={ this.getSearch } />
@@ -41,7 +48,7 @@ class Home extends React.Component {
           Pesquisar
         </button>
         {/* {clickSearch && <SearchResult textToSearch={ search } />} */}
-        <SearchResult textToSearch={ textToSearch } />
+        <SearchResult products={ products } />
         <p data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
         </p>
