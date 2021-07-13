@@ -16,24 +16,39 @@ class Cart extends React.Component {
   }
 
   cartSetState = () => {
-    let local = localStorage.getItem('Cart');
-    local = JSON.parse(local);
+    if (localStorage.getItem('Cart')) {
+      let local = localStorage.getItem('Cart');
+      local = JSON.parse(local);
+      this.setState({
+        cartItems: [...local],
+      });
+    }
+  }
+
+  deleteCart = () => {
+    localStorage.removeItem('Cart');
     this.setState({
-      cartItems: [...local],
+      cartItems: undefined,
     });
   }
 
   render() {
     const { cartItems } = this.state;
-    if (!cartItems) {
-      return <h2 data-testid="shopping-cart-empty-message">Seu carrinho está vazio</h2>;
+    if (cartItems !== undefined) {
+      return (
+        <section>
+          <Link to="/"><AiFillHome color="green" /></Link>
+          <button type="button" onClick={ this.deleteCart }>Apagar Todos</button>
+          {cartItems.map((item) => <CartCard key={ item.id } product={ item } />)}
+        </section>
+
+      );
     }
     return (
       <section>
         <Link to="/"><AiFillHome color="green" /></Link>
-        {cartItems.map((item) => <CartCard key={ item.id } product={ item } />)}
+        <h2 data-testid="shopping-cart-empty-message">Seu carrinho está vazio</h2>
       </section>
-
     );
   }
 }
