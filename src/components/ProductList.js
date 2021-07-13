@@ -4,7 +4,7 @@ import ProductItem from './ProductItem';
 
 class ProductList extends React.Component {
   render() {
-    const { products } = this.props;
+    const { products, productDetails, getProductDetails } = this.props;
     return (
       <div className="productList">
         { products.results
@@ -12,6 +12,8 @@ class ProductList extends React.Component {
             <ProductItem
               key={ product.id }
               product={ product }
+              productDetails={ productDetails }
+              getProductDetails={ getProductDetails }
             />))}
       </div>
     );
@@ -20,6 +22,8 @@ class ProductList extends React.Component {
 
 ProductList.propTypes = {
   products: PropTypes.arrayOf(Object).isRequired,
+  productDetails: PropTypes.arrayOf(Object).isRequired,
+  getProductDetails: PropTypes.func.isRequired,
 };
 
 export default ProductList;
