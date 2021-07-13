@@ -3,6 +3,7 @@ import CartButton from '../components/CartButton';
 import InicialMessage from '../components/InicialMessage';
 import ProductList from '../components/ProductList';
 import { getProductsFromCategoryAndQuery } from '../services/api';
+import CategoryList from '../components/CategoryList';
 
 class HomePage extends React.Component {
   constructor() {
@@ -58,6 +59,7 @@ class HomePage extends React.Component {
         </button>
         <CartButton />
         { results.length > 0 ? <ProductList products={ results } /> : <InicialMessage /> }
+        <CategoryList />
       </div>
     );
   }
