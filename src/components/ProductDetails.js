@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import * as fetchApi from '../services/api';
+import Form from './Form';
 
 class ProductDetails extends Component {
   constructor() {
@@ -33,6 +34,7 @@ class ProductDetails extends Component {
         >
           Carrinho de Compras
         </Link>
+        <Form />
       </>
     );
   }
