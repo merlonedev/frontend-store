@@ -34,6 +34,7 @@ class Home extends React.Component {
 
   render() {
     const { productList } = this.state;
+    const { addToCart } = this.props;
     return (
       <form>
         <p
@@ -53,8 +54,8 @@ class Home extends React.Component {
         >
           Clique Aqui
         </button>
-        <Products productList={ productList } />
         <CartButton />
+        <Products productList={ productList } addToCart={ addToCart } />
         <Category />
       </form>
     );

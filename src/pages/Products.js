@@ -4,7 +4,7 @@ import NotFound from './NotFound';
 
 class Products extends Component {
   render() {
-    const { productList } = this.props;
+    const { productList, addToCart } = this.props;
     if (productList.length === 0) {
       return <NotFound />;
     }
@@ -16,6 +16,13 @@ class Products extends Component {
             <h1>{ item.title }</h1>
             <img src={ item.thumbnail } alt={ item.title } />
             <p>{`R$: ${item.price}`}</p>
+            <button
+              type="button"
+              onClick={ () => addToCart(item) }
+              data-testid="product-add-to-cart"
+            >
+              Adicionar ao Carrinho
+            </button>
           </div>
         ))}
       </div>
