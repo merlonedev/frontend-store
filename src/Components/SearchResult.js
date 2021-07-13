@@ -1,7 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import * as api from '../services/api';
 
-class Filter extends React.Component {
+class SearchResult extends React.Component {
   constructor() {
     super();
 
@@ -16,26 +18,50 @@ class Filter extends React.Component {
     this.getProducts();
   }
 
+  componentDidUpdate() {
+    this.getProducts();
+  }
+
   async getProducts() {
-    const allProducts = await api.getProductsFromQuery('agro');
-    this.setState({
-      products: allProducts.results,
-    });
+    const { getProductsFromCategoryAndQuery } = api;
+    const { textToSearch } = this.props;
+    try {
+      const allProducts = await getProductsFromCategoryAndQuery('MLB5672', textToSearch);
+      this.setState({
+        products: allProducts.results,
+      });
+    } catch {
+      return <p>Nenhum produto foi encontrado</p>;
+    }
   }
 
   render() {
     const { products } = this.state;
 
+    if (products.length === 0) {
+      return <p>Nenhum produto foi encontrado</p>;
+    }
     return (
       <div>
-        {products.map((current) => (
-          <p key={ current.id }>
-            { current.title }
-          </p>
-        ))}
+        {
+          products.map((current) => (
+            <div key={ current.id }>
+              <img src={ current.thumbnail } alt="Product" />
+              <p>
+                { current.title }
+                Preço:
+                { current.price }
+              </p>
+            </div>
+          ))
+        }
       </div>
     );
   }
 }
 
-export default Filter;
+SearchResult.propTypes = {
+  textToSearch: PropTypes.string.isRequired,
+};
+
+export default SearchResult;
