@@ -11,6 +11,7 @@ class Details extends React.Component {
       productList: [],
       product: [],
     };
+    this.addToCart = this.addToCart.bind(this);
   }
 
   componentDidMount() {
@@ -37,14 +38,36 @@ class Details extends React.Component {
     }, () => this.setProduct());
   }
 
+  addToCart(e, stateProduct) {
+    const products = JSON.parse(localStorage.getItem('products')) || [];
+    stateProduct.quantity = 1;
+    if (!products.some((product) => product.id === stateProduct.id)) {
+      products.push(stateProduct);
+    } else {
+      const currentIndex = products.map((product) => product.id).indexOf(stateProduct.id);
+      products[currentIndex].quantity += 1;
+    }
+    localStorage.setItem('products', JSON.stringify(products));
+  }
+
   render() {
     const { product } = this.state;
     return (
       <div>
         <p data-testid="product-detail-name">{product.title}</p>
-        <Link to="/" data-testid="shopping-cart-button">
+        <Link to="/cart" data-testid="shopping-cart-button">
+          <img src="https://img.icons8.com/ios/50/000000/shopping-cart.png" alt="carrinho" className="cart-image" />
+        </Link>
+        <Link to="/">
           <img src="https://img.icons8.com/ios/50/000000/back--v1.png" alt="voltar" className="back-image" />
         </Link>
+        <button
+          data-testid="product-detail-add-to-cart"
+          type="button"
+          onClick={ (e) => this.addToCart(e, product) }
+        >
+          Adicionar ao carrinho
+        </button>
       </div>
     );
   }
