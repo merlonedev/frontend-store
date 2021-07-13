@@ -3,7 +3,6 @@ import SearchInput from '../components/SearchInput';
 import CartItems from '../components/CartItems';
 import Category from '../components/Category';
 
-
 class HomePage extends React.Component {
   render() {
     return (
