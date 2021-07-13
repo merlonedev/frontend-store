@@ -14,6 +14,7 @@ class Index extends React.Component {
     };
     this.handleInput = this.handleInput.bind(this);
     this.handleButton = this.handleButton.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleInput({ target }) {
@@ -22,8 +23,12 @@ class Index extends React.Component {
     });
   }
 
-  async handleButton() {
-    const { searchBar } = this.state;
+  handleClick({ target }) {
+    this.handleButton(target.value);
+  }
+
+  // funcao que captura os produtos por categoria
+  async handleButton(searchBar) {
     const response = await getProductsFromCategoryAndQuery('', searchBar);
     this.setState({
       items: response.results,
@@ -43,15 +48,12 @@ class Index extends React.Component {
           />
           <button
             type="button"
-            onClick={ this.handleButton }
+            onClick={ () => this.handleButton(searchBar) }
             data-testid="query-button"
           >
             Pesquisar
           </button>
         </div>
-        <input
-          type="text"
-        />
         <p
           data-testid="home-initial-message"
         >
@@ -60,7 +62,7 @@ class Index extends React.Component {
         {/* Criado um link para que ao ser clicado redirecionar
         para o component ShoppingCart */}
         <Link data-testid="shopping-cart-button" to="/cart">Carrinho</Link>
-        <Categories />
+        <Categories handleClick={ this.handleClick } />
         <div>
           {items.length < 1
             ? <h3>Nenhum produto foi encontrado</h3>
