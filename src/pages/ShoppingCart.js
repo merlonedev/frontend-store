@@ -1,5 +1,4 @@
 import React from 'react';
-import CommentForm from '../components/CommentForm';
 
 class ShoppingCart extends React.Component {
   render() {
