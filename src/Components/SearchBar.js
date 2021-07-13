@@ -10,6 +10,7 @@ class SearchBar extends React.Component {
         <h2 data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
         </h2>
+        { console.log('searchBar') }
       </div>
     );
   }
