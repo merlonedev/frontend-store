@@ -9,22 +9,29 @@ class HomePage extends Component {
   constructor() {
     super();
     this.state = {
-      search: '',
+      querySearch: '',
+      categorieSearch: '',
     };
   }
 
   stateSearch = (value) => {
-    this.setState({ search: value });
+    this.setState({ querySearch: value });
   };
 
+  categorieState = (value) => {
+    this.setState({ categorieSearch: value });
+  }
+
   render() {
-    const { search } = this.state;
+    const { querySearch, categorieSearch } = this.state;
     return (
       <div>
-        <SearchBar change={ this.stateSearch } onchange={ this.checkStateChange } />
+        <SearchBar change={ this.stateSearch } />
         <ButtonCart />
-        {(search === '') ? <Loading /> : <ItemList input={ search } />}
-        <CategorieList />
+        <CategorieList onClick={ this.categorieState } />
+        {(querySearch === '' && categorieSearch === '')
+          ? <Loading />
+          : <ItemList input={ querySearch } input2={ categorieSearch } />}
       </div>
     );
   }

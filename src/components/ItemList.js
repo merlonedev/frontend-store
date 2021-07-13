@@ -19,20 +19,24 @@ class ItemList extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { input } = this.props;
+    const { input, input2 } = this.props;
     if (input !== prevProps.input) {
+      this.handleFutureInputs(input);
+    }
+    if (input2 !== prevProps.input2) {
       this.handleFutureInputs(input);
     }
   }
 
   async handleFutureInputs(input) {
-    const item = await getProductsFromCategoryAndQuery(false, input);
+    const { input2 } = this.props;
+    const item = await getProductsFromCategoryAndQuery(input2, input);
     this.setState(() => ({ itens: item }));
   }
 
   async handleFirstChangeInput() {
-    const { input } = this.props;
-    const item = await getProductsFromCategoryAndQuery(false, input);
+    const { input, input2 } = this.props;
+    const item = await getProductsFromCategoryAndQuery(input2, input);
     this.setState(() => ({ itens: item }));
     console.log(item);
   }
@@ -57,6 +61,7 @@ class ItemList extends Component {
 
 ItemList.propTypes = {
   input: PropTypes.string.isRequired,
+  input2: PropTypes.string.isRequired,
 };
 
 export default ItemList;
