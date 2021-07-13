@@ -14,10 +14,14 @@ header {
   width: 100%;
 }
 
+.pageName {
+  font-size: xx-large;
+  font-weight: 900;
+  margin: 10px;
+  text-decoration: underline;
+}
+
 .searchText {
-  display: flexbox;
-  flex-direction: column;
-  padding: 15px 200px;
   width: 100%;
 }
 
@@ -31,6 +35,11 @@ header {
   padding: 10px;
   padding-left: 40px;
   width: 50%;
+}
+
+.infoText {
+  font-size: x-large;
+  font-weight: 700;
 }
 
 nav {

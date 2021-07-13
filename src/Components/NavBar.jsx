@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { getCategories } from '../services/api';
 
 class NavBar extends React.Component {
@@ -16,11 +17,23 @@ class NavBar extends React.Component {
     const { categories } = this.state;
     const results = [];
     categories.forEach((r) => results.push(
-      <li data-testid="category" key={ r.id }>
+      <button
+        data-testid="category"
+        type="button"
+        key={ r.id }
+        onClick={ this.handleclick }
+        name={ r.name }
+      >
         {r.name}
-      </li>,
+      </button>,
     ));
     return results;
+  }
+
+  handleclick = (e) => {
+    const { click } = this.props;
+    const { name } = e.target;
+    click(name, name);
   }
 
   render() {
@@ -33,5 +46,9 @@ class NavBar extends React.Component {
     );
   }
 }
+
+NavBar.propTypes = {
+  click: PropTypes.func.isRequired,
+};
 
 export default NavBar;

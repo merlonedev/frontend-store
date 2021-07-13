@@ -3,9 +3,12 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Home from './Components/Home';
 import Cart from './Components/Cart';
 import './App.css';
-import NavBar from './Components/NavBar';
 
 class App extends React.Component {
+  componentDidMount() {
+    document.title = 'Undefined - Group 28';
+  }
+
   render() {
     return (
       <main className="main">
@@ -16,7 +19,6 @@ class App extends React.Component {
               <Route path="/" component={ Home } exact />
             </Switch>
           </BrowserRouter>
-          <NavBar />
         </div>
       </main>
     );
