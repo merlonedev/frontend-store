@@ -14,9 +14,11 @@ class ListItens extends React.Component {
       products: [],
       checkList: true,
       categories: [],
+      categoryId: '',
     };
 
-    this.handleSearch = this.handleSearch.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
     this.filterProducts = this.filterProducts.bind(this);
     this.fetchCategories = this.fetchCategories.bind(this);
   }
@@ -25,28 +27,25 @@ class ListItens extends React.Component {
     this.fetchCategories();
   }
 
-  handleSearch(event) {
+  handleChange(event) {
     const { name } = event.target;
     const value = event.target.type === 'checkbox'
       ? event.target.checked
       : event.target.value;
     this.setState({
       [name]: value,
-    });
+    }, () => this.filterProducts());
   }
 
-  async fetchCategories() {
-    const response = await api.getCategories();
-    this.setState({
-      categories: [...response],
-    });
-  }
-
-  async filterProducts(event) {
+  handleClick(event) {
     event.preventDefault();
+    this.filterProducts();
+  }
+
+  async filterProducts() {
     try {
-      const { search } = this.state;
-      const { results } = await api.getProductsFromCategoryAndQuery(1, search);
+      const { search, categoryId } = this.state;
+      const { results } = await api.getProductsFromCategoryAndQuery(categoryId, search);
       if (results.length) {
         return this.setState({
           products: [...results],
@@ -59,6 +58,13 @@ class ListItens extends React.Component {
     } catch (err) {
       console.log(err);
     }
+  }
+
+  async fetchCategories() {
+    const response = await api.getCategories();
+    this.setState({
+      categories: [...response],
+    });
   }
 
   render() {
@@ -75,13 +81,13 @@ class ListItens extends React.Component {
                 data-testid="query-input"
                 value={ search }
                 name="search"
-                onChange={ this.handleSearch }
+                onChange={ this.handleChange }
                 placeholder="Procure seu produto..."
               />
               <button
                 type="submit"
                 data-testid="query-button"
-                onClick={ this.filterProducts }
+                onClick={ this.handleClick }
               >
                 Pesquisar
               </button>
@@ -94,7 +100,10 @@ class ListItens extends React.Component {
         <div data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
         </div>
-        <CategoriesFilter categories={ categories } />
+        <CategoriesFilter
+          categories={ categories }
+          onChange={ this.handleChange }
+        />
         <div>
           {
             checkList
