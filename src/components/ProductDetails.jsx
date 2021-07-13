@@ -52,8 +52,6 @@ export default class ProductDetails extends Component {
           type="range"
           min="1"
           max="5"
-          // onChange={ this.handleChange }
-          // value={ rating }
         />
 
         <textarea data-testid="product-detail-evaluation" />
