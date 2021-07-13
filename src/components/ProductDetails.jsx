@@ -42,6 +42,12 @@ export default class ProductDetails extends Component {
         <p>{price}</p>
         <Link to="/cart" data-testid="shopping-cart-button">Carrinho</Link>
         <Link to="/">Voltar</Link>
+        <button
+          type="button"
+          data-testid="product-detail-add-to-cart"
+        >
+          Adicionar ao carrinho
+        </button>
       </div>
     );
   }
