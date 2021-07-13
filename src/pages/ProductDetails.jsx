@@ -61,6 +61,12 @@ export default class ProductDetails extends Component {
             ))}
           </ul>
         </section>
+        <button
+          type="button"
+          data-testid="product-detail-add-to-cart"
+        >
+          ADICIONAR AO CARRINHO
+        </button>
       </main>
     );
   }
