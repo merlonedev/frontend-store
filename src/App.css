@@ -14,6 +14,11 @@
   }
 
 }
+.App-logo-new {
+  text-align: end;
+  border: solid black;
+  width: 200px;
+}
 
 .App-header {
   align-items: center;
