@@ -1,12 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import ProductCard from '../productCard/ProductCard';
 
 class ProductList extends React.Component {
   render() {
     const { products } = this.props;
     if (products) {
       return (
-        <section>Produtos aqui</section>
+        <section>
+          {products.map((e) => <ProductCard key={ e.title } product={ e } />)}
+        </section>
       );
     }
     return (
