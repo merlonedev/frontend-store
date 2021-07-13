@@ -43,8 +43,18 @@ class ProductDetails extends React.Component {
           </p>
         </div>
         <Link to="/cart-basket" data-testid="shopping-cart-button">
-          <p>cart</p>
+          <p>Carrinho</p>
         </Link>
+        <form>
+          <input type="email" />
+          <textarea
+            data-testid="product-detail-evaluation"
+            name="avaliation"
+            placeholder="Faça uma avaliação"
+            cols="30"
+            rows="10"
+          />
+        </form>
       </div>
     );
   }
