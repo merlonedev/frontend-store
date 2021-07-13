@@ -16,7 +16,6 @@ class CategorieList extends Component {
 
   render() {
     const { categorias } = this.state;
-    // i = item pq o lint é péssimo.
     return (
       <ul>
         {categorias.map((i) => <li data-testid="category" key={ i.name }>{i.name}</li>)}
