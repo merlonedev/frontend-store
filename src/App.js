@@ -2,6 +2,8 @@ import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import SearchBar from './components/SearchBar';
 import CardList from './components/CardList';
+import Cart from './pages/Cart';
+import SideBar from './components/SideBar';
 import Main from './pages/Main';
 import './App.css';
 
@@ -11,6 +13,8 @@ function App() {
       <SearchBar />
       <Route exact path="/" component={ Main } />
       <CardList />
+      <Route exact path="/Cart" component={ Cart } />
+      <SideBar />
     </BrowserRouter>
   );
 }
