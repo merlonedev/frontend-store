@@ -7,6 +7,12 @@ body {
   text-align: center;
 }
 
+.carrinho {
+  color: black;
+  font-size: 40px;
+  text-decoration: none;
+}
+
 .home-container {
   align-items: flex-start;
   display: flex;
