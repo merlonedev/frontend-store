@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import CartItems from './CartItems';
 
-class ShoppingCart extends React.Component {
+export default class ShoppingCart extends React.Component {
   render() {
-    const { cartItems } = this.props;
+    const { cartItems, handlers } = this.props;
     return (
       <section>
         {!cartItems.length ? (
@@ -13,7 +13,7 @@ class ShoppingCart extends React.Component {
             Seu carrinho está vazio.
           </span>
         ) : (
-          <CartItems cartItems={ cartItems } />
+          <CartItems cartItems={ cartItems } handlers={ handlers } />
         )}
         <p>
           <Link to="/checkout">Checkout</Link>
@@ -25,12 +25,14 @@ class ShoppingCart extends React.Component {
 }
 
 ShoppingCart.propTypes = {
-  cartItems: PropTypes.arrayOf(PropTypes.string).isRequired,
-};
-export default ShoppingCart;
-
-ShoppingCart.propTypes = {
-  cartItems: PropTypes.arrayOf(PropTypes.shape({
-    title: PropTypes.string.isRequired,
-  })).isRequired,
+  cartItems: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.string.isRequired,
+    }),
+  ).isRequired,
+  handlers: PropTypes.shape({
+    remove: PropTypes.func,
+    increase: PropTypes.func,
+    decrease: PropTypes.func,
+  }).isRequired,
 };
