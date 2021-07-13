@@ -1,15 +1,19 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import SearchBar from './SearchBar';
-import Category from './Catergory';
+import Category from './Category';
 
 class Home extends Component {
   render() {
     return (
       <div>
         <SearchBar />
-        <Link to="/shoppingcart" data-testid="shopping-cart-button">Carrinho</Link>
-        <Category />
+        <header>
+          <Link to="/ShoppingCart" data-testid="shopping-cart-button">
+            Carrinho
+          </Link>
+          <Category />
+        </header>
       </div>
     );
   }
