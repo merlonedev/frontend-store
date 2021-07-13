@@ -58,11 +58,10 @@
 
 .categoryList {
   display: flex;
-  min-width: 220px;
   flex-flow: column wrap;
+  min-width: 220px;
   padding-left: 10px;
   padding-right: 10px;
-  
 }
 
 .categoryItem {
