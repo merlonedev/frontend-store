@@ -15,14 +15,14 @@ class ProductCard extends React.Component {
           <h2>{ title }</h2>
           <img src={ thumbnail } alt={ title } />
           <p>{ `R$ ${price}` }</p>
-          <button
-            type="button"
-            data-testid="product-add-to-cart"
-            onClick={ onClick }
-          >
-            Adicionar ao Carrinho
-          </button>
         </Link>
+        <button
+          type="button"
+          data-testid="product-add-to-cart"
+          onClick={ onClick }
+        >
+          Adicionar ao Carrinho
+        </button>
       </li>
     );
   }
