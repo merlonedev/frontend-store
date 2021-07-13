@@ -8,7 +8,7 @@ class ShoppingCart extends React.Component {
     const { cartItems } = this.props;
     return (
       <section>
-        {!cartItems ? (
+        {!cartItems.length ? (
           <span data-testid="shopping-cart-empty-message">
             Seu carrinho está vazio.
           </span>

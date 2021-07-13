@@ -21,7 +21,12 @@ export default class CartItems extends Component {
     const { cartItems } = this.props;
     // const reversed = cartItems.reverse();
     // cartItems.forEach((cartItem) => this.getProductFromId(cartItem));
-    if (cartItems) this.setItems(cartItems);
+    if (!cartItems.length) return;
+    this.setItems(cartItems);
+  }
+
+  componentDidUpdate() {
+    console.log('didupdate');
   }
 
   async setItems(cartItems) {
@@ -31,10 +36,6 @@ export default class CartItems extends Component {
     const items = allItemsObj.map((elem) => ({ ...elem.body, qty: 1 }));
     // allItemsObj.forEach((elem) => console.log(elem));
     this.setState({ items });
-  }
-
-  componentDidUpdate() {
-    console.log('didupdate');
   }
 
   async getProductFromId(url) {
@@ -120,5 +121,6 @@ CartItems.propTypes = {
   cartItems: PropTypes.shape({
     title: PropTypes.string.isRequired,
     forEach: PropTypes.func.isRequired,
+    length: PropTypes.number.isRequired,
   }).isRequired,
 };
