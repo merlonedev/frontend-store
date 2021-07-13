@@ -1,6 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import SearchBar from './components/SearchBar';
+import Cart from './pages/Cart';
+import SideBar from './components/SideBar';
 import Main from './pages/Main';
 import './App.css';
 // import { getCategories } from './services/api';
@@ -10,6 +12,8 @@ function App() {
     <BrowserRouter>
       <SearchBar />
       <Route exact path="/" component={ Main } />
+      <Route exact path="/Cart" component={ Cart } />
+      <SideBar />
     </BrowserRouter>
   );
 }
