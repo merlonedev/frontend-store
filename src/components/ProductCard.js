@@ -6,11 +6,11 @@ class ProductCard extends React.Component {
     const { title, thumbnail, price } = this.props;
 
     return (
-      <section data-testid="product">
+      <li data-testid="product">
         <h2>{ title }</h2>
         <img src={ thumbnail } alt={ title } />
         <p>{ `R$ ${price}` }</p>
-      </section>
+      </li>
     );
   }
 }
