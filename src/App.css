@@ -40,3 +40,40 @@
     transform: rotate(360deg);
   }
 }
+
+.main {
+  align-content: space-between;
+  display: flex;
+  justify-content: space-between;
+}
+
+.searchBar {
+  display: block;
+}
+
+.productList {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.categoryList {
+  display: flex;
+  flex-flow: column wrap;
+  min-width: 220px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.categoryItem {
+  padding: 5px;
+}
+
+.productItem {
+  border: 1px solid #333;
+  padding: 20px;
+  width: 250px;
+}
+
+.thumbnail {
+  width: 100%;
+}
