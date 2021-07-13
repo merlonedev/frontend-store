@@ -10,10 +10,12 @@ class Home extends React.Component {
     super();
     this.eventHandler = this.eventHandler.bind(this);
     this.searchHandler = this.searchHandler.bind(this);
+    this.categoryHandler = this.categoryHandler.bind(this);
     this.state = {
       products: undefined,
       productCategories: undefined,
       searchText: '',
+      category: '',
     };
   }
 
@@ -29,11 +31,17 @@ class Home extends React.Component {
   }
 
   async searchHandler() {
-    const { searchText } = this.state;
-    const productsData = await getProductsFromCategoryAndQuery(null, searchText);
+    const { searchText, category } = this.state;
+    const productsData = await getProductsFromCategoryAndQuery(category, searchText);
     this.setState({
       products: productsData.results,
     });
+  }
+
+  categoryHandler(id) {
+    this.setState({
+      category: id,
+    }, this.searchHandler);
   }
 
   eventHandler({ target }) {
@@ -43,7 +51,7 @@ class Home extends React.Component {
   }
 
   render() {
-    const { products, productCategories, searchText } = this.state;
+    const { products, productCategories, searchText, category } = this.state;
     return (
       <section>
         <Search
@@ -52,8 +60,11 @@ class Home extends React.Component {
           eventHandler={ this.eventHandler }
         />
         <MarketButton />
-        <ProductList products={ products } />
-        <ProductCategories productCategories={ productCategories } />
+        <ProductList products={ products } filter={ category } />
+        <ProductCategories
+          categoryHandler={ this.categoryHandler }
+          productCategories={ productCategories }
+        />
       </section>
     );
   }

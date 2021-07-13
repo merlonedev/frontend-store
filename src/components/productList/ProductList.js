@@ -5,10 +5,18 @@ import ProductCard from '../productCard/ProductCard';
 class ProductList extends React.Component {
   render() {
     const { products } = this.props;
-    if (products) {
+
+    if (products && products.length !== 0) {
       return (
         <section>
-          {products.map((e) => <ProductCard key={ e.title } product={ e } />)}
+          {
+            products.map((product) => (
+              <ProductCard
+                key={ product.id }
+                product={ product }
+              />
+            ))
+          }
         </section>
       );
     }

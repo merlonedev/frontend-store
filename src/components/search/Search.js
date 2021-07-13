@@ -8,11 +8,13 @@ class Search extends React.Component {
       <form>
         <label htmlFor="searchText">
           <input
+            id="searchText"
             data-testid="query-input"
             placeholder=""
             onChange={ eventHandler }
             name="searchText"
             value={ searchText }
+            type="text"
           />
         </label>
         <button onClick={ searchHandler } data-testid="query-button" type="button">
