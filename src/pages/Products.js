@@ -25,7 +25,6 @@ class Products extends Component {
 
 Products.propTypes = {
   productList: PropTypes.arrayOf(
-    PropTypes.array,
     PropTypes.object,
   ).isRequired,
 };
