@@ -42,8 +42,8 @@
 }
 
 .main {
-  display: flex;
   align-content: space-between;
+  display: flex;
   justify-content: space-between;
 }
 
