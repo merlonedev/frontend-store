@@ -18,7 +18,7 @@ class SearchBar extends Component {
     });
   }
 
-  async handleSubmit(e) {
+  handleSubmit(e) {
     e.preventDefault();
     const { callBack } = this.props;
     const { searchText } = this.state;
