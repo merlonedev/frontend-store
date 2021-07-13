@@ -13,7 +13,6 @@ export default class ProductPage extends Component {
       searchValue: '',
       list: [],
       showList: false,
-      selectedItems: {},
     };
 
     this.handleSearch = this.handleSearch.bind(this);
@@ -62,7 +61,7 @@ export default class ProductPage extends Component {
   }
 
   render() {
-    const { list, showList, selectedItems } = this.state;
+    const { list, showList } = this.state;
     return (
       <section>
         <div className="header">
@@ -74,7 +73,6 @@ export default class ProductPage extends Component {
             <button
               data-testid="shopping-cart-button"
               type="button"
-              cart={ selectedItems }
             >
               Carrinho
             </button>
