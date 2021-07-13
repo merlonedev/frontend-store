@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import SearchBar from '../components/SearchBar';
 import ButtonCart from '../components/ButtonCart';
 import ItemList from '../components/ItemList';
+import CategorieList from '../components/CategorieList';
 
 class HomePage extends Component {
   constructor() {
@@ -24,6 +25,7 @@ class HomePage extends Component {
         <SearchBar change={ this.stateSearch } />
         <ButtonCart />
         <ItemList input={ search } />
+        <CategorieList />
       </div>
     );
   }
