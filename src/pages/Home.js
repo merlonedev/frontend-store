@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import * as api from '../services/api';
 import Products from './Products';
 import CartButton from '../Components/CartButton';
@@ -42,6 +43,7 @@ class Home extends React.Component {
   }
 
   render() {
+    const { addToCart } = this.props;
     const { productList, categories } = this.state;
     return (
       <form>
@@ -62,8 +64,8 @@ class Home extends React.Component {
         >
           Clique Aqui
         </button>
-        <Products productList={ productList } />
         <CartButton />
+        <Products productList={ productList } addToCart={ addToCart } />
         <Category
           category={ categories }
           categoryAndQuery={ this.categorieAndQuery }
@@ -72,5 +74,9 @@ class Home extends React.Component {
     );
   }
 }
+
+Home.propTypes = {
+  addToCart: PropTypes.func.isRequired,
+};
 
 export default Home;

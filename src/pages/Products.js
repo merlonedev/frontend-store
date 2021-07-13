@@ -5,7 +5,7 @@ import Cardproduct from '../Components/ProductCard';
 
 class Products extends Component {
   render() {
-    const { productList } = this.props;
+    const { productList, addToCart } = this.props;
     if (productList.length === 0) {
       return <NotFound />;
     }
@@ -13,14 +13,22 @@ class Products extends Component {
     return (
       <div>
         { productList.map((product) => (
-          <Cardproduct
-            key={ product.id }
-            title={ product.title }
-            img={ product.thumbnail }
-            price={ product.price }
-            id={ product.id }
-            categoryId={ product.category_id }
-          />
+          <div key={ product.id }>
+            <Cardproduct
+              title={ product.title }
+              img={ product.thumbnail }
+              price={ product.price }
+              id={ product.id }
+              categoryId={ product.category_id }
+            />
+            <button
+              type="button"
+              onClick={ () => addToCart(product) }
+              data-testid="product-add-to-cart"
+            >
+              Adicionar ao Carrinho
+            </button>
+          </div>
         ))}
       </div>
     );
@@ -31,6 +39,7 @@ Products.propTypes = {
   productList: PropTypes.arrayOf(
     PropTypes.object,
   ).isRequired,
+  addToCart: PropTypes.func.isRequired,
 };
 
 export default Products;
