@@ -33,9 +33,10 @@ class SearchAndResults extends React.Component {
 
   filterByCategory({ target }) {
     const { value } = target;
-    const newProducts = this.state.productList.filter((product) => product.category_id === value);
+    const { productList } = this.state;
+    const newProducts = productList.filter((product) => product.category_id === value);
     this.setState({ productList: newProducts });
-    console.log(newProducts);
+    console.log(value);
   }
 
   render() {
@@ -59,8 +60,10 @@ class SearchAndResults extends React.Component {
         >
           Button
         </button>
-        <Products productList={ productList } />
-        <FilterCategories onClick={ this.filterByCategory } />
+        <div className="main">
+          <FilterCategories onClick={ this.filterByCategory } />
+          <Products productList={ productList } />
+        </div>
       </div>
     );
   }

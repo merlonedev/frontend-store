@@ -8,11 +8,11 @@ class Products extends React.Component {
       return <div>Nenhum Produto Foi Encontrado</div>;
     }
     return (
-      <div>
+      <div className="cards-div">
         { productList.map((item) => (
-          <div key={ item.id } data-testid="product">
-            <h1>{ item.title }</h1>
-            <img src={ item.thumbnail } alt={ item.title } />
+          <div key={ item.id } data-testid="product" className="card">
+            <p className="card-title">{ item.title }</p>
+            <img className="card-image" src={ item.thumbnail } alt={ item.title } />
             <p>{`R$: ${item.price}`}</p>
           </div>
         ))}

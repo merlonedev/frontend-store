@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import * as api from '../services/api';
 
 class FilterCategories extends React.Component {
@@ -26,23 +27,29 @@ class FilterCategories extends React.Component {
     const { categories } = this.state;
     const { onClick } = this.props;
     return (
-      <aside>
-        {
-          categories.map((categorie) => (
-            <button
-              onClick={ onClick }
-              type="button"
-              key={ categorie.id }
-              value={ categorie.id }
-              data-testid="category"
-            >
-              { categorie.name }
-            </button>
-          ))
-        }
-      </aside>
+      <div className="bloco-aside">
+        <aside className="aside">
+          {
+            categories.map((categorie) => (
+              <button
+                onClick={ onClick }
+                type="button"
+                key={ categorie.id }
+                value={ categorie.id }
+                data-testid="category"
+              >
+                { categorie.name }
+              </button>
+            ))
+          }
+        </aside>
+      </div>
     );
   }
 }
 
 export default FilterCategories;
+
+FilterCategories.propTypes = {
+  onClick: PropTypes.func.isRequired,
+};
