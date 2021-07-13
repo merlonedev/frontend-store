@@ -13,7 +13,7 @@ export default class ProductCard extends Component {
         data-testid="product"
       >
         <img src={ product.thumbnail } alt="" />
-        <h1>{ product.title }</h1>
+        <h1 data-testid="product-detail-link">{ product.title }</h1>
         <p>{ product.price }</p>
       </Link>
     );
@@ -26,5 +26,6 @@ ProductCard.propTypes = {
     title: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     id: PropTypes.string.isRequired,
+    category_id: PropTypes.string.isRequired,
   }).isRequired,
 };

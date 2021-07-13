@@ -8,8 +8,8 @@ export async function getCategories() {
   return categories;
 }
 
-export async function getProductsFromCategoryAndQuery(categoryId, query) {
-  const response = await fetch(`${urlCategorySelect}${categoryId}_ID&q=${query}`);
+export async function getProductsFromCategoryAndQuery(categoryId = 'any', query = 'any') {
+  const response = await fetch(`${urlCategorySelect}${categoryId}&q=${query}`);
   const products = await response.json();
   return products;
 }
