@@ -1,67 +1,36 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import * as api from '../services/api';
-
 class SearchResult extends React.Component {
-  constructor() {
-    super();
-
-    this.getProducts = this.getProducts.bind(this);
-
-    this.state = {
-      products: [],
-    };
-  }
-
-  componentDidMount() {
-    this.getProducts();
-  }
-
-  componentDidUpdate() {
-    this.getProducts();
-  }
-
-  async getProducts() {
-    const { getProductsFromCategoryAndQuery } = api;
-    const { textToSearch } = this.props;
-    try {
-      const allProducts = await getProductsFromCategoryAndQuery('MLB5672', textToSearch);
-      this.setState({
-        products: allProducts.results,
-      });
-    } catch {
-      return <p>Nenhum produto foi encontrado</p>;
-    }
-  }
-
   render() {
-    const { products } = this.state;
+    const { products } = this.props;
 
-    if (products.length === 0) {
-      return <p>Nenhum produto foi encontrado</p>;
+    if (products.length !== 0) {
+      return (
+        products.map((current) => (
+          <div key={ current.id } data-testid="product">
+            <img src={ current.thumbnail } alt="Product" />
+            <p>
+              { current.title }
+              Preço:
+              { current.price }
+            </p>
+          </div>
+        ))
+      );
     }
     return (
-      <div>
-        {
-          products.map((current) => (
-            <div key={ current.id }>
-              <img src={ current.thumbnail } alt="Product" />
-              <p>
-                { current.title }
-                Preço:
-                { current.price }
-              </p>
-            </div>
-          ))
-        }
-      </div>
+      <div data-testid="product"> </div>
     );
   }
 }
 
 SearchResult.propTypes = {
-  textToSearch: PropTypes.string.isRequired,
+  products: PropTypes.arrayOf(PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    thumbnail: PropTypes.string.isRequired,
+  }).isRequired).isRequired,
 };
 
 export default SearchResult;
