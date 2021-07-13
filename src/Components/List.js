@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class List extends React.Component {
   constructor(props) {
@@ -10,6 +11,8 @@ class List extends React.Component {
   }
 
   handleChange(change) {
+    const { textChange } = this.props;
+    textChange(change.target.value);
     this.setState({
       textInput: change.target.value,
     });
@@ -31,5 +34,9 @@ class List extends React.Component {
     );
   }
 }
+
+List.propTypes = {
+  textChange: PropTypes.func.isRequired,
+};
 
 export default List;
