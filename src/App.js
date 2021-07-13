@@ -66,7 +66,13 @@ export default class App extends Component {
     return (
       <BrowserRouter>
         <Switch>
-          <Route exact path="/productdetails/:id" component={ ProductDetails } />
+          <Route
+            exact
+            path="/productdetails/:id"
+            render={ (props) => (
+              <ProductDetails { ...props } callback={ this.addToCart } />
+            ) }
+          />
           <Route
             exact
             path="/cart"
