@@ -26,7 +26,7 @@ class Home extends React.Component {
 
   async componentDidMount() {
     this.categories();
-    this.products();
+    this.products(undefined, 'QUERY');
   }
 
   handleChange({ target }) {
@@ -68,9 +68,9 @@ class Home extends React.Component {
 
   async products(categoryId, query) {
     const products = await Api.getProductsFromCategoryAndQuery(categoryId, query);
-    // console.log(products);
+    console.log(products);
     this.setState({
-      products: products.results,
+      products,
     });
   }
 

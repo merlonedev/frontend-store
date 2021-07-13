@@ -6,7 +6,7 @@ class CategoryItem extends React.Component {
     const { category } = this.props;
     return (
       <div
-        className={ category.id }
+        className={ `categoryItem ${category.id}` }
         data-testid="category"
       >
         { `${category.name}` }
