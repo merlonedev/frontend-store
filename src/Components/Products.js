@@ -1,15 +1,15 @@
 import React from 'react';
-import NotFound from './NotFound';
+import PropTypes from 'prop-types';
 
-class Products extends Components {
+class Products extends React.Component {
   render() {
     const { productList } = this.props;
     if (productList.length === 0) {
-      return <NotFound />;
+      return <div>Não Foi Encontrado o Produto</div>;
     }
     return (
       <div>
-        { poroductList.map((item) => (
+        { productList.map((item) => (
           <div key={ item.id } data-testid="product">
             <h1>{ item.title }</h1>
             <img src={ item.thumbnail } alt={ item.title } />
@@ -20,5 +20,12 @@ class Products extends Components {
     );
   }
 }
+
+Products.propTypes = {
+  productList: PropTypes.arrayOf(
+    PropTypes.array,
+    PropTypes.object,
+  ).isRequired,
+};
 
 export default Products;

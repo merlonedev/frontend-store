@@ -6,21 +6,21 @@ class SearchAndResults extends React.Component {
   constructor() {
     super();
     this.state = {
-      search: '',
       categoryId: '',
       productList: [],
+      search: '',
     };
-    this.inputList = this.inputList.bind(this);
-    this.requestProducts = this.requestProducts.bind(this);
+    this.getInput = this.getInput.bind(this);
+    this.getProducts = this.getProducts.bind(this);
   }
 
-  inputList({ target }) {
+  getInput({ target }) {
     this.setState({
       search: target.value,
     });
   }
 
-  requestProducts() {
+  getProducts() {
     const { categoryId, search } = this.state;
     api.getProductsFromCategoryAndQuery(categoryId, search).then(({ results }) => (
       this.setState({
@@ -31,26 +31,29 @@ class SearchAndResults extends React.Component {
 
   render() {
     const { productList } = this.state;
+
     return (
-      <form>
-        <p
-          data-testid="home-initial-message"
-        />
+      <div>
+
         <input
           type="text"
           data-testid="query-input"
-          onChange={ this.inputList }
+          onChange={ this.getInput }
+        />
+        <p
+          data-testid="home-initial-message"
         />
         <button
           type="button"
           data-testid="query-button"
-          onClick={ this.requestProducts }
+          onClick={ this.getProducts }
         >
           Button
         </button>
         <Products productList={ productList } />
-      </form>
+      </div>
     );
   }
 }
+
 export default SearchAndResults;
