@@ -48,7 +48,7 @@ export default class CartItems extends Component {
     const { items } = this.state;
     const itemToDecrease = target.parentElement.id;
     const itemIndex = items.findIndex(({ id }) => id === itemToDecrease);
-    if (items[itemIndex].qty < 2) return;
+    if (items[itemIndex].qty < 1) return;
     this.setState({
       items: [
         ...items.slice(0, itemIndex),
