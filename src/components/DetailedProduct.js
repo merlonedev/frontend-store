@@ -60,6 +60,7 @@ class DetailedProduct extends React.Component {
 
   render() {
     const { product, aval, avaliations } = this.state;
+    let allElements = [];
     const {
       id,
       title,
@@ -72,7 +73,12 @@ class DetailedProduct extends React.Component {
       <section>
         <header>
           <Link to="/">Home</Link>
-          <Link to="/shopping-cart">Carrinho de Compras</Link>
+          <Link
+            to="/shopping-cart"
+            data-testid="shopping-cart-button"
+          >
+            Carrinho de Compras
+          </Link>
         </header>
         <main data-testid="product">
           {!title
@@ -92,6 +98,19 @@ class DetailedProduct extends React.Component {
                       </li>)) }
                   </ul>
                 </div>
+                <button
+                  type="button"
+                  data-testid="product-detail-add-to-cart"
+                  onClick={ (
+                    () => {
+                      const cartElements = { id, title, price };
+                      allElements = [...allElements, cartElements];
+                      return sessionStorage
+                        .setItem('addCart', JSON.stringify(allElements));
+                    }) }
+                >
+                  Adicionar ao Carrinho
+                </button>
                 <CommentForm
                   aval={ aval }
                   handleChangeAval={ this.handleChangeAval }
