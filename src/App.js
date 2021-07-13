@@ -16,24 +16,28 @@ export default class App extends Component {
       categories: [],
       queryInput: '',
       category: '',
+      cartItems: [],
     };
     this.setProducts = this.setProducts.bind(this);
     this.callback = this.callback.bind(this);
     this.callbackCategory = this.callbackCategory.bind(this);
+    this.addToCart = this.addToCart.bind(this);
   }
 
   componentDidMount() {
-    API.getCategories()
-      .then((results) => {
-        this.setState({
-          categories: results,
-        });
+    API.getCategories().then((results) => {
+      this.setState({
+        categories: results,
       });
+    });
   }
 
   async setProducts() {
     const { queryInput, category } = this.state;
-    const results = await API.getProductsFromCategoryAndQuery(category, queryInput);
+    const results = await API.getProductsFromCategoryAndQuery(
+      category,
+      queryInput
+    );
     this.setState({
       products: results.results,
     });
@@ -43,17 +47,26 @@ export default class App extends Component {
     this.setState({ queryInput: input }, () => this.setProducts());
   }
 
+  addToCart(id) {
+    const items = [...this.state.cartItems];
+    items.push(id);
+    this.setState({
+      cartItems: items,
+    });
+  }
+
   callbackCategory({ target }) {
     this.setState({ category: target.value }, () => this.setProducts());
   }
 
+  // prettier-ignore
   render() {
-    const { categories, products } = this.state;
+    const { categories, products, cartItems } = this.state;
     return (
       <BrowserRouter>
         <Switch>
           <Route exact path="/productdetails/:id" component={ ProductDetails } />
-          <Route exact path="/cart" component={ ShoppingCart } />
+          <Route exact path="/cart" render={ () => (<ShoppingCart cartItems={ cartItems } />)} />
           <Route
             exact
             path="/"
@@ -65,7 +78,7 @@ export default class App extends Component {
                   categories={ categories }
                   callback={ this.callbackCategory }
                 />
-                <ProductsList products={ products } />
+                <ProductsList products={ products } callback={ this.addToCart } />
               </div>
             ) }
           />
