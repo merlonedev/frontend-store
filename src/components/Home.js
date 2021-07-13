@@ -12,7 +12,6 @@ class Home extends Component {
           <Link to="/ShoppingCart" data-testid="shopping-cart-button">
             Carrinho
           </Link>
-          <Category />
         </header>
         <Category />
       </div>
