@@ -18,6 +18,7 @@ class Home extends React.Component {
     this.getSearch = this.getSearch.bind(this);
     this.doSearch = this.doSearch.bind(this);
     this.handleJonas = this.handleJonas.bind(this);
+    this.getFilterId = this.getFilterId.bind(this);
   }
 
   componentDidMount() {
@@ -31,8 +32,14 @@ class Home extends React.Component {
     });
   }
 
-  getFilterId(filter) {
-    console.log(filter, 'cliquei');
+  async getFilterId(event) {
+    const { getProductsFromCategoryAndQuery } = api;
+    const categoryId = event.target.value;
+    const allProducts = await getProductsFromCategoryAndQuery(categoryId, '');
+    this.setState({
+      products: allProducts.results,
+      categorysId: categoryId,
+    });
   }
 
   getSearch(change) {
@@ -43,9 +50,9 @@ class Home extends React.Component {
 
   async doSearch() {
     const { getProductsFromCategoryAndQuery } = api;
-    const { input } = this.state;
+    const { input, categorysId } = this.state;
     try {
-      const allProducts = await getProductsFromCategoryAndQuery('', input);
+      const allProducts = await getProductsFromCategoryAndQuery(categorysId, input);
       this.setState({
         products: allProducts.results,
       });
