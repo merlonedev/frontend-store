@@ -16,6 +16,7 @@ class ShoppingCart extends React.Component {
           <CartItems cartItems={ cartItems } />
         )}
         <p>
+          <Link to="/checkout">Checkout</Link>
           <Link to="/">VOLTAR</Link>
         </p>
       </section>
