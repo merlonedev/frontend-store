@@ -16,7 +16,7 @@ class ProductCard extends Component {
             <img src={ item.thumbnail } alt={ item.title } />
             <p>{ item.price }</p>
             <Link
-              to={ `/detalhes/${item.title}/${item.id}` }
+              to={ `/detalhes/${encodeURIComponent(item.title)}/${item.id}` }
               data-testid="product-detail-link"
             >
               Detalhes do produto
