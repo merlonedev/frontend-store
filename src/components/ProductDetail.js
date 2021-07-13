@@ -21,12 +21,10 @@ class ProductDetail extends Component {
   async getProductDetail() {
     const {
       match: {
-        params: { id },
+        params: { id, categoryID },
       },
-      productTitle,
     } = this.props;
-    const productList = await getProductsFromCategoryAndQuery('', productTitle);
-    console.log(productList);
+    const productList = await getProductsFromCategoryAndQuery(categoryID, '');
     const product = productList.results.find((prod) => prod.id === id);
     this.setState({
       product,
@@ -53,9 +51,9 @@ ProductDetail.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string.isRequired,
+      categoryID: PropTypes.string,
     }).isRequired,
   }).isRequired,
-  productTitle: PropTypes.string.isRequired,
 };
 
 export default ProductDetail;
