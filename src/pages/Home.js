@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { getProductsFromCategoryAndQuery } from '../services/api';
+import { getCategories, getProductsFromCategoryAndQuery } from '../services/api';
+import CategoryAside from '../components/CategoryAside';
+
 import ProductCard from '../components/ProductCard';
 
 const initialState = {
@@ -8,20 +10,30 @@ const initialState = {
   queryText: '',
   products: [],
   didSearch: false,
+  categories: [],
 };
-
 class Home extends React.Component {
   constructor() {
     super();
     this.handleChange = this.handleChange.bind(this);
     this.resulting = this.resulting.bind(this);
+    this.categoryApi = this.categoryApi.bind(this);
 
     this.state = initialState;
+  }
+
+  componentDidMount() {
+    this.categoryApi();
   }
 
   handleChange({ target }) {
     const { value, name } = target;
     this.setState({ [name]: value });
+  }
+
+  async categoryApi() {
+    const newCagories = await getCategories();
+    this.setState({ categories: newCagories });
   }
 
   async resulting() {
@@ -38,6 +50,7 @@ class Home extends React.Component {
       queryText,
       products,
       didSearch,
+      categories,
     } = this.state;
 
     const initialMsg = (
@@ -72,6 +85,7 @@ class Home extends React.Component {
         >
           Carrinho de Compras
         </Link>
+        <CategoryAside categoryObj={ categories } />
         { (products.length > 0)
           ? products.map(({ id, title, thumbnail, price }) => (
             <ProductCard
