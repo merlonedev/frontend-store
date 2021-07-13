@@ -1,9 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+
 import { getCategories, getProductsFromCategoryAndQuery } from '../services/api';
 import CategoryAside from '../components/CategoryAside';
+import ProductList from '../components/ProductList';
+import Input from '../components/Input';
 
-import ProductCard from '../components/ProductCard';
+const initialMsg = (
+  <p
+    data-testid="home-initial-message"
+  >
+    Digite algum termo de pesquisa ou escolha uma categoria.
+  </p>
+);
+const notFoundMsg = <p>Nenhum produto foi encontrado</p>;
 
 const initialState = {
   categoryId: '',
@@ -53,48 +63,30 @@ class Home extends React.Component {
       categories,
     } = this.state;
 
-    const initialMsg = (
-      <p
-        data-testid="home-initial-message"
-      >
-        Digite algum termo de pesquisa ou escolha uma categoria.
-      </p>
-    );
-    const notFoundMsg = <p>Nenhum produto foi encontrado</p>;
     const msg = didSearch ? notFoundMsg : initialMsg;
 
     return (
       <section>
-        <input
+        <Input
+          id="query-input"
+          type="text"
           name="queryText"
           value={ queryText }
-          onChange={ this.handleChange }
-          data-testid="query-input"
-          type="text"
+          handleChange={ this.handleChange }
         />
-        <button
-          type="button"
-          onClick={ this.resulting }
-          data-testid="query-button"
-        >
+        <button type="button" onClick={ this.resulting } data-testid="query-button">
           Pesquisar
         </button>
-        <Link
-          to="/shopping-cart"
-          data-testid="shopping-cart-button"
-        >
+        <Link to="/shopping-cart" data-testid="shopping-cart-button">
           Carrinho de Compras
         </Link>
         <CategoryAside categoryObj={ categories } />
         { (products.length > 0)
-          ? products.map(({ id, title, thumbnail, price }) => (
-            <ProductCard
-              key={ id }
-              title={ title }
-              thumbnail={ thumbnail }
-              price={ price }
-            />))
-          : msg }
+          ? (
+            <ul>
+              <ProductList products={ products } />
+            </ul>
+          ) : msg }
       </section>
     );
   }
