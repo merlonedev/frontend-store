@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import SearchBar from './Components/SearchBar';
+import SearchAndResults from './Components/SearchAndResults';
 import FilterCategories from './Components/FilterCategories';
 import ShoppingCartButton from './Components/ShoppingCartButton';
 import ShoppingCart from './Components/ShoppingCart';
@@ -13,7 +13,7 @@ function App() {
         <ShoppingCartButton />
         <Switch>
           <Route path="/shopping-cart" component={ ShoppingCart } />
-          <Route exact path="/" component={ SearchBar } />
+          <Route exact path="/" component={ SearchAndResults } />
         </Switch>
         <FilterCategories />
       </BrowserRouter>
