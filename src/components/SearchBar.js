@@ -1,25 +1,63 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import ProductCard from './ProductsCard';
+import * as fetchApi from '../services/api';
 
 class SearchBar extends Component {
+  constructor() {
+    super();
+    this.state = {
+      search: '',
+      id: '',
+      product: [],
+    };
+
+    this.handlerChange = this.handlerChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handlerChange({ target }) {
+    this.setState({
+      search: target.value,
+      id: target.value,
+    });
+  }
+
+  handleSubmit() {
+    const { search, id } = this.state;
+    fetchApi.getProductsFromCategoryAndQuery(search, id)
+      .then(({ results }) => (
+        this.setState({
+          product: results,
+        })
+      ));
+  }
+
   render() {
-    const { product } = this.props;
+    const { product } = this.state;
     return (
       <div>
-        { product.map((products) => (
-          <div key={ products.id } data-testid="product">
-            <h3>{ products.title }</h3>
-            <img src={ products.image } alt={ products.title } />
-            <p>{`R$: ${products.value}`}</p>
-          </div>
-        ))}
+        <input
+          type="text"
+          placeholder="Buscar produto"
+          data-testid="query-input"
+          onChange={ this.handlerChange }
+        />
+        <p data-testid="home-initial-message">
+          Digite algum termo de pesquisa ou escolha uma categoria.
+        </p>
+        <button
+          name="button"
+          data-testid="query-button"
+          onClick={ this.handleSubmit }
+          type="button"
+        >
+          Search
+        </button>
+
+        <ProductCard product={ product } />
       </div>
     );
   }
 }
-
-SearchBar.propTypes = {
-  product: PropTypes.array.isRequired,
-}.isRequired;
 
 export default SearchBar;
