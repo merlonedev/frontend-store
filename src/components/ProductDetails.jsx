@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 export default class ProductDetails extends Component {
   constructor(props) {
@@ -9,6 +10,7 @@ export default class ProductDetails extends Component {
       id,
       title: '',
       price: '',
+      pictures: {},
     };
     this.getProductFromId = this.getProductFromId.bind(this);
   }
@@ -25,17 +27,21 @@ export default class ProductDetails extends Component {
     this.setState({
       title: resultRequest.title,
       price: resultRequest.price,
+      pictures: resultRequest.pictures[0],
     });
   }
 
   render() {
-    const { title, price } = this.state;
+    const { title, price, pictures } = this.state;
     return (
       <div>
+        <img src={ pictures.url } alt="Imagem do Produto" />
         <h1 data-testid="product-detail-name">
           {title}
         </h1>
         <p>{price}</p>
+        <Link to="/cart" data-testid="shopping-cart-button">Carrinho</Link>
+        <Link to="/">Voltar</Link>
       </div>
     );
   }
