@@ -57,9 +57,10 @@
 }
 
 .categoryList {
-  padding: 0px 10px;
-  min-width: 220px;
   display: flex;
+  min-width: 220px;
+  padding-left: 10px;
+  padding-right: 10px;
   flex-flow: column wrap;
 }
 
@@ -69,8 +70,8 @@
 }
 
 .categoryItem:hover {
-  border: 1px solid #ccc;
   background-color: #333;
+  border: 1px solid #ccc;
   color: #ccc;
   cursor: pointer;
 }
