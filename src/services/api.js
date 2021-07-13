@@ -10,7 +10,7 @@ export async function getProductsFromCategoryAndQuery(categoryId, query) {
   let requestApi;
   let categories;
   if (categoryId === undefined) {
-    requestApi = await fetch('https://api.mercadolibre.com/sites/MLB/search?q=$QUERY');
+    requestApi = await fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${query}`);
     categories = await requestApi.json();
     return categories;
   }

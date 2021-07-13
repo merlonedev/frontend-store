@@ -9,7 +9,7 @@ class ProductItem extends React.Component {
         className={ `productItem ${product.id}` }
         data-testid="product"
       >
-        <h3>{ `Título: ${product.title}` }</h3>
+        <h3>{ `${product.title}` }</h3>
         <img
           className="thumbnail"
           src={ product.thumbnail }
@@ -22,7 +22,7 @@ class ProductItem extends React.Component {
 }
 
 ProductItem.propTypes = {
-  product: PropTypes.objectOf(PropTypes.string).isRequired,
+  product: PropTypes.objectOf(Object).isRequired,
 };
 
 export default ProductItem;

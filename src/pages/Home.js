@@ -11,6 +11,7 @@ class Home extends React.Component {
     super();
 
     this.state = ({
+      searchBar: '',
       categories: undefined,
       products: undefined,
     });
@@ -18,6 +19,9 @@ class Home extends React.Component {
     this.categories = this.categories.bind(this);
     this.callCategoryList = this.callCategoryList.bind(this);
     this.callProductList = this.callProductList.bind(this);
+    this.filterProduct = this.filterProduct.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   async componentDidMount() {
@@ -25,11 +29,20 @@ class Home extends React.Component {
     this.products();
   }
 
-  async categories() {
-    const categories = await Api.getCategories();
+  handleChange({ target }) {
+    const { name, value } = target;
     this.setState({
-      categories,
+      [name]: value,
     });
+  }
+
+  handleClick() {
+    const { searchBar } = this.state;
+    if (searchBar !== '') {
+      this.products(undefined, searchBar);
+      return;
+    }
+    this.products();
   }
 
   callCategoryList() {
@@ -43,16 +56,43 @@ class Home extends React.Component {
     }
   }
 
-  async products() {
-    const products = await Api.getProductsFromCategoryAndQuery();
+  filterProduct(products) {
+    const { searchBar } = this.state;
+    const inputText = searchBar.toLowerCase();
+    return products
+      .filter((product) => (
+        product.title.toLowerCase().includes(inputText)
+        || product.id.toLowerCase().includes(inputText)
+      ));
+  }
+
+  async products(categoryId, query) {
+    const products = await Api.getProductsFromCategoryAndQuery(categoryId, query);
     // console.log(products);
     this.setState({
       products: products.results,
     });
   }
 
+  async categories() {
+    const categories = await Api.getCategories();
+    this.setState({
+      categories,
+    });
+  }
+
+  callFilteredProducts() {
+    const { products } = this.state;
+    return (
+      <ProductList
+        products={ this.filterProduct(products) }
+      />
+    );
+  }
+
   callProductList() {
     const { products } = this.state;
+    // console.log(products);
     if (products !== undefined) {
       return (
         <ProductList
@@ -64,17 +104,34 @@ class Home extends React.Component {
 
   render() {
     const { categories, products } = this.state;
+    const { searchBar } = this.state;
     return (
-      <section className="main">
-        <input
-          type="text"
-        />
+      <section>
+        <form>
+          <input
+            data-testid="query-input"
+            className="searchBar"
+            type="text"
+            name="searchBar"
+            value={ searchBar }
+            onChange={ this.handleChange }
+          />
+          <button
+            data-testid="query-button"
+            type="button"
+            onClick={ this.handleClick }
+          >
+            Pesquisar
+          </button>
+        </form>
         <h2 data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
         </h2>
         <Link data-testid="shopping-cart-button" to="/shopping-cart">Carrinho</Link>
-        { categories === undefined ? <Loading /> : this.callCategoryList() }
-        { products === undefined ? <Loading /> : this.callProductList() }
+        <section className="main">
+          { categories === undefined ? <Loading /> : this.callCategoryList() }
+          { products === undefined ? <Loading /> : this.callProductList() }
+        </section>
       </section>
     );
   }

@@ -41,17 +41,32 @@
   }
 }
 
+.main {
+  display: flex;
+  align-content: space-between;
+  justify-content: space-between;
+}
+
+.searchBar {
+  display: block;
+}
+
 .productList {
   display: flex;
   flex-flow: row wrap;
 }
 
+.categoryList {
+  display: flex;
+  flex-flow: column wrap;
+}
+
 .productItem {
-  width: 250px;
-  padding: 20px;
   border: 1px solid #333;
+  padding: 20px;
+  width: 250px;
 }
 
 .thumbnail {
-  width: 100%;  
+  width: 100%;
 }
