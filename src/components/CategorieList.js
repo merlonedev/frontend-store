@@ -21,7 +21,7 @@ class CategorieList extends Component {
     return (
       <div>
         <label data-testid="category" htmlFor="none">
-          <input id="none" type="radio" name="t" onClick={ () => onClick('') } checked />
+          <input id="none" type="radio" name="t" onClick={ () => onClick('') } />
           Sem Categoria
         </label>
         {categorias.map((i) => (
