@@ -13,13 +13,12 @@ export default class ProductPage extends Component {
       searchValue: '',
       list: [],
       showList: false,
-      category: '',
     };
 
     this.handleSearch = this.handleSearch.bind(this);
     this.handleSearchClick = this.handleSearchClick.bind(this);
+    this.handleCategoryClick = this.handleCategoryClick.bind(this);
     this.noList = this.noList.bind(this);
-    this.categoryRender = this.categoryRender.bind(this);
   }
 
   handleSearch(e) {
@@ -35,6 +34,16 @@ export default class ProductPage extends Component {
     });
   }
 
+  handleCategoryClick(event) {
+    const category = event.target.parentNode.id;
+    api.getProductsFromCategoryAndQuery(category, '').then((list) => {
+      this.setState({
+        list: list.results,
+        showList: true,
+      });
+    });
+  }
+
   noList() {
     return (
       <p data-testid="home-initial-message">
@@ -43,29 +52,8 @@ export default class ProductPage extends Component {
     );
   }
 
-  categoryRender() {
-    const { category } = this.state;
-    const { match } = this.props;
-    const { cat } = match.params;
-    console.log('1');
-    if (category !== cat) {
-      console.log(cat);
-      if (cat) {
-        api.getProductsFromCategoryAndQuery(cat, '').then((list) => {
-          this.setState({
-            list: list.results,
-            showList: true,
-            category: cat,
-          });
-          console.log(list);
-        });
-      }
-    }
-  }
-
   render() {
     const { list, showList } = this.state;
-    this.categoryRender();
     return (
       <section>
         <div className="header">
@@ -79,7 +67,9 @@ export default class ProductPage extends Component {
         </div>
         <section className="main">
           <div className="category">
-            <CategoriesBar />
+            <CategoriesBar
+              onCategoryClick={ this.handleCategoryClick }
+            />
           </div>
           <div>
             { !showList && this.noList() }

@@ -1,6 +1,7 @@
 import React from 'react';
-import { getCategories } from '../services/api';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { getCategories } from '../services/api';
 
 export default class CategoriesBar extends React.Component {
   constructor() {
@@ -27,13 +28,19 @@ export default class CategoriesBar extends React.Component {
   }
 
   renderLi(category) {
+    const { onCategoryClick } = this.props;
     return (
       <li
         key={ category.id }
-        data-testid="category"
         id={ category.id }
       >
-        <Link to={ `/${category.id}` }>{ category.name }</Link>
+        <Link
+          to="/"
+          data-testid="category"
+          onClick={ onCategoryClick }
+        >
+          { category.name }
+        </Link>
       </li>
     );
   }
@@ -47,3 +54,7 @@ export default class CategoriesBar extends React.Component {
     );
   }
 }
+
+CategoriesBar.propTypes = {
+  onCategoryClick: PropTypes.func.isRequired,
+};
