@@ -1,15 +1,28 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 export default class ProductCard extends Component {
+  handleCardClick = (product) => {
+    // evt.preventDefault();
+    const item = JSON.stringify(product);
+    localStorage.setItem('product', item);
+  }
+
   render() {
     const { product, onProductClick } = this.props;
 
     return (
-      <section className="product-card" data-testid="product" id={ product.id }>
-        <img src={ product.thumbnail } alt="" />
-        <h1>{ product.title }</h1>
-        <p>{ product.price }</p>
+      <div className="product-container" data-testid="product" id={ product.id }>
+        <Link
+          to={ `/product/${product.id}` }
+          onClick={ () => this.handleCardClick(product) }
+          className="product-card"
+        >
+          <img src={ product.thumbnail } alt="" />
+          <h1 data-testid="product-detail-link">{ product.title }</h1>
+          <p>{ product.price }</p>
+        </Link>
         <button
           type="button"
           onClick={ () => onProductClick(product) }
@@ -17,7 +30,7 @@ export default class ProductCard extends Component {
         >
           COMPRAR
         </button>
-      </section>
+      </div>
     );
   }
 }
