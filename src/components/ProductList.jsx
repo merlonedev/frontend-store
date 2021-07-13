@@ -45,6 +45,18 @@ class ProductList extends React.Component {
     });
   }
 
+  addToCart(e, stateProduct) {
+    const products = JSON.parse(localStorage.getItem('products')) || [];
+    stateProduct.quantity = 1;
+    if (!products.some((product) => product.id === stateProduct.id)) {
+      products.push(stateProduct);
+    } else {
+      const currentIndex = products.map((product) => product.id).indexOf(stateProduct.id);
+      products[currentIndex].quantity += 1;
+    }
+    localStorage.setItem('products', JSON.stringify(products));
+  }
+
   async fetchProducts() {
     const { category, searchValue } = this.state;
     const result = await Api.getProductsFromCategoryAndQuery(category, searchValue);
@@ -107,6 +119,7 @@ class ProductList extends React.Component {
                 productId={ product.id }
                 price={ product.price }
                 thumbnail={ product.thumbnail }
+                addToCart={ (event) => this.addToCart(event, product) }
               />))
             }
           </section>

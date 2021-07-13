@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 class CartProduct extends React.Component {
   render() {
+    const localStorageProducts = JSON.parse(localStorage.getItem('products')) || [];
     return (
       <div>
         <Link to="/" data-testid="shopping-cart-button">
@@ -10,6 +11,17 @@ class CartProduct extends React.Component {
         </Link>
         <h1>Carrinho de Compras</h1>
         <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
+        {localStorageProducts.map((product, index) => (
+          <div key={ index }>
+            <p
+              data-testid="shopping-cart-product-name"
+            >
+              {product.title}
+            </p>
+            <span data-testid="shopping-cart-product-quantity">
+              { product.quantity}
+            </span>
+          </div>))}
       </div>
     );
   }

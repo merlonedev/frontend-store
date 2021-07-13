@@ -4,29 +4,36 @@ import PropTypes from 'prop-types';
 
 class Product extends React.Component {
   render() {
-    const { title, thumbnail, price, id, productId } = this.props;
+    const { title, thumbnail, price, id, productId, addToCart } = this.props;
     return (
       <div data-testid="product" className="product">
         <h4>{ title }</h4>
-        <img src={ thumbnail } alt={ title } />
-        <p>{ `R$ ${price.toFixed(2)}` }</p>
         <Link
           data-testid="product-detail-link"
           to={ `/product/${id}/${productId}` }
         >
-          Detalhes do Produto
+          <img src={ thumbnail } alt={ title } />
         </Link>
+        <p>{ `R$ ${price.toFixed(2)}` }</p>
+        <button
+          data-testid="product-add-to-cart"
+          type="button"
+          onClick={ addToCart }
+        >
+          Adicionar ao Carrinho
+        </button>
       </div>
     );
   }
 }
 
 Product.propTypes = {
-  title: PropTypes.string.isRequired,
-  thumbnail: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  id: PropTypes.string.isRequired,
-  productId: PropTypes.string.isRequired,
-};
+  title: PropTypes.string,
+  thumbnail: PropTypes.string,
+  price: PropTypes.number,
+  id: PropTypes.string,
+  productId: PropTypes.string,
+  addToCart: PropTypes.func,
+}.isRequired;
 
 export default Product;
