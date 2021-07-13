@@ -10,8 +10,8 @@ class App extends Component {
     return (
       <BrowserRouter>
         <Category />
-        <Route exact path="/" component={ ProductList } />
         <Route exact path="/ShoppingCart" component={ ShoppingCart } />
+        <Route exact path="/" component={ ProductList } />
       </BrowserRouter>
     );
   }
