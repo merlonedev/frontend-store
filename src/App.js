@@ -9,14 +9,13 @@ import ShoppingCart from './Components/ShoppingCart';
 function App() {
   return (
     <div>
-      <SearchBar />
-      <FilterCategories />
       <BrowserRouter>
         <ShoppingCartButton />
         <Switch>
           <Route path="/shopping-cart" component={ ShoppingCart } />
           <Route exact path="/" component={ SearchBar } />
         </Switch>
+        <FilterCategories />
       </BrowserRouter>
     </div>
   );
