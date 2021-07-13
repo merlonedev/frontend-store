@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Route, Link, Switch } from 'react-router-dom';
 import SearchBar from './components/SearchBar';
 import ShoppingCart from './components/ShoppingCart';
 import CategoriesBar from './components/CategoriesBar';
 import ProductsList from './components/ProductsList';
+import ProductDetails from './components/ProductDetails';
 import * as API from './services/api';
 import './App.css';
 
@@ -50,12 +51,25 @@ export default class App extends Component {
     const { categories, products } = this.state;
     return (
       <BrowserRouter>
-        <SearchBar callback={ this.callback } />
-        <Link to="/cart" data-testid="shopping-cart-button">Carrinho</Link>
-        <Route exact path="/" />
-        <Route exact path="/cart" component={ ShoppingCart } />
-        <CategoriesBar categories={ categories } callback={ this.callbackCategory } />
-        <ProductsList products={ products } />
+        <Switch>
+          <Route exact path="/productdetails/:id" component={ ProductDetails } />
+          <Route exact path="/cart" component={ ShoppingCart } />
+          <Route
+            exact
+            path="/"
+            render={ () => (
+              <div>
+                <SearchBar callback={ this.callback } />
+                <Link to="/cart" data-testid="shopping-cart-button">Carrinho</Link>
+                <CategoriesBar
+                  categories={ categories }
+                  callback={ this.callbackCategory }
+                />
+                <ProductsList products={ products } />
+              </div>
+            ) }
+          />
+        </Switch>
       </BrowserRouter>
     );
   }
