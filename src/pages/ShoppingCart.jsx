@@ -29,6 +29,7 @@ export default class ShoppingCart extends Component {
       <div>
         { cart ? this.listCartItem(cart) : this.noCartItem() }
         <Link data-testid="shopping-cart-button" to="/">Voltar</Link>
+        <Link to="/checkout">Finalizar Compra</Link>
       </div>
     );
   }
