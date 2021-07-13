@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { getCategories } from '../services/api';
 
 class Categories extends React.Component {
@@ -27,21 +28,29 @@ class Categories extends React.Component {
   // pega o item categories setado no estado e renderiza cada um dos itens.name dentro de uma li.
   render() {
     const { categories } = this.state;
+    const { handleClick } = this.props;
     return (
-      <ul>
+      <>
         {
           categories.map((item) => (
-            <li
+            <button
+              type="button"
               data-testid="category"
               key={ item }
+              value={ item }
+              onClick={ (e) => handleClick(e) }
             >
               {item}
-            </li>
+            </button>
           ))
         }
-      </ul>
+      </>
     );
   }
 }
+
+Categories.propTypes = {
+  handleClick: PropTypes.func.isRequired,
+};
 
 export default Categories;

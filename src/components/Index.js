@@ -14,12 +14,17 @@ class Index extends React.Component {
     };
     this.handleInput = this.handleInput.bind(this);
     this.handleButton = this.handleButton.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleInput({ target }) {
     this.setState({
       searchBar: target.value,
     });
+  }
+
+  handleClick({ target }) {
+    this.handleButton(target.value);
   }
 
   // funcao que captura os produtos por categoria
@@ -57,7 +62,7 @@ class Index extends React.Component {
         {/* Criado um link para que ao ser clicado redirecionar
         para o component ShoppingCart */}
         <Link data-testid="shopping-cart-button" to="/cart">Carrinho</Link>
-        <Categories />
+        <Categories handleClick={ this.handleClick } />
         <div>
           {items.length < 1
             ? <h3>Nenhum produto foi encontrado</h3>
