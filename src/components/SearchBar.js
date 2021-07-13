@@ -10,7 +10,7 @@ class SearchBar extends Component {
           Digite algum termo de pesquisa ou escolha uma categoria.
         </label>
         <button type="button">
-          <Link data-testid="shopping-cart-button" to="/buyCart">carrinho</Link>
+          <Link data-testid="shopping-cart-button" to="/ShoppingCart">carrinho</Link>
         </button>
       </div>
     );

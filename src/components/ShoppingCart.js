@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class BuyCart extends Component {
+class ShoppingCart extends Component {
   render() {
     return (
       <span data-testid="shopping-cart-empty-message">Seu carrinho está vazio</span>
@@ -8,4 +8,4 @@ class BuyCart extends Component {
   }
 }
 
-export default BuyCart;
+export default ShoppingCart;
