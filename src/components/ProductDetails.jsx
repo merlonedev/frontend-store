@@ -13,11 +13,18 @@ export default class ProductDetails extends Component {
       pictures: {},
     };
     this.getProductFromId = this.getProductFromId.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
     const { id } = this.state;
     this.getProductFromId(id);
+  }
+
+  handleClick() {
+    const { callback } = this.props;
+    const { id } = this.state;
+    callback(id);
   }
 
   async getProductFromId(id) {
@@ -42,15 +49,27 @@ export default class ProductDetails extends Component {
         <p>{price}</p>
         <Link to="/cart" data-testid="shopping-cart-button">Carrinho</Link>
         <Link to="/">Voltar</Link>
+        <button
+          type="button"
+          data-testid="product-detail-add-to-cart"
+          onClick={ this.handleClick }
+        >
+          Adicionar ao carrinho
+        </button>
       </div>
     );
   }
 }
 
+ProductDetails.defaultProps = {
+  id: undefined,
+};
+
 ProductDetails.propTypes = {
   match: PropTypes.shape({
-    params: PropTypes.arrayOf(PropTypes.shape({
+    params: PropTypes.shape({
       id: PropTypes.string.isRequired,
-    }).isRequired) }).isRequired,
-  id: PropTypes.string.isRequired,
+    }).isRequired }).isRequired,
+  id: PropTypes.string,
+  callback: PropTypes.func.isRequired,
 };
