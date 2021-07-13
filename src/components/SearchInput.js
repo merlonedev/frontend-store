@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 class SearchInput extends Component {
   render() {
-    const { onChange, name } = this.props;
+    const { onChange, name, onClick } = this.props;
     return (
       <div>
         <input
@@ -15,6 +15,7 @@ class SearchInput extends Component {
         <button
           type="button"
           data-testid="query-button"
+          onClick={ onClick }
         >
           BUSCAR
         </button>
@@ -29,6 +30,7 @@ class SearchInput extends Component {
 SearchInput.propTypes = {
   onChange: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
 export default SearchInput;

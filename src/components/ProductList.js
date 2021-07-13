@@ -9,6 +9,7 @@ class ProductList extends Component {
       <div>
         {products.map((result) => (
           <div
+            data-testid="product"
             key={ result.title }
           >
             <h1>{ result.title }</h1>

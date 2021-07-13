@@ -10,12 +10,13 @@ class HomePage extends React.Component {
     this.state = {
       products: [],
       query: '',
-      categoryId: '',
+      // categoryId: '',
 
     };
 
     this.fetchProducts = this.fetchProducts.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
@@ -28,6 +29,11 @@ class HomePage extends React.Component {
     this.setState({
       [name]: value,
     });
+  }
+
+  handleClick() {
+    const { query } = this.state;
+    this.fetchProducts('', query);
   }
 
   async fetchProducts(categoryId, query) {
@@ -53,6 +59,7 @@ class HomePage extends React.Component {
           name="query"
           value={ query }
           onChange={ this.handleChange }
+          onClick={ this.handleClick }
         />
         <ProductList products={ products } />
       </>
