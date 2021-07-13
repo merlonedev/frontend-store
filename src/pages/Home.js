@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Card from '../components/Card';
 import Category from '../components/Category';
+import { Link } from 'react-router-dom';
 import * as api from '../services/api';
 
 class Home extends Component {
@@ -113,6 +114,13 @@ class Home extends Component {
           <h1 data-testid="home-initial-message">
             Digite algum termo de pesquisa ou escolha uma categoria.
           </h1>
+          <Link
+            className="material-icons carrinho"
+            to="/carrinho"
+            data-testid="shopping-cart-button"
+          >
+            shopping_cart
+          </Link>
           <div className="cards-container">
             { products.map((product, index) => (
               <Card key={ index } product={ product } />
