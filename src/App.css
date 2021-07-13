@@ -59,9 +59,10 @@
 .categoryList {
   display: flex;
   min-width: 220px;
+  flex-flow: column wrap;
   padding-left: 10px;
   padding-right: 10px;
-  flex-flow: column wrap;
+  
 }
 
 .categoryItem {
