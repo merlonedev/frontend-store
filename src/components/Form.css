@@ -1,0 +1,39 @@
+.label-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 50px;
+}
+
+.email-input {
+  border: none;
+  border-bottom: 1px solid #757575;
+  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3);
+  font-size: 18px;
+  margin-bottom: 2%;
+  margin-right: 2%;
+  padding: 10px 10px 10px 5px;
+  width: 300px;
+}
+
+.email-input, .textarea {
+  outline: none;
+}
+
+.textarea {
+  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3);
+  font-size: 18px;
+  margin-bottom: 2%;
+  margin-right: 2%;
+  padding: 10px 10px 10px 5px;
+  width: 640px;
+}
+
+button {
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 0 8px rgb(207, 207, 207);
+  cursor: pointer;
+  padding: 10px 10px 10px 5px;
+  width: 660px;
+}
