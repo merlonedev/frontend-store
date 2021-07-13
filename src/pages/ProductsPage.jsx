@@ -36,9 +36,8 @@ export default class ProductPage extends Component {
     });
   }
 
-  handleCategoryClick(event) {
-    const category = event.target.parentNode.id;
-    api.getProductsFromCategoryAndQuery(category, '').then((list) => {
+  handleCategoryClick(categoryID) {
+    api.getProductsFromCategoryAndQuery(categoryID, '').then((list) => {
       this.setState({
         list: list.results,
         showList: true,
