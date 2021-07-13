@@ -8,7 +8,6 @@ export default class CartItems extends Component {
     this.increaseQty = this.increaseQty.bind(this);
     this.decreaseQty = this.decreaseQty.bind(this);
     this.removeItem = this.removeItem.bind(this);
-    this.setItems = this.setItems.bind(this);
   }
 
   async getProductFromId(url) {
