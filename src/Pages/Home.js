@@ -22,18 +22,24 @@ class Home extends Component {
     this.fetchCategories();
   }
 
-  async handleClick() {
+  handleChange({ target: { value } }) {
+    this.setState({
+      value,
+    });
+  }
+
+  async handleClick(category) {
     const { value } = this.state;
-    const products = await getProductsFromCategoryAndQuery('', value);
+    const categoryFetch = category ? category.id : '';
+    const products = await getProductsFromCategoryAndQuery(categoryFetch, value);
     this.setState({
       products: products.results,
     });
   }
 
-  handleChange({ target: { value } }) {
-    this.setState({
-      value,
-    });
+  categorieSelect = ({ target }) => {
+    const category = { id: target.value, name: target.name };
+    this.handleClick(category);
   }
 
   async fetchCategories() {
@@ -53,7 +59,7 @@ class Home extends Component {
           handleChange={ this.handleChange }
           handleClick={ this.handleClick }
         />
-        <Categories categories={ categories } />
+        <Categories categorieSelect={ this.categorieSelect } categories={ categories } />
         <SearchList products={ products } />
       </div>
     );
