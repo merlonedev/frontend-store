@@ -23,6 +23,9 @@ export default class App extends Component {
     this.callback = this.callback.bind(this);
     this.callbackCategory = this.callbackCategory.bind(this);
     this.addToCart = this.addToCart.bind(this);
+    this.removeItem = this.removeItem.bind(this);
+    this.increaseQty = this.increaseQty.bind(this);
+    this.decreaseQty = this.decreaseQty.bind(this);
   }
 
   componentDidMount() {
@@ -49,10 +52,40 @@ export default class App extends Component {
     this.setState({ queryInput: input }, () => this.setProducts());
   }
 
-  addToCart(id) {
+  removeItem(itemId) {
+    const { cartItems } = this.state;
+    this.setState({ cartItems: cartItems.filter(({ id }) => id !== itemId) });
+  }
+
+  increaseQty(itemId) {
+    const { cartItems } = this.state;
+    const itemIndex = cartItems.findIndex(({ id }) => id === itemId);
+    this.setState({
+      cartItems: [
+        ...cartItems.slice(0, itemIndex),
+        { ...cartItems[itemIndex], qty: cartItems[itemIndex].qty + 1 },
+        ...cartItems.slice(itemIndex + 1),
+      ],
+    });
+  }
+
+  decreaseQty(itemId) {
+    const { cartItems } = this.state;
+    const itemIndex = cartItems.findIndex(({ id }) => id === itemId);
+    if (cartItems[itemIndex].qty < 1) return;
+    this.setState({
+      cartItems: [
+        ...cartItems.slice(0, itemIndex),
+        { ...cartItems[itemIndex], qty: cartItems[itemIndex].qty - 1 },
+        ...cartItems.slice(itemIndex + 1),
+      ],
+    });
+  }
+
+  addToCart(itemObj) {
     const { cartItems } = this.state;
     const items = [...cartItems];
-    items.push(id);
+    items.push(itemObj);
     this.setState({
       cartItems: items,
     });
@@ -77,7 +110,17 @@ export default class App extends Component {
           <Route
             exact
             path="/cart"
-            render={ () => (<ShoppingCart cartItems={ cartItems } />) }
+            render={ () => (
+              <ShoppingCart
+                cartItems={ cartItems }
+                updateAppCart={ this.updateCartItems }
+                handlers={ {
+                  remove: this.removeItem,
+                  increase: this.increaseQty,
+                  decrease: this.decreaseQty,
+                } }
+              />
+            ) }
           />
           <Route
             exact
@@ -85,7 +128,9 @@ export default class App extends Component {
             render={ () => (
               <div>
                 <SearchBar callback={ this.callback } />
-                <Link to="/cart" data-testid="shopping-cart-button">Carrinho</Link>
+                <Link to="/cart" data-testid="shopping-cart-button">
+                  Carrinho
+                </Link>
                 <CategoriesBar
                   categories={ categories }
                   callback={ this.callbackCategory }

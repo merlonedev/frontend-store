@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-// import { reverse } from '../__mocks__/categories';
-// import { findIndex } from '../__mocks__/categories';
 
 export default class CartItems extends Component {
-  constructor() {
-    super();
-    this.state = {
-      items: [],
-    };
+  constructor(props) {
+    super(props);
+    // this.state = {
+    //   items: p,
+    // };
 
     this.getProductFromId = this.getProductFromId.bind(this);
     this.increaseQty = this.increaseQty.bind(this);
@@ -18,24 +16,22 @@ export default class CartItems extends Component {
   }
 
   componentDidMount() {
-    const { cartItems } = this.props;
+    // const { cartItems } = this.props;
     // const reversed = cartItems.reverse();
     // cartItems.forEach((cartItem) => this.getProductFromId(cartItem));
-    if (!cartItems.length) return;
-    this.setItems(cartItems);
+    // if (!cartItems.length) return;
+    // this.setItems();
   }
 
-  componentDidUpdate() {
-    console.log('didupdate');
-  }
-
-  async setItems(cartItems) {
-    let URL = 'https://api.mercadolibre.com/items?ids=';
-    cartItems.forEach((id) => { URL += `,${id}`; });
-    const allItemsObj = await this.getProductFromId(URL);
-    const items = allItemsObj.map((elem) => ({ ...elem.body, qty: 1 }));
-    // allItemsObj.forEach((elem) => console.log(elem));
-    this.setState({ items });
+  async setItems() {
+    // let URL = 'https://api.mercadolibre.com/items?ids=';
+    // cartItems.forEach((id) => { URL += `,${id}`; });
+    // const allItemsObj = await this.getProductFromId(URL);
+    // const items = allItemsObj.map((elem) => ({ ...elem.body, qty: 1 }));
+    // // allItemsObj.forEach((elem) => console.log(elem));
+    // this.setState({ items });
+    // const { cartItems } = this.props;
+    // this.setState({ items: cartItems });
   }
 
   async getProductFromId(url) {
@@ -53,42 +49,50 @@ export default class CartItems extends Component {
 
   increaseQty({ target }) {
     // credits: https://stackoverflow.com/questions/37662708/react-updating-state-when-state-is-an-array-of-objects
-    const { items } = this.state;
+    // const { items } = this.state;
+    // const itemIndex = items.findIndex(({ id }) => id === itemToIncrease);
+    // this.setState({
+    //   items: [
+    //     ...items.slice(0, itemIndex),
+    //     { ...items[itemIndex], qty: items[itemIndex].qty + 1 },
+    //     ...items.slice(itemIndex + 1),
+    //   ],
+    // });
     const itemToIncrease = target.parentElement.id;
-    const itemIndex = items.findIndex(({ id }) => id === itemToIncrease);
-    this.setState({
-      items: [
-        ...items.slice(0, itemIndex),
-        { ...items[itemIndex], qty: items[itemIndex].qty + 1 },
-        ...items.slice(itemIndex + 1),
-      ],
-    });
+    const { handlers } = this.props;
+    handlers.increase(itemToIncrease);
   }
 
   decreaseQty({ target }) {
-    const { items } = this.state;
-    const itemToDecrease = target.parentElement.id;
-    const itemIndex = items.findIndex(({ id }) => id === itemToDecrease);
-    if (items[itemIndex].qty < 1) return;
-    this.setState({
-      items: [
-        ...items.slice(0, itemIndex),
-        { ...items[itemIndex], qty: items[itemIndex].qty - 1 },
-        ...items.slice(itemIndex + 1),
-      ],
-    });
+    // const { items } = this.state;
+    // const itemToDecrease = target.parentElement.id;
+    // const itemIndex = items.findIndex(({ id }) => id === itemToDecrease);
+    // if (items[itemIndex].qty < 1) return;
+    // this.setState({
+    //   items: [
+    //     ...items.slice(0, itemIndex),
+    //     { ...items[itemIndex], qty: items[itemIndex].qty - 1 },
+    //     ...items.slice(itemIndex + 1),
+    //   ],
+    // });
+    const itemToRemove = target.parentElement.id;
+    const { handlers } = this.props;
+    handlers.decrease(itemToRemove);
   }
 
   removeItem({ target }) {
-    const { items } = this.state;
+    // const { items } = this.state;
+    // handleCartChange.remove(itemToRemove);
+    // this.setState({
+    //   items: items.filter(({ id }) => id !== itemToRemove),
+    // });
     const itemToRemove = target.parentElement.id;
-    this.setState({
-      items: items.filter(({ id }) => id !== itemToRemove),
-    });
+    const { handlers } = this.props;
+    handlers.remove(itemToRemove);
   }
 
   render() {
-    const { items } = this.state;
+    const { cartItems: items } = this.props;
     return items.map((item) => (
       <div key={ item.id } id={ item.id }>
         <p data-testid="shopping-cart-product-name">{item.title}</p>
@@ -118,9 +122,16 @@ export default class CartItems extends Component {
 }
 
 CartItems.propTypes = {
-  cartItems: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    forEach: PropTypes.func.isRequired,
-    length: PropTypes.number.isRequired,
+  cartItems: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.string,
+      forEach: PropTypes.func,
+      length: PropTypes.number,
+    }),
+  ).isRequired,
+  handlers: PropTypes.shape({
+    remove: PropTypes.func,
+    increase: PropTypes.func,
+    decrease: PropTypes.func,
   }).isRequired,
 };
