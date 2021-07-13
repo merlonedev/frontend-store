@@ -8,10 +8,9 @@ class ProductCard extends Component {
       product,
       product: {
         id,
-        description,
-        prodImg,
+        title,
+        thumbnail,
         price,
-        shipping,
       },
     } = this.props;
 
@@ -19,19 +18,14 @@ class ProductCard extends Component {
       <div className="product-card">
         <Link
           to={ {
-            pathname: `/detalhes/${id}`,
+            pathname: `/details/${id}`,
             state: product,
           } }
         >
-          <h2>{description}</h2>
-          <img src={ prodImg } alt="Product Thumbnail" />
+          <h2>{title}</h2>
+          <img src={ thumbnail } alt="Product Thumbnail" />
           <p>
-            Preço: R$
-            {price}
-          </p>
-          <p>
-            frete
-            {shipping}
+            {`Preço R$ ${price}`}
           </p>
         </Link>
         <button type="button">Adicionar ao Carrinho</button>
