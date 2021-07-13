@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import * as api from '../services/api';
 import ProductCard from './ProductCard';
 
-class SearchAndList extends Component {
+class Search extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loading: true,
+      loading: 'none',
       queryText: '',
       productList: [],
     };
@@ -20,7 +20,7 @@ class SearchAndList extends Component {
     const { getProductsFromCategoryAndQuery } = api;
     const results = await getProductsFromCategoryAndQuery('', queryText);
     this.setState({
-      loading: false,
+      loading: 'done',
       productList: results,
     });
   }
@@ -50,8 +50,10 @@ class SearchAndList extends Component {
 
   renderList() {
     const { loading } = this.state;
-    if (loading) return <p>Loading...</p>;
+    if (loading === 'loading') return <p>Loading...</p>;
+    if (loading === 'none') return <div />;
     const { productList: { results } } = this.state;
+    if (results.length === 0) return <p>Nenhum produto foi encontrado</p>;
     return (
       <div>
         <ul>
@@ -76,4 +78,4 @@ class SearchAndList extends Component {
   }
 }
 
-export default SearchAndList;
+export default Search;
