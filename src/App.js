@@ -31,6 +31,7 @@ export default class App extends Component {
       });
     });
   }
+
   // prettier-ignore
   async setProducts() {
     const { queryInput, category } = this.state;
@@ -48,7 +49,8 @@ export default class App extends Component {
   }
 
   addToCart(id) {
-    const items = [...this.state.cartItems];
+    const { cartItems } = this.setState;
+    const items = [...cartItems];
     items.push(id);
     this.setState({
       cartItems: items,
@@ -66,7 +68,12 @@ export default class App extends Component {
       <BrowserRouter>
         <Switch>
           <Route exact path="/productdetails/:id" component={ ProductDetails } />
-          <Route exact path="/cart" render={ () => (<ShoppingCart cartItems={ cartItems } />)} />
+          <Route
+            exact
+            path="/cart"
+            render={ () => (
+              <ShoppingCart cartItems={ cartItems } />) }
+          />
           <Route
             exact
             path="/"
