@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ItemCard from './ItemCard';
-import * as api from '../services/api';
+import { getProductsFromCategoryAndQuery } from '../services/api';
+import Loading from './Loading';
 
 class ItemList extends Component {
   constructor() {
@@ -9,26 +10,44 @@ class ItemList extends Component {
     this.state = {
       itens: [],
     };
+    this.handleFirstChangeInput = this.handleFirstChangeInput.bind(this);
+    // this.handleFutureInputs = this.handleFutureInputs.bind(this);
   }
 
   componentDidMount() {
-    this.handleChangeInput();
+    this.handleFirstChangeInput();
   }
 
-  handleChangeInput() {
+  // componentDidUpdate() {
+  //   const { input } = this.props;
+  //   const { itens } = this.state;
+  //   if (input !== itens) {
+  //     this.handleFutureInputs(input);
+  //   }
+  // }
+
+  // async handleFutureInputs(input) {
+  //   const item = await getProductsFromCategoryAndQuery(false, input);
+  //   this.setState(() => ({ itens: item }));
+  // }
+
+  async handleFirstChangeInput() {
     const { input } = this.props;
-    api.getProductsFromCategoryAndQuery(false, input).then((item) => this.setState({
-      itens: item.results,
-    }));
+    const item = await getProductsFromCategoryAndQuery(false, input);
+    this.setState(() => ({ itens: item }));
+    console.log(item);
   }
 
   render() {
     const { itens } = this.state;
-    if (itens.length === 0) return <p>Nenhum produto foi encontrado</p>;
+    if (itens === undefined) return <Loading />;
+    if ((itens.length === 0)) {
+      return <p>Nenhum produto foi encontrado</p>;
+    }
     return (
       <div>
         <div>
-          {itens.map((item) => (
+          {itens.results.map((item) => (
             <ItemCard item={ item } key={ item.id } />
           ))}
         </div>
