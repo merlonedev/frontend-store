@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 class SearchResult extends React.Component {
   render() {
@@ -8,14 +9,21 @@ class SearchResult extends React.Component {
     if (products.length !== 0) {
       return (
         products.map((current) => (
-          <div key={ current.id } data-testid="product">
+          <Link
+            data-testid="product-detail-link"
+            to={ {pathname: '/card', state: current} }
+            key={ current.id }
+            id={ current.id }
+            onClick={ this.handleClick }
+            data-testid="product"
+          >
             <img src={ current.thumbnail } alt="Product" />
             <p>
               { current.title }
               Preço:
               { current.price }
             </p>
-          </div>
+          </Link>
         ))
       );
     }
@@ -31,6 +39,7 @@ SearchResult.propTypes = {
     price: PropTypes.number.isRequired,
     thumbnail: PropTypes.string.isRequired,
   }).isRequired).isRequired,
+  getEspecifyProducts: PropTypes.func.isRequired,
 };
 
 export default SearchResult;

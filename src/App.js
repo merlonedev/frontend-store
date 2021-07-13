@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import Categories from './Components/Categories';
 import ShoppingCart from './Components/ShoppingCart';
 import ShoppingCartLink from './ShoppingCartLink';
+import Card from './pages/Card';
 
 class App extends React.Component {
   constructor() {
@@ -36,7 +37,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { categories /* isLoading */ } = this.state;
+    const { categories, especifyProducts /* isLoading */ } = this.state;
     // if (isLoading) {
     //   return <span>Carregando</span>;
     // }
@@ -44,8 +45,21 @@ class App extends React.Component {
       <div className="App">
         <BrowserRouter>
           <Switch>
-            <Route exact path="/" component={ Home } />
+            <Route
+              exact
+              path="/"
+              render={
+                (props) => <Home { ...props } getEspecifyProducts={ this.getEspecifyProducts } />
+              }
+            />
             <Route exact path="/shopping-cart" component={ ShoppingCart } />
+            <Route
+              exact
+              path="/card/"
+              render={ (props) => <Card { ...props }
+              id={ especifyProducts }
+            /> }
+            />
           </Switch>
           <ShoppingCartLink />
         </BrowserRouter>
@@ -55,7 +69,8 @@ class App extends React.Component {
             name={ category.name }
             id={ category.id }
             getFilterId={ this.getFilterId }
-          />)) }
+          />
+          )) }
         </div>
       </div>
     );

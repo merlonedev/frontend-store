@@ -1,7 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import List from '../Components/List';
 import SearchResult from '../Components/SearchResult';
 import * as api from '../services/api';
+import Card from './Card';
 
 class Home extends React.Component {
   constructor() {
@@ -36,6 +39,7 @@ class Home extends React.Component {
   }
 
   render() {
+    const { getEspecifyProducts } = this.props;
     const { products } = this.state;
     return (
       <div>
@@ -52,9 +56,14 @@ class Home extends React.Component {
         <p data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
         </p>
+        <Link to="/Card"  />
       </div>
     );
   }
 }
+
+Home.propTypes = {
+  getEspecifyProducts: PropTypes.func.isRequired,
+};
 
 export default Home;
