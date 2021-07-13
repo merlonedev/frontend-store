@@ -18,12 +18,12 @@ class ItemDetails extends Component {
   componentDidMount() {
     const { match } = this.props;
     const { params } = match;
-    const { id } = params;
-    this.getItem(id);
+    const { id, query } = params;
+    this.getItem(id, query);
   }
 
-  getItem(id) {
-    api.getProductsFromCategoryAndQuery(id, '$QUERY')
+  getItem(id, query) {
+    api.getProductsFromCategoryAndQuery(id, query)
       .then((response) => {
         this.setState({
           item: response.results.find((item) => item.id === id),
@@ -52,6 +52,7 @@ ItemDetails.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string,
+      query: PropTypes.string,
     }),
   }).isRequired,
 };
