@@ -13,7 +13,7 @@ class Home extends React.Component {
       categories: [],
     };
     this.inputList = this.inputList.bind(this);
-    this.categoryAndQuery = this.categoryAndQuery.bind(this);
+    this.categorieAndQuery = this.categorieAndQuery.bind(this);
     this.getCategory = this.getCategory.bind(this);
   }
 
@@ -32,10 +32,13 @@ class Home extends React.Component {
     });
   }
 
-  async categoryAndQuery(id = '') {
+  async categorieAndQuery(id = '') {
     const { search } = this.state;
+
     const { results } = await api.getProductsFromCategoryAndQuery(id, search);
-    this.setState({ productList: results });
+    this.setState({
+      productList: results,
+    });
   }
 
   render() {
@@ -55,13 +58,16 @@ class Home extends React.Component {
         <button
           type="button"
           data-testid="query-button"
-          onClick={ this.categoryAndQuery }
+          onClick={ this.categorieAndQuery }
         >
           Clique Aqui
         </button>
         <Products productList={ productList } />
         <CartButton />
-        <Category category={ categories } categoryAndQuery={ this.categoryAndQuery } />
+        <Category
+          category={ categories }
+          categoryAndQuery={ this.categorieAndQuery }
+        />
       </form>
     );
   }
