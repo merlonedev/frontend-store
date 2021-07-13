@@ -22,10 +22,7 @@ class Products extends React.Component {
 }
 
 Products.propTypes = {
-  productList: PropTypes.arrayOf(
-    PropTypes.array,
-    PropTypes.object,
-  ).isRequired,
+  productList: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default Products;

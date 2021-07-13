@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import * as api from '../services/api';
 import Products from './Products';
 
@@ -6,12 +7,22 @@ class SearchAndResults extends React.Component {
   constructor() {
     super();
     this.state = {
-      categoryId: '',
       productList: [],
       search: '',
     };
     this.getInput = this.getInput.bind(this);
     this.getProducts = this.getProducts.bind(this);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { search } = this.state;
+    const { category } = this.props;
+    const { search: prevSearch } = prevState;
+    const { category: prevCategory } = prevProps;
+    console.log(prevSearch, prevCategory, search, category);
+    if (prevSearch !== search || prevCategory !== category) {
+      this.getProducts();
+    }
   }
 
   getInput({ target }) {
@@ -20,18 +31,17 @@ class SearchAndResults extends React.Component {
     });
   }
 
-  getProducts() {
-    const { categoryId, search } = this.state;
-    api.getProductsFromCategoryAndQuery(categoryId, search).then(({ results }) => (
-      this.setState({
-        productList: results,
-      })
-    ));
+  async getProducts() {
+    const { category } = this.props;
+    const { search } = this.state;
+    const response = await api.getProductsFromCategoryAndQuery(category, search);
+    this.setState({
+      productList: response.results,
+    });
   }
 
   render() {
     const { productList } = this.state;
-
     return (
       <div>
         <input
@@ -49,13 +59,17 @@ class SearchAndResults extends React.Component {
           data-testid="query-button"
           onClick={ this.getProducts }
         >
-          Button
+          Search
         </button>
         <Products productList={ productList } />
       </div>
     );
   }
 }
+
+SearchAndResults.propTypes = {
+  category: PropTypes.string.isRequired,
+};
 
 export default SearchAndResults;
 
