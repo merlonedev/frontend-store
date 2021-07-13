@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { getCategories } from '../services/api';
 
 class Category extends Component {
@@ -24,16 +25,18 @@ class Category extends Component {
     const { category } = this.state;
     return (
       <div>
-        <ul>
-          {category.map((item) => (
-            <li
+        {category.map((item) => (
+          <div key={ item.id }>
+            <Link
               data-testid="category"
-              key={ item.id }
+              to={ `/categorias/${item.id}` }
+              type="button"
+              id={ item.id }
+              className="categorybtn"
             >
               { item.name }
-            </li>))}
-        </ul>
-
+            </Link>
+          </div>))}
       </div>
     );
   }

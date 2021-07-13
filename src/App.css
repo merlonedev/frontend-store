@@ -40,3 +40,17 @@
     transform: rotate(360deg);
   }
 }
+
+li {
+  list-style: none;
+}
+
+.categorybtn {
+  background-color: white;
+  border: none;
+}
+
+.categorybtn:hover {
+  color: blue;
+  cursor: pointer;
+}
