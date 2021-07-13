@@ -69,14 +69,17 @@ export default class ProductPage extends Component {
             onSearchChange={ this.handleSearch }
             onSearchClick={ this.handleSearchClick }
           />
-          <Link to="/shoppingcart">
-            <button
-              data-testid="shopping-cart-button"
-              type="button"
-            >
-              Carrinho
-            </button>
-          </Link>
+          <div>
+            <Link to="/shoppingcart">
+              <button
+                data-testid="shopping-cart-button"
+                type="button"
+              >
+                Carrinho
+              </button>
+            </Link>
+            <p>0</p>
+          </div>
         </div>
         <section className="main">
           <div className="category">
