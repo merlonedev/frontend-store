@@ -5,16 +5,15 @@ class ProductList extends Component {
   render() {
     const { products } = this.props;
     return (
-
       <div>
-        {products.map((result) => (
+        {products.map(({ title, thumbnail, price }) => (
           <div
             data-testid="product"
-            key={ result.title }
+            key={ title }
           >
-            <h1>{ result.title }</h1>
-            <img src={ result.thumbnail } alt={ result.title } />
-            <p>{ result.price }</p>
+            <h1>{ title }</h1>
+            <img src={ thumbnail } alt={ title } />
+            <p>{ price }</p>
           </div>
         ))}
       </div>
