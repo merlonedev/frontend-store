@@ -9,6 +9,8 @@ export default class ProductDetails extends Component {
     this.state = {
       id,
       title: '',
+      thumbnail: '',
+      qty: 1,
       price: '',
       pictures: {},
     };
@@ -23,8 +25,8 @@ export default class ProductDetails extends Component {
 
   handleClick() {
     const { callback } = this.props;
-    const { id } = this.state;
-    callback(id);
+    const { id, title, price, thumbnail, qty } = this.state;
+    callback({ id, title, price, thumbnail, qty });
   }
 
   async getProductFromId(id) {
@@ -33,6 +35,7 @@ export default class ProductDetails extends Component {
     resultRequest = await resultRequest.json();
     this.setState({
       title: resultRequest.title,
+      thumbnail: resultRequest.thumbnail,
       price: resultRequest.price,
       pictures: resultRequest.pictures[0],
       freeShipping: resultRequest.shipping.free_shipping,
