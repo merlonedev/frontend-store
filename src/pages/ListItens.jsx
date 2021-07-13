@@ -13,41 +13,38 @@ class ListItens extends React.Component {
       products: [],
       checkList: true,
       categories: [],
-      cartItens: [],
+      categoryId: '',
     };
 
-    this.handleSearch = this.handleSearch.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
     this.filterProducts = this.filterProducts.bind(this);
     this.fetchCategories = this.fetchCategories.bind(this);
-    this.addProductToCart = this.addProductToCart.bind(this);
   }
 
   componentDidMount() {
     this.fetchCategories();
   }
 
-  handleSearch(event) {
+  handleChange(event) {
     const { name } = event.target;
     const value = event.target.type === 'checkbox'
       ? event.target.checked
       : event.target.value;
     this.setState({
       [name]: value,
-    });
+    }, () => this.filterProducts());
   }
 
-  async fetchCategories() {
-    const response = await api.getCategories();
-    this.setState({
-      categories: [...response],
-    });
-  }
-
-  async filterProducts(event) {
+  handleClick(event) {
     event.preventDefault();
+    this.filterProducts();
+  }
+
+  async filterProducts() {
     try {
-      const { search } = this.state;
-      const { results } = await api.getProductsFromCategoryAndQuery(1, search);
+      const { search, categoryId } = this.state;
+      const { results } = await api.getProductsFromCategoryAndQuery(categoryId, search);
       if (results.length) {
         return this.setState({
           products: [...results],
@@ -62,11 +59,18 @@ class ListItens extends React.Component {
     }
   }
 
-  addProductToCart(product) {
+  async fetchCategories() {
+    const response = await api.getCategories();
     this.setState({
-      cartItens: [...product],
-    })
+      categories: [...response],
+    });
   }
+
+  // addToStorage(product) {
+  //   // let products = {...product};
+  //   console.log(product.target);
+  //   localStorage.setItem(product.id, product);
+  // }
 
   render() {
     const { search, products, checkList, categories } = this.state;
@@ -80,12 +84,12 @@ class ListItens extends React.Component {
               data-testid="query-input"
               value={ search }
               name="search"
-              onChange={ this.handleSearch }
+              onChange={ this.handleChange }
             />
             <button
               type="submit"
               data-testid="query-button"
-              onClick={ this.filterProducts }
+              onClick={ this.handleClick }
             >
               Pesquisar
             </button>
@@ -97,7 +101,10 @@ class ListItens extends React.Component {
         <div data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
         </div>
-        <CategoriesFilter categories={ categories } />
+        <CategoriesFilter
+          categories={ categories }
+          onChange={ this.handleChange }
+        />
         <div>
           {
             checkList
@@ -106,7 +113,7 @@ class ListItens extends React.Component {
                   <ProductCard
                     key={ product.id }
                     product={ product }
-                    addToCart={ this.addProductToCart }
+                    // addToCart={ this.addToStorage }
                   />
                 ))
               : <span>Nenhum produto foi encontrado</span>

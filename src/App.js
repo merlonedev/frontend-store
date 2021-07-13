@@ -4,7 +4,6 @@ import ListItens from './pages/ListItens';
 import CartItems from './pages/CartItems';
 
 function App() {
-  console.log(ListItens.state);
   return (
     <Router>
       <Switch>
@@ -12,9 +11,8 @@ function App() {
         <Route
           path="/cart"
           exact
-          render={
-            (props) => <CartItems {...props} cartItens={ ListItens.state.cartItens } /> 
-            } />
+          component={ CartItems }
+        />
       </Switch>
     </Router>
   );
