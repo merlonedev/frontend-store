@@ -77,6 +77,9 @@ class SearchBar extends Component {
           onClick={ this.handleClick }
           data-testid="query-button"
         />
+        <h2 data-testid="home-initial-message">
+          Digite algum termo de pesquisa ou escolha uma categoria.
+        </h2>
         <aside>
           <ul>
             { categories.map((categorie) => (
