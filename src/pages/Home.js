@@ -7,9 +7,7 @@ import ProductList from '../components/ProductList';
 import Input from '../components/Input';
 
 const initialMsg = (
-  <p
-    data-testid="home-initial-message"
-  >
+  <p data-testid="home-initial-message">
     Digite algum termo de pesquisa ou escolha uma categoria.
   </p>
 );
@@ -81,12 +79,7 @@ class Home extends React.Component {
           Carrinho de Compras
         </Link>
         <CategoryAside categoryObj={ categories } />
-        { (products.length > 0)
-          ? (
-            <ul>
-              <ProductList products={ products } />
-            </ul>
-          ) : msg }
+        {(products.length > 0) ? <ul><ProductList products={ products } /></ul> : msg}
       </section>
     );
   }
