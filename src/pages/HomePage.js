@@ -1,10 +1,16 @@
 import React from 'react';
 import SearchInput from '../components/SearchInput';
+import Category from '../components/Category';
 
 class HomePage extends React.Component {
   render() {
     return (
-      <SearchInput />
+      <div>
+        <SearchInput />
+        <aside>
+          <Category />
+        </aside>
+      </div>
     );
   }
 }
