@@ -16,7 +16,7 @@ class ProductDetails extends Component {
   }
 
   async getProducts() {
-    const { match: { params: { categoryId, id } } } = this.props;
+    const { match: { params: { categoryId, '' } } } = this.props;
     const requisitionApi = await api.getProductsFromCategoryAndQuery(categoryId, id);
     const details = requisitionApi.results.find((product) => product.id === id);
 
