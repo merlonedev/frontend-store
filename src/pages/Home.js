@@ -1,6 +1,8 @@
 import React from 'react';
 import * as api from '../services/api';
 import ProductList from '../components/ProductList';
+import Categories from '../components/Categories';
+import CartButton from '../components/CartButton';
 
 class Home extends React.Component {
   constructor(props) {
@@ -63,10 +65,12 @@ class Home extends React.Component {
           >
             Pesquisar
           </button>
+          <CartButton />
         </header>
         <main className="main-content-container">
           { (buttonClick) ? <ProductList productList={ productList } /> : initialMsg }
         </main>
+        <Categories />
       </div>
     );
   }
