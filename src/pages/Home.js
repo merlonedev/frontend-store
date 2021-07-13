@@ -15,9 +15,8 @@ class Home extends Component {
           className="material-icons carrinho"
           to="/carrinho"
           data-testid="shopping-cart-button"
-        >
-          shopping_cart
-        </Link>
+        />
+        shopping_cart
       </div>
     );
   }
