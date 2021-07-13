@@ -1,9 +1,16 @@
 import React from 'react';
 import './App.css';
+// import Categories from './components/Categories';
+import Home from './components/Home';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 function App() {
   return (
-    <h1>Óla teste requisito</h1>
+    <BrowserRouter>
+      <Switch>
+        <Route path="/" component={ Home }/>
+      </Switch>
+    </BrowserRouter>
   );
 }
 
