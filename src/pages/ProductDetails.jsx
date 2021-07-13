@@ -1,45 +1,55 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import * as api from '../services/api';
 
 export default class ProductDetails extends Component {
-  constructor(props) {
+  constructor() {
     super();
-    const { match: { params: { id } } } = props;
     this.state = {
-      id,
-      product: '',
       loading: true,
+      product: {
+        title: '',
+        price: 0,
+        thumbnail: '',
+      },
     };
-    this.getProduct = this.getProduct.bind(this);
+    this.setItem = this.setItem.bind(this);
   }
 
   componentDidMount() {
-    console.log(this.state);
-    this.getProduct();
+    const item = JSON.parse(localStorage.getItem('product'));
+    // localStorage.removeItem('product');
+    this.setItem(item);
+    console.log(item);
   }
 
-  async getProduct() {
-    const { id } = this.state;
-    api.getProductsFromCategoryAndQuery('', '');
-    const product = await api.getItemDetails(id);
-    console.log(product);
-    this.setState({ product, loading: false });
+  setItem(item) {
+    this.setState({ product: item, loading: false });
   }
+
+  clearStorage() {
+    localStorage.removeItem('product');
+  }
+
+  // async getProduct() {
+  //   const { id } = this.state;
+  //   const product = await api.getItemDetails(id);
+  //   console.log(product);
+  //   this.setState(() => ({ product, loading: false }));
+  //   console.log(this.state);
+  // }
 
   render() {
     const { product, loading } = this.state;
-    console.log(this.state);
     if (loading) { return <p>Loading...</p>; }
     return (
-      <div>
-        <Link to="/">VOLTAR</Link>
+      <main>
+        <Link to="/" onClick={ this.clearStorage }>VOLTAR</Link>
         <Link to="/shoppingcart">CARRINHO</Link>
         <h1 data-testid="product-detail-name">{product.title}</h1>
         <h1>{product.price}</h1>
         <img src={ product.thumbnail } alt={ product.title } />
-        <div className="details">
+        <section className="details">
           <h3>Especificações Técnicas</h3>
           <ul>
             {/* Precisei colocar 'attr' ao invés de 'attribute' por não conseguir
@@ -50,8 +60,8 @@ export default class ProductDetails extends Component {
                 : false
             ))}
           </ul>
-        </div>
-      </div>
+        </section>
+      </main>
     );
   }
 }
@@ -63,7 +73,14 @@ ProductDetails.propTypes = {
     }).isRequired,
   }).isRequired,
   product: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-  }).isRequired,
+    title: PropTypes.string,
+    price: PropTypes.number,
+  }),
+};
+
+ProductDetails.defaultProps = {
+  product: {
+    title: '',
+    price: 0,
+  },
 };
