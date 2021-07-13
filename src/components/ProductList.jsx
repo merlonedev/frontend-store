@@ -7,16 +7,9 @@ export default class ProductList extends Component {
     const { list } = this.props;
 
     return (
-      <section>
-        <section className="product-list">
-          { list
-            .map((product) => <ProductCard key={ product.id } product={ product } />) }
-        </section>
-        <div>
-          <p data-testid="home-initial-message">
-            Digite algum termo de pesquisa ou escolha uma categoria.
-          </p>
-        </div>
+      <section className="product-list">
+        { list
+          .map((product) => <ProductCard key={ product.id } product={ product } />) }
       </section>
     );
   }

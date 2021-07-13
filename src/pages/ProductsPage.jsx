@@ -17,6 +17,7 @@ export default class ProductPage extends Component {
 
     this.handleSearch = this.handleSearch.bind(this);
     this.handleSearchClick = this.handleSearchClick.bind(this);
+    this.noList = this.noList.bind(this);
   }
 
   handleSearch(e) {
@@ -32,32 +33,36 @@ export default class ProductPage extends Component {
     });
   }
 
+  noList() {
+    return (
+      <p data-testid="home-initial-message">
+        Digite algum termo de pesquisa ou escolha uma categoria.
+      </p>
+    );
+  }
+
   render() {
     const { list, showList } = this.state;
-    if (showList) {
-      return (
-        <>
+    return (
+      <section>
+        <div className="header">
           <Search
             onSearchChange={ this.handleSearch }
             onSearchClick={ this.handleSearchClick }
           />
-          <ProductsList list={ list } />
-        </>
-      );
-    }
-    return (
-      <section>
-        <Search
-          onSearchChange={ this.handleSearch }
-          onSearchClick={ this.handleSearchClick }
-        />
-        <p data-testid="home-initial-message">
-          Digite algum termo de pesquisa ou escolha uma categoria.
-        </p>
-        <CategoriesBar />
-        <Link to="/shoppingcart">
-          <button data-testid="shopping-cart-button" type="button">Carrinho</button>
-        </Link>
+          <Link to="/shoppingcart">
+            <button data-testid="shopping-cart-button" type="button">Carrinho</button>
+          </Link>
+        </div>
+        <section className="main">
+          <div className="category">
+            <CategoriesBar />
+          </div>
+          <div>
+            { !showList && this.noList() }
+            <ProductsList list={ list } />
+          </div>
+        </section>
       </section>
     );
   }
