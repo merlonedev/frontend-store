@@ -23,6 +23,7 @@ class NavBar extends React.Component {
         key={ r.id }
         onClick={ this.handleclick }
         name={ r.name }
+        className="navBtn"
       >
         {r.name}
       </button>,
