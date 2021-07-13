@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import CategoryList from './CategoryList';
 import Product from './Product';
 import * as Api from '../services/api';
@@ -64,42 +65,53 @@ class ProductList extends React.Component {
     const { searchResult, categories } = this.state;
     return (
       <div>
-        <input
-          name="query"
-          type="text"
-          data-testid="query-input"
-          onChange={ this.handleChange }
-        />
-        <button
-          type="button"
-          data-testid="query-button"
-          onClick={ this.handleClick }
-        >
-          Buscar
-        </button>
+        <div className="search-container">
+          <div className="search">
+            <input
+              name="query"
+              type="text"
+              data-testid="query-input"
+              onChange={ this.handleChange }
+            />
+            <button
+              type="button"
+              data-testid="query-button"
+              onClick={ this.handleClick }
+            >
+              Buscar
+            </button>
+          </div>
+          <Link to="/cart" data-testid="shopping-cart-button">
+            <img src="https://img.icons8.com/ios/50/000000/shopping-cart.png" alt="carrinho" className="cart-image" />
+          </Link>
+        </div>
         <h2
           data-testid="home-initial-message"
         >
           Digite algum termo de pesquisa ou escolha uma categoria.
         </h2>
-        {categories
-          .map((category, index) => (
-            <CategoryList
-              key={ index }
-              category={ category }
-              changeFunction={ this.handleChange }
-            />))}
-        <div className="product-container">
-          {
-            searchResult.map((product) => (<Product
-              key={ product.id }
-              title={ product.title }
-              id={ product.id }
-              price={ product.price }
-              thumbnail={ product.thumbnail }
-            />))
-          }
-        </div>
+        <main className="main">
+          <aside className="category">
+            {categories
+              .map((category, index) => (
+                <CategoryList
+                  key={ index }
+                  category={ category }
+                  changeFunction={ this.handleChange }
+                />))}
+          </aside>
+          <section className="product-container">
+            {
+              searchResult.map((product) => (<Product
+                key={ product.id }
+                title={ product.title }
+                id={ product.id }
+                price={ product.price }
+                thumbnail={ product.thumbnail }
+              />))
+            }
+          </section>
+        </main>
       </div>
     );
   }

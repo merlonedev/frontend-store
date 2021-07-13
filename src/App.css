@@ -15,9 +15,26 @@
 
 }
 
+.search-container {
+  display: flex;
+  justify-content: space-around;
+  width: 80%;
+}
+
+.main {
+  display: flex;
+}
+
+.category {
+  display: flex;
+  flex-flow: column;
+  min-width: 225px;
+}
+
 .product {
   align-items: center;
-  border: 3px solid black;
+  border: 1px solid gray;
+  border-radius: 5%;
   display: flex;
   flex-flow: column;
   margin-bottom: 40px;
@@ -25,8 +42,16 @@
   width: 250px;
 }
 
+.product:hover {
+  border: 1px solid orangered;
+}
+
 img {
   width: 200px;
+}
+
+.cart-image, .back-image {
+  width: 30px;
 }
 
 .product-container {
