@@ -32,6 +32,7 @@ class Index extends React.Component {
 
   render() {
     const { searchBar, items } = this.state;
+    const { addCartItem } = this.props;
     return (
       <>
         <div>
@@ -64,7 +65,9 @@ class Index extends React.Component {
         <div>
           {items.length < 1
             ? <h3>Nenhum produto foi encontrado</h3>
-            : items.map((obj) => <Card item={ obj } key={ obj.id } />)}
+            : items.map(
+              (obj) => <Card item={ obj } key={ obj.id } addCartItem={ addCartItem } />,
+            )}
         </div>
       </>
     );

@@ -5,12 +5,36 @@ import Cart from './components/ShoppingCart';
 
 // Renderiza pagina de acordo com o que possuir após o / .
 class App extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      itemCart: [],
+    };
+    this.addToCartItem = this.addToCartItem.bind(this);
+  }
+
+  // Consegui esse requisito com ajuda do Inácio da turma 11
+  // Essa função vai adicionar o item no state itemCart, verificando se ele existe repetido ou não
+  // Caso ele seja repetido ele vai apenas aumentar a quantidade do produto.
+  addToCartItem(item) {
+    this.setState(({ itemCart }) => {
+      const index = itemCart.findIndex(({ id }) => id === item.id);
+      if (index < 0) {
+        return { itemCart: [...itemCart, item] };
+      }
+      const newcart = JSON.parse(JSON.stringify(itemCart));
+      newcart[index].quantity += 1;
+      return { itemCart: newcart };
+    });
+  }
+
   render() {
+    const { itemCart } = this.state;
     return (
       <BrowserRouter>
         <Switch>
-          <Route path="/cart" component={ Cart } />
-          <Route path="/" component={ Index } />
+          <Route path="/cart" render={ () => <Cart itemCart={ itemCart } /> } />
+          <Route path="/" render={ () => <Index addCartItem={ this.addToCartItem } /> } />
         </Switch>
       </BrowserRouter>
     );
