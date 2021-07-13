@@ -31,7 +31,6 @@ export default class ProductDetails extends Component {
     const apiURL = `https://api.mercadolibre.com/items/${id}`;
     let resultRequest = await fetch(apiURL);
     resultRequest = await resultRequest.json();
-    console.log(resultRequest.shipping);
     this.setState({
       title: resultRequest.title,
       price: resultRequest.price,
