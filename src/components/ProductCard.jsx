@@ -10,19 +10,27 @@ export default class ProductCard extends Component {
   }
 
   render() {
-    const { product } = this.props;
+    const { product, onProductClick } = this.props;
 
     return (
-      <Link
-        to={ `/product/${product.id}` }
-        onClick={ () => this.handleCardClick(product) }
-        className="product-card"
-        data-testid="product"
-      >
-        <img src={ product.thumbnail } alt="" />
-        <h1 data-testid="product-detail-link">{ product.title }</h1>
-        <p>{ product.price }</p>
-      </Link>
+      <div className="product-container" data-testid="product" id={ product.id }>
+        <Link
+          to={ `/product/${product.id}` }
+          onClick={ () => this.handleCardClick(product) }
+          className="product-card"
+        >
+          <img src={ product.thumbnail } alt="" />
+          <h1 data-testid="product-detail-link">{ product.title }</h1>
+          <p>{ product.price }</p>
+        </Link>
+        <button
+          type="button"
+          onClick={ () => onProductClick(product) }
+          data-testid="product-add-to-cart"
+        >
+          COMPRAR
+        </button>
+      </div>
     );
   }
 }
@@ -33,6 +41,6 @@ ProductCard.propTypes = {
     title: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     id: PropTypes.string.isRequired,
-    category_id: PropTypes.string.isRequired,
   }).isRequired,
+  onProductClick: PropTypes.func.isRequired,
 };

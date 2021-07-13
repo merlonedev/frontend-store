@@ -18,6 +18,7 @@ export default class ProductPage extends Component {
     this.handleSearch = this.handleSearch.bind(this);
     this.handleSearchClick = this.handleSearchClick.bind(this);
     this.handleCategoryClick = this.handleCategoryClick.bind(this);
+    this.handleProductClick = this.handleProductClick.bind(this);
     this.noList = this.noList.bind(this);
   }
 
@@ -34,14 +35,21 @@ export default class ProductPage extends Component {
     });
   }
 
-  handleCategoryClick(event) {
-    const category = event.target.parentNode.id;
-    api.getProductsFromCategoryAndQuery(category, '').then((list) => {
+  handleCategoryClick(categoryID) {
+    api.getProductsFromCategoryAndQuery(categoryID, '').then((list) => {
       this.setState({
         list: list.results,
         showList: true,
       });
     });
+  }
+
+  handleProductClick(product) {
+    const { title } = product;
+    let cart = JSON.parse(localStorage.getItem('cart'));
+    if (cart && cart[title]) cart = { ...cart, [title]: (cart[title] + 1) };
+    else cart = { ...cart, [title]: 1 };
+    localStorage.setItem('cart', JSON.stringify(cart));
   }
 
   noList() {
@@ -62,7 +70,12 @@ export default class ProductPage extends Component {
             onSearchClick={ this.handleSearchClick }
           />
           <Link to="/shoppingcart">
-            <button data-testid="shopping-cart-button" type="button">Carrinho</button>
+            <button
+              data-testid="shopping-cart-button"
+              type="button"
+            >
+              Carrinho
+            </button>
           </Link>
         </div>
         <section className="main">
@@ -73,7 +86,7 @@ export default class ProductPage extends Component {
           </div>
           <div>
             { !showList && this.noList() }
-            <ProductsList list={ list } />
+            <ProductsList list={ list } onProductClick={ this.handleProductClick } />
           </div>
         </section>
       </section>

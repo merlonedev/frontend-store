@@ -32,12 +32,11 @@ export default class CategoriesBar extends React.Component {
     return (
       <li
         key={ category.id }
-        id={ category.id }
       >
         <Link
           to="/"
           data-testid="category"
-          onClick={ onCategoryClick }
+          onClick={ () => onCategoryClick(category.id) }
         >
           { category.name }
         </Link>
