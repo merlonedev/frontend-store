@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Categories from './categoriesList';
 import Card from './card';
@@ -73,5 +74,9 @@ class Index extends React.Component {
     );
   }
 }
+
+Index.propTypes = {
+  addCartItem: PropTypes.func,
+}.isRequired;
 
 export default Index;
