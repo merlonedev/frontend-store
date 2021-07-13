@@ -13,10 +13,13 @@ class ProductList extends React.Component {
       category: '',
       query: '',
       searchResult: [],
+      cart: [],
     };
+
     this.handleChange = this.handleChange.bind(this);
     this.fetchProducts = this.fetchProducts.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.addToCart = this.addToCart.bind(this);
   }
 
   componentDidMount() {
@@ -43,6 +46,15 @@ class ProductList extends React.Component {
     this.setState({
       searchResult: products,
     });
+  }
+
+  addToCart({ target }) {
+    const { name } = target;
+    const { cart } = this.state;
+    console.log(name);
+    this.setState(() => ({
+      cart: [...cart, name],
+    }), () => localStorage.setItem('cart', cart));
   }
 
   async fetchProducts() {
@@ -107,6 +119,8 @@ class ProductList extends React.Component {
                 productId={ product.id }
                 price={ product.price }
                 thumbnail={ product.thumbnail }
+                onClick={ this.addToCart }
+                name={ product.title }
               />))
             }
           </section>

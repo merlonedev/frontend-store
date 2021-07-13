@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 class CartProduct extends React.Component {
   render() {
+    const { cart } = useState;
+    console.log(cart);
     return (
       <div>
         <Link to="/" data-testid="shopping-cart-button">
