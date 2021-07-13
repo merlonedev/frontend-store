@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import NotFound from './NotFound';
+import Cardproduct from '../Components/ProductCard';
 
 class Products extends Component {
   render() {
@@ -11,14 +12,18 @@ class Products extends Component {
 
     return (
       <div>
-        { productList.map((item) => (
-          <div key={ item.id } data-testid="product">
-            <h1>{ item.title }</h1>
-            <img src={ item.thumbnail } alt={ item.title } />
-            <p>{`R$: ${item.price}`}</p>
+        { productList.map((product) => (
+          <div key={ product.id }>
+            <Cardproduct
+              title={ product.title }
+              img={ product.thumbnail }
+              price={ product.price }
+              id={ product.id }
+              categoryId={ product.category_id }
+            />
             <button
               type="button"
-              onClick={ () => addToCart(item) }
+              onClick={ () => addToCart(product) }
               data-testid="product-add-to-cart"
             >
               Adicionar ao Carrinho
@@ -32,9 +37,9 @@ class Products extends Component {
 
 Products.propTypes = {
   productList: PropTypes.arrayOf(
-    PropTypes.array,
     PropTypes.object,
   ).isRequired,
+  addToCart: PropTypes.func.isRequired,
 };
 
 export default Products;

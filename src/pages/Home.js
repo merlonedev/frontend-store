@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import * as api from '../services/api';
 import Products from './Products';
 import CartButton from '../Components/CartButton';
@@ -9,11 +10,21 @@ class Home extends React.Component {
     super();
     this.state = {
       search: '',
-      categoryId: '',
       productList: [],
+      categories: [],
     };
     this.inputList = this.inputList.bind(this);
-    this.requestProducts = this.requestProducts.bind(this);
+    this.categorieAndQuery = this.categorieAndQuery.bind(this);
+    this.getCategory = this.getCategory.bind(this);
+  }
+
+  componentDidMount() {
+    this.getCategory();
+  }
+
+  async getCategory() {
+    const category = await api.getCategories();
+    this.setState({ categories: category });
   }
 
   inputList({ target }) {
@@ -22,19 +33,18 @@ class Home extends React.Component {
     });
   }
 
-  requestProducts() {
-    const { categoryId, search } = this.state;
-    api.getProductsFromCategoryAndQuery(categoryId, search)
-      .then(({ results }) => (
-        this.setState({
-          productList: results,
-        })
-      ));
+  async categorieAndQuery(id = '') {
+    const { search } = this.state;
+
+    const { results } = await api.getProductsFromCategoryAndQuery(id, search);
+    this.setState({
+      productList: results,
+    });
   }
 
   render() {
-    const { productList } = this.state;
     const { addToCart } = this.props;
+    const { productList, categories } = this.state;
     return (
       <form>
         <p
@@ -50,16 +60,23 @@ class Home extends React.Component {
         <button
           type="button"
           data-testid="query-button"
-          onClick={ this.requestProducts }
+          onClick={ this.categorieAndQuery }
         >
           Clique Aqui
         </button>
         <CartButton />
         <Products productList={ productList } addToCart={ addToCart } />
-        <Category />
+        <Category
+          category={ categories }
+          categoryAndQuery={ this.categorieAndQuery }
+        />
       </form>
     );
   }
 }
+
+Home.propTypes = {
+  addToCart: PropTypes.func.isRequired,
+};
 
 export default Home;

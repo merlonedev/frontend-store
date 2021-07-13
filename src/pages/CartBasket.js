@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import CartItems from '../Components/CartItems';
 
 class CartBasket extends Component {
@@ -17,5 +18,11 @@ class CartBasket extends Component {
     );
   }
 }
+
+CartBasket.propTypes = {
+  cartList: PropTypes.arrayOf(
+    PropTypes.object,
+  ).isRequired,
+};
 
 export default CartBasket;
