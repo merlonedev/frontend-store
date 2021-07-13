@@ -23,6 +23,17 @@ export default class ProductDetails extends Component {
     // console.log(item);
   }
 
+  handleAddToCart(product) {
+    const { title } = product;
+    let cart = JSON.parse(localStorage.getItem('cart'));
+    if (cart && cart[title]) {
+      cart = { ...cart, [title]: cart[title] + 1 };
+    } else {
+      cart = { ...cart, [title]: 1 };
+    }
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }
+
   setItem(item) {
     this.setState({ product: item, loading: false });
   }
@@ -45,7 +56,7 @@ export default class ProductDetails extends Component {
     return (
       <main>
         <Link to="/" onClick={ this.clearStorage }>VOLTAR</Link>
-        <Link to="/shoppingcart">CARRINHO</Link>
+        <Link data-testid="shopping-cart-button" to="/shoppingcart">CARRINHO</Link>
         <h1 data-testid="product-detail-name">{product.title}</h1>
         <h1>{product.price}</h1>
         <img src={ product.thumbnail } alt={ product.title } />
@@ -64,6 +75,7 @@ export default class ProductDetails extends Component {
         <button
           type="button"
           data-testid="product-detail-add-to-cart"
+          onClick={ () => this.handleAddToCart(product) }
         >
           ADICIONAR AO CARRINHO
         </button>
