@@ -92,17 +92,17 @@ class DetailedProduct extends React.Component {
                       </li>)) }
                   </ul>
                 </div>
+                <CommentForm
+                  aval={ aval }
+                  handleChangeAval={ this.handleChangeAval }
+                  handleSendAval={ this.handleSendAval }
+                />
+                <GenComment
+                  productId={ id }
+                  avaliations={ avaliations }
+                />
               </section>)}
         </main>
-        <CommentForm
-          aval={ aval }
-          handleChangeAval={ this.handleChangeAval }
-          handleSendAval={ this.handleSendAval }
-        />
-        <GenComment
-          productId={ id }
-          avaliations={ avaliations }
-        />
       </section>
     );
   }
