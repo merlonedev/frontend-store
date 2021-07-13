@@ -2,18 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 export default class Card extends Component {
-  constructor() {
-    super();
-    this.state = {
-      items: [],
-    };
-    this.addItemCart = this.addItemCart.bind(this);
-  }
-
-  addItemCart({ target }) {
-    console.log(target);
-  }
-
   render() {
     const { item: { title, price, thumbnail } } = this.props;
     return (
@@ -21,7 +9,6 @@ export default class Card extends Component {
         <h4>{ title }</h4>
         <p>{ price }</p>
         <img src={ thumbnail } alt={ title } />
-        <button type="button" onClick={ this.addItemCart }>Adicionar ao carrinho</button>
       </div>
     );
   }
