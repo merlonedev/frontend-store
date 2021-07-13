@@ -5,6 +5,7 @@ import ShoppingCart from './components/ShoppingCart';
 import CategoriesBar from './components/CategoriesBar';
 import ProductsList from './components/ProductsList';
 import ProductDetails from './components/ProductDetails';
+import Checkout from './components/Checkout';
 import * as API from './services/api';
 import './App.css';
 
@@ -49,7 +50,7 @@ export default class App extends Component {
   }
 
   addToCart(id) {
-    const { cartItems } = this.setState;
+    const { cartItems } = this.state;
     const items = [...cartItems];
     items.push(id);
     this.setState({
@@ -61,7 +62,6 @@ export default class App extends Component {
     this.setState({ category: target.value }, () => this.setProducts());
   }
 
-  // prettier-ignore
   render() {
     const { categories, products, cartItems } = this.state;
     return (
@@ -71,8 +71,7 @@ export default class App extends Component {
           <Route
             exact
             path="/cart"
-            render={ () => (
-              <ShoppingCart cartItems={ cartItems } />) }
+            render={ () => (<ShoppingCart cartItems={ cartItems } />) }
           />
           <Route
             exact
@@ -89,6 +88,7 @@ export default class App extends Component {
               </div>
             ) }
           />
+          <Route exact path="/checkout" component={ Checkout } />
         </Switch>
       </BrowserRouter>
     );

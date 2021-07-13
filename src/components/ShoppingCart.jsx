@@ -16,6 +16,7 @@ class ShoppingCart extends React.Component {
           <CartItems cartItems={ cartItems } />
         )}
         <p>
+          <Link to="/checkout">Checkout</Link>
           <Link to="/">VOLTAR</Link>
         </p>
       </section>
@@ -27,3 +28,9 @@ ShoppingCart.propTypes = {
   cartItems: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 export default ShoppingCart;
+
+ShoppingCart.propTypes = {
+  cartItems: PropTypes.arrayOf(PropTypes.shape({
+    title: PropTypes.string.isRequired,
+  })).isRequired,
+};

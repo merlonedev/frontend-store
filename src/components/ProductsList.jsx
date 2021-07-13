@@ -8,21 +8,22 @@ export default class ProductsList extends Component {
     return (
       <div>
         {products.map(({ title, id, thumbnail, price }) => (
-          <div key={id} data-testid="product">
-            <img alt="Product Cover" src={thumbnail} />
+          <div key={ id } data-testid="product">
+            <img alt="Product Cover" src={ thumbnail } />
             <div>
               <h4>{title}</h4>
               <p>{price}</p>
               <button
+                type="button"
                 data-testid="product-add-to-cart"
-                onClick={() => callback(id)}
+                onClick={ () => callback(id) }
               >
                 Adicionar ao Carrinho
               </button>
             </div>
             <Link
               data-testid="product-detail-link"
-              to={`/productdetails/${id}`}
+              to={ `/productdetails/${id}` }
             >
               Detalhes
             </Link>
@@ -40,6 +41,7 @@ ProductsList.propTypes = {
       id: PropTypes.string,
       thumbnail: PropTypes.string,
       price: PropTypes.number,
-    })
+    }),
   ).isRequired,
+  callback: PropTypes.func.isRequired,
 };
