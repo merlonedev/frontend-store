@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-class Categorie extends Component {
+class Category extends Component {
   render() {
-    const { categorie, checked, onChange } = this.props;
-    const { id, name } = categorie;
+    const { category, checked, onChange } = this.props;
+    const { id, name } = category;
 
     return (
       <li className="category" data-testid="category">
@@ -24,8 +24,8 @@ class Categorie extends Component {
   }
 }
 
-Categorie.propTypes = {
-  categorie: PropTypes.shape({
+Category.propTypes = {
+  category: PropTypes.shape({
     id: PropTypes.string,
     name: PropTypes.string,
   }).isRequired,
@@ -33,4 +33,4 @@ Categorie.propTypes = {
   onChange: PropTypes.func.isRequired,
 };
 
-export default Categorie;
+export default Category;
