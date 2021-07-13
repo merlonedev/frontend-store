@@ -25,7 +25,6 @@ class CategoryList extends React.Component {
 
   render() {
     const { categories, loading } = this.state;
-    console.log(categories);
     if (loading) {
       return (
         <p>Loading...</p>
