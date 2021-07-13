@@ -2,7 +2,7 @@ import React from 'react';
 import CartButton from '../components/CartButton';
 import InicialMessage from '../components/InicialMessage';
 import ProductList from '../components/ProductList';
-import { getProductsFromCategoryAndQuery } from '../services/api.js';
+import { getProductsFromCategoryAndQuery } from '../services/api';
 
 class HomePage extends React.Component {
   constructor() {
@@ -11,7 +11,7 @@ class HomePage extends React.Component {
     this.state = {
       search: '',
       results: '',
-    }
+    };
 
     this.handleChange = this.handleChange.bind(this);
     this.queryProducts = this.queryProducts.bind(this);
@@ -19,9 +19,9 @@ class HomePage extends React.Component {
 
   handleChange({ target }) {
     const { value, name } = target;
-    this.setState({ 
+    this.setState({
       [name]: value,
-    })
+    });
   }
 
   queryProducts() {
@@ -34,7 +34,7 @@ class HomePage extends React.Component {
     } else {
       this.setState({
         results: '',
-      }); 
+      });
     }
   }
 
@@ -53,10 +53,11 @@ class HomePage extends React.Component {
           data-testid="query-button"
           type="button"
           onClick={ this.queryProducts }
-        >Pesquisar</button>
+        >
+          Pesquisar
+        </button>
         <CartButton />
         { results.length > 0 ? <ProductList products={ results } /> : <InicialMessage /> }
-        
       </div>
     );
   }
