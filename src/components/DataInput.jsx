@@ -7,8 +7,8 @@ class DataInput extends React.Component {
       label,
       inputName,
       inputType,
-      inputValue,
-      onChangeInput,
+      // inputValue,
+      // onChangeInput,
       inputID,
     } = this.props;
 
@@ -18,8 +18,8 @@ class DataInput extends React.Component {
         <input
           name={ inputName }
           type={ inputType }
-          value={ inputValue }
-          onChange={ onChangeInput }
+          // value={ inputValue }
+          // onChange={ onChangeInput }
           data-testid={ inputID }
         />
       </label>
@@ -31,8 +31,8 @@ DataInput.propTypes = {
   label: PropTypes.string.isRequired,
   inputName: PropTypes.string.isRequired,
   inputType: PropTypes.string.isRequired,
-  inputValue: PropTypes.node.isRequired,
-  onChangeInput: PropTypes.func.isRequired,
+  // inputValue: PropTypes.node.isRequired,
+  // onChangeInput: PropTypes.func.isRequired,
   inputID: PropTypes.string.isRequired,
 };
 
