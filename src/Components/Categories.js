@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 class Categories extends React.Component {
   render() {
-    const { id, name } = this.props;
+    const { id, name, getFilterId } = this.props;
     return (
       <div>
         <label htmlFor={ name }>
@@ -13,6 +13,7 @@ class Categories extends React.Component {
             value={ id }
             id={ name }
             name="category"
+            onChange={ getFilterId }
             data-testid="category"
           />
         </label>
@@ -24,6 +25,7 @@ class Categories extends React.Component {
 Categories.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
+  getFilterId: PropTypes.func.isRequired,
 };
 
 export default Categories;
