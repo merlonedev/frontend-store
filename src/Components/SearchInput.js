@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import ButtonCart from './ButtonCart';
 
 class SearchInput extends Component {
   render() {
@@ -24,6 +25,7 @@ class SearchInput extends Component {
           <h2 data-testid="home-initial-message">
             Digite algum termo de pesquisa ou escolha uma categoria.
           </h2>
+          <ButtonCart />
         </fieldset>
       </form>
     );
