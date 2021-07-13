@@ -24,4 +24,5 @@ ProductCard.propTypes = {
 ProductCard.defaultProps = {
   product: undefined,
 };
+
 export default ProductCard;
