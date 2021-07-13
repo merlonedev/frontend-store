@@ -1,6 +1,7 @@
 import React from 'react';
 import * as api from '../services/api';
 import Products from './Products';
+import FilterCategories from './FilterCategories';
 
 class SearchAndResults extends React.Component {
   constructor() {
@@ -12,6 +13,7 @@ class SearchAndResults extends React.Component {
     };
     this.getInput = this.getInput.bind(this);
     this.getProducts = this.getProducts.bind(this);
+    this.filterByCategory = this.filterByCategory.bind(this);
   }
 
   getInput({ target }) {
@@ -29,9 +31,15 @@ class SearchAndResults extends React.Component {
     ));
   }
 
+  filterByCategory({ target }) {
+    const { value } = target;
+    const newProducts = this.state.productList.filter((product) => product.category_id === value);
+    this.setState({ productList: newProducts });
+    console.log(newProducts);
+  }
+
   render() {
     const { productList } = this.state;
-
     return (
       <div>
         <input
@@ -52,6 +60,7 @@ class SearchAndResults extends React.Component {
           Button
         </button>
         <Products productList={ productList } />
+        <FilterCategories onClick={ this.filterByCategory } />
       </div>
     );
   }

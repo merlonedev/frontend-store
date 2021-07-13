@@ -24,20 +24,22 @@ class FilterCategories extends React.Component {
 
   render() {
     const { categories } = this.state;
+    const { onClick } = this.props;
     return (
       <aside>
-        <ul>
-          {
-            categories.map((categorie) => (
-              <li
-                key={ categorie.id }
-                data-testid="category"
-              >
-                { categorie.name }
-              </li>
-            ))
-          }
-        </ul>
+        {
+          categories.map((categorie) => (
+            <button
+              onClick={ onClick }
+              type="button"
+              key={ categorie.id }
+              value={ categorie.id }
+              data-testid="category"
+            >
+              { categorie.name }
+            </button>
+          ))
+        }
       </aside>
     );
   }
