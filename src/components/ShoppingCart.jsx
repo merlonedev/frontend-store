@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import CartItems from './CartItems';
 
 class ShoppingCart extends React.Component {
@@ -12,7 +13,7 @@ class ShoppingCart extends React.Component {
             Seu carrinho está vazio.
           </span>
         ) : (
-          <CartItems cartItems={cartItems} />
+          <CartItems cartItems={ cartItems } />
         )}
         <p>
           <Link to="/">VOLTAR</Link>
@@ -22,3 +23,9 @@ class ShoppingCart extends React.Component {
   }
 }
 export default ShoppingCart;
+
+ShoppingCart.propTypes = {
+  cartItems: PropTypes.arrayOf(PropTypes.shape({
+    title: PropTypes.string.isRequired,
+  })).isRequired,
+};

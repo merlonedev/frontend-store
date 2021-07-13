@@ -36,7 +36,7 @@ export default class App extends Component {
     const { queryInput, category } = this.state;
     const results = await API.getProductsFromCategoryAndQuery(
       category,
-      queryInput
+      queryInput,
     );
     this.setState({
       products: results.results,
@@ -48,7 +48,8 @@ export default class App extends Component {
   }
 
   addToCart(id) {
-    const items = [...this.state.cartItems];
+    const { cartItems } = this.state;
+    const items = [...cartItems];
     items.push(id);
     this.setState({
       cartItems: items,
@@ -59,14 +60,17 @@ export default class App extends Component {
     this.setState({ category: target.value }, () => this.setProducts());
   }
 
-  // prettier-ignore
   render() {
     const { categories, products, cartItems } = this.state;
     return (
       <BrowserRouter>
         <Switch>
           <Route exact path="/productdetails/:id" component={ ProductDetails } />
-          <Route exact path="/cart" render={ () => (<ShoppingCart cartItems={ cartItems } />)} />
+          <Route
+            exact
+            path="/cart"
+            render={ () => (<ShoppingCart cartItems={ cartItems } />) }
+          />
           <Route
             exact
             path="/"
