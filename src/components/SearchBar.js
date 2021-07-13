@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import * as API from '../services/api';
-
 class SearchBar extends Component {
   constructor(props) {
     super(props);
@@ -24,8 +22,7 @@ class SearchBar extends Component {
     e.preventDefault();
     const { callBack } = this.props;
     const { searchText } = this.state;
-    const products = await API.getProductsFromCategoryAndQuery('MLB5672', searchText);
-    callBack(products.results);
+    callBack(searchText);
   }
 
   render() {
