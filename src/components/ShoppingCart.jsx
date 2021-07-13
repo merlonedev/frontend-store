@@ -8,7 +8,7 @@ class ShoppingCart extends React.Component {
     const { cartItems } = this.props;
     return (
       <section>
-        {!cartItems ? (
+        {cartItems.length === 0 ? (
           <span data-testid="shopping-cart-empty-message">
             Seu carrinho está vazio.
           </span>
@@ -23,6 +23,10 @@ class ShoppingCart extends React.Component {
     );
   }
 }
+
+ShoppingCart.propTypes = {
+  cartItems: PropTypes.arrayOf(PropTypes.string).isRequired,
+};
 export default ShoppingCart;
 
 ShoppingCart.propTypes = {

@@ -33,6 +33,7 @@ export default class App extends Component {
     });
   }
 
+  // prettier-ignore
   async setProducts() {
     const { queryInput, category } = this.state;
     const results = await API.getProductsFromCategoryAndQuery(
