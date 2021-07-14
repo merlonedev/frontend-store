@@ -19,12 +19,12 @@
 }
 
 .card {
-  display: flex;
   border: 1px solid black;
+  display: flex;
   flex-direction: column;
   margin: 5px;
-  width: 200px;
   text-align: center;
+  width: 200px;
 }
 
 .card-title {
