@@ -1,9 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import AddToCart from './AddToCart';
 
-class ItemCard extends React.Component {
+class ShopingCartItem extends React.Component {
   render() {
     const { item } = this.props;
     const { id,
@@ -13,22 +12,22 @@ class ItemCard extends React.Component {
       price } = item;
     return (
       <div data-testid="product">
-        <h1>{title}</h1>
+        <h1 data-testid="shopping-cart-product-name">{title}</h1>
         <img src={ thumbnail } alt={ title } />
         <p>{price}</p>
+        <p data-testid="shopping-cart-product-quantity">1</p>
         <Link
           data-testid="product-detail-link"
           to={ `/item/${category}/${id}` }
         >
           Mais Detalhes:
         </Link>
-        <AddToCart productObj={ item } />
       </div>
     );
   }
 }
 
-ItemCard.propTypes = {
+ShopingCartItem.propTypes = {
   item: PropTypes.shape({
     id: PropTypes.string.isRequired,
     category_id: PropTypes.string.isRequired,
@@ -38,4 +37,4 @@ ItemCard.propTypes = {
   }).isRequired,
 };
 
-export default ItemCard;
+export default ShopingCartItem;

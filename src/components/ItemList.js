@@ -38,7 +38,6 @@ class ItemList extends Component {
     const { input, input2 } = this.props;
     const item = await getProductsFromCategoryAndQuery(input2, input);
     this.setState(() => ({ itens: item }));
-    console.log(item);
   }
 
   render() {
