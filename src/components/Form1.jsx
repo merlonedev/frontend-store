@@ -1,5 +1,5 @@
 import React from 'react';
-import DataInput from './DataInput';
+import DataInput from './subcomponents/DataInput';
 
 export default class Form1 extends React.Component {
   render() {

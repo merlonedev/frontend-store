@@ -1,7 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import CartItems from './CartItems';
+import ReturnButton from './subcomponents/ReturnButton';
+import CheckoutButton from './subcomponents/CheckoutButton';
 
 // prettier-ignore
 export default class ShoppingCart extends React.Component {
@@ -17,8 +19,10 @@ export default class ShoppingCart extends React.Component {
           <CartItems cartItems={ cartItems } handlers={ handlers } showButtons="true" />
         )}
         <p>
-          <Link data-testid="checkout-products" to="/checkout">Checkout</Link>
-          <Link to="/">VOLTAR</Link>
+          {/* <Link data-testid="checkout-products" to="/checkout">Checkout</Link> */}
+          <CheckoutButton />
+          {/* <Link to="/">VOLTAR</Link> */}
+          <ReturnButton />
         </p>
       </section>
     );

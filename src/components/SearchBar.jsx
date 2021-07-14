@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import Quantities from './Quantities';
+// import { Link } from 'react-router-dom';
+// import Quantities from './Quantities';
+import ShoppingCartButton from './subcomponents/ShoppingCartButton';
 
 // import * as API from '../services/api';
 
@@ -42,21 +43,22 @@ export default class SearchBar extends Component {
           type="button"
           data-testid="query-button"
           onClick={ this.handleClick }
-          className="button search-button"
+          className="button search-btn"
         >
           <i className="fas fa-search" />
         </button>
         <p data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
         </p>
-        <button type="button" className="button cart-button">
+        {/* <button type="button" className="button cart-button">
           <Link to="/cart" data-testid="shopping-cart-button">
             <p>
               <i className="fas fa-shopping-cart" />
               <Quantities quantity={ quantity } />
             </p>
           </Link>
-        </button>
+        </button> */}
+        <ShoppingCartButton quantity={ quantity } />
       </div>
     );
   }
