@@ -55,7 +55,7 @@ class Home extends React.Component {
   productDetails(product) {
     localStorage.setItem('prdctDetails', JSON.stringify(product));
   }
-  
+
   localChanger(product) {
     if (localStorage.getItem('Cart') !== null) {
       console.log('oi');
@@ -82,8 +82,6 @@ class Home extends React.Component {
           filter={ category }
           detailsHandler={ this.productDetails }
           localChanger={ this.localChanger }
-          products={ products }
-          filter={ category }
         />
         <ProductCategories
           categoryHandler={ this.categoryHandler }
