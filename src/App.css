@@ -19,8 +19,8 @@ html, * {
 }
 
 .App {
-  text-align: center;
   color: var(--dark-liver);
+  text-align: center;
 }
 
 /* .home {
@@ -74,8 +74,8 @@ html, * {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
-  position: absolute;
   left: 25%;
+  position: absolute;
   width: 75%;
 }
 
@@ -87,7 +87,13 @@ html, * {
   justify-content: space-between;
   margin: 0.5%;
   padding: 1%;
+  transition: all 0.2s;
   width: 22%;
+}
+
+.product-card:hover {
+  transform: scale(1.01);
+  transition: all 0.2s;
 }
 
 .price-shipping {
@@ -114,35 +120,39 @@ html, * {
 
 .button * {
   color: var(--dark-liver);
+  display: inline-block;
   margin: 0;
   padding: 10px;
-  transition: 0.3s;
   text-decoration: none;
+  transition: 0.3s;
+}
+
+.button span {
+  padding: 0;
 }
 
 .button a:visited {
   color: var(--dark-liver);
 }
 
-.add-button {
-  display: inline-block;
+.button:active {
+  box-shadow: none;
+  transform: translate3d(1px, 1px, 0);
+}
+
+.add-button, .search-button {
   background-color: var(--persian-green);
   border-radius: 2px;
   box-shadow: 1px 1px 1px 1px var(--old-lavender);
   margin: 5px;
 }
 
-.add-button * {
+.add-button *, .search-button * {
   color: var(--magnolia);
 }
 
-.add-button *:hover {
+.add-button *:hover, .search-button *:hover {
   background-color: rgba(255, 255, 255, 0.5);
   color: var(--dark-liver);
   transition: 0.3s;
-}
-
-.button:active {
-  box-shadow: none;
-  transform: translate3d(1px, 1px, 0);
 }

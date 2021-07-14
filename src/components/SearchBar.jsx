@@ -40,7 +40,7 @@ export default class SearchBar extends Component {
           type="button"
           data-testid="query-button"
           onClick={ this.handleClick }
-          className="button"
+          className="button search-button"
         >
           <p>Procurar</p>
         </button>
@@ -48,12 +48,12 @@ export default class SearchBar extends Component {
           Digite algum termo de pesquisa ou escolha uma categoria.
         </p>
         <button type="button" className="button">
-          <p>
-            <Link to="/cart" data-testid="shopping-cart-button">
-              Carrinho
-              <Quantities quantity={ quantity } />
-            </Link>
-          </p>
+          {/* <p> */}
+          <Link to="/cart" data-testid="shopping-cart-button">
+            Carrinho
+            <Quantities quantity={ quantity } />
+          </Link>
+          {/* </p> */}
         </button>
       </div>
     );
