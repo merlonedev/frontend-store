@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
 import Index from './components/Index';
 import Cart from './components/ShoppingCart';
 import Infos from './components/Infos';
@@ -35,6 +35,7 @@ class App extends React.Component {
     const { itemCart } = this.state;
     return (
       <BrowserRouter>
+        <Link to="/">Home</Link>
         <Switch>
           <Route
             path="/infos/:id/:product"
