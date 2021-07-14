@@ -26,7 +26,6 @@ class ReviewForm extends React.Component {
   render() {
     const { review } = this.state;
     const { email } = this.state;
-    console.log(this.state);
     return (
       <form>
         <input

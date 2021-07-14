@@ -69,3 +69,11 @@
 .details-shoppingCart p {
   margin-left: 10px;
 }
+
+.invalid {
+  border: red solid 1px;
+}
+
+.valid {
+  border: green solid 1px;
+}
