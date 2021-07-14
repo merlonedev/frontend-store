@@ -7,6 +7,7 @@ import ShoppingCartButton from './Components/ShoppingCartButton';
 import ShoppingCart from './Components/ShoppingCart';
 import SearchBar from './Components/SearchBar';
 import InicialMessage from './Components/InicialMessage';
+import ProductDetail from './Components/ProductDetail';
 
 class App extends React.Component {
   constructor(props) {
@@ -43,6 +44,10 @@ class App extends React.Component {
                 />) }
             />
             <Route path="/shopping-cart" component={ ShoppingCart } />
+            <Route
+              path="/details/:id"
+              render={ (props) => <ProductDetail { ...props } search={ search } /> }
+            />
           </Switch>
           <FilterCategories getState={ this.getState } />
         </BrowserRouter>
