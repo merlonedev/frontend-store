@@ -11,6 +11,7 @@ class Home extends React.Component {
     this.eventHandler = this.eventHandler.bind(this);
     this.searchHandler = this.searchHandler.bind(this);
     this.categoryHandler = this.categoryHandler.bind(this);
+    this.localChanger = this.localChanger.bind(this);
     this.state = {
       products: undefined,
       productCategories: undefined,
@@ -50,6 +51,17 @@ class Home extends React.Component {
     });
   }
 
+  localChanger(product) {
+    if (localStorage.getItem('Cart') !== null) {
+      console.log('oi');
+      let local = JSON.parse(localStorage.getItem('Cart'));
+      local = [...local, product];
+      localStorage.setItem('Cart', JSON.stringify(local));
+    } else {
+      localStorage.setItem('Cart', JSON.stringify([product]));
+    }
+  }
+
   render() {
     const { products, productCategories, searchText, category } = this.state;
     return (
@@ -60,7 +72,11 @@ class Home extends React.Component {
           eventHandler={ this.eventHandler }
         />
         <MarketButton />
-        <ProductList products={ products } filter={ category } />
+        <ProductList
+          localChanger={ this.localChanger }
+          products={ products }
+          filter={ category }
+        />
         <ProductCategories
           categoryHandler={ this.categoryHandler }
           productCategories={ productCategories }
