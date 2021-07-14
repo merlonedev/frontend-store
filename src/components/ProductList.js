@@ -11,7 +11,7 @@ class ProductList extends React.Component {
   render() {
     const { products, updateCartSize } = this.props;
 
-    return products.map(({ id, title, thumbnail, price }) => {
+    return products.map(({ id, title, thumbnail, price, shipping }) => {
       const cartElements = { id, title, price, thumbnail };
       return (<ProductCard
         id={ id }
@@ -19,6 +19,7 @@ class ProductList extends React.Component {
         title={ title }
         thumbnail={ thumbnail }
         price={ price }
+        shipping={ shipping }
         onClick={ (
           () => {
             allElements = [...allElements, cartElements];
