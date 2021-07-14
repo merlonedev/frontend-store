@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import * as Api from '../services/api';
+import CartButton from '../components/ShoppingCart/CartButton';
+import HomeButton from '../components/Home/HomeButton';
 
-class Details extends React.Component {
+class ProductDetails extends React.Component {
   constructor(props) {
     super(props);
 
@@ -54,13 +55,8 @@ class Details extends React.Component {
     const { product } = this.state;
     return (
       <div>
+        <HomeButton />
         <p data-testid="product-detail-name">{product.title}</p>
-        <Link to="/cart" data-testid="shopping-cart-button">
-          <img src="https://img.icons8.com/ios/50/000000/shopping-cart.png" alt="carrinho" className="cart-image" />
-        </Link>
-        <Link to="/">
-          <img src="https://img.icons8.com/ios/50/000000/back--v1.png" alt="voltar" className="back-image" />
-        </Link>
         <button
           data-testid="product-detail-add-to-cart"
           type="button"
@@ -68,12 +64,13 @@ class Details extends React.Component {
         >
           Adicionar ao carrinho
         </button>
+        <CartButton />
       </div>
     );
   }
 }
 
-Details.propTypes = {
+ProductDetails.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string.isRequired,
@@ -82,4 +79,4 @@ Details.propTypes = {
   }).isRequired,
 };
 
-export default Details;
+export default ProductDetails;
