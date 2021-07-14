@@ -58,7 +58,6 @@ class Home extends React.Component {
 
   localChanger(product) {
     if (localStorage.getItem('Cart') !== null) {
-      console.log('oi');
       let local = JSON.parse(localStorage.getItem('Cart'));
       local = [...local, product];
       localStorage.setItem('Cart', JSON.stringify(local));

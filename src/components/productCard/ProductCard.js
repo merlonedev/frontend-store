@@ -19,7 +19,6 @@ class ProductCard extends React.Component {
             alt={ product.id }
           />
         </Link>
-        <Link to="/shopping-cart">Carrinho</Link>
 
         <p>
           R$
