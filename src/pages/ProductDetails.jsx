@@ -14,6 +14,7 @@ class ProductDetails extends React.Component {
       loading: true,
     };
     this.getProduct = this.getProduct.bind(this);
+    this.addToStorage = this.addToStorage.bind(this);
   }
 
   componentDidMount() {
@@ -25,6 +26,11 @@ class ProductDetails extends React.Component {
     const { results } = await api.getProductsFromCategoryAndQuery(categoryId, '');
     const product = await results.find((item) => item.id === productId);
     this.setState({ product: { ...product }, loading: false });
+  }
+
+  addToStorage() {
+    const { product } = this.state;
+    localStorage.setItem(product.id, JSON.stringify(product));
   }
 
   render() {
@@ -42,7 +48,7 @@ class ProductDetails extends React.Component {
     return (
       <div>
         <Link to="/"><TiArrowBack /></Link>
-        <Link to="/cart">
+        <Link to="/cart" data-testid="shopping-cart-button">
           <FiShoppingCart />
         </Link>
         <h2 data-testid="product-detail-name">{ `${title} - R$ ${price}` }</h2>
@@ -60,6 +66,15 @@ class ProductDetails extends React.Component {
             </ul>
           </div>
         </div>
+        <div>
+          <button
+            data-testid="product-detail-add-to-cart"
+            type="button"
+            onClick={ this.addToStorage }
+          >
+            Adicionar ao carrinho
+          </button>
+        </div>
         <div />
       </div>
     );
@@ -72,6 +87,9 @@ ProductDetails.propTypes = {
       productId: PropTypes.string,
       categoryId: PropTypes.string,
     }),
+  }).isRequired,
+  product: PropTypes.shape({
+    id: PropTypes.string.isRequired,
   }).isRequired,
 };
 
