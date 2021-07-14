@@ -30,7 +30,7 @@ class Categories extends React.Component {
     const { categories } = this.state;
     const { handleClick } = this.props;
     return (
-      <>
+      <div>
         {
           categories.map((item) => (
             <button
@@ -44,7 +44,7 @@ class Categories extends React.Component {
             </button>
           ))
         }
-      </>
+      </div>
     );
   }
 }

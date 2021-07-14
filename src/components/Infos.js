@@ -32,6 +32,7 @@ export default class Infos extends React.Component {
 
   render() {
     const { product, loaded } = this.state;
+    const { addToCartItem } = this.props;
     // Mostra o elemento h1 dizendo loading caso não tenha carregado a página ainda.
     if (!loaded) {
       return <h1>Loading</h1>;
@@ -49,6 +50,13 @@ export default class Infos extends React.Component {
                 .map((item, index) => (
                   <p key={ index }>{`${item.name}: ${item.value_name}`}</p>)) }
             </ul>
+            <button
+              type="button"
+              data-testid="product-detail-add-to-cart"
+              onClick={ addToCartItem }
+            >
+              Adicionar ao carrinho
+            </button>
           </div>
         </div>
       </div>
