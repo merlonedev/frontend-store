@@ -70,6 +70,7 @@ class CartItems extends React.Component {
                     product={ cartItem }
                     onClick={ this.itemCartRemove }
                     onChange={ this.totalCartCalculator }
+                    onChangeExclude={ this.itemCartRemove }
                   />
                 ))}
               </div>
