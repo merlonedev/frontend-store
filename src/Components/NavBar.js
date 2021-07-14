@@ -33,6 +33,16 @@ class NavBar extends Component {
               { category.name }
             </li>))}
         </ul>
+        {/* {categoryList.map((category) => (
+          <input
+            type="radio"
+            key={ category.id }
+            data-testid="category"
+          >
+            { category.name }
+          </input>))
+        } */}
+
       </nav>
     );
   }

@@ -1,56 +1,25 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import ProductList from './ProductList';
 import SearchMsg from './SearchMsg';
-import { getProductsFromCategoryAndQuery } from '../services/api';
 import Loading from './Loading';
 
 class SearchBar extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      loading: false,
-      products: [],
-      value: '',
-    };
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  handleChange(e) {
-    this.setState({
-      value: e.target.value,
-    });
-  }
-
-  async handleClick() {
-    const { value } = this.state;
-    this.setState({ loading: true },
-      async () => {
-        const products = await getProductsFromCategoryAndQuery('', value);
-        this.setState({
-          loading: false,
-          products: products.results,
-        });
-      });
-  }
-
   render() {
-    const { value, products, loading } = this.state;
+    const { value, products, loading, change, click } = this.props;
     if (loading) return <Loading />;
 
     return (
       <section>
         <input
           type="search"
-          onChange={ this.handleChange }
+          onChange={ change }
           value={ value }
           data-testid="query-input"
         />
         <button
           type="button"
-          onClick={ this.handleClick }
+          onClick={ click }
           data-testid="query-button"
         >
           Search
@@ -66,5 +35,13 @@ class SearchBar extends Component {
     );
   }
 }
+
+SearchBar.propTypes = {
+  value: PropTypes.string.isRequired,
+  products: PropTypes.arrayOf(Object).isRequired,
+  loading: PropTypes.bool.isRequired,
+  change: PropTypes.func.isRequired,
+  click: PropTypes.func.isRequired,
+};
 
 export default SearchBar;
