@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import * as api from '../services/api';
 
 class ProductDetails extends Component {
   constructor() {
@@ -17,32 +16,32 @@ class ProductDetails extends Component {
   }
 
   async getProducts() {
-    const { match: { params: { categoryId, id, title } } } = this.props;
-    const requisitionApi = await api.getProductsFromCategoryAndQuery(categoryId, title);
-    const details = requisitionApi.results.find((product) => product.id === id);
-
+    const { match: { params: { id } } } = this.props;
+    const requisitionApi = await fetch(`https://api.mercadolibre.com/items/${id}`);
+    const result = await requisitionApi.json();
     this.setState({
-      product: details,
+      product: result,
     });
   }
 
   render() {
     const { product: { title, thumbnail, price } } = this.state;
     return (
-      <section>
-        <Link to="/">
+      <section className="detailSection">
+        <Link to="/" className="link">
           Voltar
         </Link>
-        <Link to="/Components/Cart">
+        <Link to="/Components/Cart" className="link">
           Carrinho
         </Link>
-        <h3 data-testid="product-detail-name">
+        <h3 data-testid="product-detail-name" className="productTitle">
           { title }
-          -
-          { price }
+        </h3>
+        <h3 className="productPrice">
+          { `Preço: ${price}` }
         </h3>
         <div>
-          <img alt="imagem do produto" src={ thumbnail } />
+          <img alt="imagem do produto" src={ thumbnail } className="productImg" />
         </div>
       </section>
     );
