@@ -4,14 +4,20 @@ import PropTypes from 'prop-types';
 
 export default class ProductCard extends Component {
   handleCardClick = (product) => {
-    // evt.preventDefault();
     const item = JSON.stringify(product);
     localStorage.setItem('product', item);
   }
 
+  CheckFreeShipping(product) {
+    if (product.shipping.free_shipping === true) {
+      return (
+        <div data-testid="free-shipping">Free Shipping</div>
+      );
+    }
+  }
+
   render() {
     const { product, onProductClick } = this.props;
-
     return (
       <div className="product-container" data-testid="product" id={ product.id }>
         <Link
@@ -22,6 +28,7 @@ export default class ProductCard extends Component {
           <img src={ product.thumbnail } alt="" />
           <h1 data-testid="product-detail-link">{ product.title }</h1>
           <p>{ product.price }</p>
+          <div>{this.CheckFreeShipping(product)}</div>
         </Link>
         <button
           type="button"
