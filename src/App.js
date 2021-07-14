@@ -32,6 +32,7 @@ export default class App extends Component {
     this.decreaseQty = this.decreaseQty.bind(this);
     this.loadQuantity = this.loadQuantity.bind(this);
     this.loadCart = this.loadCart.bind(this);
+    this.handleLocalStorage = this.handleLocalStorage.bind(this);
   }
 
   componentDidMount() {
@@ -42,6 +43,13 @@ export default class App extends Component {
     });
     this.loadQuantity();
     this.loadCart();
+    if (localStorage.cartItems) this.loadCart();
+  }
+
+  handleLocalStorage() {
+    const { cartItems, quantity } = this.state;
+    localStorage.cartItems = JSON.stringify(cartItems);
+    localStorage.quantity = JSON.stringify(quantity);
   }
 
   // prettier-ignore
@@ -80,7 +88,7 @@ export default class App extends Component {
     this.setState({
       cartItems: cartItems.filter(({ id }) => id !== itemId),
       quantity,
-    });
+    }, this.handleLocalStorage);
   }
 
   increaseQty(itemId) {
@@ -98,7 +106,7 @@ export default class App extends Component {
         ...cartItems.slice(itemIndex + 1),
       ],
       quantity,
-    });
+    }, this.handleLocalStorage);
   }
 
   decreaseQty(itemId) {
@@ -114,7 +122,7 @@ export default class App extends Component {
         ...cartItems.slice(itemIndex + 1),
       ],
       quantity,
-    });
+    }, this.handleLocalStorage);
   }
 
   addToCart(itemObj) {
@@ -131,7 +139,7 @@ export default class App extends Component {
     this.setState({
       cartItems: items,
       quantity,
-    });
+    }, this.handleLocalStorage);
 
     localStorage.setItem('cartItems', JSON.stringify(items));
     localStorage.setItem('quantity', JSON.stringify(quantity));
