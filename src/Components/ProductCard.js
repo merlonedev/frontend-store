@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 class Cardproduct extends Component {
   render() {
-    const { title, img, price, id, categoryId } = this.props;
+    const { title, img, price, id, categoryId, shipping } = this.props;
     return (
       <div data-testid="product">
         <p>{ title }</p>
@@ -14,6 +14,7 @@ class Cardproduct extends Component {
           {' '}
           { price }
         </p>
+        { shipping.free_shipping && <p data-testid="free-shipping">Frete Grátis</p> }
         <Link
           to={ `/product-details/${categoryId}/${id}` }
           data-testid="product-detail-link"
@@ -31,6 +32,9 @@ Cardproduct.propTypes = {
   price: PropTypes.number.isRequired,
   id: PropTypes.string.isRequired,
   categoryId: PropTypes.string.isRequired,
+  shipping: PropTypes.objectOf({
+    free_shipping: PropTypes.bool.isRequired,
+  }).isRequired,
 };
 
 export default Cardproduct;
