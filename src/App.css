@@ -60,6 +60,11 @@ img {
   justify-content: space-evenly;
 }
 
+.fieldset-form {
+  display: flex;
+  flex-direction: column;
+}
+
 .App-header {
   align-items: center;
   background-color: #282c34;
