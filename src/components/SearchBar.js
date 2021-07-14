@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import ProductCard from './ProductsCard';
 import * as fetchApi from '../services/api';
 
@@ -34,6 +35,7 @@ class SearchBar extends Component {
 
   render() {
     const { product } = this.state;
+    const { cartAdd } = this.props;
     return (
       <div>
         <input
@@ -53,11 +55,14 @@ class SearchBar extends Component {
         >
           Search
         </button>
-
-        <ProductCard product={ product } />
+        <ProductCard product={ product } cartAdd={ cartAdd } />
       </div>
     );
   }
 }
+
+SearchBar.propTypes = {
+  cartAdd: PropTypes.func.isRequired,
+};
 
 export default SearchBar;

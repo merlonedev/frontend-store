@@ -7,14 +7,42 @@ import ProductDetails from './components/ProductDetails';
 import CategoryPage from './components/CategoryPage';
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = { cartItens: [] };
+    this.cartAdd = this.cartAdd.bind(this);
+  }
+
+  cartAdd(product) {
+    this.setState((prevState) => ({
+      cartItens: [...prevState.cartItens, product],
+    }));
+  }
+
   render() {
+    const { cartItens } = this.state;
     return (
       <BrowserRouter>
         <Switch>
-          <Route exact path="/" component={ Home } />
-          <Route exact path="/ShoppingCart" component={ ShoppingCart } />
+          <Route
+            exact
+            path="/"
+            render={ (props) => <Home { ...props } cartAdd={ this.cartAdd } /> }
+          />
+          <Route
+            exact
+            path="/shoppingcart"
+            render={ (props) => <ShoppingCart { ...props } cartAdd={ cartItens } /> }
+          />
           <Route exact path="/detalhes/:title/:id" component={ ProductDetails } />
-          <Route exatc path="/categorias/:categoria" component={ CategoryPage } />
+          <Route
+            exact
+            path="/categorias/:categoria"
+            render={ (props) => (<CategoryPage
+              { ...props }
+              cartAdd={ this.cartAdd }
+            />) }
+          />
         </Switch>
       </BrowserRouter>
     );
