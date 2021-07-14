@@ -1,24 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import states from '../services/checkoutStates';
-
-const initialState = {
-  name: '',
-  email: '',
-  cpf: '',
-  phone: '',
-  adress: '',
-  cep: '',
-  complement: '',
-  number: '',
-  city: '',
-  nameError: '',
-  emailError: '',
-  cpfError: '',
-  phoneError: '',
-  adressError: '',
-  cityError: '',
-};
+import initialState from '../services/checkoutInitialState';
 
 export default class Checkout extends Component {
   constructor() {
@@ -35,7 +18,7 @@ export default class Checkout extends Component {
   handleSubmit = (evt) => {
     evt.preventDefault();
     this.validate();
-    if (this.validate) { return true; }
+    if (this.validate()) { return true; }
     return false;
   }
 
@@ -52,7 +35,6 @@ export default class Checkout extends Component {
     let cityError = '';
     let phoneError = '';
     const { name, cpf, cep, adress, city, phone, email } = this.state;
-
     if (!emailValidate.test(email)) { emailError = 'Email inválido'; }
     if (!stringValidate.test(name)) { nameError = 'Nome é obrigatório'; }
     if (!stringValidate.test(adress)) { adressError = 'Endereço é obrigatório'; }
@@ -74,6 +56,7 @@ export default class Checkout extends Component {
         });
       return false;
     }
+    this.setState({ shouldRedirect: true });
     return true;
   }
 
@@ -95,8 +78,9 @@ export default class Checkout extends Component {
       cpfError,
       adressError,
       cityError,
+      shouldRedirect,
     } = this.state;
-
+    if (shouldRedirect) { return <Redirect to="/" />; }
     return (
       <main className="checkout">
         <section className="products-resume">
@@ -222,8 +206,6 @@ export default class Checkout extends Component {
           </label>
         </section>
         <button type="button" onClick={ this.handleSubmit }>Comprar</button>
-        {/* <Link to="/">
-        </Link> */}
       </main>
     );
   }

@@ -19,9 +19,7 @@ export default class ProductDetails extends Component {
 
   componentDidMount() {
     const item = JSON.parse(localStorage.getItem('product'));
-    // localStorage.removeItem('product');
     this.setItem(item);
-    // console.log(item);
   }
 
   handleAddToCart(product) {
