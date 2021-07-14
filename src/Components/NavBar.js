@@ -1,30 +1,10 @@
 import React, { Component } from 'react';
-import { getCategories } from '../services/api';
+import PropTypes from 'prop-types';
 
 class NavBar extends Component {
-  constructor() {
-    super();
-
-    this.mountListCategory = this.mountListCategory.bind(this);
-
-    this.state = {
-      categoryList: [],
-    };
-  }
-
-  componentDidMount() {
-    this.mountListCategory();
-  }
-
-  async mountListCategory() {
-    const response = await getCategories();
-    this.setState({
-      categoryList: response,
-    });
-  }
-
   render() {
-    const { categoryList } = this.state;
+    const { categoryList } = this.props;
+    console.log('NavBar', categoryList);
     return (
       <nav>
         <ul>
@@ -47,5 +27,9 @@ class NavBar extends Component {
     );
   }
 }
+
+NavBar.propTypes = {
+  categoryList: PropTypes.arrayOf(Object).isRequired,
+};
 
 export default NavBar;
