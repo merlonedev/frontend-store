@@ -82,7 +82,7 @@ export default class ProductDetails extends Component {
             placeholder="Conta mais sobre o que achou do produto..."
             className="evaluation"
           />
-          <button type="button" className="submit-button button">
+          <button type="button" className="submit-btn button">
             <p>Submit</p>
           </button>
           <div className="buttons-container">

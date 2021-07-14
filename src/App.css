@@ -1,3 +1,17 @@
+::-webkit-scrollbar {
+  position: relative;
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--old-lavender);
+  border-radius: 3px;
+}
+
 :root {
 
   --persian-green: rgba(27, 153, 139, 1);
@@ -14,27 +28,14 @@
 
 }
 
+::-webkit-scrollbar-thumb:hover {
+  background: var(--dark-liver);
+}
+
 html, * {
   box-sizing: border-box;
 }
 
-::-webkit-scrollbar {
-  position: relative;
-  width: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--old-lavender);
-  border-radius: 3px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--dark-liver);
-}
 
 .App {
   color: var(--dark-liver);
@@ -151,6 +152,10 @@ html, * {
   padding: 0;
 }
 
+.return-button a {
+  padding: 0;
+}
+
 .button a:visited {
   color: var(--dark-liver);
 }
@@ -160,14 +165,14 @@ html, * {
   transform: translate3d(1px, 1px, 0);
 }
 
-.add-button, .search-button, .cart-button, .submit-button {
+.add-button, .search-button, .cart-button, .submit-btn {
   background-color: var(--persian-green);
   border-radius: 2px;
   box-shadow: 1px 1px 1px 1px var(--old-lavender);
   margin: 5px;
 }
 
-.submit-button {
+.submit-btn {
   align-self: center;
   width: fit-content;
 }
@@ -179,15 +184,11 @@ html, * {
   margin: 5px;
 }
 
-.return-button a {
-  padding: 0;
-}
-
-.add-button *, .search-button *, .cart-button *, .submit-button * {
+.add-button *, .search-button *, .cart-button *, .submit-btn * {
   color: var(--magnolia);
 }
 
-.add-button *:hover, .search-button *:hover, .cart-button a:hover, .submit-button *:hover {
+.add-button *:hover, .search-button *:hover, .cart-button a:hover, .submit-btn *:hover {
   background-color: rgba(255, 255, 255, 0.5);
   color: var(--dark-liver);
   transition: 0.3s;
