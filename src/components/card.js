@@ -31,7 +31,7 @@ export default class Card extends Component {
 
   render() {
     const { item } = this.props;
-    const { title, price, thumbnail, id } = item;
+    const { title, price, thumbnail, id, shipping } = item;
     const { shouldRedirect, id: idState, title: titleState } = this.state;
     if (shouldRedirect) {
       return <Redirect to={ `/infos/${idState}/${titleState}` } />;
@@ -47,7 +47,7 @@ export default class Card extends Component {
           <h4 data-testid="product-detail-link">{ title }</h4>
           <p>{ price }</p>
           <img className="thumbnail" src={ thumbnail } alt={ title } />
-
+          { shipping.free_shipping && <img data-testid="free-shipping" src="https://cdn.awsli.com.br/511/511886/arquivos/frete-gratis-1.png" alt="Frete Gratis" width="100px" /> }
         </div>
         <button
           className="btn-cart"
@@ -68,6 +68,9 @@ Card.propTypes = {
     price: PropTypes.number,
     thumbnail: PropTypes.string,
     id: PropTypes.string,
+    shipping: PropTypes.shape({
+      free_shipping: PropTypes.bool,
+    }),
   }).isRequired,
   addCartItem: PropTypes.func.isRequired,
 };
