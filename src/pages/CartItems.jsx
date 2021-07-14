@@ -12,10 +12,11 @@ class CartItems extends React.Component {
     this.state = {
       cartItens: [],
       loading: true,
-      // total: 0,
+      total: 0,
     };
     this.loadItens = this.loadItens.bind(this);
     this.itemCartRemove = this.itemCartRemove.bind(this);
+    this.totalCartCalculator = this.totalCartCalculator.bind(this);
   }
 
   componentDidMount() {
@@ -40,8 +41,14 @@ class CartItems extends React.Component {
     });
   }
 
+  totalCartCalculator(totalPriceItem) {
+    this.setState((prevState) => ({
+      total: prevState.total + totalPriceItem,
+    }));
+  }
+
   render() {
-    const { cartItens, loading } = this.state;
+    const { cartItens, loading, total } = this.state;
     if (loading) return <Loading />;
     return (
       <div className="cart">
@@ -62,6 +69,7 @@ class CartItems extends React.Component {
                     key={ cartItem.id }
                     product={ cartItem }
                     onClick={ this.itemCartRemove }
+                    onChange={ this.totalCartCalculator }
                   />
                 ))}
               </div>
@@ -74,7 +82,15 @@ class CartItems extends React.Component {
               </div>
             )
         }
-
+        <div className="checkout-cart">
+          <span className="total-cart">
+            { `Valor Total da Compra: ${(total).toLocaleString('pt-BR', {
+              minimumFractionDigits: 2, style: 'currency', currency: 'BRL' })}`}
+          </span>
+          <button type="button" onClick={ () => {} } className="checkout-btn">
+            Finalizar Compra
+          </button>
+        </div>
       </div>
     );
   }

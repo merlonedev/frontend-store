@@ -28,6 +28,7 @@ class ProductInCart extends React.Component {
   }
 
   componentWillUnmount() {
+    // const { onChange } = this.props;
     this.mounted = false;
   }
 
@@ -35,23 +36,32 @@ class ProductInCart extends React.Component {
     const { price, count } = this.state;
     if (this.mounted) {
       this.setState({
-        totalPrice: (price * count).toLocaleString('pt-BR', {
-          minimumFractionDigits: 2, style: 'currency', currency: 'BRL',
-        }),
+        totalPrice: (price * count),
       });
     }
   }
 
   plusItemCount() {
+    const { price } = this.state;
+    const { onChange } = this.props;
     this.setState((state) => ({
       count: state.count + 1,
-    }), () => this.totalPriceCalculator());
+    }), () => {
+      this.totalPriceCalculator();
+      onChange(price);
+    });
   }
 
   minusItemCount() {
+    const { price } = this.state;
+    const { onChange } = this.props;
     this.setState((state) => ({
-      count: state.count > 0 ? (state.count - 1) : 0,
-    }), () => this.totalPriceCalculator());
+      count: state.count >= 2 ? (state.count - 1) : 1,
+    }), () => {
+      this.totalPriceCalculator();
+      const { count } = this.state;
+      if (count > 1) onChange((-price));
+    });
   }
 
   render() {
@@ -83,7 +93,11 @@ class ProductInCart extends React.Component {
             className="plus-item"
           />
         </div>
-        <span className="item-price">{ totalPrice }</span>
+        <span className="item-price">
+          { totalPrice.toLocaleString('pt-BR', {
+            minimumFractionDigits: 2, style: 'currency', currency: 'BRL',
+          }) }
+        </span>
       </div>
     );
   }
@@ -97,6 +111,7 @@ ProductInCart.propTypes = {
     price: PropTypes.number.isRequired,
   }).isRequired,
   onClick: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 export default ProductInCart;
