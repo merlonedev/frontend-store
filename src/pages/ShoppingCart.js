@@ -40,9 +40,7 @@ export default class ShoppingCart extends Component {
     const { cart } = this.state;
     return (
       <div>
-        <CartList
-          cart={ cart }
-        />
+        { cart.length === 0 ? this.emptyCart() : this.callCart() }
       </div>
     );
   }
