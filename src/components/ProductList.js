@@ -5,9 +5,9 @@ import * as api from '../services/api';
 class ProductList extends Component {
   constructor(props) {
     super(props);
-    const { prodList } = this.props;
+    const { prodList, query, } = this.props;
     this.state = {
-      query: '',
+      query,
       prodList: [...prodList],
       isEmpty: true,
     };
@@ -15,6 +15,15 @@ class ProductList extends Component {
     this.buttonLogic = this.buttonLogic.bind(this);
     this.renderParag = this.renderParag.bind(this);
     this.renderList = this.renderList.bind(this);
+  }
+
+  componentDidMount() {
+    const category = this.props;
+    if (category) {
+      this.setState({
+        isEmpty: false,
+      });
+    }
   }
 
   handleChange({ target }) {
@@ -50,7 +59,6 @@ class ProductList extends Component {
 
   renderList() {
     const { prodList } = this.state;
-    console.log(prodList);
     return (
       prodList.map(
         (prod) => <ProductCard key={ prod.id } product={ prod } />,

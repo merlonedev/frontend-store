@@ -14,7 +14,6 @@ export async function getProductsFromCategoryAndQuery(categoryId, query) {
     resHead = await fetch(`${URL_QUERY}${query}`);
   } else if (categoryId && !query) {
     resHead = await fetch(`${URL_PRODS}${categoryId}`);
-    console.log('aqui')
   } else {
     resHead = await fetch(`${URL_PRODS}${categoryId}&q=${query}`);
   }
