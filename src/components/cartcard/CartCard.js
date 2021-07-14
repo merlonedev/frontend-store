@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 class CartCard extends React.Component {
   render() {
     const { product } = this.props;
-    console.log(product);
     return (
       <div>
         <h1 data-testid="shopping-cart-product-name">{ product.title}</h1>
