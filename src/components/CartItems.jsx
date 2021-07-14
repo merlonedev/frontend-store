@@ -67,7 +67,7 @@ export default class CartItems extends Component {
         </div>
         <h4 className="product-price">
           R$
-          {item.price * item.qty}
+          {parseFloat(Math.round((item.price * item.qty) * 100) / 100).toFixed(2)}
         </h4>
         {/* <p data-testid="shopping-cart-product-quantity">{item.qty}</p> */}
       </div>

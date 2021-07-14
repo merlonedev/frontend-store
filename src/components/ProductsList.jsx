@@ -18,7 +18,7 @@ export default class ProductsList extends Component {
             <div className="price-shipping">
               <h2>
                 R$
-                { product.price }
+                { parseFloat(product.price).toFixed(2) }
               </h2>
               { product.shipping.free_shipping ? (
                 <p data-testid="free-shipping" className="shipping">
