@@ -17,7 +17,7 @@ class ProductCard extends Component {
       >
         <h1 className="title-product">{ title }</h1>
         <img src={ thumbnail } alt={ title } className="image-product" />
-        <p className="price-product">{`USD ${price}`}</p>
+        <p className="price-product">{`R$ ${price}`}</p>
         <Link
           data-testid="product-detail-link"
           to={ `/productDetails/${id}` }
