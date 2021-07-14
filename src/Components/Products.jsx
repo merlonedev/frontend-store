@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 class Products extends Component {
   render() {
-    const { title, img, price, id } = this.props;
+    const { title, img, price, id, addCart, product } = this.props;
     return (
       <div data-testid="product" className="card">
         <p>{ title }</p>
