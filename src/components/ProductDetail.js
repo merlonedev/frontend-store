@@ -36,6 +36,7 @@ class ProductDetail extends Component {
 
   render() {
     const { product, loading } = this.state;
+    const { addItemToCart, cartList } = this.props;
     const {
       title,
       price,
@@ -45,16 +46,18 @@ class ProductDetail extends Component {
       sold_quantity: soldQuantity,
       shipping,
     } = product;
-    const { addItemToCart } = this.props;
 
     if (loading) {
       return (
-        <p>Carregando informações do produto</p>
+        <div>
+          <ButtonToCart cartList={ cartList } />
+          <p>Carregando informações do produto</p>
+        </div>
       );
     }
     return (
       <div>
-        <ButtonToCart />
+        <ButtonToCart cartList={ cartList } />
         <div>
           <p>DETALHES</p>
           <img alt="Foto do produto" src={ thumbnail } />
@@ -88,6 +91,7 @@ ProductDetail.propTypes = {
     }).isRequired,
   }).isRequired,
   addItemToCart: PropTypes.func.isRequired,
+  cartList: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default ProductDetail;
