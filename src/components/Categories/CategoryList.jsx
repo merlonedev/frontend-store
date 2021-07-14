@@ -6,7 +6,7 @@ class CategoryList extends Component {
   render() {
     const { categories, onChangeFilterCategory } = this.props;
     return (
-      <div>
+      <div className="category">
         {categories
           .map((category, index) => (
             <CategoryRadioButton
