@@ -1,12 +1,14 @@
 import React from 'react';
-import Link from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export default class CheckoutButton extends React.Component {
   render() {
     return (
-      <Link to="/checkout">
-        <button type="button">Finalizar Compra</button>
-      </Link>
+      <button type="button" className="button checkout-btn">
+        <Link to="/checkout" data-testid="checkout-products">
+          <p>Checkout</p>
+        </Link>
+      </button>
     );
   }
 }

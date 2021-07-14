@@ -43,7 +43,7 @@ export default class SearchBar extends Component {
           type="button"
           data-testid="query-button"
           onClick={ this.handleClick }
-          className="button search-button"
+          className="button search-btn"
         >
           <i className="fas fa-search" />
         </button>

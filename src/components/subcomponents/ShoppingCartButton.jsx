@@ -7,7 +7,7 @@ export default class ShoppingCartButton extends Component {
   render() {
     const { quantity } = this.props;
     return (
-      <button type="button" className="button cart-button">
+      <button type="button" className="button cart-btn">
         <Link to="/cart" data-testid="shopping-cart-button">
           <p>
             <i className="fas fa-shopping-cart" />

@@ -148,7 +148,7 @@ html, * {
   transition: 0.3s;
 }
 
-.cart-button a {
+.cart-btn a, .checkout-btn a {
   padding: 0;
 }
 
@@ -165,7 +165,7 @@ html, * {
   transform: translate3d(1px, 1px, 0);
 }
 
-.add-button, .search-button, .cart-button, .submit-btn {
+.add-button, .search-btn, .cart-btn, .submit-btn, .checkout-btn {
   background-color: var(--persian-green);
   border-radius: 2px;
   box-shadow: 1px 1px 1px 1px var(--old-lavender);
@@ -184,11 +184,17 @@ html, * {
   margin: 5px;
 }
 
-.add-button *, .search-button *, .cart-button *, .submit-btn * {
+.add-button *, .search-btn *, .cart-btn *, .submit-btn *, .checkout-btn * {
   color: var(--magnolia);
 }
 
-.add-button *:hover, .search-button *:hover, .cart-button a:hover, .submit-btn *:hover {
+.add-button *:hover, .search-btn *:hover, .cart-btn a:hover, .submit-btn *:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+  color: var(--dark-liver);
+  transition: 0.3s;
+}
+
+.checkout-btn *:hover {
   background-color: rgba(255, 255, 255, 0.5);
   color: var(--dark-liver);
   transition: 0.3s;
@@ -200,7 +206,7 @@ html, * {
   transition: 0.3s;
 }
 
-.cart-button span {
+.cart-btn span {
   background-color: var(--thistle);
   border-radius: 50%;
   color: var(--dark-liver);
@@ -208,7 +214,7 @@ html, * {
   position: absolute;
 }
 
-.cart-button i {
+.cart-btn i {
   font-size: 1.5em;
   padding: 0;
 }
