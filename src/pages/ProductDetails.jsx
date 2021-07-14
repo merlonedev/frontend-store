@@ -13,7 +13,7 @@ export default class ProductDetails extends Component {
         price: 0,
         thumbnail: '',
       },
-      qtd: 0,
+      cartQTD: 0,
     };
     this.setItem = this.setItem.bind(this);
   }
@@ -22,7 +22,8 @@ export default class ProductDetails extends Component {
     const item = JSON.parse(localStorage.getItem('product'));
     const cart = JSON.parse(localStorage.getItem('cart'));
     // localStorage.removeItem('product');
-    this.setItem(item, cart);
+    this.setItem(item);
+    this.getCartQTD(cart);
     console.log(item);
   }
 
@@ -36,12 +37,20 @@ export default class ProductDetails extends Component {
       cart = { ...cart, [id]: [title, 1, price] };
     }
     localStorage.setItem('cart', JSON.stringify(cart));
+    this.getCartQTD(cart);
   }
 
-  setItem(item, cart) {
+  setItem(item) {
     this.setState({ product: item, loading: false });
+  }
+
+  getCartQTD(cart) {
+    let cartQTD = 0;
+    Object.values(cart).forEach((item) => {
+      cartQTD += item[1];
+    });
     this.setState({
-      qtd: cart ? Object.values(cart).reduce((acc, curr) => acc + curr, 0) : 0,
+      cartQTD,
     });
   }
 
@@ -58,14 +67,14 @@ export default class ProductDetails extends Component {
   // }
 
   render() {
-    const { product, loading, qtd } = this.state;
+    const { product, loading, cartQTD } = this.state;
     if (loading) { return <p>Loading...</p>; }
     return (
       <main>
         <Link to="/" onClick={ this.clearStorage }>VOLTAR</Link>
-        <div>
+        <div className="details-shoppingCart">
           <Link data-testid="shopping-cart-button" to="/shoppingcart">CARRINHO</Link>
-          <p data-testid="shopping-cart-size">{ qtd }</p>
+          <p data-testid="shopping-cart-size">{ cartQTD }</p>
         </div>
         <h1 data-testid="product-detail-name">{product.title}</h1>
         <h1>{product.price}</h1>

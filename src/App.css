@@ -60,3 +60,12 @@
   color: white;
   margin-left: 10px;
 }
+
+.details-shoppingCart {
+  align-items: center;
+  display: flex;
+}
+
+.details-shoppingCart p {
+  margin-left: 10px;
+}
