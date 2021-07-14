@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import List from '../Components/List';
 import SearchResult from '../Components/SearchResult';
 import Categories from '../Components/Categories';
@@ -6,8 +7,8 @@ import * as api from '../services/api';
 import ShoppingCartLink from '../Components/ShoppingCartLink';
 
 class Home extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       input: '',
@@ -18,6 +19,7 @@ class Home extends React.Component {
     this.getSearch = this.getSearch.bind(this);
     this.doSearch = this.doSearch.bind(this);
     this.handleJonas = this.handleJonas.bind(this);
+    this.getProductsToAddInCart = this.getProductsToAddInCart.bind(this);
   }
 
   componentDidMount() {
@@ -31,8 +33,8 @@ class Home extends React.Component {
     });
   }
 
-  getFilterId(filter) {
-    console.log(filter, 'cliquei');
+  getFilterId() {
+
   }
 
   getSearch(change) {
@@ -41,8 +43,9 @@ class Home extends React.Component {
     });
   }
 
-  getProductsToAddInCart() {
-    console.log('oi');
+  getProductsToAddInCart(product) {
+    const { addProductsInCart } = this.props;
+    addProductsInCart(product);
   }
 
   async doSearch() {
@@ -72,7 +75,10 @@ class Home extends React.Component {
         </button>
         <ShoppingCartLink />
         {/* {clickSearch && <SearchResult textToSearch={ search } />} */}
-        <SearchResult products={ products } addToCart={ this.getProductsToAddInCart } />
+        <SearchResult
+          products={ products }
+          addToCart={ this.getProductsToAddInCart }
+        />
         <p data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
         </p>
@@ -89,5 +95,9 @@ class Home extends React.Component {
     );
   }
 }
+
+Home.propTypes = {
+  addProductsInCart: PropTypes.func.isRequired,
+};
 
 export default Home;
