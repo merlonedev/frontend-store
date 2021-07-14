@@ -9,6 +9,7 @@ import Quantities from './components/Quantities';
 import Checkout from './components/Checkout';
 import * as API from './services/api';
 import './App.css';
+import SortSelect from './components/SortSelect';
 
 // prettier-ignore
 export default class App extends Component {
@@ -21,6 +22,7 @@ export default class App extends Component {
       category: '',
       cartItems: [],
       quantity: 0,
+      sorting: '',
     };
     this.setProducts = this.setProducts.bind(this);
     this.callback = this.callback.bind(this);
@@ -31,6 +33,8 @@ export default class App extends Component {
     this.decreaseQty = this.decreaseQty.bind(this);
     this.loadQuantity = this.loadQuantity.bind(this);
     this.loadCart = this.loadCart.bind(this);
+    this.sortProducts = this.sortProducts.bind(this);
+    this.callbackSort = this.callbackSort.bind(this);
   }
 
   componentDidMount() {
@@ -140,8 +144,25 @@ export default class App extends Component {
     this.setState({ category: target.value }, () => this.setProducts());
   }
 
+  sortProducts() {
+    const { products, sorting } = this.setState;
+    if (sorting === 'higher') {
+      products.sort((a, b) => b.price - a.price);
+    }
+    if (sorting === 'lower') {
+      products.sort((a, b) => a.price - b.price);
+    }
+    if (sorting === '') {
+      this.setProducts();
+    }
+  }
+
+  callbackSort(method) {
+    this.setState({ sorting: method }, () => this.sortProducts());
+  }
+
   render() {
-    const { categories, products, cartItems, quantity } = this.state;
+    const { categories, products, cartItems, quantity, sorting } = this.state;
     return (
       <BrowserRouter>
         <Switch>
@@ -177,6 +198,7 @@ export default class App extends Component {
             render={ () => (
               <div>
                 <SearchBar callback={ this.callback } />
+                <SortSelect callback={ this.callbackSort } sorting={ sorting } />
                 <button type="button">
                   <Link to="/cart" data-testid="shopping-cart-button">
                     Carrinho
@@ -187,7 +209,11 @@ export default class App extends Component {
                   categories={ categories }
                   callback={ this.callbackCategory }
                 />
-                <ProductsList products={ products } callback={ this.addToCart } />
+                <ProductsList
+                  products={ products }
+                  callback={ this.addToCart }
+                  sorting=""
+                />
               </div>
             ) }
           />

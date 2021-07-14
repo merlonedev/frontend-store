@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 // import * as API from '../services/api';
 
-export default class SearchBar extends Component {
+export default class SortSelect extends Component {
   constructor() {
     super();
     this.state = {
@@ -27,30 +27,19 @@ export default class SearchBar extends Component {
   render() {
     return (
       <div>
-        <input
-          type="text"
-          data-testid="query-input"
-          onChange={ this.handleChange }
-          name="queryInput"
-          placeholder="Pesquise aqui!"
-        />
-        <p
-          data-testid="home-initial-message"
-        >
-          <button
-            type="button"
-            data-testid="query-button"
-            onClick={ this.handleClick }
-          >
-            Procurar
-          </button>
-          Digite algum termo de pesquisa ou escolha uma categoria.
-        </p>
+        <label htmlFor="sort-select" data-testid="sort-select-label">
+          Ordem dos produtos:
+          <select name="sort-select" data-testid="sort-select">
+            <option value=""> </option>
+            <option value="sort-higher">Maior preço</option>
+            <option value="sort-lower">Menor preço</option>
+          </select>
+        </label>
       </div>
     );
   }
 }
 
-SearchBar.propTypes = {
+SortSelect.propTypes = {
   callback: PropTypes.func.isRequired,
 };
