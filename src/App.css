@@ -128,8 +128,9 @@ html, * {
 }
 
 .product-cover {
+  flex-shrink: 0;
   height: 150px;
-  width: 100%;
+  width: 150px;
 }
 
 .button {
@@ -269,4 +270,26 @@ html, * {
 .details-img {
   float: left;
   max-width: 50%;
+}
+
+.cart-item {
+  align-items: center;
+  display: flex;
+  margin: 10px auto;
+  width: 600px;
+}
+
+.cart-btns-container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.product-qty {
+  margin: 0;
+  width: 50px;
+}
+
+.product-price {
+  word-wrap: break-word;
+  width: 100%;
 }
