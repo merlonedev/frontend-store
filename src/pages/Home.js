@@ -4,6 +4,15 @@ import SearchBar from '../Components/SearchBar';
 import ButtonCart from '../Components/ButtonCart';
 
 class Home extends Component {
+  // constructor() {
+  //   super();
+
+  //   this.state = {
+  //     products: [],
+  //     value: '',
+  //   };
+  // }
+
   render() {
     return (
       <section>
