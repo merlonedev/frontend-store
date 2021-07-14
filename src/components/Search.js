@@ -84,12 +84,13 @@ class Search extends Component {
   }
 
   render() {
+    const { cartList } = this.props;
     return (
       <div>
         <div data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
         </div>
-        <ButtonToCart />
+        <ButtonToCart cartList={ cartList } />
         <CategoryList handleCategoryText={ this.handleCategoryText } />
         {this.renderForm()}
         {this.renderList()}
@@ -100,6 +101,7 @@ class Search extends Component {
 
 Search.propTypes = {
   addItemToCart: PropTypes.func.isRequired,
+  cartList: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default Search;

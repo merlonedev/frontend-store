@@ -17,12 +17,29 @@ class Home extends Component {
     this.cartItemAddQuantity = this.cartItemAddQuantity.bind(this);
     this.cartItemDiminishQuantity = this.cartItemDiminishQuantity.bind(this);
     this.addItemToCart = this.addItemToCart.bind(this);
+    this.saveLocalStorage = this.saveLocalStorage.bind(this);
+    this.loadLocalStorage = this.loadLocalStorage.bind(this);
+  }
+
+  componentDidMount() {
+    this.loadLocalStorage();
+  }
+
+  loadLocalStorage() {
+    const localState = JSON.parse(localStorage.getItem('state'));
+    if (localState === null) return null;
+    this.setState(localState);
+  }
+
+  saveLocalStorage() {
+    localStorage.setItem('state', JSON.stringify(this.state));
     this.updateTotal = this.updateTotal.bind(this);
   }
 
   updateTotal() {
     const { cartList } = this.state;
     let total = 0;
+    this.saveLocalStorage();
     cartList.forEach((item) => {
       total += (item.price * item.quantity);
       return total;
@@ -82,7 +99,10 @@ class Home extends Component {
           <Route
             exact
             path="/"
-            render={ () => <Search addItemToCart={ this.addItemToCart } /> }
+            render={ () => (<Search
+              addItemToCart={ this.addItemToCart }
+              cartList={ cartList }
+            />) }
           />
           <Route
             exact
@@ -90,6 +110,7 @@ class Home extends Component {
             render={ (props) => (<ProductDetail
               { ...props }
               addItemToCart={ this.addItemToCart }
+              cartList={ cartList }
             />) }
           />
           <Route
