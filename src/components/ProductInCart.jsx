@@ -55,11 +55,11 @@ class ProductInCart extends React.Component {
   }
 
   render() {
-    const { product: { title, thumbnail } } = this.props;
+    const { product: { id, title, thumbnail }, onClick } = this.props;
     const { totalPrice, count } = this.state;
     return (
       <div data-testid="product" className="product">
-        <AiFillCloseCircle className="remove-item-cart" />
+        <AiFillCloseCircle onClick={ () => onClick(id) } className="remove-item-cart" />
         <img
           src={ thumbnail.replace('I.jpg', 'O.jpg') }
           alt={ title }
@@ -89,10 +89,12 @@ class ProductInCart extends React.Component {
 
 ProductInCart.propTypes = {
   product: PropTypes.shape({
+    id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     thumbnail: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
   }).isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
 export default ProductInCart;
