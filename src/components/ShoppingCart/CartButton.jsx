@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-
+// Comentario Apenas para commitar;
 class CartButton extends Component {
   render() {
     return (
