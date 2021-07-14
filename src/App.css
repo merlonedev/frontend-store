@@ -112,6 +112,18 @@ html, * {
   width: 22%;
 }
 
+.product-card button {
+  padding: 9px;
+  color: white;
+  font-size: 0.9em;
+  font-weight: 600;
+  box-shadow: 0 0 6px -1px grey;
+}
+
+.added {
+  border: solid 3px;
+}
+
 .product-card:hover {
   transform: scale(1.01);
   transition: all 0.2s;
