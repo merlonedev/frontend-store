@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Loading from '../components/Loading';
 import Form from '../components/Form';
+import BackSVG from '../SVGs/BackSVG';
 import './ItemDetails.css';
 import products from '../services/data';
 
@@ -37,11 +39,16 @@ class ItemDetails extends Component {
 
   render() {
     const { item, loading } = this.state;
-    const { title, price, thumbnail } = item;
+    const { title, price, thumbnail, condition } = item;
     return (
       <div>
         { loading && <Loading />}
         <main className="item-details">
+          <div className="back-icon">
+            <Link to="/">
+              <BackSVG />
+            </Link>
+          </div>
           <div className="item-details-left">
             <h1
               className="item-details-title"
@@ -63,6 +70,12 @@ class ItemDetails extends Component {
           </div>
           <div className="item-details-right">
             <h2>Especificações Técnicas</h2>
+            <ul>
+              <li>
+                Condição do item:
+                { condition === 'new' ? ' Novo' : ' Usado' }
+              </li>
+            </ul>
           </div>
         </main>
         <div className="item-details-form">

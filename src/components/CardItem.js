@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import FreeShipping from './FreeShipping';
 import './CardItem.css';
 
 class CardItem extends Component {
@@ -10,6 +11,7 @@ class CardItem extends Component {
       thumbnail,
       price,
       itemId,
+      shipping,
     } = this.props;
     return (
       <div data-testid="product" className="card-item">
@@ -22,6 +24,7 @@ class CardItem extends Component {
             R$
             { price }
           </p>
+          { shipping && <FreeShipping /> }
         </Link>
       </div>
     );
@@ -33,6 +36,7 @@ CardItem.propTypes = {
   thumbnail: PropTypes.string.isRequired,
   itemId: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
+  shipping: PropTypes.bool.isRequired,
 };
 
 export default CardItem;
