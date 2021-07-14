@@ -1,30 +1,27 @@
 import React, { Component } from 'react';
-import propTypes from 'prop-types';
+import PropTypes from 'prop-types';
+import CategoryRadioButton from './CategoryRadioButton';
 
 class CategoryList extends Component {
   render() {
-    const { category, changeFunction } = this.props;
-    const { name, id } = category;
+    const { categories, onChangeFilterCategory } = this.props;
     return (
-      <label htmlFor={ id }>
-        <input
-          onChange={ changeFunction }
-          value={ id }
-          name="category"
-          id={ id }
-          type="radio"
-          data-testid="category"
-        />
-        { name }
-      </label>
+      <div>
+        {categories
+          .map((category, index) => (
+            <CategoryRadioButton
+              key={ index }
+              category={ category }
+              onChangeFilterCategory={ onChangeFilterCategory }
+            />))}
+      </div>
     );
   }
 }
 
 CategoryList.propTypes = {
-  category: propTypes.objectOf(propTypes.string),
-  name: propTypes.string,
-  id: propTypes.string,
+  categories: PropTypes.arrayOf(PropTypes.object),
+  onChangeFilterCategory: PropTypes.func,
 }.isRequired;
 
 export default CategoryList;

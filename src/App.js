@@ -1,8 +1,8 @@
 import React from 'react';
 import './App.css';
 import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
-import ProductList from './components/ProductList';
-import CartProduct from './components/CartProduct';
+import Home from './pages/Home';
+import CartProduct from './pages/CartProduct';
 
 class App extends React.Component {
   render() {
@@ -13,7 +13,7 @@ class App extends React.Component {
             <img src="https://img.icons8.com/ios/50/000000/shopping-cart.png" alt="carrinho" />
           </Link>
           <Switch>
-            <Route exact path="/" component={ ProductList } />
+            <Route exact path="/" component={ Home } />
             <Route path="/cart" component={ CartProduct } />
           </Switch>
         </BrowserRouter>

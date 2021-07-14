@@ -8,7 +8,7 @@ class Product extends React.Component {
       <div data-testid="product" className="product">
         <h4>{ title }</h4>
         <img src={ thumbnail } alt={ title } />
-        <p>{ `R$ ${price.toFixed(2)}` }</p>
+        { price ? <p>{ `R$ ${price.toFixed(2)}` }</p> : <p>Esgotado</p>}
       </div>
     );
   }
