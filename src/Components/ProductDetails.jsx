@@ -12,13 +12,13 @@ class ProductDetails extends Component {
     this.getProducts = this.getProducts.bind(this);
   }
 
-  componentDidMount() {
+  componentDidUpdate() {
     this.getProducts();
   }
 
   async getProducts() {
-    const { match: { params: { categoryId, id } } } = this.props;
-    const requisitionApi = await api.getProductsFromCategoryAndQuery(categoryId, '');
+    const { match: { params: { category_id, id } } } = this.props;
+    const requisitionApi = await api.getProductsFromCategoryAndQuery(category_id, '');
     const details = requisitionApi.results.find((product) => product.id === id);
 
     this.setState({
@@ -55,7 +55,7 @@ ProductDetails.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string,
-      categoryId: PropTypes.string,
+      category_id: PropTypes.string,
     }).isRequired,
   }).isRequired,
 };
