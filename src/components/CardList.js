@@ -15,10 +15,9 @@ class CardList extends Component {
     };
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
     const { value } = this.props;
-    console.log(value);
-    if (value) {
+    if (value !== prevProps.value) {
       this.getValue();
     }
   }
