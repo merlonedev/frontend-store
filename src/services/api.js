@@ -1,6 +1,6 @@
 const URL_CATEG = 'https://api.mercadolibre.com/sites/MLB/categories';
 const URL_QUERY = 'https://api.mercadolibre.com/sites/MLB/search?q=$';
-const URL_PRODS = 'https://api.mercadolibre.com/sites/MLB/search?category=$';
+const URL_PRODS = 'https://api.mercadolibre.com/sites/MLB/search?category=';
 
 export async function getCategories() {
   const res = await fetch(URL_CATEG);
