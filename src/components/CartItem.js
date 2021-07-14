@@ -3,25 +3,63 @@ import PropTypes from 'prop-types';
 
 class CartItem extends React.Component {
   render() {
-    const { product: { title, price, thumbnail } } = this.props;
+    const { item: {
+      id,
+      title,
+      price,
+      thumbnail,
+      quantity } } = this.props;
+    const {
+      removeItem,
+      cartItemDiminishQuantity,
+      cartItemAddQuantity } = this.props;
+
     return (
-      <div data-testid="product">
+      <div>
         <img alt="Foto do produto" src={ thumbnail } />
-        <div className="product-card-body">
-          <h4 className="product-card-title">{title}</h4>
-          <h5 className="product-card-price">{`Preço: R$${price}`}</h5>
+        <div className="cart-item-body">
+          <h4>{title}</h4>
+          <h5 className="cart-item-price">{`Preço: R$${price * quantity}`}</h5>
         </div>
+        <button
+          data-testid="product-decrease-quantity"
+          type="button"
+          onClick={ () => cartItemDiminishQuantity(id) }
+        >
+          -
+        </button>
+        <span>{ `Quantidade: ${quantity}` }</span>
+        <button
+          data-testid="product-increase-quantity"
+          type="button"
+          onClick={ () => cartItemAddQuantity(id) }
+        >
+          +
+        </button>
+        <button
+          data-testid="product-remove"
+          type="button"
+          onClick={ () => removeItem(id) }
+        >
+          Remover
+        </button>
       </div>
     );
   }
 }
 
 CartItem.propTypes = {
-  product: PropTypes.shape({
+  item: PropTypes.shape({
+    id: PropTypes.string,
+    quantity: PropTypes.number,
+
     title: PropTypes.string,
     price: PropTypes.number,
     thumbnail: PropTypes.string,
   }).isRequired,
+  removeItem: PropTypes.func.isRequired,
+  cartItemDiminishQuantity: PropTypes.func.isRequired,
+  cartItemAddQuantity: PropTypes.func.isRequired,
 };
 
 export default CartItem;

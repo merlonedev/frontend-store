@@ -81,7 +81,6 @@ class Search extends Component {
   }
 
   render() {
-    console.log(this.props);
     return (
       <div>
         <div data-testid="home-initial-message">

@@ -5,37 +5,89 @@ import ProductDetail from './ProductDetail';
 import ShoppingCart from './ShoppingCart';
 
 class Home extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     cartList: [],
-  //   };
-  //   // this.handleSubmit = this.handleSubmit.bind(this);
-  //   // this.renderForm = this.renderForm.bind(this);
-  //   // this.renderList = this.renderList.bind(this);
-  //   // this.handleCategoryText = this.handleCategoryText.bind(this);
-  // }
+  constructor() {
+    super();
+    this.state = {
+      cartList: [
+        {
+          id: 'MLB1659970653',
+          title: 'Avião Bate Bate Com Som E Luz - Brinquedo Meninos',
+          price: 39.9,
+          currency_id: 'BRL',
+          thumbnail: 'http://http2.mlstatic.com/D_660270-MLB46579103227_072021-O.jpg',
+          quantity: 1,
+        },
+        {
+          id: 'MLB1595925546',
+          title: 'Avião Comercial Boeing 737 Gol Linhas Aéreas - Metal 15,5 Cm',
+          price: 78.9,
+          currency_id: 'BRL',
+          thumbnail: 'http://http2.mlstatic.com/D_853433-MLB44094958683_112020-I.jpg',
+          quantity: 1,
+        },
+        {
+          id: 'MLB1305552209',
+          title: 'Avião De Viagem Brinquedo Realista Com Som E Luzes Bbr Toys',
+          price: 80.96,
+          currency_id: 'BRL',
+          thumbnail: 'http://http2.mlstatic.com/D_983265-MLB31990120909_082019-O.jpg',
+          quantity: 1,
+        },
+      ],
+    };
+    this.removeItem = this.removeItem.bind(this);
+    this.cartItemAddQuantity = this.cartItemAddQuantity.bind(this);
+    this.cartItemDiminishQuantity = this.cartItemDiminishQuantity.bind(this);
+    this.addItemToCart = this.addItemToCart.bind(this);
+  }
 
   addItemToCart() {
     // Funcao para adiciona itens para o carrinho - Luiz
   }
 
-  changeCartItemQuantity() {
-    // Funcao para alterar quantidade de itens no carrinho - Guilherme
+  cartItemAddQuantity(id) {
+    const { cartList } = this.state;
+    const selIndex = cartList.findIndex((item) => item.id === id);
+    this.setState((prevState) => {
+      console.log('Entrou setState Aumentar');
+      prevState.cartList[selIndex].quantity += 1;
+      return prevState;
+    });
   }
 
-  removeItem() {
-    // Remove item do carrinho :)
+  cartItemDiminishQuantity(id) {
+    console.log('Diminuiu');
+    const { cartList } = this.state;
+    const selItem = cartList.find((item) => item.id === id);
+    if (selItem.quantity <= 1) return null;
+    const selIndex = cartList.findIndex((item) => item.id === id);
+    this.setState((prevState) => {
+      console.log('Entrou setState Diminuir');
+      prevState.cartList[selIndex].quantity -= 1;
+      return prevState;
+    });
+  }
+
+  removeItem(id) {
+    console.log('Diminuiu');
+    const { cartList } = this.state;
+    const selIndex = cartList.findIndex((item) => item.id === id);
+    this.setState((prevState) => {
+      console.log('Entrou setState remover');
+      prevState.cartList.splice(selIndex, 1);
+      return prevState;
+    });
   }
 
   render() {
+    const { cartList } = this.state;
     return (
       <Router>
         <Switch>
           <Route
             exact
             path="/"
-            render={ () => <Search funcao={ this.addItemToCart } /> }
+            render={ () => <Search addItemToCart={ this.addItemToCart } /> }
           />
           <Route
             exact
@@ -45,7 +97,12 @@ class Home extends Component {
           <Route
             exact
             path="/cart"
-            render={ (props) => <ShoppingCart { ...props } /> }
+            render={ () => (<ShoppingCart
+              cartItemAddQuantity={ this.cartItemAddQuantity }
+              cartItemDiminishQuantity={ this.cartItemDiminishQuantity }
+              removeItem={ this.removeItem }
+              cartList={ cartList }
+            />) }
           />
           {/* <Route
             path="/checkout"
