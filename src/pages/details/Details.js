@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// Janderson
+
 class Details extends Component {
   constructor() {
     super();
