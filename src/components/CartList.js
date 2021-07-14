@@ -5,7 +5,7 @@ import CartItem from './CartItem';
 class CartList extends React.Component {
   render() {
     const { cart } = this.props;
-    console.log(cart);
+    // console.log(cart);
     return (
       <section id="shopping-cart">
         {

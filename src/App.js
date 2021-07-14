@@ -3,6 +3,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import ShoppingCart from './pages/ShoppingCart';
 import ProductDetails from './pages/ProductDetails';
+import Checkout from './pages/Checkout';
 
 export default class App extends Component {
   render() {
@@ -19,6 +20,7 @@ export default class App extends Component {
             path="/product-details/:id"
             render={ (props) => <ProductDetails { ...props } /> }
           />
+          <Route path="/checkout" component={ Checkout } />
         </Switch>
       </BrowserRouter>
     );

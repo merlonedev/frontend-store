@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import CartList from '../components/CartList';
 
 export default class ShoppingCart extends Component {
@@ -7,7 +8,7 @@ export default class ShoppingCart extends Component {
     super(props);
 
     const { location: { state } } = props;
-    console.log(props.location);
+    // console.log(props.location);
 
     this.state = {
       cart: state,
@@ -22,9 +23,17 @@ export default class ShoppingCart extends Component {
   callCart() {
     const { cart } = this.state;
     return (
-      <CartList
-        cart={ cart }
-      />
+      <div>
+        <CartList
+          cart={ cart }
+        />
+        <Link
+          data-testid="checkout-products"
+          to={ { pathname: '/checkout', state: cart } }
+        >
+          Checkout Products
+        </Link>
+      </div>
     );
   }
 
