@@ -23,11 +23,6 @@ html, * {
   text-align: center;
 }
 
-/* .home {
-  display: flex;
-  flex-wrap: wrap;
-} */
-
 .body {
   position: relative;
   top: 120px;
@@ -127,7 +122,7 @@ html, * {
   transition: 0.3s;
 }
 
-.button span {
+.cart-button a {
   padding: 0;
 }
 
@@ -140,19 +135,35 @@ html, * {
   transform: translate3d(1px, 1px, 0);
 }
 
-.add-button, .search-button {
+.add-button, .search-button, .cart-button {
   background-color: var(--persian-green);
   border-radius: 2px;
   box-shadow: 1px 1px 1px 1px var(--old-lavender);
   margin: 5px;
 }
 
-.add-button *, .search-button * {
+.add-button *, .search-button *, .cart-button * {
   color: var(--magnolia);
 }
 
-.add-button *:hover, .search-button *:hover {
+.add-button *:hover, .search-button *:hover, .cart-button a:hover {
   background-color: rgba(255, 255, 255, 0.5);
   color: var(--dark-liver);
   transition: 0.3s;
 }
+
+
+.cart-button span {
+  background-color: var(--thistle);
+  border-radius: 50%;
+  bottom: 1px;
+  color: var(--dark-liver);
+  padding: 3px 7px;
+  position: absolute;
+}
+
+.cart-button i {
+  font-size: 1.5em;
+  padding: 0;
+}
+

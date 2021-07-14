@@ -42,18 +42,18 @@ export default class SearchBar extends Component {
           onClick={ this.handleClick }
           className="button search-button"
         >
-          <p>Procurar</p>
+          <i className="fas fa-search" />
         </button>
         <p data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
         </p>
-        <button type="button" className="button">
-          {/* <p> */}
+        <button type="button" className="button cart-button">
           <Link to="/cart" data-testid="shopping-cart-button">
-            Carrinho
-            <Quantities quantity={ quantity } />
+            <p>
+              <i className="fas fa-shopping-cart" />
+              <Quantities quantity={ quantity } />
+            </p>
           </Link>
-          {/* </p> */}
         </button>
       </div>
     );
