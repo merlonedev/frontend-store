@@ -25,8 +25,7 @@ class SearchBar extends Component {
   }
 
   async handleClick() {
-    const { value } = this.setState;
-
+    const { value } = this.state;
     this.setState({ loading: true },
       async () => {
         const products = await getProductsFromCategoryAndQuery('', value);
@@ -36,7 +35,6 @@ class SearchBar extends Component {
         });
       });
   }
-  //ENTENDER COMO FUNCIONA A FUNC GETPRODUCTS....
 
   render() {
     const { value, products, loading } = this.state;

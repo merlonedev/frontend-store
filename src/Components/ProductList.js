@@ -8,15 +8,15 @@ class ProductList extends Component {
     return (
       <main>
         { products.map((product) => (
-          <ProductCard data-testid="product" product={ product } key={ product.id } />
+          <ProductCard product={ product } key={ product.id } />
         )) }
       </main>
     );
   }
 }
-//PropType errado
+
 ProductList.propTypes = {
-  products: PropTypes.objectOf().isRequired,
+  products: PropTypes.arrayOf(Object).isRequired,
 };
 
 export default ProductList;
