@@ -63,17 +63,16 @@
 }
 
 .cart-icon {
-  width: 50px;
   margin-right: 10px;
+  width: 50px;
 }
 
 .cart-product-item {
-  display: flex;
   align-items: center;
+  display: flex;
 }
 
 .item-button {
   background-color: white;
   border-radius: 50%;
-  
 }

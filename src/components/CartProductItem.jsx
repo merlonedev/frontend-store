@@ -21,34 +21,47 @@ class CartProductItem extends React.Component {
   plusCount() {
     const { plusPrice, product } = this.props;
     const { price } = product;
-    this.setState((oldState, _props) => ({
+    this.setState((oldState) => ({
       count: oldState.count + 1,
     }));
     plusPrice(price);
   }
 
   minusCount() {
-    if (this.state.count > 1) {
+    const { count } = this.state;
+    if (count > 1) {
       const { minusPrice, product } = this.props;
       const { price } = product;
-      this.setState((oldState, _props) => ({
+      this.setState((oldState) => ({
         count: oldState.count - 1,
       }));
       minusPrice(price);
     }
   }
-  
+
   render() {
     const { product } = this.props;
     const { thumbnail, title, price } = product;
     const { count } = this.state;
-    return(
+    return (
       <div className="cart-product-item">
         <img src={ thumbnail } alt={ title } />
         <h6>{ title }</h6>
-        <button className="item-button" type="button" onClick={ this.minusCount }>-</button>
+        <button
+          className="item-button"
+          type="button"
+          onClick={ this.minusCount }
+        >
+          -
+        </button>
         <p>{ count }</p>
-        <button className="item-button" type="button" onClick={ this.plusCount }>+</button>
+        <button
+          className="item-button"
+          type="button"
+          onClick={ this.plusCount }
+        >
+          +
+        </button>
         <p>{ `R$ ${price * count}`}</p>
       </div>
     );

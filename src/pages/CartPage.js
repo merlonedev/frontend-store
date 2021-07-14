@@ -1,10 +1,10 @@
 import React from 'react';
 import CartProductItem from '../components/CartProductItem';
-import cartIcon from '../icon/cart3.svg'
+import cartIcon from '../icon/cart3.svg';
 
 const product = {
-  accepts_mercadopago:true,
-  address:{city_id: "BR-SP-44", city_name: "São Paulo" },
+  accepts_mercadopago: true,
+  address: { city_id: 'BR-SP-44', city_name: 'São Paulo' },
   available_quantity: 13,
   buying_mode: "buy_it_now",
   catalog_listing: true,
@@ -53,7 +53,7 @@ const product2 = {
   thumbnail_id: "730284-MLA46114648018_052021",
   title: "Apple iPhone 11 (64 Gb) - Branco",
   use_thumbnail_id: true,
-}
+};
 
 class CartPage extends React.Component {
   constructor() {
@@ -61,20 +61,20 @@ class CartPage extends React.Component {
 
     this.state = {
       totalPrice: 0,
-    }
+    };
 
     this.plusPrice = this.plusPrice.bind(this);
     this.minusPrice = this.minusPrice.bind(this);
   }
 
   plusPrice(price) {
-    this.setState((oldState, _props) => ({
+    this.setState((oldState) => ({
       totalPrice: oldState.totalPrice + price,
     }));
   }
 
   minusPrice(price) {
-    this.setState((oldState, _props) => ({
+    this.setState((oldState) => ({
       totalPrice: oldState.totalPrice - price,
     }));
   }
@@ -87,8 +87,8 @@ class CartPage extends React.Component {
           <img src={ cartIcon } alt="cart icon" className="cart-icon" />
           <h1>Carrinho de Compras</h1>
         </header>
-        <CartProductItem product= { product } plusPrice={ this.plusPrice } minusPrice={ this.minusPrice } />
-        <CartProductItem product= { product2 } plusPrice={ this.plusPrice } minusPrice={ this.minusPrice } />
+        <CartProductItem product={ product } plusPrice={ this.plusPrice } minusPrice={ this.minusPrice } />
+        <CartProductItem product={ product2 } plusPrice={ this.plusPrice } minusPrice={ this.minusPrice } />
 
         <p>{`Preço Total: R$ ${totalPrice}`}</p>
 
