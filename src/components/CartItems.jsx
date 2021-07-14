@@ -25,8 +25,9 @@ export default class CartItems extends Component {
 
   removeItem({ target }) {
     const itemToRemove = target.parentElement.id;
+    const qtyToRemove = Number(target.parentElement.className);
     const { handlers } = this.props;
-    handlers.remove(itemToRemove);
+    handlers.remove(itemToRemove, qtyToRemove);
   }
 
   renderButtons(id) {

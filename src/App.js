@@ -5,6 +5,7 @@ import ShoppingCart from './components/ShoppingCart';
 import CategoriesBar from './components/CategoriesBar';
 import ProductsList from './components/ProductsList';
 import ProductDetails from './components/ProductDetails';
+import Quantities from './components/Quantities';
 import Checkout from './components/Checkout';
 import * as API from './services/api';
 import './App.css';
@@ -19,6 +20,7 @@ export default class App extends Component {
       queryInput: '',
       category: '',
       cartItems: [],
+      quantity: 0,
     };
     this.setProducts = this.setProducts.bind(this);
     this.callback = this.callback.bind(this);
@@ -27,6 +29,8 @@ export default class App extends Component {
     this.removeItem = this.removeItem.bind(this);
     this.increaseQty = this.increaseQty.bind(this);
     this.decreaseQty = this.decreaseQty.bind(this);
+    this.loadQuantity = this.loadQuantity.bind(this);
+    this.loadCart = this.loadCart.bind(this);
   }
 
   componentDidMount() {
@@ -35,6 +39,8 @@ export default class App extends Component {
         categories: results,
       });
     });
+    this.loadQuantity();
+    this.loadCart();
   }
 
   // prettier-ignore
@@ -49,17 +55,37 @@ export default class App extends Component {
     });
   }
 
+  loadQuantity() {
+    if (!localStorage.quantity) return;
+    const quantity = JSON.parse(localStorage.quantity);
+    this.setState({ quantity });
+  }
+
+  loadCart() {
+    if (!localStorage.cartItems) return;
+    const cartItems = JSON.parse(localStorage.cartItems);
+    console.log(cartItems);
+    this.setState({ cartItems });
+  }
+
   callback(input) {
     this.setState({ queryInput: input }, () => this.setProducts());
   }
 
-  removeItem(itemId) {
+  removeItem(itemId, qty) {
     const { cartItems } = this.state;
-    this.setState({ cartItems: cartItems.filter(({ id }) => id !== itemId) });
+    let { quantity } = this.state;
+    quantity -= qty;
+    this.setState({
+      cartItems: cartItems.filter(({ id }) => id !== itemId),
+      quantity,
+    });
   }
 
   increaseQty(itemId) {
     const { cartItems } = this.state;
+    let { quantity } = this.state;
+    quantity += 1;
     const itemIndex = cartItems.findIndex(({ id }) => id === itemId);
     const nextQuantity = cartItems[itemIndex].qty;
     if ((nextQuantity + 1) > cartItems[itemIndex].available_quantity) return;
@@ -70,11 +96,14 @@ export default class App extends Component {
         { ...cartItems[itemIndex], qty: cartItems[itemIndex].qty + 1 },
         ...cartItems.slice(itemIndex + 1),
       ],
+      quantity,
     });
   }
 
   decreaseQty(itemId) {
     const { cartItems } = this.state;
+    let { quantity } = this.state;
+    quantity -= 1;
     const itemIndex = cartItems.findIndex(({ id }) => id === itemId);
     if (cartItems[itemIndex].qty < 1) return;
     this.setState({
@@ -83,16 +112,28 @@ export default class App extends Component {
         { ...cartItems[itemIndex], qty: cartItems[itemIndex].qty - 1 },
         ...cartItems.slice(itemIndex + 1),
       ],
+      quantity,
     });
   }
 
   addToCart(itemObj) {
     const { cartItems } = this.state;
+    let { quantity } = this.state;
+    quantity += 1;
     const items = [...cartItems];
-    items.push(itemObj);
+    const currItem = Object.values(cartItems)
+      .find((item) => item.id === itemObj.id);
+
+    if (!currItem) items.push(itemObj);
+    else currItem.qty += 1;
+
     this.setState({
       cartItems: items,
+      quantity,
     });
+
+    localStorage.setItem('cartItems', JSON.stringify(items));
+    localStorage.setItem('quantity', JSON.stringify(quantity));
   }
 
   callbackCategory({ target }) {
@@ -100,7 +141,7 @@ export default class App extends Component {
   }
 
   render() {
-    const { categories, products, cartItems } = this.state;
+    const { categories, products, cartItems, quantity } = this.state;
     return (
       <BrowserRouter>
         <Switch>
@@ -108,7 +149,11 @@ export default class App extends Component {
             exact
             path="/productdetails/:id"
             render={ (props) => (
-              <ProductDetails { ...props } callback={ this.addToCart } />
+              <ProductDetails
+                { ...props }
+                quantity={ quantity }
+                callback={ this.addToCart }
+              />
             ) }
           />
           <Route
@@ -132,9 +177,12 @@ export default class App extends Component {
             render={ () => (
               <div>
                 <SearchBar callback={ this.callback } />
-                <Link to="/cart" data-testid="shopping-cart-button">
-                  Carrinho
-                </Link>
+                <button type="button">
+                  <Link to="/cart" data-testid="shopping-cart-button">
+                    Carrinho
+                  </Link>
+                  <Quantities quantity={ quantity } />
+                </button>
                 <CategoriesBar
                   categories={ categories }
                   callback={ this.callbackCategory }
