@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import * as Api from '../services/api';
 import CartButton from '../components/ShoppingCart/CartButton';
 import HomeButton from '../components/Home/HomeButton';
+import Form from '../components/Form/Form';
 
 class ProductDetails extends React.Component {
   constructor(props) {
@@ -75,6 +76,7 @@ class ProductDetails extends React.Component {
         >
           Adicionar ao carrinho
         </button>
+        <Form />
       </div>
     );
   }
