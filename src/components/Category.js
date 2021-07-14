@@ -3,16 +3,21 @@ import PropTypes from 'prop-types';
 
 class Category extends React.Component {
   render() {
-    const { categories, onClick } = this.props;
+    const { categories, handleLiClick } = this.props;
     return (
       <div>
         <ul>
           {categories.map(({ name, id }) => (
             <li
-              data-testid="category"
               key={ id }
             >
-              <button type="button" onClick={ onClick }>{ name }</button>
+              <button
+                data-testid="category"
+                type="button"
+                onClick={ () => handleLiClick(id) }
+              >
+                {name}
+              </button>
             </li>
           ))}
         </ul>

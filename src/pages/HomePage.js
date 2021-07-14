@@ -11,8 +11,8 @@ class HomePage extends React.Component {
 
     this.state = {
       products: [],
-      query: '',
       categories: [],
+      query: '',
       categoryId: '',
     };
 
@@ -27,8 +27,8 @@ class HomePage extends React.Component {
     this.fetchCategories();
   }
 
-  handleChange(event) {
-    const { name, value } = event.target;
+  handleChange({ target }) {
+    const { name, value } = target;
     this.setState({
       [name]: value,
     });
@@ -38,30 +38,26 @@ class HomePage extends React.Component {
     const { categoryId, query } = this.state;
     this.setState({
       products: [],
-    });
-    this.fetchProducts(categoryId, query);
+    },
+    () => this.fetchProducts(categoryId, query));
   }
 
-  handleLiClick({ target }) {
-    const { categories, query, categoryId } = this.state;
-    const category = categories.find((e) => e.name === target.innerText);
-    const { id } = category;
+  handleLiClick(id) {
     this.setState({
       categoryId: id,
-    });
-    this.fetchProducts(categoryId, query);
+    }, this.fetchProducts);
   }
 
   async fetchCategories() {
     const { getCategories } = api;
     const response = await getCategories();
-    console.log(response);
     this.setState({
       categories: response,
     });
   }
 
-  async fetchProducts(categoryId, query) {
+  async fetchProducts() {
+    const { categoryId, query } = this.state;
     const { getProductsFromCategoryAndQuery } = api;
     const response = await getProductsFromCategoryAndQuery(categoryId, query);
     this.setState({
@@ -80,7 +76,9 @@ class HomePage extends React.Component {
           onChange={ this.handleChange }
           onClick={ this.handleClick }
         />
-        <Category categories={ categories } onClick={ this.handleLiClick } />
+        <aside>
+          <Category categories={ categories } handleLiClick={ this.handleLiClick } />
+        </aside>
         <ProductList products={ products } />
         <CartItems />
         {

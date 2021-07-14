@@ -6,10 +6,10 @@ class ProductList extends Component {
     const { products } = this.props;
     return (
       <div>
-        {products.map(({ title, thumbnail, price }) => (
+        {products.map(({ title, thumbnail, price, id }) => (
           <div
             data-testid="product"
-            key={ title }
+            key={ id }
           >
             <h1>{ title }</h1>
             <img src={ thumbnail } alt={ title } />
