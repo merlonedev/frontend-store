@@ -13,7 +13,6 @@ class Home extends Component {
       data: [],
     };
     const { categories } = this.state;
-    console.log(categories);
     this.handleChange = this.handleChange.bind(this);
     this.getProduct = this.getProduct.bind(this);
     this.getCategories = this.getCategories.bind(this);
