@@ -52,9 +52,12 @@ class ProductDetails extends React.Component {
         <Link to="/cart" data-testid="shopping-cart-button">
           <FiShoppingCart />
         </Link>
-        <h2 data-testid="product-detail-name">{ `${title} - R$ ${price}` }</h2>
+        <h2 data-testid="product-detail-name">
+          { `${title} - ${(price || 0).toLocaleString('pt-BR', {
+            minimumFractionDigits: 2, style: 'currency', currency: 'BRL' })}` }
+        </h2>
         <div>
-          <img src={ thumbnail } alt={ title } />
+          <img src={ thumbnail.replace('I.jpg', 'O.jpg') } alt={ title } />
           <div>
             <h3>Especificações Técnicas</h3>
             <ul>
@@ -89,9 +92,6 @@ ProductDetails.propTypes = {
       productId: PropTypes.string,
       categoryId: PropTypes.string,
     }),
-  }).isRequired,
-  product: PropTypes.shape({
-    id: PropTypes.string.isRequired,
   }).isRequired,
 };
 
