@@ -87,7 +87,7 @@ export default class ShoppingCart extends Component {
     const cart = JSON.parse(localStorage.getItem('cart'));
     return (
       <div>
-        {cart ? this.listCartItem(cart) : this.noCartItem()}
+        { (Object.keys(cart).length !== 0) ? this.listCartItem(cart) : this.noCartItem()}
         <p>
           Valor Total da Compra:
           <span>
