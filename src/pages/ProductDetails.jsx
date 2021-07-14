@@ -93,9 +93,6 @@ ProductDetails.propTypes = {
       categoryId: PropTypes.string,
     }),
   }).isRequired,
-  product: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-  }).isRequired,
 };
 
 export default ProductDetails;
