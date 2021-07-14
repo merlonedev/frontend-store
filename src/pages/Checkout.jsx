@@ -1,35 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-
-const states = [
-  'AC',
-  'AL',
-  'AM',
-  'AP',
-  'BA',
-  'CE',
-  'DF',
-  'ES',
-  'GO',
-  'MA',
-  'MT',
-  'MS',
-  'MG',
-  'PA',
-  'PB',
-  'PR',
-  'PE',
-  'PI',
-  'RJ',
-  'RN',
-  'RO',
-  'RS',
-  'RR',
-  'SC',
-  'SE',
-  'SP',
-  'TO',
-];
+import states from '../services/checkoutStates';
 
 const initialState = {
   name: '',
@@ -47,7 +18,6 @@ const initialState = {
   phoneError: '',
   adressError: '',
   cityError: '',
-  isValid: false,
 };
 
 export default class Checkout extends Component {
@@ -104,7 +74,6 @@ export default class Checkout extends Component {
         });
       return false;
     }
-    this.setState({ isValid: true });
     return true;
   }
 
@@ -144,7 +113,7 @@ export default class Checkout extends Component {
             value={ name }
             type="text"
             onChange={ this.handleChange }
-            // className={ validateName }
+            className={ nameError ? 'invalid' : '' }
           />
           <span style={ { color: 'red' } }>{ nameError }</span>
           <input
@@ -154,6 +123,7 @@ export default class Checkout extends Component {
             value={ cpf }
             type="number"
             onChange={ this.handleChange }
+            className={ cpfError ? 'invalid' : '' }
           />
           <span style={ { color: 'red' } }>{ cpfError }</span>
           <input
@@ -163,6 +133,7 @@ export default class Checkout extends Component {
             value={ email }
             type="email"
             onChange={ this.handleChange }
+            className={ emailError ? 'invalid' : '' }
           />
           <span style={ { color: 'red' } }>{ emailError }</span>
           <input
@@ -172,6 +143,7 @@ export default class Checkout extends Component {
             value={ phone }
             type="number"
             onChange={ this.handleChange }
+            className={ phoneError ? 'invalid' : '' }
           />
           <span style={ { color: 'red' } }>{ phoneError }</span>
           <input
@@ -181,6 +153,7 @@ export default class Checkout extends Component {
             value={ cep }
             type="number"
             onChange={ this.handleChange }
+            className={ cepError ? 'invalid' : '' }
           />
           <span style={ { color: 'red' } }>{ cepError }</span>
           <input
@@ -190,6 +163,7 @@ export default class Checkout extends Component {
             value={ adress }
             type="text"
             onChange={ this.handleChange }
+            className={ adressError ? 'invalid' : '' }
           />
           <span style={ { color: 'red' } }>{ adressError }</span>
           <input
@@ -215,6 +189,7 @@ export default class Checkout extends Component {
             value={ city }
             type="text"
             onChange={ this.handleChange }
+            className={ cityError ? 'invalid' : '' }
           />
           <span style={ { color: 'red' } }>{ cityError }</span>
           <label htmlFor="state-select">
