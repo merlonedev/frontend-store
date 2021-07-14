@@ -15,6 +15,7 @@ class ProductDetails extends React.Component {
       loading: true,
     };
     this.getProduct = this.getProduct.bind(this);
+    this.addToStorage = this.addToStorage.bind(this);
   }
 
   componentDidMount() {
@@ -28,6 +29,11 @@ class ProductDetails extends React.Component {
     this.setState({ product: { ...product }, loading: false });
   }
 
+  addToStorage() {
+    const { product } = this.state;
+    localStorage.setItem(product.id, JSON.stringify(product));
+  }
+
   render() {
     const {
       product: {
@@ -38,17 +44,19 @@ class ProductDetails extends React.Component {
       },
       loading,
     } = this.state;
-
     if (loading) return <Loading />;
     return (
       <div>
         <Link to="/"><TiArrowBack /></Link>
-        <Link to="/cart">
+        <Link to="/cart" data-testid="shopping-cart-button">
           <FiShoppingCart />
         </Link>
-        <h2 data-testid="product-detail-name">{ `${title} - R$ ${price}` }</h2>
+        <h2 data-testid="product-detail-name">
+          { `${title} - ${(price || 0).toLocaleString('pt-BR', {
+            minimumFractionDigits: 2, style: 'currency', currency: 'BRL' })}` }
+        </h2>
         <div>
-          <img src={ thumbnail } alt={ title } />
+          <img src={ thumbnail.replace('I.jpg', 'O.jpg') } alt={ title } />
           <div>
             <h3>Especificações Técnicas</h3>
             <ul>
@@ -60,6 +68,15 @@ class ProductDetails extends React.Component {
               )) }
             </ul>
           </div>
+        </div>
+        <div>
+          <button
+            data-testid="product-detail-add-to-cart"
+            type="button"
+            onClick={ this.addToStorage }
+          >
+            Adicionar ao carrinho
+          </button>
         </div>
         <div />
         <Form />

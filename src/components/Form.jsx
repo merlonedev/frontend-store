@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
 import './Form.css';
 import StarRatings from 'react-star-ratings';
 
@@ -27,6 +26,8 @@ class Form extends Component {
   }
 
   onClick(e) {
+    // const { onClick } = this.props;
+    // onClick(this.state);
     this.setState({
       rating: 1,
       email: '',
@@ -48,6 +49,7 @@ class Form extends Component {
         <label htmlFor="email" className="label-form">
           <div className="email-star">
             <input
+              required
               type="email"
               placeholder="Email"
               className="email-input"
@@ -86,13 +88,5 @@ class Form extends Component {
     );
   }
 }
-
-// Form.propTypes = {
-//   onClick: PropTypes.func,
-// };
-
-// Form.defaultProps = {
-//   onClick: PropTypes.func,
-// };
 
 export default Form;

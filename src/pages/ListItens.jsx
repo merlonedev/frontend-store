@@ -110,7 +110,7 @@ class ListItens extends React.Component {
           categories={ categories }
           onChange={ this.handleChange }
         />
-        <div>
+        <div className="movie-list">
           {
             checkList
               ? products

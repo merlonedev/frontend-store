@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import './ProductCard.css';
 
 class ProductCard extends React.Component {
   constructor(props) {
@@ -25,23 +26,40 @@ class ProductCard extends React.Component {
         thumbnail,
         price } } = this.props;
     return (
-      <div data-testid="product">
-        <p>{title}</p>
-        <img src={ thumbnail.replace('I.jpg', 'O.jpg') } alt={ title } />
-        <p>{price}</p>
-        <button
-          data-testid="product-add-to-cart"
-          onClick={ this.addToStorage }
-          type="button"
-        >
-          Adicionar ao carrinho
-        </button>
-        <Link
-          data-testid="product-detail-link"
-          to={ `/item/${category}/${id}` }
-        >
-          Mais Detalhes
-        </Link>
+      <div data-testid="product" className="product-card">
+        <div className="product-each">
+          <div className="product-spec">
+            <p className="product-title">{title}</p>
+            <img
+              className="product-img"
+              src={ thumbnail.replace('I.jpg', 'O.jpg') }
+              alt={ title }
+            />
+            <p className="product-price">
+              <span>
+                R$
+                { price }
+              </span>
+            </p>
+          </div>
+          <div className="product-btns">
+            <button
+              data-testid="product-add-to-cart"
+              onClick={ this.addToStorage }
+              type="button"
+              className="product-btn"
+            >
+              Adicionar ao carrinho
+            </button>
+            <Link
+              className="product-link"
+              data-testid="product-detail-link"
+              to={ `/item/${category}/${id}` }
+            >
+              Mais Detalhes
+            </Link>
+          </div>
+        </div>
       </div>
     );
   }
