@@ -5,6 +5,7 @@ import CartPage from './pages/CartPage';
 // import * as api from './services/api';
 import './App.css';
 import ProductDetail from './pages/ProductDetail';
+import Checkout from './pages/Checkout';
 
 class App extends React.Component {
   render() {
@@ -17,6 +18,7 @@ class App extends React.Component {
             path="/details/:id"
             render={ (props) => <ProductDetail { ...props } /> }
           />
+          <Route exact path="/Checkout" component={ Checkout } />
         </Switch>
       </Router>
     );
