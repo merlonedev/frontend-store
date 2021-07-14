@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import CartItems from './CartItems';
+import ReturnButton from './subcomponents/ReturnButton';
 
 // prettier-ignore
 export default class ShoppingCart extends React.Component {
@@ -18,7 +19,8 @@ export default class ShoppingCart extends React.Component {
         )}
         <p>
           <Link data-testid="checkout-products" to="/checkout">Checkout</Link>
-          <Link to="/">VOLTAR</Link>
+          {/* <Link to="/">VOLTAR</Link> */}
+          <ReturnButton />
         </p>
       </section>
     );

@@ -1,8 +1,9 @@
-/* eslint-disable react/jsx-max-depth */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import Quantities from './Quantities';
+// import { Link } from 'react-router-dom';
+// import Quantities from './Quantities';
+import ShoppingCartButton from './subcomponents/ShoppingCartButton';
+import ReturnButton from './subcomponents/ReturnButton';
 
 export default class ProductDetails extends Component {
   constructor(props) {
@@ -86,14 +87,15 @@ export default class ProductDetails extends Component {
             <p>Submit</p>
           </button>
           <div className="buttons-container">
-            <button type="button" className="button cart-button">
+            {/* <button type="button" className="button cart-button">
               <Link to="/cart" data-testid="shopping-cart-button">
                 <p>
                   <i className="fas fa-shopping-cart" />
                   <Quantities quantity={ quantity } />
                 </p>
               </Link>
-            </button>
+            </button> */}
+            <ShoppingCartButton quantity={ quantity } />
             <button
               type="button"
               data-testid="product-detail-add-to-cart"
@@ -102,11 +104,12 @@ export default class ProductDetails extends Component {
             >
               <p>Adicionar ao carrinho</p>
             </button>
-            <button type="button" className="button return-button">
+            {/* <button type="button" className="button return-button">
               <Link to="/">
                 <p>Voltar</p>
               </Link>
-            </button>
+            </button> */}
+            <ReturnButton />
           </div>
         </div>
       </div>

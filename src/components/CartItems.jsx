@@ -50,7 +50,7 @@ export default class CartItems extends Component {
         <button type="button" onClick={ this.removeItem }>
           x
         </button>
-        <button type="button">Finalizar Compra</button>
+        {/* <button type="button">Finalizar Compra</button> */}
       </div>
     );
   }
