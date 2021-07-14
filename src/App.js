@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
 import './App.css';
-import { BrowserRouter, Route } from 'react-router-dom';
-import Category from './components/Category';
+import { Route } from 'react-router';
+import { BrowserRouter } from 'react-router-dom';
 import ShoppingCart from './components/ShoppingCart';
-import ProductList from './components/ProductList';
+import ProdutcList from './components/ProductList';
+import Category from './components/Category';
 
 class App extends Component {
   render() {
     return (
       <BrowserRouter>
         <Category />
-        <Route exact path="/" component={ ProductList } />
-        <Route exact path="/ShoppingCart" component={ ShoppingCart } />
+        <Route exact path="/" component={ ProdutcList } />
+        <Route exact path="/Shoppingcart" component={ ShoppingCart } />
       </BrowserRouter>
     );
   }

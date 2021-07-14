@@ -13,7 +13,7 @@ class ProductList extends Component {
   }
 
   async getProducts(id, searchText) {
-    const products = await API.getProductsFromCategoryAndQuery(id, searchText);
+    const products = await API.getProductsFromCategoryAndQuery( searchText);
     this.setState({
       products: products.results,
     });

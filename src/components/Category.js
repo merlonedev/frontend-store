@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { getCategories } from '../services/api';
 
 export default class Category extends Component {
   constructor() {
     super();
+    this.handleState = this.handleState.bind(this);
     this.state = {
       categories: [],
     };
-    this.handleState = this.handleState.bind(this);
   }
 
   componentDidMount() {
@@ -16,7 +17,7 @@ export default class Category extends Component {
 
   handleState() {
     getCategories().then((category) => this.setState({
-      categories: category,
+      categories: [...category],
     }));
   }
 
@@ -24,16 +25,19 @@ export default class Category extends Component {
     const { categories } = this.state;
     return (
       <div>
-        <ul>
-          {categories.map((category) => (
-            <li
+        {categories.map((category) => (
+          <div key={ category.id }>
+            <Link
               data-testid="category"
               key={ category.id }
+              to={ `/categorias/${category.id}` }
+              type="button"
+              id={ category.id }
+              className="btncategory"
             >
-              { category.name}
-            </li>
-          ))}
-        </ul>
+              { category.name }
+            </Link>
+          </div>))}
       </div>
     );
   }
