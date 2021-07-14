@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
@@ -10,34 +11,35 @@ class ProductDetails extends Component {
     this.state = {
       product: {},
     };
-    this.productDetails = this.productDetails.bind(this);
+    this.getProductDetails = this.getProductDetails.bind(this);
   }
 
   componentDidMount() {
-    this.productDetails();
+    this.getProductDetails();
   }
 
-  async productDetails() {
+  async getProductDetails() {
     const { match } = this.props;
     const { params } = match;
-    const { id } = params;
-    const { results } = await API.getProductsFromCategoryAndQuery(id);
-    const product = await results.find((item) => item.id === id);
-    return product;
+    const { id, searchText = '', category_id } = params;
+    console.log(`getProductDetails:
+      category_id: ${category_id}
+      searchText: ${searchText}
+      id: ${id}`);
+    const { results } = await API.getProductsFromCategoryAndQuery(category_id, searchText);
+    const product = results.find((item) => item.id === id);
+    console.log(`results:
+      ${results}
+      __________
+      product: ${product}
+      __________`);
+    this.setState({
+      product,
+    });
   }
-
-  // componentDidMount() {
-  //   const { match } = this.props;
-  //   const { params } = match;
-  //   const { id } = params;
-  //   API.getProductsFromCategoryAndQuery(id).then((resolve) => this.setState({
-  //     product: resolve.results,
-  //   }));
-  // }
 
   render() {
     const { product } = this.state;
-    console.log('produtosssss', product);
     return (
       <div>
         <h2 data-testid="product-detail-name">{ product.title }</h2>
@@ -45,7 +47,7 @@ class ProductDetails extends Component {
           <img alt={ product.title } src={ product.thumbnail } />
           <h3>Detalhes do Produto</h3>
           <ul>
-            <li>{product.name}</li>
+            <li>{product.title}</li>
             <li>{product.price}</li>
           </ul>
         </div>

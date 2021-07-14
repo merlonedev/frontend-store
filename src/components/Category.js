@@ -5,9 +5,11 @@ export default class Category extends Component {
   constructor() {
     super();
     this.state = {
+      selected: '',
       categories: [],
     };
     this.handleState = this.handleState.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
@@ -20,18 +22,32 @@ export default class Category extends Component {
     }));
   }
 
+  handleClick(e) {
+    const categoryid = e.target.getAttribute('categoryid');
+    const categoryname = e.target.getAttribute('categoryname');
+    const { callBack } = this.props;
+    callBack(categoryid, categoryname);
+  }
+
   render() {
     const { categories } = this.state;
     return (
       <div>
         <ul>
           {categories.map((category) => (
-            <li
-              data-testid="category"
+            <button
+              type="button"
               key={ category.id }
+              onClick={ this.handleClick }
             >
-              { category.name }
-            </li>
+              <li
+                data-testid="category"
+                categoryid={ category.id }
+                categoryname={ category.name }
+              >
+                {category.name}
+              </li>
+            </button>
           ))}
         </ul>
       </div>
