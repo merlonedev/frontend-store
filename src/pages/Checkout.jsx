@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import states from '../services/checkoutStates';
 
 const initialState = {
@@ -35,7 +35,7 @@ export default class Checkout extends Component {
   handleSubmit = (evt) => {
     evt.preventDefault();
     this.validate();
-    if (this.validate) { return (<Link to="/" />); }
+    if (this.validate) { return true; }
     return false;
   }
 
@@ -70,7 +70,7 @@ export default class Checkout extends Component {
       || phoneError) {
       this
         .setState({
-          nameError, emailError, cepError, adressError, cityError, phoneError,
+          nameError, emailError, cepError, cpfError, adressError, cityError, phoneError,
         });
       return false;
     }

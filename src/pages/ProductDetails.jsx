@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import ReviewForm from '../components/ReviewForm';
 
 export default class ProductDetails extends Component {
   constructor() {
@@ -20,7 +21,18 @@ export default class ProductDetails extends Component {
     const item = JSON.parse(localStorage.getItem('product'));
     // localStorage.removeItem('product');
     this.setItem(item);
-    console.log(item);
+    // console.log(item);
+  }
+
+  handleAddToCart(product) {
+    const { title } = product;
+    let cart = JSON.parse(localStorage.getItem('cart'));
+    if (cart && cart[title]) {
+      cart = { ...cart, [title]: cart[title] + 1 };
+    } else {
+      cart = { ...cart, [title]: 1 };
+    }
+    localStorage.setItem('cart', JSON.stringify(cart));
   }
 
   setItem(item) {
@@ -45,7 +57,7 @@ export default class ProductDetails extends Component {
     return (
       <main>
         <Link to="/" onClick={ this.clearStorage }>VOLTAR</Link>
-        <Link to="/shoppingcart">CARRINHO</Link>
+        <Link data-testid="shopping-cart-button" to="/shoppingcart">CARRINHO</Link>
         <h1 data-testid="product-detail-name">{product.title}</h1>
         <h1>{product.price}</h1>
         <img src={ product.thumbnail } alt={ product.title } />
@@ -60,7 +72,15 @@ export default class ProductDetails extends Component {
                 : false
             ))}
           </ul>
+          <ReviewForm />
         </section>
+        <button
+          type="button"
+          data-testid="product-detail-add-to-cart"
+          onClick={ () => this.handleAddToCart(product) }
+        >
+          ADICIONAR AO CARRINHO
+        </button>
       </main>
     );
   }
