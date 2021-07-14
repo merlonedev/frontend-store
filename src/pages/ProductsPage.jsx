@@ -13,6 +13,7 @@ export default class ProductPage extends Component {
       searchValue: '',
       list: [],
       showList: false,
+      qtd: 0,
     };
 
     this.handleSearch = this.handleSearch.bind(this);
@@ -50,6 +51,9 @@ export default class ProductPage extends Component {
     if (cart && cart[title]) cart = { ...cart, [title]: (cart[title] + 1) };
     else cart = { ...cart, [title]: 1 };
     localStorage.setItem('cart', JSON.stringify(cart));
+    this.setState({
+      qtd: (cart ? Object.values(cart).reduce((acc, curr) => acc + curr, 0) : 0),
+    });
   }
 
   noList() {
@@ -61,7 +65,7 @@ export default class ProductPage extends Component {
   }
 
   render() {
-    const { list, showList } = this.state;
+    const { list, showList, qtd } = this.state;
     return (
       <section>
         <div className="header">
@@ -78,7 +82,9 @@ export default class ProductPage extends Component {
                 Carrinho
               </button>
             </Link>
-            <p>0</p>
+            <p data-testid="shopping-cart-size">
+              { qtd }
+            </p>
           </div>
         </div>
         <section className="main">

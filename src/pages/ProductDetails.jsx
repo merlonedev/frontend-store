@@ -12,19 +12,24 @@ export default class ProductDetails extends Component {
         price: 0,
         thumbnail: '',
       },
+      qtd: 0,
     };
     this.setItem = this.setItem.bind(this);
   }
 
   componentDidMount() {
     const item = JSON.parse(localStorage.getItem('product'));
+    const cart = JSON.parse(localStorage.getItem('cart'));
     // localStorage.removeItem('product');
-    this.setItem(item);
+    this.setItem(item, cart);
     console.log(item);
   }
 
-  setItem(item) {
+  setItem(item, cart) {
     this.setState({ product: item, loading: false });
+    this.setState({
+      qtd: cart ? Object.values(cart).reduce((acc, curr) => acc + curr, 0) : 0,
+    });
   }
 
   clearStorage() {
@@ -40,12 +45,15 @@ export default class ProductDetails extends Component {
   // }
 
   render() {
-    const { product, loading } = this.state;
+    const { product, loading, qtd } = this.state;
     if (loading) { return <p>Loading...</p>; }
     return (
       <main>
         <Link to="/" onClick={ this.clearStorage }>VOLTAR</Link>
-        <Link to="/shoppingcart">CARRINHO</Link>
+        <div>
+          <Link to="/shoppingcart">CARRINHO</Link>
+          <p data-testid="shopping-cart-size">{ qtd }</p>
+        </div>
         <h1 data-testid="product-detail-name">{product.title}</h1>
         <h1>{product.price}</h1>
         <img src={ product.thumbnail } alt={ product.title } />
