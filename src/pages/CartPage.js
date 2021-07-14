@@ -18,9 +18,7 @@ class CartPage extends Component {
               <h1 data-testid="shopping-cart-product-name">{ product.title }</h1>
               <p>{ product.price }</p>
               <img src={ product.thumbnail } alt="foto do produto" />
-              <button type="button">+</button>
               <p data-testid="shopping-cart-product-quantity">1</p>
-              <button type="button">-</button>
             </div>))}
         </div>
       </div>
