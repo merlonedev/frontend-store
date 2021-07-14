@@ -3,17 +3,19 @@ import { Route, BrowserRouter, Switch } from 'react-router-dom';
 import Home from './pages/Home';
 import DetailedProduct from './components/DetailedProduct';
 import ShoppingCart from './pages/ShoppingCart';
+import Checkout from './pages/Checkout';
 
 function App() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path="/" component={ Home } />
-        <Route path="/shopping-cart" component={ ShoppingCart } />
         <Route
           path="/product/:id/:title"
           component={ DetailedProduct }
         />
+        <Route path="/shopping-cart" component={ ShoppingCart } />
+        <Route path="/checkout" component={ Checkout } />
+        <Route exact path="/" component={ Home } />
       </Switch>
     </BrowserRouter>
   );

@@ -2,15 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ProductCard from './ProductCard';
 
+let allElements = [];
+if (sessionStorage.getItem('addCart')) {
+  allElements = JSON.parse(sessionStorage.getItem('addCart'));
+}
+
 class ProductList extends React.Component {
   render() {
     const { products, updateCartSize } = this.props;
-    let allElements = [];
-    if (sessionStorage.getItem('addCart')) {
-      allElements = JSON.parse(sessionStorage.getItem('addCart'));
-    }
+
     return products.map(({ id, title, thumbnail, price }) => {
-      const cartElements = { id, title, price };
+      const cartElements = { id, title, price, thumbnail };
       return (<ProductCard
         id={ id }
         key={ id }

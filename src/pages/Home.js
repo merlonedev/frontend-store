@@ -52,8 +52,8 @@ class Home extends React.Component {
   }
 
   async categoryApi() {
-    const newCagories = await getCategories();
-    this.setState({ categories: newCagories });
+    const categories = await getCategories();
+    this.setState({ categories });
   }
 
   async categoryAndQuery(id = '') {
@@ -74,8 +74,6 @@ class Home extends React.Component {
       categories,
     } = this.state;
 
-    const { setCartSize } = this;
-
     const msg = didSearch ? notFoundMsg : initialMsg;
 
     return (
@@ -89,7 +87,7 @@ class Home extends React.Component {
         />
         <button
           type="button"
-          onClick={ this.categoryAndQuery }
+          onClick={ () => { this.categoryAndQuery(''); } }
           data-testid="query-button"
         >
           Pesquisar
@@ -106,7 +104,13 @@ class Home extends React.Component {
           categoryAndQuery={ this.categoryAndQuery }
         />
         { (products.length > 0)
-          ? <ul><ProductList updateCartSize={ setCartSize } products={ products } /></ul>
+          ? (
+            <ul>
+              <ProductList
+                updateCartSize={ this.setCartSize }
+                products={ products }
+              />
+            </ul>)
           : msg }
       </section>
     );
