@@ -46,10 +46,14 @@ export default class ProductPage extends Component {
   }
 
   handleProductClick(product) {
-    const { title } = product;
+    const { title, price, id } = product;
     let cart = JSON.parse(localStorage.getItem('cart'));
-    if (cart && cart[title]) cart = { ...cart, [title]: (cart[title] + 1) };
-    else cart = { ...cart, [title]: 1 };
+    if (cart && cart[id]) {
+      cart = { ...cart,
+        [id]: [title, cart[id][1] + 1, price] };
+    } else {
+      cart = { ...cart, [id]: [title, 1, price] };
+    }
     localStorage.setItem('cart', JSON.stringify(cart));
     this.setState({
       qtd: (cart ? Object.values(cart).reduce((acc, curr) => acc + curr, 0) : 0),
