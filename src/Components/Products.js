@@ -3,25 +3,6 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 class Products extends React.Component {
-  constructor(props) {
-    super(props)
-
-   // this.setCart = this.setCart.bind(this)
-  }
-
-  // setCart({ target }) {
-  //   const { id, price, title, thumbnail } = target
-  //   const product = {
-  //     id,
-  //     price,
-  //     title,
-  //     thumbnail,
-  //   }
-  //   const { setCartStorage } = this.props
-  //   setCartStorage(product)
-    
-  // }
-
   render() {
     const { productList, setCartStorage } = this.props;
     if (productList.length === 0) {
@@ -41,9 +22,12 @@ class Products extends React.Component {
               VER DETALHES
             </Link>
             <button
-             data-testid="product-add-to-cart"
-             onClick={() => setCartStorage({id, title, price, thumbnail})}
-             >Adicionar ao carrinho</button>
+              type="button"
+              data-testid="product-add-to-cart"
+              onClick={ () => setCartStorage({ id, title, price, thumbnail }) }
+            >
+              Adicionar ao carrinho
+            </button>
           </div>
         ))}
       </div>
@@ -53,6 +37,7 @@ class Products extends React.Component {
 
 Products.propTypes = {
   productList: PropTypes.arrayOf(PropTypes.object).isRequired,
+  setCartStorage: PropTypes.func.isRequired,
 };
 
 export default Products;
