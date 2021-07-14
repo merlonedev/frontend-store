@@ -4,6 +4,7 @@ import { FiShoppingCart } from 'react-icons/fi';
 import ProductCard from '../components/ProductCard';
 import CategoriesFilter from '../components/CategoriesFilter';
 import * as api from '../services/api';
+import './ListItens.css';
 
 class ListItens extends React.Component {
   constructor(props) {
@@ -101,28 +102,32 @@ class ListItens extends React.Component {
     } = this.state;
     return (
       <div>
-        <form>
-          <label htmlFor="search-bar">
-            <input
-              id="search-bar"
-              type="text"
-              data-testid="query-input"
-              value={ search }
-              name="search"
-              onChange={ this.handleChangeSearch }
-            />
-            <button
-              type="submit"
-              data-testid="query-button"
-              onClick={ this.handleClick }
-            >
-              Pesquisar
-            </button>
-          </label>
-        </form>
-        <Link to="/cart" data-testid="shopping-cart-button">
-          <FiShoppingCart />
-        </Link>
+        <nav className="navbar">
+          <span className="nav-title">Mufasa Commerce</span>
+          <form className="nav-form">
+            <label htmlFor="search-bar">
+              <input
+                id="search-bar"
+                type="text"
+                data-testid="query-input"
+                value={ search }
+                name="search"
+                onChange={ this.handleChangeSearch }
+                placeholder="Procure seu produto..."
+              />
+              <button
+                type="submit"
+                data-testid="query-button"
+                onClick={ this.handleClick }
+              >
+                Pesquisar
+              </button>
+            </label>
+          </form>
+          <Link to="/cart" data-testid="shopping-cart-button">
+            <FiShoppingCart />
+          </Link>
+        </nav>
         <div data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
         </div>

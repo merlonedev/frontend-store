@@ -1,5 +1,7 @@
 import React from 'react';
 import { FiShoppingCart } from 'react-icons/fi';
+import { TiArrowBack } from 'react-icons/ti';
+import { Link } from 'react-router-dom';
 import ProductInCart from '../components/ProductInCart';
 
 class CartItems extends React.Component {
@@ -22,6 +24,7 @@ class CartItems extends React.Component {
     const { cartItens } = this.state;
     return (
       <div>
+        <Link to="/"><TiArrowBack /></Link>
         <FiShoppingCart />
         Carrinho de Compras
         {
