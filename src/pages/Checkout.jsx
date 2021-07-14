@@ -1,58 +1,115 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+
+const states = [
+  'AC',
+  'AL',
+  'AM',
+  'AP',
+  'BA',
+  'CE',
+  'DF',
+  'ES',
+  'GO',
+  'MA',
+  'MT',
+  'MS',
+  'MG',
+  'PA',
+  'PB',
+  'PR',
+  'PE',
+  'PI',
+  'RJ',
+  'RN',
+  'RO',
+  'RS',
+  'RR',
+  'SC',
+  'SE',
+  'SP',
+  'TO',
+];
+
+const initialState = {
+  name: '',
+  email: '',
+  cpf: '',
+  phone: '',
+  adress: '',
+  cep: '',
+  complement: '',
+  number: '',
+  city: '',
+  nameError: '',
+  emailError: '',
+  cpfError: '',
+  phoneError: '',
+  adressError: '',
+  cityError: '',
+  isValid: false,
+};
 
 export default class Checkout extends Component {
   constructor() {
     super();
-    this.state = {
-      name: '',
-      email: '',
-      cpf: '',
-      phone: '',
-      adress: '',
-      cep: '',
-      complement: '',
-      number: '',
-      city: '',
-      isValid: false,
-    };
+    this.state = initialState;
+    this.validate = this.validate.bind(this);
   }
 
-  handleSubmit = () => {
+  handleChange = ({ target }) => {
+    const { value, name } = target;
+    this.setState({ [name]: value });
+  }
 
+  handleSubmit = (evt) => {
+    evt.preventDefault();
+    this.validate();
+    if (this.validate) { return (<Link to="/" />); }
+    return false;
+  }
+
+  validate() {
+    const emailValidate = /\w{1,15}@\w\.?\w/;
+    const stringValidate = /\w{2,20}/i;
+    const cpfAndPhoneValidate = /\d{11}/;
+    const cepValidate = /\d{8}/;
+    let nameError = '';
+    let emailError = '';
+    let cpfError = '';
+    let cepError = '';
+    let adressError = '';
+    let cityError = '';
+    let phoneError = '';
+    const { name, cpf, cep, adress, city, phone, email } = this.state;
+
+    if (!emailValidate.test(email)) { emailError = 'Email inválido'; }
+    if (!stringValidate.test(name)) { nameError = 'Nome é obrigatório'; }
+    if (!stringValidate.test(adress)) { adressError = 'Endereço é obrigatório'; }
+    if (!stringValidate.test(city)) { cityError = 'Cidade é obrigatório'; }
+    if (!cpfAndPhoneValidate.test(phone)) { phoneError = 'Número de telefone inválido'; }
+    if (!cpfAndPhoneValidate.test(cpf)) { cpfError = 'CPF inválido'; }
+    if (!cepValidate.test(cep)) { cepError = 'CEP inválido'; }
+    if (
+      nameError
+      || emailError
+      || cpfError
+      || cepError
+      || adressError
+      || cityError
+      || phoneError) {
+      this
+        .setState({
+          nameError, emailError, cepError, adressError, cityError, phoneError,
+        });
+      return false;
+    }
+    this.setState({ isValid: true });
+    return true;
   }
 
   render() {
-    const states = [
-      'AC',
-      'AL',
-      'AM',
-      'AP',
-      'BA',
-      'CE',
-      'DF',
-      'ES',
-      'GO',
-      'MA',
-      'MT',
-      'MS',
-      'MG',
-      'PA',
-      'PB',
-      'PR',
-      'PE',
-      'PI',
-      'RJ',
-      'RN',
-      'RO',
-      'RS',
-      'RR',
-      'SC',
-      'SE',
-      'SP',
-      'TO',
-    ];
     const {
-      isValid,
       name,
       cpf,
       cep,
@@ -62,8 +119,15 @@ export default class Checkout extends Component {
       phone,
       email,
       complement,
+      nameError,
+      emailError,
+      phoneError,
+      cepError,
+      cpfError,
+      adressError,
+      cityError,
     } = this.state;
-    const validateStyle = isValid ? 'valid' : 'invalid';
+
     return (
       <main className="checkout">
         <section className="products-resume">
@@ -75,68 +139,84 @@ export default class Checkout extends Component {
           <h2>Informações do Comprador</h2>
           <input
             name="name"
-            id="checkout-fullname"
+            data-testid="checkout-fullname"
             placeholder="Nome completo"
             value={ name }
             type="text"
-            className={ validateStyle }
+            onChange={ this.handleChange }
+            // className={ validateName }
           />
+          <span style={ { color: 'red' } }>{ nameError }</span>
           <input
             name="cpf"
-            id="checkout-cpf"
+            data-testid="checkout-cpf"
             placeholder="CPF"
             value={ cpf }
             type="number"
+            onChange={ this.handleChange }
           />
+          <span style={ { color: 'red' } }>{ cpfError }</span>
           <input
             name="email"
-            id="checkout-email"
+            data-testid="checkout-email"
             placeholder="Email"
             value={ email }
-            type="text"
+            type="email"
+            onChange={ this.handleChange }
           />
+          <span style={ { color: 'red' } }>{ emailError }</span>
           <input
             name="phone"
-            id="checkout-phone"
+            data-testid="checkout-phone"
             placeholder="Telefone"
             value={ phone }
             type="number"
+            onChange={ this.handleChange }
           />
+          <span style={ { color: 'red' } }>{ phoneError }</span>
           <input
             name="cep"
-            id="checkout-cep"
+            data-testid="checkout-cep"
             placeholder="CEP"
             value={ cep }
             type="number"
+            onChange={ this.handleChange }
           />
+          <span style={ { color: 'red' } }>{ cepError }</span>
           <input
             name="adress"
-            id="checkout-adress"
+            data-testid="checkout-adress"
             placeholder="Endereço"
             value={ adress }
             type="text"
+            onChange={ this.handleChange }
           />
+          <span style={ { color: 'red' } }>{ adressError }</span>
           <input
             name="complement"
-            id="checkout-complement"
+            data-testid="checkout-complement"
             placeholder="Complemento"
             value={ complement }
             type="text"
+            onChange={ this.handleChange }
           />
           <input
             name="number"
-            id="checkout-number"
+            data-testid="checkout-number"
             placeholder="Número"
             value={ number }
             type="number"
+            onChange={ this.handleChange }
           />
           <input
             name="city"
-            id="checkout-city"
+            data-testid="checkout-city"
             placeholder="Cidade"
             value={ city }
             type="text"
+            onChange={ this.handleChange }
           />
+          <span style={ { color: 'red' } }>{ cityError }</span>
           <label htmlFor="state-select">
             Estado
             <select name="state-select" id="state-select">
@@ -153,20 +233,22 @@ export default class Checkout extends Component {
             <input type="radio" name="payment" label="Boleto" id="boleto" />
             <h4>Cartão de Crédito</h4>
             <label htmlFor="visa">
-              Visa
               <input type="radio" name="payment" label="Visa" id="visa" />
+              Visa
             </label>
             <label htmlFor="master">
-              MasterCard
               <input type="radio" name="payment" label="MasterCard" id="master" />
+              MasterCard
             </label>
             <label htmlFor="elo">
-              Elo
               <input type="radio" name="payment" label="Elo" id="elo" />
+              Elo
             </label>
           </label>
         </section>
-        <button type="submit">Comprar</button>
+        <button type="button" onClick={ this.handleSubmit }>Comprar</button>
+        {/* <Link to="/">
+        </Link> */}
       </main>
     );
   }
