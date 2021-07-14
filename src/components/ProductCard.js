@@ -3,8 +3,24 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 class ProductCard extends Component {
+  constructor() {
+    super();
+    this.handleClick = this.handleClick.bind(this);
+    this.setLocalStorage = this.setLocalStorage.bind(this);
+  }
+
+  handleClick() {
+    this.setLocalStorage();
+  }
+
+  setLocalStorage() {
+    let { product } = this.props;
+    product = JSON.stringify(product);
+    localStorage.setItem('produto', product);
+  }
+
   render() {
-    const { products: {
+    const { product: {
       title,
       thumbnail,
       price,
@@ -24,6 +40,12 @@ class ProductCard extends Component {
         >
           Ver Detalhes
         </Link>
+        <button
+          type="button"
+          onClick={ this.handleClick }
+        >
+          Adicionar ao Carrinho
+        </button>
       </div>
     );
   }
