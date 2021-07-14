@@ -5,9 +5,10 @@ import * as api from '../services/api';
 class ProductList extends Component {
   constructor(props) {
     super(props);
+    const { prodList } = this.props;
     this.state = {
       query: '',
-      prodList: [],
+      prodList: [...prodList],
       isEmpty: true,
     };
     this.handleChange = this.handleChange.bind(this);
@@ -20,13 +21,15 @@ class ProductList extends Component {
     const { value } = target;
     this.setState({
       query: value,
+      prodList: [],
     });
   }
 
   buttonLogic() {
     const { query } = this.state;
+    const { category } = this.props;
     if (query) {
-      api.getProductsFromCategoryAndQuery(false, query)
+      api.getProductsFromCategoryAndQuery(category, query)
         .then((res) => {
           const products = res.results;
           this.setState({
@@ -57,6 +60,7 @@ class ProductList extends Component {
 
   render() {
     const { query, isEmpty } = this.state;
+
     return (
       <section>
         <input
