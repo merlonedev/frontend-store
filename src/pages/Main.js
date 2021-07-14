@@ -1,22 +1,25 @@
 import React, { Component } from 'react';
 import Categories from '../components/Categories';
-import ProductList from '../components/ProductList';
 import * as api from '../services/api';
+import ProductCard from '../components/ProductCard';
 
 class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      query: '',
       category: '',
       prodList: [],
       render: false,
+      isEmpty: true,
     };
 
-    this.handleChange = this.handleChange.bind(this);
-    this.renderProducts = this.renderProducts.bind(this);
+    this.handleChangeCategory = this.handleChangeCategory.bind(this);
+    this.handleChangeInput = this.handleChangeInput.bind(this);
+    this.buttonLogic = this.buttonLogic.bind(this);
   }
 
-  handleChange({ target }) {
+  handleChangeCategory({ target }) {
     const { value } = target;
     this.setState({
       category: value,
@@ -37,22 +40,68 @@ class Main extends Component {
     });
   }
 
-  renderProducts() {
-    const { category, prodList } = this.state;
-    console.log('render', prodList);
+  handleChangeInput({ target }) {
+    const { value } = target;
+    this.setState({
+      query: value,
+      prodList: [],
+    });
+  }
+
+  buttonLogic() {
+    const { query, category } = this.state;
+    if (query) {
+      api.getProductsFromCategoryAndQuery(category, query)
+        .then((res) => {
+          const products = res.results;
+          this.setState({
+            prodList: [...products],
+            isEmpty: false,
+            render: true,
+          });
+        });
+    }
+  }
+
+  renderParag() {
     return (
-      <ProductList category={ category } prodList={ prodList } />
+      <p data-testid="home-initial-message">
+        Digite algum termo de pesquisa ou escolha uma categoria.
+      </p>
+    );
+  }
+
+  renderList() {
+    const { prodList } = this.state;
+    return (
+      prodList.map(
+        (prod) => <ProductCard key={ prod.id } product={ prod } />,
+      )
     );
   }
 
   render() {
-    const { render } = this.state;
-    // console.log('main', prodList)
+    const { render, query, isEmpty } = this.state;
 
     return (
       <main>
-        { render && this.renderProducts() }
-        <Categories onClick={ this.handleChange } />
+        <input
+          data-testid="query-input"
+          type="text"
+          name="query"
+          onChange={ this.handleChangeInput }
+          value={ query }
+        />
+        <button
+          data-testid="query-button"
+          type="button"
+          onClick={ this.buttonLogic }
+        >
+          Pesquisar
+        </button>
+        { isEmpty && this.renderParag() }
+        <Categories onClick={ this.handleChangeCategory } />
+        { render && this.renderList() }
       </main>
     );
   }
