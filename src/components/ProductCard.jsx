@@ -16,7 +16,6 @@ class ProductCard extends React.Component {
           <img src={ thumbnail } alt={ title } />
           <p>{`R$ ${price}`}</p>
         </Link>
-        {console.log(product)}
       </div>
     );
   }
