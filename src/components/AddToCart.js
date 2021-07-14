@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class AddToCart extends React.Component {
   constructor(props) {
@@ -7,23 +8,33 @@ class AddToCart extends React.Component {
   }
 
   addItem() {
-    const { itemId } = this.props;
+    const { productObj } = this.props;
     const storage = JSON.parse(localStorage.getItem('itens')) || [];
-    const newStorage = [...storage, itemId];
-    console.log(itemId);
+    const newStorage = [...storage, productObj];
     localStorage.setItem('itens', JSON.stringify(newStorage));
   }
 
   render() {
-    return(
+    return (
       <button
-       data-testid="product-add-to-cart" onClick={ this.addItem }
+        type="button"
+        data-testid="product-add-to-cart"
+        onClick={ this.addItem }
       >
         Adicione item ao carrinho
       </button>
-    )
+    );
   }
-
 }
+
+AddToCart.propTypes = {
+  productObj: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    category_id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    thumbnail: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+  }).isRequired,
+};
 
 export default AddToCart;
