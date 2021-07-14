@@ -4,6 +4,7 @@ import { getCategories, getProductsFromCategoryAndQuery } from '../services/api'
 import CategoryAside from '../components/CategoryAside';
 import ProductList from '../components/ProductList';
 import Input from '../components/Input';
+import CartSize from '../components/CartSize';
 
 const initialMsg = (
   <p data-testid="home-initial-message">
@@ -17,6 +18,7 @@ const initialState = {
   products: [],
   didSearch: false,
   categories: [],
+  cartSize: 0,
 };
 class Home extends React.Component {
   constructor() {
@@ -24,17 +26,29 @@ class Home extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.categoryAndQuery = this.categoryAndQuery.bind(this);
     this.categoryApi = this.categoryApi.bind(this);
+    this.setCartSize = this.setCartSize.bind(this);
 
     this.state = initialState;
   }
 
   componentDidMount() {
     this.categoryApi();
+    this.setCartSize();
   }
 
   handleChange({ target }) {
     const { value, name } = target;
     this.setState({ [name]: value });
+  }
+
+  setCartSize() {
+    if (sessionStorage.getItem('addCart')) {
+      const cartProducts = JSON.parse(sessionStorage.getItem('addCart'));
+      const size = cartProducts.length;
+      this.setState({
+        cartSize: size,
+      });
+    }
   }
 
   async categoryApi() {
@@ -53,11 +67,14 @@ class Home extends React.Component {
 
   render() {
     const {
+      cartSize,
       queryText,
       products,
       didSearch,
       categories,
     } = this.state;
+
+    const { setCartSize } = this;
 
     const msg = didSearch ? notFoundMsg : initialMsg;
 
@@ -82,13 +99,14 @@ class Home extends React.Component {
           data-testid="shopping-cart-button"
         >
           Carrinho de Compras
+          <CartSize size={ cartSize } />
         </Link>
         <CategoryAside
           categoryObj={ categories }
           categoryAndQuery={ this.categoryAndQuery }
         />
         { (products.length > 0)
-          ? <ul><ProductList products={ products } /></ul>
+          ? <ul><ProductList updateCartSize={ setCartSize } products={ products } /></ul>
           : msg }
       </section>
     );

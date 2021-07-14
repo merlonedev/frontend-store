@@ -3,12 +3,14 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import CommentForm from './CommentForm';
 import GenComment from './GenComment';
+import CartSize from './CartSize';
 
 import { getProductsFromCategoryAndQuery } from '../services/api';
 
 const savedAvaliations = JSON.parse(localStorage.getItem('avaliations'));
 
 const initialSatate = {
+  cartSize: 0,
   product: {},
   aval: {
     email: '',
@@ -24,11 +26,13 @@ class DetailedProduct extends React.Component {
     this.setProductById = this.setProductById.bind(this);
     this.handleChangeAval = this.handleChangeAval.bind(this);
     this.handleSendAval = this.handleSendAval.bind(this);
+    this.updateCartSize = this.updateCartSize.bind(this);
     this.state = initialSatate;
   }
 
   componentDidMount() {
     this.setProductById();
+    this.updateCartSize();
   }
 
   handleChangeAval({ target }) {
@@ -58,9 +62,22 @@ class DetailedProduct extends React.Component {
     this.setState({ product });
   }
 
+  updateCartSize() {
+    if (sessionStorage.getItem('addCart')) {
+      const cartProducts = JSON.parse(sessionStorage.getItem('addCart'));
+      const size = cartProducts.length;
+      this.setState({
+        cartSize: size,
+      });
+    }
+  }
+
   render() {
-    const { product, aval, avaliations } = this.state;
+    const { product, aval, avaliations, cartSize } = this.state;
     let allElements = [];
+    if (sessionStorage.getItem('addCart')) {
+      allElements = JSON.parse(sessionStorage.getItem('addCart'));
+    }
     const {
       id,
       title,
@@ -78,6 +95,7 @@ class DetailedProduct extends React.Component {
             data-testid="shopping-cart-button"
           >
             Carrinho de Compras
+            <CartSize size={ cartSize } />
           </Link>
         </header>
         <main>
@@ -105,8 +123,8 @@ class DetailedProduct extends React.Component {
                     () => {
                       const cartElements = { id, title, price };
                       allElements = [...allElements, cartElements];
-                      return sessionStorage
-                        .setItem('addCart', JSON.stringify(allElements));
+                      sessionStorage.setItem('addCart', JSON.stringify(allElements));
+                      this.updateCartSize();
                     }) }
                 >
                   Adicionar ao Carrinho
