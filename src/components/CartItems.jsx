@@ -1,19 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+// prettier-ignore
 export default class CartItems extends Component {
   constructor(props) {
     super(props);
-    this.getProductFromId = this.getProductFromId.bind(this);
     this.increaseQty = this.increaseQty.bind(this);
     this.decreaseQty = this.decreaseQty.bind(this);
     this.removeItem = this.removeItem.bind(this);
-  }
-
-  async getProductFromId(url) {
-    const resultRequest = await fetch(url);
-    const result = await resultRequest.json();
-    return result;
+    this.renderButtons = this.renderButtons.bind(this);
   }
 
   increaseQty({ target }) {
@@ -35,13 +30,9 @@ export default class CartItems extends Component {
     handlers.remove(itemToRemove, qtyToRemove);
   }
 
-  render() {
-    const { cartItems: items } = this.props;
-    return items.map((item) => (
-      <div key={ item.id } id={ item.id } className={ item.qty }>
-        <p data-testid="shopping-cart-product-name">{item.title}</p>
-        <p>{item.price * item.qty}</p>
-        <p data-testid="shopping-cart-product-quantity">{item.qty}</p>
+  renderButtons(id) {
+    return (
+      <div id={ id }>
         <button
           data-testid="product-decrease-quantity"
           type="button"
@@ -61,10 +52,23 @@ export default class CartItems extends Component {
         </button>
         <button type="button">Finalizar Compra</button>
       </div>
+    );
+  }
+
+  render() {
+    const { cartItems: items, showButtons } = this.props;
+    return items.map((item) => (
+      <div key={ item.id }>
+        <p data-testid="shopping-cart-product-name">{item.title}</p>
+        <p>{item.price * item.qty}</p>
+        <p data-testid="shopping-cart-product-quantity">{item.qty}</p>
+        { showButtons === 'true' ? this.renderButtons(item.id) : null }
+      </div>
     ));
   }
 }
 
+// prettier-ignore
 CartItems.propTypes = {
   cartItems: PropTypes.arrayOf(
     PropTypes.shape({
@@ -78,4 +82,5 @@ CartItems.propTypes = {
     increase: PropTypes.func,
     decrease: PropTypes.func,
   }).isRequired,
+  showButtons: PropTypes.string.isRequired,
 };

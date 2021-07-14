@@ -10,6 +10,7 @@ import Checkout from './components/Checkout';
 import * as API from './services/api';
 import './App.css';
 
+// prettier-ignore
 export default class App extends Component {
   constructor() {
     super();
@@ -86,6 +87,9 @@ export default class App extends Component {
     let { quantity } = this.state;
     quantity += 1;
     const itemIndex = cartItems.findIndex(({ id }) => id === itemId);
+    const nextQuantity = cartItems[itemIndex].qty;
+    if ((nextQuantity + 1) > cartItems[itemIndex].available_quantity) return;
+
     this.setState({
       cartItems: [
         ...cartItems.slice(0, itemIndex),
@@ -187,7 +191,20 @@ export default class App extends Component {
               </div>
             ) }
           />
-          <Route exact path="/checkout" component={ Checkout } />
+          <Route
+            exact
+            path="/checkout"
+            render={ () => (
+              <Checkout
+                handlers={ {
+                  remove: this.removeItem,
+                  increase: this.increaseQty,
+                  decrease: this.decreaseQty,
+                } }
+                cartItems={ cartItems }
+                showButtons="false"
+              />) }
+          />
         </Switch>
       </BrowserRouter>
     );
