@@ -30,8 +30,8 @@ export default class App extends Component {
     this.removeItem = this.removeItem.bind(this);
     this.increaseQty = this.increaseQty.bind(this);
     this.decreaseQty = this.decreaseQty.bind(this);
-    this.loadQuantity = this.loadQuantity.bind(this);
     this.loadCart = this.loadCart.bind(this);
+    this.handleLocalStorage = this.handleLocalStorage.bind(this);
   }
 
   componentDidMount() {
@@ -40,8 +40,13 @@ export default class App extends Component {
         categories: results,
       });
     });
-    this.loadQuantity();
-    this.loadCart();
+    if (localStorage.cartItems) this.loadCart();
+  }
+
+  handleLocalStorage() {
+    const { cartItems, quantity } = this.state;
+    localStorage.cartItems = JSON.stringify(cartItems);
+    localStorage.quantity = JSON.stringify(quantity);
   }
 
   // prettier-ignore
@@ -56,31 +61,25 @@ export default class App extends Component {
     });
   }
 
-  loadQuantity() {
-    if (!localStorage.quantity) return;
-    const quantity = JSON.parse(localStorage.quantity);
-    this.setState({ quantity });
-  }
-
   loadCart() {
-    if (!localStorage.cartItems) return;
     const cartItems = JSON.parse(localStorage.cartItems);
-    console.log(cartItems);
-    this.setState({ cartItems });
+    const quantity = JSON.parse(localStorage.quantity);
+    this.setState({ cartItems, quantity });
   }
 
   callback(input) {
     this.setState({ queryInput: input }, () => this.setProducts());
   }
 
-  removeItem(itemId, qty) {
+  removeItem(itemId) {
     const { cartItems } = this.state;
     let { quantity } = this.state;
-    quantity -= qty;
+    const itemIndex = cartItems.findIndex(({ id }) => id === itemId);
+    quantity -= cartItems[itemIndex].qty;
     this.setState({
       cartItems: cartItems.filter(({ id }) => id !== itemId),
       quantity,
-    });
+    }, this.handleLocalStorage);
   }
 
   increaseQty(itemId) {
@@ -98,7 +97,7 @@ export default class App extends Component {
         ...cartItems.slice(itemIndex + 1),
       ],
       quantity,
-    });
+    }, this.handleLocalStorage);
   }
 
   decreaseQty(itemId) {
@@ -106,7 +105,7 @@ export default class App extends Component {
     let { quantity } = this.state;
     quantity -= 1;
     const itemIndex = cartItems.findIndex(({ id }) => id === itemId);
-    if (cartItems[itemIndex].qty < 1) return;
+    if (cartItems[itemIndex].qty <= 1) return;
     this.setState({
       cartItems: [
         ...cartItems.slice(0, itemIndex),
@@ -114,7 +113,7 @@ export default class App extends Component {
         ...cartItems.slice(itemIndex + 1),
       ],
       quantity,
-    });
+    }, this.handleLocalStorage);
   }
 
   addToCart(itemObj) {
@@ -131,7 +130,7 @@ export default class App extends Component {
     this.setState({
       cartItems: items,
       quantity,
-    });
+    }, this.handleLocalStorage);
 
     localStorage.setItem('cartItems', JSON.stringify(items));
     localStorage.setItem('quantity', JSON.stringify(quantity));
