@@ -61,7 +61,9 @@ class SearchAndResults extends React.Component {
         >
           Search
         </button>
-        <Products productList={ productList } />
+        <div className="main">
+          <Products productList={ productList } />
+        </div>
       </div>
     );
   }
