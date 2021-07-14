@@ -84,6 +84,7 @@ class DetailedProduct extends React.Component {
       price,
       thumbnail,
       attributes,
+      shipping,
     } = product;
 
     return (
@@ -106,6 +107,10 @@ class DetailedProduct extends React.Component {
                 <div>
                   <h3 data-testid="product-detail-name">{ title }</h3>
                   <p>{ `R$ ${price}` }</p>
+                  <div>
+                    { shipping.free_shipping
+          && <p data-testid="free-shipping">Frete Grátis!!</p>}
+                  </div>
                   <img src={ thumbnail } alt={ title } />
                 </div>
                 <div>

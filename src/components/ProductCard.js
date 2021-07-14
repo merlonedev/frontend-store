@@ -4,7 +4,14 @@ import PropTypes from 'prop-types';
 
 class ProductCard extends React.Component {
   render() {
-    const { title, thumbnail, price, id, onClick } = this.props;
+    const {
+      title,
+      thumbnail,
+      price,
+      id,
+      onClick,
+      shipping: { free_shipping: freeShipping },
+    } = this.props;
 
     return (
       <li data-testid="product">
@@ -16,6 +23,10 @@ class ProductCard extends React.Component {
           <img src={ thumbnail } alt={ title } />
           <p>{ `R$ ${price}` }</p>
         </Link>
+        <div>
+          { freeShipping
+          && <p data-testid="free-shipping">Frete Grátis!!</p>}
+        </div>
         <button
           type="button"
           data-testid="product-add-to-cart"
@@ -34,6 +45,9 @@ ProductCard.propTypes = {
   price: PropTypes.number.isRequired,
   id: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
+  shipping: PropTypes.shape({
+    free_shipping: PropTypes.bool.isRequired,
+  }).isRequired,
 };
 
 export default ProductCard;
