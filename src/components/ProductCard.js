@@ -15,7 +15,7 @@ class ProductCard extends Component {
     } = this.props;
 
     return (
-      <div className="product-card">
+      <div className="product-card" data-testid="product">
         <Link
           to={ {
             pathname: `/details/${id}`,
