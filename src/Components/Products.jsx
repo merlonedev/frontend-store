@@ -13,6 +13,7 @@ class Products extends Component {
         <Link
           to={ `/product-detail/${id}` }
           data-testid="product-detail-link"
+          className="link"
         >
           Ver Detalhes
         </Link>
