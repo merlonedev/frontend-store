@@ -44,17 +44,21 @@ class App extends React.Component {
             <Route
               exact
               path="/"
-              render={ (props) => (
-                <Home
-                  { ...props }
-                />
-              ) }
+              render={
+                (props) => (
+                  <Home
+                    { ...props }
+                  />)
+              }
             />
             <Route exact path="/shopping-cart" component={ ShoppingCart } />
             <Route
               exact
               path="/card/"
-              render={ (props) => <Card { ...props } /> }
+              render={ (props) => (
+                <Card
+                  { ...props }
+                />) }
             />
           </Switch>
           <ShoppingCartLink />
