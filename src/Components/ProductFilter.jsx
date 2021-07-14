@@ -13,6 +13,8 @@ class ProductFilter extends Component {
             title={ product.title }
             img={ product.thumbnail }
             price={ product.price }
+            id={ product.id }
+            categoryId={ product.categoryId }
           />
         ))}
       </div>
