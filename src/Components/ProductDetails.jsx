@@ -17,8 +17,8 @@ class ProductDetails extends Component {
   }
 
   async getProducts() {
-    const { match: { params: { categoryId, id } } } = this.props;
-    const requisitionApi = await api.getProductsFromCategoryAndQuery(categoryId, '');
+    const { match: { params: { categoryId, id, title } } } = this.props;
+    const requisitionApi = await api.getProductsFromCategoryAndQuery(categoryId, title);
     const details = requisitionApi.results.find((product) => product.id === id);
 
     this.setState({
@@ -56,6 +56,7 @@ ProductDetails.propTypes = {
     params: PropTypes.shape({
       id: PropTypes.string,
       categoryId: PropTypes.string,
+      title: PropTypes.string,
     }).isRequired,
   }).isRequired,
 };
