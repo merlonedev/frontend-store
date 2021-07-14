@@ -3,7 +3,7 @@ const initialState = {
   email: '',
   cpf: '',
   phone: '',
-  adress: '',
+  address: '',
   cep: '',
   complement: '',
   number: '',
@@ -12,7 +12,7 @@ const initialState = {
   emailError: '',
   cpfError: '',
   phoneError: '',
-  adressError: '',
+  addressError: '',
   cityError: '',
   loading: true,
 };

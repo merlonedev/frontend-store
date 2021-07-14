@@ -8,7 +8,7 @@ export default class CheckoutForm extends Component {
       name,
       cpf,
       cep,
-      adress,
+      address,
       number,
       city,
       phone,
@@ -19,7 +19,7 @@ export default class CheckoutForm extends Component {
       phoneError,
       cepError,
       cpfError,
-      adressError,
+      addressError,
       cityError,
     } = infos;
     return (
@@ -40,7 +40,7 @@ export default class CheckoutForm extends Component {
           data-testid="checkout-cpf"
           placeholder="CPF"
           value={ cpf }
-          type="number"
+          type="text"
           onChange={ handleChange }
           className={ cpfError ? 'invalid' : '' }
         />
@@ -60,7 +60,7 @@ export default class CheckoutForm extends Component {
           data-testid="checkout-phone"
           placeholder="Telefone"
           value={ phone }
-          type="number"
+          type="text"
           onChange={ handleChange }
           className={ phoneError ? 'invalid' : '' }
         />
@@ -70,21 +70,21 @@ export default class CheckoutForm extends Component {
           data-testid="checkout-cep"
           placeholder="CEP"
           value={ cep }
-          type="number"
+          type="text"
           onChange={ handleChange }
           className={ cepError ? 'invalid' : '' }
         />
         <span style={ { color: 'red' } }>{ cepError }</span>
         <input
-          name="adress"
-          data-testid="checkout-adress"
+          name="address"
+          data-testid="checkout-address"
           placeholder="Endereço"
-          value={ adress }
+          value={ address }
           type="text"
           onChange={ handleChange }
-          className={ adressError ? 'invalid' : '' }
+          className={ addressError ? 'invalid' : '' }
         />
-        <span style={ { color: 'red' } }>{ adressError }</span>
+        <span style={ { color: 'red' } }>{ addressError }</span>
         <input
           name="complement"
           data-testid="checkout-complement"
@@ -129,7 +129,7 @@ CheckoutForm.propTypes = {
     name: PropTypes.string,
     cpf: PropTypes.string,
     email: PropTypes.string,
-    adress: PropTypes.string,
+    address: PropTypes.string,
     cep: PropTypes.string,
     phone: PropTypes.string,
     city: PropTypes.string,
@@ -141,7 +141,7 @@ CheckoutForm.propTypes = {
     cepError: PropTypes.string,
     phoneError: PropTypes.string,
     cityError: PropTypes.string,
-    adressError: PropTypes.string,
+    addressError: PropTypes.string,
   }).isRequired,
   handleChange: PropTypes.func.isRequired,
   states: PropTypes.arrayOf(PropTypes.string).isRequired,

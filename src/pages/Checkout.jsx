@@ -41,13 +41,13 @@ export default class Checkout extends Component {
     let emailError = '';
     let cpfError = '';
     let cepError = '';
-    let adressError = '';
+    let addressError = '';
     let cityError = '';
     let phoneError = '';
-    const { name, cpf, cep, adress, city, phone, email } = this.state;
+    const { name, cpf, cep, address, city, phone, email } = this.state;
     if (!emailValidate.test(email)) { emailError = 'Email inválido'; }
     if (!stringValidate.test(name)) { nameError = 'Nome é obrigatório'; }
-    if (!stringValidate.test(adress)) { adressError = 'Endereço é obrigatório'; }
+    if (!stringValidate.test(address)) { addressError = 'Endereço é obrigatório'; }
     if (!stringValidate.test(city)) { cityError = 'Cidade é obrigatório'; }
     if (!cpfAndPhoneValidate.test(phone)) { phoneError = 'Número de telefone inválido'; }
     if (!cpfAndPhoneValidate.test(cpf)) { cpfError = 'CPF inválido'; }
@@ -57,12 +57,12 @@ export default class Checkout extends Component {
       || emailError
       || cpfError
       || cepError
-      || adressError
+      || addressError
       || cityError
       || phoneError) {
       this
         .setState({
-          nameError, emailError, cepError, cpfError, adressError, cityError, phoneError,
+          nameError, emailError, cepError, cpfError, addressError, cityError, phoneError,
         });
       return false;
     }
@@ -76,7 +76,7 @@ export default class Checkout extends Component {
     if (shouldRedirect) { return <Redirect to="/" />; }
     // const abaixo declarada para burlar erro do lint "unused state field"
     const {
-      nameError, emailError, cepError, cpfError, adressError, cityError, phoneError,
+      nameError, emailError, cepError, cpfError, addressError, cityError, phoneError,
     } = this.state;
     return (
       <main className="checkout">
@@ -87,7 +87,7 @@ export default class Checkout extends Component {
           emailError={ emailError }
           cepError={ cepError }
           cpfError={ cpfError }
-          adressError={ adressError }
+          addressError={ addressError }
           cityError={ cityError }
           phoneError={ phoneError }
           infos={ this.state }

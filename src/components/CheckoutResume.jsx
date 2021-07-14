@@ -30,5 +30,7 @@ export default class CheckoutResume extends Component {
 }
 
 CheckoutResume.propTypes = {
-  items: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)).isRequired,
+  items: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.oneOfType([
+    PropTypes.number, PropTypes.string,
+  ]))).isRequired,
 };
