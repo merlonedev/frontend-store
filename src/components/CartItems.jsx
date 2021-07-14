@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+// prettier-ignore
 export default class CartItems extends Component {
   constructor(props) {
     super(props);
@@ -8,6 +9,7 @@ export default class CartItems extends Component {
     this.increaseQty = this.increaseQty.bind(this);
     this.decreaseQty = this.decreaseQty.bind(this);
     this.removeItem = this.removeItem.bind(this);
+    this.renderButtons = this.renderButtons.bind(this);
   }
 
   async getProductFromId(url) {
@@ -34,36 +36,48 @@ export default class CartItems extends Component {
     handlers.remove(itemToRemove);
   }
 
+  renderButtons(bool) {
+    if (bool === 'true') {
+      return (
+        <div>
+          <button
+            data-testid="product-decrease-quantity"
+            type="button"
+            onClick={ this.decreaseQty }
+          >
+            -
+          </button>
+          <button
+            data-testid="product-increase-quantity"
+            type="button"
+            onClick={ this.increaseQty }
+          >
+            +
+          </button>
+          <button type="button" onClick={ this.removeItem }>
+            x
+          </button>
+          <button type="button">Finalizar Compra</button>
+        </div>
+      );
+    }
+    return null;
+  }
+
   render() {
-    const { cartItems: items } = this.props;
+    const { cartItems: items, showButtons } = this.props;
     return items.map((item) => (
       <div key={ item.id } id={ item.id }>
         <p data-testid="shopping-cart-product-name">{item.title}</p>
         <p>{item.price * item.qty}</p>
         <p data-testid="shopping-cart-product-quantity">{item.qty}</p>
-        <button
-          data-testid="product-decrease-quantity"
-          type="button"
-          onClick={ this.decreaseQty }
-        >
-          -
-        </button>
-        <button
-          data-testid="product-increase-quantity"
-          type="button"
-          onClick={ this.increaseQty }
-        >
-          +
-        </button>
-        <button type="button" onClick={ this.removeItem }>
-          x
-        </button>
-        <button type="button">Finalizar Compra</button>
+        {this.renderButtons(showButtons)}
       </div>
     ));
   }
 }
 
+// prettier-ignore
 CartItems.propTypes = {
   cartItems: PropTypes.arrayOf(
     PropTypes.shape({
@@ -77,4 +91,5 @@ CartItems.propTypes = {
     increase: PropTypes.func,
     decrease: PropTypes.func,
   }).isRequired,
+  showButtons: PropTypes.string.isRequired,
 };
