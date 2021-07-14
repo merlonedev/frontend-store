@@ -38,6 +38,7 @@ class CardList extends Component {
             title={ item.title }
             thumbnail={ item.thumbnail }
             price={ item.price }
+            shipping={ item.shipping.free_shipping }
           />)) }
         </div>
       </>
