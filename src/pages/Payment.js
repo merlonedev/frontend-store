@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import CardSVG from '../components/CardSVG';
-import BarSVG from '../components/BarSVG';
+import { Link } from 'react-router-dom';
+import CardSVG from '../SVGs/CardSVG';
+import BarSVG from '../SVGs/BarSVG';
+import BackSVG from '../SVGs/BackSVG';
 import Options from '../components/StateOptions';
 import './Payment.css';
 
@@ -8,8 +10,13 @@ class Payment extends Component {
   render() {
     return (
       <main>
+        <div className="back-icon">
+          <Link to="/">
+            <BackSVG />
+          </Link>
+        </div>
         <div>
-          <h2 className="payment-title">Resive seus produtos</h2>
+          <h2 className="payment-title">Revise seus produtos</h2>
           <div className="payment-cart">
             produtos
           </div>

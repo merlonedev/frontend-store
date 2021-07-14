@@ -3,6 +3,9 @@
 }
 
 .categories-item {
+  width: 80%;
+  display: block;
+  margin: 0 auto;
   list-style: none;
   margin-bottom: 1rem;
 }

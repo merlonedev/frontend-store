@@ -13,7 +13,7 @@ function App() {
       <SearchBar />
       <Route exact path="/" component={ Main } />
       <Route
-        path="/details/:query/:id"
+        path="/details/:id"
         render={ (props) => <ItemDetails { ...props } /> }
       />
       <Route exact path="/Cart" component={ Cart } />

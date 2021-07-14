@@ -50,5 +50,13 @@
 }
 
 .payment-button {
+    background-color: white;
+    border: 1px solid black;
     margin: 1rem 1rem 2rem 3rem;
+    padding: 0.5rem;
+}
+
+.back-icon {
+    margin: 1rem;
+    color: black;
 }
