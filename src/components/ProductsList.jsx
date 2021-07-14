@@ -3,8 +3,20 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 export default class ProductsList extends Component {
+  constructor() {
+    super();
+    this.addedToCart = this.addedToCart.bind(this);
+  }
+
+  addedToCart({ target }, product) {
+    const { callback } = this.props;
+    const productCard = target.parentElement;
+    productCard.classList.add('added');
+    callback(product);
+  }
+
   render() {
-    const { products, callback } = this.props;
+    const { products } = this.props;
     return (
       <div className="product-list">
         {products.map((product) => (
@@ -42,10 +54,10 @@ export default class ProductsList extends Component {
             <button
               type="button"
               data-testid="product-add-to-cart"
-              onClick={ () => callback({ ...product, qty: 1 }) }
+              onClick={ (event) => this.addedToCart(event, { ...product, qty: 1 }) }
               className="add-button button"
             >
-              <p>Adicionar ao Carrinho</p>
+              Adicionar ao Carrinho
             </button>
             {/* </div> */}
           </div>
