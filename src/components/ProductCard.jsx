@@ -5,7 +5,10 @@ import PropTypes from 'prop-types';
 class ProductCard extends React.Component {
   constructor(props) {
     super(props);
-
+    this.state = {
+      product: props.product,
+      category: props.category,
+    };
     this.addToStorage = this.addToStorage.bind(this);
   }
 
@@ -19,11 +22,14 @@ class ProductCard extends React.Component {
 
   render() {
     const {
-      product: { id,
-        category_id: category,
+      product: {
+        id,
+        category_id: categoryId,
         title,
         thumbnail,
-        price } } = this.props;
+        price },
+      category,
+    } = this.state;
     return (
       <div data-testid="product">
         <p>{title}</p>
@@ -38,7 +44,7 @@ class ProductCard extends React.Component {
         </button>
         <Link
           data-testid="product-detail-link"
-          to={ `/item/${category}/${id}` }
+          to={ `/item/${category || categoryId}/${id}` }
         >
           Mais Detalhes
         </Link>
@@ -55,6 +61,11 @@ ProductCard.propTypes = {
     thumbnail: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
   }).isRequired,
+  category: PropTypes.string,
+};
+
+ProductCard.defaultProps = {
+  category: '',
 };
 
 export default ProductCard;

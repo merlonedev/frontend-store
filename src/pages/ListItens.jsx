@@ -56,7 +56,6 @@ class ListItens extends React.Component {
       const { results } = await api.getProductsFromCategoryAndQuery(categoryId, '');
       this.setState({
         products: [...results],
-        checkList: true,
       });
     } catch (err) {
       console.log(err);
@@ -82,14 +81,24 @@ class ListItens extends React.Component {
   }
 
   async fetchCategories() {
-    const response = await api.getCategories();
-    this.setState({
-      categories: [...response],
-    });
+    try {
+      const response = await api.getCategories();
+      this.setState({
+        categories: [...response],
+      });
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   render() {
-    const { search, products, checkList, categories } = this.state;
+    const {
+      search,
+      products,
+      checkList,
+      categories,
+      categoryId,
+    } = this.state;
     return (
       <div>
         <form>
@@ -129,6 +138,7 @@ class ListItens extends React.Component {
                   <ProductCard
                     key={ product.id }
                     product={ product }
+                    category={ categoryId }
                   />
                 ))
               : <span>Nenhum produto foi encontrado</span>

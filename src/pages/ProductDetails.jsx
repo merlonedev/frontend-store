@@ -47,7 +47,7 @@ class ProductDetails extends React.Component {
         </Link>
         <h2 data-testid="product-detail-name">{ `${title} - R$ ${price}` }</h2>
         <div>
-          <img src={ thumbnail } alt={ title } />
+          <img src={ thumbnail.replace('I.jpg', 'O.jpg') } alt={ title } />
           <div>
             <h3>Especificações Técnicas</h3>
             <ul>
