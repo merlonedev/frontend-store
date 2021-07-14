@@ -12,7 +12,6 @@ class Home extends Component {
       text: '',
       data: [],
     };
-    const { categories } = this.state;
     this.handleChange = this.handleChange.bind(this);
     this.getProduct = this.getProduct.bind(this);
     this.getCategories = this.getCategories.bind(this);
