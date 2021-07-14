@@ -11,6 +11,7 @@ class App extends React.Component {
       cartItems: [],
     };
     this.addToCartItems = this.addToCartItems.bind(this);
+    this.removeItem = this.removeItem.bind(this);
     // this.loadState = this.loadState.bind(this);
     // this.saveState = this.saveState.bind(this);
   }
@@ -27,14 +28,23 @@ class App extends React.Component {
   // }
 
   addToCartItems(newItem) {
-    this.setState((prevState) => ({
-      cartItems: [...prevState.cartItems, newItem],
-    }));
+    const { cartItems } = this.state;
+    const isRepeated = cartItems.some((item) => item === newItem);
+    if (!isRepeated) {
+      this.setState((prevState) => ({
+        cartItems: [...prevState.cartItems, newItem],
+      }));
+    }
+  }
+
+  removeItem(updateCart) {
+    this.setState({
+      cartItems: [...updateCart],
+    });
   }
 
   render() {
     const { cartItems } = this.state;
-    console.log(cartItems);
     return (
       <Router>
         <Switch>
@@ -42,14 +52,21 @@ class App extends React.Component {
             path="/"
             exact
             render={
-              (props) => <ListItems { ...props } addToCartItems={ this.addToCartItems } />
+              (props) => (<ListItems
+                { ...props }
+                addToCartItems={ this.addToCartItems }
+              />)
             }
           />
           <Route
             path="/cart"
             exact
             render={
-              (props) => <CartItems { ...props } setItemCart={ cartItems } />
+              (props) => (<CartItems
+                { ...props }
+                setItemCart={ cartItems }
+                removeItem={ this.removeItem }
+              />)
             }
           />
           <Route
