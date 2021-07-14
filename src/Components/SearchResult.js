@@ -4,8 +4,15 @@ import PropTypes from 'prop-types';
 import ProductCard from './ProductCard';
 
 class SearchResult extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.getProductToAddInCart = this.getProductToAddInCart.bind(this);
+  }
+
   getProductToAddInCart(product) {
-    console.log(product);
+    const { addToCart } = this.props;
+    addToCart(product);
   }
 
   render() {
@@ -34,6 +41,7 @@ SearchResult.propTypes = {
     price: PropTypes.number.isRequired,
     thumbnail: PropTypes.string.isRequired,
   }).isRequired).isRequired,
+  addToCart: PropTypes.func.isRequired,
 };
 
 export default SearchResult;
