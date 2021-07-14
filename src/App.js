@@ -20,7 +20,6 @@ class App extends React.Component {
   // Caso ele seja repetido ele vai apenas aumentar a quantidade do produto.
   addToCartItem(item) {
     this.setState(({ itemCart }) => {
-      console.log(itemCart);
       const index = itemCart.findIndex(({ id }) => id === item.id);
       item.quantity = 1;
       if (index < 0) {
@@ -39,7 +38,10 @@ class App extends React.Component {
         <Switch>
           <Route
             path="/infos/:id/:product"
-            render={ () => <Infos addToCartItem={ this.addToCartItem } /> }
+            render={ (props) => (<Infos
+              { ...props }
+              addToCartItem={ this.addToCartItem }
+            />) }
           />
           <Route path="/cart" render={ () => <Cart itemCart={ itemCart } /> } />
           <Route path="/" render={ () => <Index addCartItem={ this.addToCartItem } /> } />

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { getProductsFromCategoryAndQuery } from '../services/api';
 
 export default class Infos extends React.Component {
@@ -50,13 +51,16 @@ export default class Infos extends React.Component {
                 .map((item, index) => (
                   <p key={ index }>{`${item.name}: ${item.value_name}`}</p>)) }
             </ul>
-            <button
-              type="button"
-              data-testid="product-detail-add-to-cart"
-              onClick={ addToCartItem }
-            >
-              Adicionar ao carrinho
-            </button>
+            <div data-testid="product-detail-add-to-cart">
+              <button
+                type="button"
+                data-testid="shopping-cart-button"
+                onClick={ () => addToCartItem(product) }
+              >
+                Adicionar ao carrinho
+              </button>
+            </div>
+            <Link to="/cart">Ir para o carrinho</Link>
           </div>
         </div>
       </div>
@@ -65,6 +69,7 @@ export default class Infos extends React.Component {
 }
 
 Infos.propTypes = {
+  addToCartItem: PropTypes.func.isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string,
