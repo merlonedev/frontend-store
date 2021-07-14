@@ -3,6 +3,18 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 class SearchResult extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.getProductToAddInCart = this.getProductToAddInCart.bind(this);
+  }
+
+  getProductToAddInCart(product) {
+    console.log(product);
+    const { addToCart } = this.props;
+    addToCart(product);
+  }
+
   render() {
     const { products } = this.props;
 
@@ -23,6 +35,13 @@ class SearchResult extends React.Component {
                 { current.price }
               </p>
             </Link>
+            <button
+              type="button"
+              data-testid="product-add-to-cart"
+              onClick={ () => this.getProductToAddInCart(current) }
+            >
+              Adicionar ao carrinho
+            </button>
           </div>
         ))
       );
@@ -39,6 +58,7 @@ SearchResult.propTypes = {
     price: PropTypes.number.isRequired,
     thumbnail: PropTypes.string.isRequired,
   }).isRequired).isRequired,
+  addToCart: PropTypes.func.isRequired,
 };
 
 export default SearchResult;
