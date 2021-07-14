@@ -73,7 +73,7 @@ class Home extends React.Component {
         />
         <button
           type="button"
-          onClick={ this.categoryAndQuery }
+          onClick={ () => { this.categoryAndQuery(''); } }
           data-testid="query-button"
         >
           Pesquisar
