@@ -9,6 +9,7 @@ class ProductDetail extends Component {
     super(props);
     this.state = {
       product: {},
+      loading: true,
     };
     this.getProductDetail = this.getProductDetail.bind(this);
   }
@@ -29,12 +30,18 @@ class ProductDetail extends Component {
     const product = productList.results.find((prod) => prod.id === id);
     this.setState({
       product,
+      loading: false,
     });
   }
 
   render() {
-    const { product } = this.state;
+    const { product, loading } = this.state;
     const { addItemToCart } = this.props
+    if (loading) {
+      return (
+        <p>Carregando informações do produto</p>
+      );
+    }
     return (
       <div>
         <ButtonToCart />
