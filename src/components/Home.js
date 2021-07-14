@@ -15,6 +15,27 @@ class Home extends Component {
     this.cartItemAddQuantity = this.cartItemAddQuantity.bind(this);
     this.cartItemDiminishQuantity = this.cartItemDiminishQuantity.bind(this);
     this.addItemToCart = this.addItemToCart.bind(this);
+    this.saveLocalStorage = this.saveLocalStorage.bind(this);
+    this.loadLocalStorage = this.loadLocalStorage.bind(this);
+  }
+
+  componentDidMount() {
+    const localCartList = localStorage.getItem('cartList');
+    if (localCartList !== null) {
+      loadLocalStorage();
+    }
+  }
+
+  loadLocalStorage() {
+    const localCartList = localStorage.getItem('cartList');
+    this.setState({
+      cartList: localCartList,
+    });
+  }
+
+  saveLocalStorage() {
+    const { cartList } = this.state;
+    localStorage.setItem('cartlist', JSON.stringify(cartList));
   }
 
   addItemToCart(product) {
@@ -28,6 +49,7 @@ class Home extends Component {
     this.setState(({ cartList, newProduct }) => ({
       cartList: [...cartList, newProduct],
     }));
+    this.saveLocalStorage();
   }
 
   cartItemAddQuantity(id) {
@@ -36,6 +58,7 @@ class Home extends Component {
     const selItem = cartList.find((item) => item.id === id);
     cartList[selIndex].quantity = selItem.quantity + 1;
     this.setState({ cartList });
+    this.saveLocalStorage();
   }
 
   cartItemDiminishQuantity(id) {
@@ -45,6 +68,7 @@ class Home extends Component {
     const selIndex = cartList.findIndex((item) => item.id === id);
     cartList[selIndex].quantity = selItem.quantity - 1;
     this.setState({ cartList });
+    this.saveLocalStorage();
   }
 
   removeItem(id) {
@@ -52,6 +76,7 @@ class Home extends Component {
     const selIndex = cartList.findIndex((item) => item.id === id);
     cartList.splice(selIndex, 1);
     this.setState({ cartList });
+    this.saveLocalStorage();
   }
 
   render() {
@@ -62,7 +87,10 @@ class Home extends Component {
           <Route
             exact
             path="/"
-            render={ () => <Search addItemToCart={ this.addItemToCart } /> }
+            render={ () => (<Search
+              addItemToCart={ this.addItemToCart }
+              cartList={ cartList }
+            />) }
           />
           <Route
             exact
@@ -70,6 +98,7 @@ class Home extends Component {
             render={ (props) => (<ProductDetail
               { ...props }
               addItemToCart={ this.addItemToCart }
+              cartList={ cartList }
             />) }
           />
           <Route

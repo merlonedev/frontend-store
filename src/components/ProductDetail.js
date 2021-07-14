@@ -36,15 +36,18 @@ class ProductDetail extends Component {
 
   render() {
     const { product, loading } = this.state;
-    const { addItemToCart } = this.props;
+    const { addItemToCart, cartList } = this.props;
     if (loading) {
       return (
-        <p>Carregando informações do produto</p>
+        <div>
+          <ButtonToCart cartList={ cartList } />
+          <p>Carregando informações do produto</p>
+        </div>
       );
     }
     return (
       <div>
-        <ButtonToCart />
+        <ButtonToCart cartList={ cartList } />
         <div>
           <p>DETALHES</p>
           <img alt="Foto do produto" src={ product.thumbnail } />
@@ -77,6 +80,7 @@ ProductDetail.propTypes = {
     }).isRequired,
   }).isRequired,
   addItemToCart: PropTypes.func.isRequired,
+  cartList: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default ProductDetail;
