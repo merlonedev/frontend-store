@@ -5,19 +5,29 @@ import ProductDetail from './ProductDetail';
 import ShoppingCart from './ShoppingCart';
 
 class Home extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     cartList: [],
-  //   };
-  //   // this.handleSubmit = this.handleSubmit.bind(this);
-  //   // this.renderForm = this.renderForm.bind(this);
-  //   // this.renderList = this.renderList.bind(this);
-  //   // this.handleCategoryText = this.handleCategoryText.bind(this);
-  // }
+  constructor(props) {
+    super(props);
+    this.state = {
+      allCart: [],
+      newProduct: undefined,
+    };
+    // this.handleSubmit = this.handleSubmit.bind(this);
+    // this.renderForm = this.renderForm.bind(this);
+    // this.renderList = this.renderList.bind(this);
+    this.addItemToCart = this.addItemToCart.bind(this);
+    // this.handleCategoryText = this.handleCategoryText.bind(this);
+  }
 
-  addItemToCart() {
-    // Funcao para adiciona itens para o carrinho - Luiz
+  addItemToCart(product) {
+    this.setState(({
+      newProduct: product,
+    }), () => this.saveCart());
+  }
+
+  saveCart() {
+    this.setState(({ allCart, newProduct }) => ({
+      allCart: [...allCart, newProduct],
+    }));
   }
 
   changeCartItemQuantity() {
@@ -29,13 +39,14 @@ class Home extends Component {
   }
 
   render() {
+    const { allCart } = this.state;
     return (
       <Router>
         <Switch>
           <Route
             exact
             path="/"
-            render={ () => <Search funcao={ this.addItemToCart } /> }
+            render={ () => <Search allCart={ this.addItemToCart } /> }
           />
           <Route
             exact
@@ -45,7 +56,7 @@ class Home extends Component {
           <Route
             exact
             path="/cart"
-            render={ (props) => <ShoppingCart { ...props } /> }
+            render={ (props) => <ShoppingCart allCart={ allCart } { ...props } /> }
           />
           {/* <Route
             path="/checkout"
