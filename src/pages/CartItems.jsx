@@ -1,41 +1,27 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FiShoppingCart } from 'react-icons/fi';
 import { TiArrowBack } from 'react-icons/ti';
 import { Link } from 'react-router-dom';
 import ProductInCart from '../components/ProductInCart';
-import Loading from '../components/Loading';
 import '../css/cartItems.css';
 
 class CartItems extends React.Component {
   constructor(props) {
-    super(props);
+    super();
     this.state = {
-      cartItens: [],
-      loading: true,
+      cartItens: [...props.setItemCart],
       total: 0,
     };
-    this.loadItens = this.loadItens.bind(this);
     this.itemCartRemove = this.itemCartRemove.bind(this);
     this.totalCartCalculator = this.totalCartCalculator.bind(this);
   }
 
-  componentDidMount() {
-    this.loadItens();
-  }
-
-  loadItens() {
-    const keys = Object.keys(localStorage);
-    const cartItens = keys.map((key) => JSON.parse(localStorage.getItem(key)));
-    this.setState({
-      cartItens: [...cartItens],
-      loading: false,
-    });
-  }
-
   itemCartRemove(itemId) {
     const { cartItens } = this.state;
-    localStorage.removeItem(itemId);
+    const { removeItem } = this.props;
     const cartUpdated = cartItens.filter((item) => item.id !== itemId);
+    removeItem(cartUpdated);
     this.setState({
       cartItens: [...cartUpdated],
     });
@@ -48,8 +34,7 @@ class CartItems extends React.Component {
   }
 
   render() {
-    const { cartItens, loading, total } = this.state;
-    if (loading) return <Loading />;
+    const { cartItens, total } = this.state;
     return (
       <div className="cart">
         <div className="cart-header">
@@ -70,6 +55,7 @@ class CartItems extends React.Component {
                     product={ cartItem }
                     onClick={ this.itemCartRemove }
                     onChange={ this.totalCartCalculator }
+                    onChangeExclude={ this.itemCartRemove }
                   />
                 ))}
               </div>
@@ -95,5 +81,10 @@ class CartItems extends React.Component {
     );
   }
 }
+
+CartItems.propTypes = {
+  setItemCart: PropTypes.arrayOf(PropTypes.object).isRequired,
+  removeItem: PropTypes.func.isRequired,
+};
 
 export default CartItems;
