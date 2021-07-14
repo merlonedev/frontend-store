@@ -16,7 +16,6 @@ class ProductCard extends Component {
           data-testid="product-detail-link"
           to={ `product/${id}` }
         >
-          {' '}
           VER DETALHES
         </Link>
       </div>

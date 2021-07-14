@@ -31,30 +31,33 @@ class ProductDetails extends Component {
 
   render() {
     const { data } = this.state;
-    const { thumbnail, title, price, attributes } = data;
-    if (data.length === 0) {
-      return 'Produto não foi encontrado';
+    if (data) {
+      return <p>Carregando</p>;
     }
+    const { thumbnail, title, price, attributes } = data;
+    const details = (
+      attributes
+        .map((atributte) => (
+          <li key={ atributte.id }>
+            { `${atributte.name}: ${atributte.value_name}` }
+          </li>
+        ))
+    );
     return (
       <div>
         <img src={ thumbnail } alt={ title } />
         <h4 data-testid="product-detail-name">{ title }</h4>
         <span>{ `R$: ${price}` }</span>
-        <ul>
-          {
-            attributes
-              .map((atributte) => (
-                <li key={ atributte.name }>
-                  { `${atributte.name}: ${atributte.value_name}` }
-                </li>))
-          }
-        </ul>
+        { attributes ? details : <p>eita</p>}
         <Link to="/">VOLTAR</Link>
       </div>
     );
   }
 }
+
 ProductDetails.propTypes = {
   match: PropTypes.objectOf(Object).isRequired,
 };
 export default ProductDetails;
+// Link
+// Me ajudou a resolver o erro do map https://stackoverflow.com/questions/24706267/error-cannot-read-property-map-of-undefined
