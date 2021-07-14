@@ -66,19 +66,21 @@ class ProductInCart extends React.Component {
           className="image-item"
         />
         <p className="item-cart-name" data-testid="shopping-cart-product-name">{title}</p>
-        <AiFillMinusCircle
-          onClick={ this.minusItemCount }
-          data-testid="product-decrease-quantity"
-          className="minus-item"
-        />
-        <div className="item-count-content">
-          <span data-testid="shopping-cart-product-quantity">{ count }</span>
+        <div className="quantify-item">
+          <AiFillMinusCircle
+            onClick={ this.minusItemCount }
+            data-testid="product-decrease-quantity"
+            className="minus-item"
+          />
+          <div className="item-count-content">
+            <span data-testid="shopping-cart-product-quantity">{ count }</span>
+          </div>
+          <AiFillPlusCircle
+            onClick={ this.plusItemCount }
+            data-testid="product-increase-quantity"
+            className="plus-item"
+          />
         </div>
-        <AiFillPlusCircle
-          onClick={ this.plusItemCount }
-          data-testid="product-increase-quantity"
-          className="plus-item"
-        />
         <span className="item-price">{ totalPrice }</span>
       </div>
     );
