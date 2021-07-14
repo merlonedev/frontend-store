@@ -84,7 +84,7 @@ export default class ProductDetails extends Component {
             className="evaluation"
           />
           <button type="button" className="submit-btn button">
-            <p>Submit</p>
+            <p>Enviar</p>
           </button>
           <div className="buttons-container">
             {/* <button type="button" className="button cart-button">
@@ -102,7 +102,7 @@ export default class ProductDetails extends Component {
               onClick={ this.handleClick }
               className="add-button button"
             >
-              <p>Adicionar ao carrinho</p>
+              <i className="fas fa-cart-arrow-down"> Adicionar ao carrinho</i>
             </button>
             {/* <button type="button" className="button return-button">
               <Link to="/">
