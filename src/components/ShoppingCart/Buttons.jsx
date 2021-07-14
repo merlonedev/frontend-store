@@ -70,8 +70,8 @@ class Buttons extends React.Component {
 
 Buttons.propTypes = {
   product: PropTypes.shape({
-    quantity: PropType.number,
-    id: PropType.string,
+    quantity: PropTypes.number,
+    id: PropTypes.string,
   }),
 }.isRequired;
 
