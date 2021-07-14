@@ -37,12 +37,26 @@ class ProductDetail extends React.Component {
     });
   }
 
-  addToCart() {
+  addToCart(id) {
     const { product } = this.state;
     let getItem = JSON.parse(localStorage.getItem('productList'));
-    getItem = [...getItem, product];
-    localStorage.setItem('productList', JSON.stringify(getItem));
+    if (!getItem) {
+      localStorage.setItem('productList', JSON.stringify([product]));
+      return;
+    }
+    const repeatProduct = getItem.some((item) => item.id === id);
+    if (!repeatProduct) {
+      getItem = [...getItem, product];
+      localStorage.setItem('productList', JSON.stringify(getItem));
+    }
   }
+
+  // addToCart() {
+  //   const { product } = this.state;
+  //   let getItem = JSON.parse(localStorage.getItem('productList'));
+  //   getItem = [...getItem, product];
+  //   localStorage.setItem('productList', JSON.stringify(getItem));
+  // }
 
   render() {
     const { product } = this.state;
