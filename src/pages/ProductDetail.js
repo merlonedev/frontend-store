@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import * as api from '../services/api';
+import Assessment from '../components/ Assessments';
 
 class ProductDetail extends React.Component {
   constructor(props) {
@@ -26,6 +27,7 @@ class ProductDetail extends React.Component {
     const { location: { data }, match: { params: { id } } } = this.props;
     const productDetails = await api.getProductsFromCategoryAndQuery('', data);
     const productResult = productDetails.results.find((value) => value.id === id);
+    console.log(productResult);
     this.setState({
       product: {
         title: productResult.title,
@@ -46,7 +48,6 @@ class ProductDetail extends React.Component {
   render() {
     const { product } = this.state;
     const { title, thumbnail, price, atributtes } = product;
-    console.log('xablau');
     return (
       <div>
         Detalhes do Produto
@@ -64,6 +65,7 @@ class ProductDetail extends React.Component {
         >
           Adicionar ao carrinho
         </button>
+        <Assessment />
       </div>
     );
   }

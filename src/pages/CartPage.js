@@ -246,6 +246,7 @@ class CartPage extends Component {
   }
 
   render() {
+    const productFromDetail = JSON.parse(localStorage.getItem('productList'));
     return (
       <div>
         <h1>SHOPPING CART</h1>
@@ -258,6 +259,7 @@ class CartPage extends Component {
           Finalizar Compra
         </button>
       </div>
+
     );
   }
 }
