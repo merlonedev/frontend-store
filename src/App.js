@@ -12,20 +12,32 @@ class App extends React.Component {
     };
     this.addToCartItems = this.addToCartItems.bind(this);
     this.removeItem = this.removeItem.bind(this);
-    // this.loadState = this.loadState.bind(this);
-    // this.saveState = this.saveState.bind(this);
+    this.loadCartItemStorage = this.loadCartItemStorage.bind(this);
+    this.saveCartItemStorage = this.saveCartItemStorage.bind(this);
   }
 
-  // saveState() {
-  //   localStorage.setItem('shopStates', JSON.stringify(this.state));
-  // }
+  componentDidMount() {
+    this.loadCartItemStorage();
+  }
 
-  // loadState() {
-  //   const storage = JSON.parse(localStorage.getItem('shopStates'));
-  //   this.setState({
-  //     ...storage,
-  //   });
-  // }
+  componentDidUpdate() {
+    const { cartItems } = this.state;
+    this.saveCartItemStorage(cartItems);
+    return true;
+  }
+
+  saveCartItemStorage(state) {
+    localStorage.setItem('cartItems', JSON.stringify(state));
+  }
+
+  loadCartItemStorage() {
+    const storage = JSON.parse(localStorage.getItem('cartItems'));
+    if (Array.isArray(storage) && storage.length) {
+      this.setState({
+        cartItems: [...storage],
+      });
+    }
+  }
 
   addToCartItems(newItem) {
     const { cartItems } = this.state;
