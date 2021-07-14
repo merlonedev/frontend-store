@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import * as api from '../services/api';
 
 class FilterCategories extends React.Component {
@@ -25,37 +26,35 @@ class FilterCategories extends React.Component {
   }
 
   clickHandle({ target: { name, id } }) {
-    const { getCategory } = this.props;
-    getCategory(name, id);
+    const { getState } = this.props;
+    getState(name, id);
   }
 
   render() {
     const { categories } = this.state;
     return (
-      <div className="bloco-aside">
-        <aside className="aside">
-          {
-            categories.map((categorie) => (
-              <button
-                type="button"
-                name="category"
-                key={ categorie.id }
-                id={ categorie.id }
-                data-testid="category"
-                onClick={ this.clickHandle }
-              >
-                { categorie.name }
-              </button>
-            ))
-          }
-        </aside>
-      </div>
+      <aside>
+        {
+          categories.map((categorie) => (
+            <Link
+              to="/search"
+              name="category"
+              key={ categorie.id }
+              id={ categorie.id }
+              data-testid="category"
+              onClick={ this.clickHandle }
+            >
+              { categorie.name }
+            </Link>
+          ))
+        }
+      </aside>
     );
   }
 }
 
 FilterCategories.propTypes = {
-  getCategory: PropTypes.func.isRequired,
+  getState: PropTypes.func.isRequired,
 };
 
 export default FilterCategories;
