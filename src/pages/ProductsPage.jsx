@@ -13,7 +13,7 @@ export default class ProductPage extends Component {
       searchValue: '',
       list: [],
       showList: false,
-      qtd: 0,
+      cartQTD: 0,
     };
 
     this.handleSearch = this.handleSearch.bind(this);
@@ -21,6 +21,13 @@ export default class ProductPage extends Component {
     this.handleCategoryClick = this.handleCategoryClick.bind(this);
     this.handleProductClick = this.handleProductClick.bind(this);
     this.noList = this.noList.bind(this);
+  }
+
+  componentDidMount() {
+    const cart = JSON.parse(localStorage.getItem('cart'));
+    if (cart) {
+      this.getCartQTD(cart);
+    }
   }
 
   handleSearch(e) {
@@ -55,8 +62,16 @@ export default class ProductPage extends Component {
       cart = { ...cart, [id]: [title, 1, price] };
     }
     localStorage.setItem('cart', JSON.stringify(cart));
+    this.getCartQTD(cart);
+  }
+
+  getCartQTD(cart) {
+    let cartQTD = 0;
+    Object.values(cart).forEach((item) => {
+      cartQTD += item[1];
+    });
     this.setState({
-      qtd: (cart ? Object.values(cart).reduce((acc, curr) => acc + curr, 0) : 0),
+      cartQTD,
     });
   }
 
@@ -69,7 +84,7 @@ export default class ProductPage extends Component {
   }
 
   render() {
-    const { list, showList, qtd } = this.state;
+    const { list, showList, cartQTD } = this.state;
     return (
       <section>
         <div className="header">
@@ -87,7 +102,7 @@ export default class ProductPage extends Component {
               </button>
             </Link>
             <p data-testid="shopping-cart-size">
-              { qtd }
+              { cartQTD }
             </p>
           </div>
         </div>

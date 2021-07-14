@@ -63,7 +63,10 @@ export default class ProductDetails extends Component {
     return (
       <main>
         <Link to="/" onClick={ this.clearStorage }>VOLTAR</Link>
-        <Link data-testid="shopping-cart-button" to="/shoppingcart">CARRINHO</Link>
+        <div>
+          <Link data-testid="shopping-cart-button" to="/shoppingcart">CARRINHO</Link>
+          <p data-testid="shopping-cart-size">{ qtd }</p>
+        </div>
         <h1 data-testid="product-detail-name">{product.title}</h1>
         <h1>{product.price}</h1>
         <img src={ product.thumbnail } alt={ product.title } />
