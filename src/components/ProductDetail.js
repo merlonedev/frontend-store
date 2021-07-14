@@ -36,7 +36,7 @@ class ProductDetail extends Component {
 
   render() {
     const { product, loading } = this.state;
-    const { addItemToCart } = this.props
+    const { addItemToCart } = this.props;
     if (loading) {
       return (
         <p>Carregando informações do produto</p>
@@ -45,12 +45,17 @@ class ProductDetail extends Component {
     return (
       <div>
         <ButtonToCart />
-        <p>DETALHES</p>
-        <p data-testid="product-detail-name">{product.title}</p>
-        <p>{ product.id }</p>
-        <p>{`Preço: R$${product.price}`}</p>
-        <p>{`Quantidade disponivel: ${product.available_quantity}`}</p>
-        <p>{`Quantidade vendida: ${product.sold_quantity}`}</p>
+        <div>
+          <p>DETALHES</p>
+          <img alt="Foto do produto" src={ product.thumbnail } />
+          <div className="product-details-body">
+            <p data-testid="product-detail-name">{product.title}</p>
+            <p>{ product.id }</p>
+            <p>{`Preço: R$${product.price}`}</p>
+            <p>{`Quantidade disponivel: ${product.available_quantity}`}</p>
+            <p>{`Quantidade vendida: ${product.sold_quantity}`}</p>
+          </div>
+        </div>
         <button
           type="button"
           onClick={ () => addItemToCart(product) }
@@ -58,7 +63,7 @@ class ProductDetail extends Component {
         >
           ADICIONAR ITEM AO CARRINHO
         </button>
-        <Link to="/">FECHAR DETALHE</Link>
+        <Link to="/">Voltar para home page</Link>
       </div>
     );
   }
@@ -71,6 +76,7 @@ ProductDetail.propTypes = {
       categoryID: PropTypes.string,
     }).isRequired,
   }).isRequired,
+  addItemToCart: PropTypes.func.isRequired,
 };
 
 export default ProductDetail;
