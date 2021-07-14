@@ -14,7 +14,7 @@ class App extends React.Component {
       cartList: [],
       quantity: [],
     };
-
+    this.removeItem = this.removeItem.bind(this);
     this.addToCart = this.addToCart.bind(this);
     this.loadCartQuantity = this.loadCartQuantity.bind(this);
   }
@@ -41,6 +41,15 @@ class App extends React.Component {
     this.setState({ quantity });
   }
 
+  removeItem(item) {
+    const { id } = item;
+    this.setState((prev) => {
+      const { cartList } = prev;
+      const filtro = cartList.filter((cartItem) => cartItem.id !== id);
+      return { cartList: filtro };
+    });
+  }
+
   render() {
     const { cartList, quantity } = this.state;
     return (
@@ -49,7 +58,11 @@ class App extends React.Component {
           <Route
             exact
             path="/cart-basket"
-            render={ (props) => <CartBasket { ...props } cartList={ cartList } /> }
+            render={ (props) => (<CartBasket
+              { ...props }
+              cartList={ cartList }
+              removeItem={ this.removeItem }
+            />) }
           />
           <Route
             exact

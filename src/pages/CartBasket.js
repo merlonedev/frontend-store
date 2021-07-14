@@ -5,18 +5,19 @@ import CartItems from '../Components/CartItems';
 
 class CartBasket extends Component {
   render() {
-    const { cartList } = this.props;
-    const emptyCartMsg = (
-      <span data-testid="shopping-cart-empty-message">
-        Seu carrinho está vazio
-      </span>
-    );
+    const { cartList, removeItem } = this.props;
+    if (cartList.length === 0) {
+      return (
+        <main>
+          <span data-testid="shopping-cart-empty-message">Seu carrinho está vazio</span>
+        </main>
+      );
+    }
 
     return (
       <main>
-        {cartList.length < 1 ? emptyCartMsg : null }
         <Link to="/">Página Inicial</Link>
-        <CartItems cartList={ cartList } />
+        <CartItems cartList={ cartList } removeItem={ removeItem } />
         <Link to="/checkout" data-testid="checkout-products">
           <button type="button">Finalizar Compra</button>
         </Link>
@@ -29,6 +30,7 @@ CartBasket.propTypes = {
   cartList: PropTypes.arrayOf(
     PropTypes.object,
   ).isRequired,
+  removeItem: PropTypes.func.isRequired,
 };
 
 export default CartBasket;
