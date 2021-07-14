@@ -131,10 +131,7 @@ export default class App extends Component {
     this.setState({
       cartItems: items,
       quantity,
-    });
-
-    localStorage.setItem('cartItems', JSON.stringify(items));
-    localStorage.setItem('quantity', JSON.stringify(quantity));
+    }, this.handleLocalStorage);
   }
 
   callbackCategory({ target }) {
