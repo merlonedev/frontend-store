@@ -15,8 +15,17 @@ class App extends React.Component {
     this.state = {
       category: '',
       search: '',
+      cart:[],
     };
     this.getState = this.getState.bind(this);
+    this.setCartStorage = this.setCartStorage.bind(this)
+  }
+
+  setCartStorage(obj) {
+    this.setState((previousState) => ({
+      cart:[...previousState.cart, obj]
+    }))
+
   }
 
   getState(name, value) {
@@ -26,7 +35,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { category, search } = this.state;
+    const { category, search, cart } = this.state;
     return (
       <div>
         <BrowserRouter>
@@ -34,18 +43,19 @@ class App extends React.Component {
           <SearchBar getState={ this.getState } />
           <Switch>
             <Route exact path="/" component={ InicialMessage } />
+            <Route exact path="/shopping-cart" render={ () => <ShoppingCart cart={ cart } /> } />
             <Route
-              path="/search"
+              exact path="/search"
               render={ (props) => (
                 <SearchResults
                   { ...props }
                   category={ category }
                   search={ search }
+                  setCartStorage = {this.setCartStorage}
                 />) }
             />
-            <Route path="/shopping-cart" component={ ShoppingCart } />
             <Route
-              path="/details/:id"
+              exact path="/details/:id"
               render={ (props) => <ProductDetail { ...props } search={ search } /> }
             />
           </Switch>
