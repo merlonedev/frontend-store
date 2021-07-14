@@ -112,14 +112,6 @@ html, * {
   width: 22%;
 }
 
-.product-card button {
-  box-shadow: 0 0 6px -1px grey;
-  color: white;
-  font-size: 0.9em;
-  font-weight: 600;
-  padding: 9px;
-}
-
 .added {
   border: solid 3px;
 }
@@ -157,6 +149,7 @@ html, * {
 .button * {
   color: var(--dark-liver);
   display: inline-block;
+  font-weight: 600;
   margin: 0;
   padding: 10px;
   text-decoration: none;

@@ -57,7 +57,7 @@ export default class ProductsList extends Component {
               onClick={ (event) => this.addedToCart(event, { ...product, qty: 1 }) }
               className="add-button button"
             >
-              Adicionar ao Carrinho
+              <i className="fas fa-cart-arrow-down"> Adicionar ao Carrinho</i>
             </button>
             {/* </div> */}
           </div>
