@@ -7,44 +7,43 @@ import Home from './pages/Home';
 import ShoppingCart from './pages/ShoppingCart';
 
 class App extends React.Component {
-  // constructor() {
-  //   super();
+  constructor() {
+    super();
 
-  //   this.handleJonas = this.handleJonas.bind(this);
+    this.state = {
+      productsToAddInCart: [],
+    };
 
-  //   this.state = {
-  //     categories: [],
-  //     // isLoading: true,
-  //   };
-  // }
+    this.addAllProductsToCart = this.addAllProductsToCart.bind(this);
+  }
 
-  // componentDidMount() {
-  //   this.handleJonas();
-  // }
-
-  // async handleJonas() {
-  //   const category = await api.getCategories();
-  //   this.setState({
-  //     categories: category,
-  //     // isLoading: false,
-  //   });
-  // }
-
-  // getFilterId(filter) {
-  //   console.log(filter);
-  // }
+  addAllProductsToCart(product) {
+    const { productsToAddInCart } = this.state;
+    this.setState({
+      productsToAddInCart: [...productsToAddInCart, product],
+    });
+  }
 
   render() {
-    // const { categories /* isLoading */ } = this.state;
-    // if (isLoading) {
-    //   return <span>Carregando</span>;
-    // }
+    const { productsToAddInCart } = this.state;
     return (
       <div className="App">
         <BrowserRouter>
           <Switch>
-            <Route exact path="/" component={ Home } />
-            <Route exact path="/shopping-cart" component={ ShoppingCart } />
+            <Route
+              exact
+              path="/"
+              render={ (props) => (
+                <Home { ...props } addProductsInCart={ this.addAllProductsToCart } />
+              ) }
+            />
+            <Route
+              exact
+              path="/shopping-cart"
+              render={ (props) => (
+                <ShoppingCart { ...props } products={ productsToAddInCart } />
+              ) }
+            />
           </Switch>
         </BrowserRouter>
         {/* <div className="categories">
