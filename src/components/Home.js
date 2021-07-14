@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Search from './Search';
 import ProductDetail from './ProductDetail';
 import ShoppingCart from './ShoppingCart';
+import Checkout from './Checkout';
 
 class Home extends Component {
   constructor() {
@@ -79,10 +80,10 @@ class Home extends Component {
               cartList={ cartList }
             />) }
           />
-          {/* <Route
+          <Route
             path="/checkout"
-            render={ (props) => <Checkout { ...props } /> }
-          /> */}
+            render={ () => <Checkout /> }
+          />
         </Switch>
       </Router>
     );

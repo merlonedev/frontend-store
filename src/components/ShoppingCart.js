@@ -1,10 +1,30 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import CartItem from './CartItem';
 
 class ShoppingCart extends Component {
   // constructor() {
   //   super();
+  //   this.state = {
+  //     total: 0,
+  //   };
+  //   this.updateTotal = this.updateTotal.bind(this);
+  // }
+
+  // componentDidMount() {
+  //   this.updateTotal();
+  // }
+
+  // updateTotal() {
+  //   console.log('chamou update');
+  //   const { cartList } = this.props;
+  //   const total = cartList.reduce((acc, item) => {
+  //     acc += (item.price * item.quantity);
+  //     return acc;
+  //   });
+  //   console.log(total);
+  //   this.setState({ total });
   // }
 
   render() {
@@ -13,6 +33,7 @@ class ShoppingCart extends Component {
       cartItemDiminishQuantity,
       cartItemAddQuantity,
       cartList } = this.props;
+    // const { total } = this.state;
     if (cartList.length === 0) {
       return (
         <div data-testid="shopping-cart-empty-message">
@@ -34,6 +55,17 @@ class ShoppingCart extends Component {
               />),
             )}
           </ul>
+          {/* <div>{ `Total: R$${total}` }</div> */}
+          <Link
+            to="/checkout"
+          >
+            <button
+              type="button"
+              data-testid="checkout-products"
+            >
+              Checkout
+            </button>
+          </Link>
         </div>
       </section>
     );
