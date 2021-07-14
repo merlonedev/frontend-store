@@ -2,18 +2,22 @@
   display: flex;
   margin-top: 10px;
 }
+
 .bloco-aside {
   padding-right: 20px;
 }
+
 .aside {
   display: flex;
   flex-direction: column;
   width: 200px;
 }
+
 .cards-div {
   display: flex;
   flex-wrap: wrap;
 }
+
 .card {
   border: 1px solid black;
   display: flex;
@@ -22,10 +26,12 @@
   text-align: center;
   width: 200px;
 }
+
 .card-title {
   font-size: 15px;
   font-weight: 800;
 }
+
 .card-image {
   width: 200px;
 }
