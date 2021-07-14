@@ -13,13 +13,18 @@ export default class ProductDetails extends Component {
         price: 0,
         thumbnail: '',
       },
+      cartQTD: 0,
     };
     this.setItem = this.setItem.bind(this);
   }
 
   componentDidMount() {
     const item = JSON.parse(localStorage.getItem('product'));
+    const cart = JSON.parse(localStorage.getItem('cart'));
+    // localStorage.removeItem('product');
     this.setItem(item);
+    this.getCartQTD(cart);
+    console.log(item);
   }
 
   handleAddToCart(product) {
@@ -32,10 +37,25 @@ export default class ProductDetails extends Component {
       cart = { ...cart, [id]: [title, 1, price] };
     }
     localStorage.setItem('cart', JSON.stringify(cart));
+    if (cart) {
+      this.getCartQTD(cart);
+    }
   }
 
   setItem(item) {
     this.setState({ product: item, loading: false });
+  }
+
+  getCartQTD(cart) {
+    let cartQTD = 0;
+    if (cart) {
+      Object.values(cart).forEach((item) => {
+        cartQTD += item[1];
+      });
+    }
+    this.setState({
+      cartQTD,
+    });
   }
 
   clearStorage() {
@@ -51,12 +71,15 @@ export default class ProductDetails extends Component {
   // }
 
   render() {
-    const { product, loading } = this.state;
+    const { product, loading, cartQTD } = this.state;
     if (loading) { return <p>Loading...</p>; }
     return (
       <main>
         <Link to="/" onClick={ this.clearStorage }>VOLTAR</Link>
-        <Link data-testid="shopping-cart-button" to="/shoppingcart">CARRINHO</Link>
+        <div className="details-shoppingCart">
+          <Link data-testid="shopping-cart-button" to="/shoppingcart">CARRINHO</Link>
+          <p data-testid="shopping-cart-size">{ cartQTD }</p>
+        </div>
         <h1 data-testid="product-detail-name">{product.title}</h1>
         <h1>{product.price}</h1>
         <img src={ product.thumbnail } alt={ product.title } />
