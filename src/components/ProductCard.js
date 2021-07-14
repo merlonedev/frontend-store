@@ -35,13 +35,13 @@ class ProductCard extends React.Component {
           Preço: R$
           { price }
         </p>
-        <Link
+        <button
           data-testid="product-add-to-cart"
           onClick={ this.addToCart }
-          to="CartPage"
+          type="button"
         >
           Adicionar ao carrinho
-        </Link>
+        </button>
       </section>
     );
   }
