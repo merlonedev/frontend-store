@@ -276,7 +276,11 @@ html, * {
   align-items: center;
   display: flex;
   margin: 10px auto;
-  width: 600px;
+  width: 650px;
+}
+
+.btn-name-container {
+  width: 400px;
 }
 
 .cart-btns-container {
@@ -290,6 +294,6 @@ html, * {
 }
 
 .product-price {
-  width: 100%;
+  width: 100px;
   word-wrap: break-word;
 }

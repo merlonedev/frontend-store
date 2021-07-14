@@ -61,7 +61,7 @@ export default class CartItems extends Component {
     return items.map((item) => (
       <div key={ item.id } className="cart-item">
         <img src={ item.thumbnail } alt="Imagem do Produto" className="product-cover" />
-        <div>
+        <div className="btn-name-container">
           <h4 data-testid="shopping-cart-product-name">{item.title}</h4>
           { showButtons === 'true' ? this.renderButtons(item.id, item.qty) : null }
         </div>
