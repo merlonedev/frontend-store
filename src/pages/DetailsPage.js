@@ -1,25 +1,42 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as api from '../services/api';
+import CartButton from '../components/CartButton';
+import ShowDetails from '../components/ShowDetails';
 
 class DetailsPage extends React.Component {
-  async getProductById(categoryId, id) {
-    return api.getProductsFromCategoryAndQuery(categoryId, '')
-      .then((results) => results.results)
-      .then((category) => category.find((product) => product.id === id))
-      .then((details) => details.attributes);
+  constructor() {
+    super();
+    this.state = {
+      rightProduct: {},
+    };
+    this.getProductByIds = this.getProductByIds.bind(this);
   }
 
-  render() {
+  componentDidMount() {
     const { match } = this.props;
     const { params } = match;
     const { id } = params;
-    const product = id.split('-');
+    const productIds = id.split('-');
+    this.getProductByIds(productIds[0], productIds[1]);
+  }
 
+  async getProductByIds(categoryId, id) {
+    return api.getProductsFromCategoryAndQuery(categoryId, '')
+      .then((results) => results.results)
+      .then((category) => category.find((product) => product.id === id))
+      .then((product) => this.setState({
+        rightProduct: product,
+      }));
+  }
+
+  render() {
+    const { rightProduct } = this.state;
     return (
       <div>
-        <span>{ product }</span>
-        {console.log(this.getProductById(product[0], product[1]))}
+        {(Object.entries(rightProduct).length > 0)
+          ? <ShowDetails product={ rightProduct } /> : null}
+        <CartButton />
       </div>
     );
   }

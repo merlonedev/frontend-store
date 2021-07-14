@@ -11,7 +11,7 @@ class ProductCard extends React.Component {
         data-testid="product"
         className="product-card"
       >
-        <Link to={ `/details/${categoryId}-${id}` }>
+        <Link data-testid="product-detail-link" to={ `/details/${categoryId}-${id}` }>
           <h1>{ title }</h1>
           <img src={ thumbnail } alt={ title } />
           <p>{`R$ ${price}`}</p>
