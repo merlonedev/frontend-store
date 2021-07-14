@@ -39,56 +39,60 @@ export default class ShoppingCart extends Component {
     <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
   );
 
-  listCartItem = (cart) => (
-    <section>
-      {Object.entries(cart).map((item, index) => (
-        <div key={ index }>
-          <p>
-            <Link to="/shoppingcart">
-              <button
-                type="button"
-                onClick={ () => this.handleRemove(item[0]) }
-              >
-                X
-              </button>
-            </Link>
-            <span data-testid="shopping-cart-product-name">
-              {item[1][0]}
-            </span>
-            { `, R$ ${item[1][2]}, QTD:` }
-            <Link to="/shoppingcart">
-              <button
-                data-testid="product-decrease-quantity"
-                type="button"
-                onClick={ () => this.handleDecrease(item[0]) }
-              >
-                -
-              </button>
-            </Link>
-            <span data-testid="shopping-cart-product-quantity">
-              {item[1][1]}
-            </span>
-            <Link to="/shoppingcart">
-              <button
-                data-testid="product-increase-quantity"
-                type="button"
-                onClick={ () => this.handleIncrease(item[0]) }
-              >
-                +
-              </button>
-            </Link>
-            { `Valor Total: ${Math.round(item[1][1] * item[1][2] * 100) / 100}`}
-          </p>
-        </div>))}
-      <p>
-        Valor Total da Compra:
-        <span>
-          R$
-          {Object.entries(cart).reduce((a, e) => a + e[1][2] * e[1][1], 0)}
-        </span>
-      </p>
-    </section>
-  );
+  listCartItem = (cart) => {
+    const formatter = new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL',
+    });
+    const totalValue = formatter.format(Object.entries(cart)
+      .reduce((a, e) => a + e[1][2] * e[1][1], 0));
+    return (
+      <section>
+        {Object.entries(cart).map((item, index) => (
+          <div key={ index }>
+            <p>
+              <Link to="/shoppingcart">
+                <button
+                  type="button"
+                  onClick={ () => this.handleRemove(item[0]) }
+                >
+                  X
+                </button>
+              </Link>
+              <span data-testid="shopping-cart-product-name">
+                {item[1][0]}
+              </span>
+              { `, R$ ${item[1][2]}, QTD:` }
+              <Link to="/shoppingcart">
+                <button
+                  data-testid="product-decrease-quantity"
+                  type="button"
+                  onClick={ () => this.handleDecrease(item[0]) }
+                >
+                  -
+                </button>
+              </Link>
+              <span data-testid="shopping-cart-product-quantity">
+                {item[1][1]}
+              </span>
+              <Link to="/shoppingcart">
+                <button
+                  data-testid="product-increase-quantity"
+                  type="button"
+                  onClick={ () => this.handleIncrease(item[0]) }
+                >
+                  +
+                </button>
+              </Link>
+              { `Valor Total: ${formatter.format(item[1][1] * item[1][2])}`}
+            </p>
+          </div>))}
+        <p>
+          {`Valor Total da Compra: ${totalValue}`}
+        </p>
+      </section>
+    );
+  }
 
   render() {
     const cart = JSON.parse(localStorage.getItem('cart'));
