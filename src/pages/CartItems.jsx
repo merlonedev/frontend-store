@@ -4,6 +4,7 @@ import { TiArrowBack } from 'react-icons/ti';
 import { Link } from 'react-router-dom';
 import ProductInCart from '../components/ProductInCart';
 import Loading from '../components/Loading';
+import '../css/cartItems.css';
 
 class CartItems extends React.Component {
   constructor(props) {
@@ -11,6 +12,7 @@ class CartItems extends React.Component {
     this.state = {
       cartItens: [],
       loading: true,
+      // total: 0,
     };
     this.loadItens = this.loadItens.bind(this);
     this.itemCartRemove = this.itemCartRemove.bind(this);
@@ -46,21 +48,33 @@ class CartItems extends React.Component {
         <div className="cart-header">
           <Link className="goBack-cart" to="/"><TiArrowBack /></Link>
           <div className="cart-title">
-            <FiShoppingCart />
+            <FiShoppingCart className="cart-logo" />
             Carrinho de Compras
           </div>
         </div>
+
         {
           cartItens.length > 0
-            ? cartItens.map((cartItem) => (
-              <ProductInCart
-                key={ cartItem.id }
-                product={ cartItem }
-                onClick={ this.itemCartRemove }
-              />
-            ))
-            : <div data-testid="shopping-cart-empty-message">Seu carrinho está vazio</div>
+            ? (
+              <div className="cart-items">
+                {cartItens.map((cartItem) => (
+                  <ProductInCart
+                    key={ cartItem.id }
+                    product={ cartItem }
+                    onClick={ this.itemCartRemove }
+                  />
+                ))}
+              </div>
+            )
+            : (
+              <div
+                data-testid="shopping-cart-empty-message"
+              >
+                Seu carrinho está vazio
+              </div>
+            )
         }
+
       </div>
     );
   }

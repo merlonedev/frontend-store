@@ -7,9 +7,9 @@
   flex-wrap: wrap;
   height: 150px;
   justify-content: space-between;
-  margin: 15px 0;
+  margin: 5px 0;
   padding: 0 20px;
-  width: 50%;
+  width: 90%;
 }
 
 .product:hover {
@@ -30,8 +30,8 @@
 .image-item {
   border-radius: 5px;
   box-shadow: 0 0 8px black;
-  height: 90px;
-  width: 90px;
+  height: 85px;
+  width: 85px;
 }
 
 .item-cart-name {
