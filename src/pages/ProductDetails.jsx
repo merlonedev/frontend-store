@@ -4,6 +4,7 @@ import { TiArrowBack } from 'react-icons/ti';
 import { FiShoppingCart } from 'react-icons/fi';
 import PropTypes from 'prop-types';
 import Loading from '../components/Loading';
+import Form from '../components/Form';
 import * as api from '../services/api';
 
 class ProductDetails extends React.Component {
@@ -76,6 +77,7 @@ class ProductDetails extends React.Component {
           </button>
         </div>
         <div />
+        <Form />
       </div>
     );
   }
