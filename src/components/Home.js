@@ -27,7 +27,6 @@ class Home extends Component {
       total += (item.price * item.quantity);
       return total;
     });
-    console.log(total);
     this.setState({ total });
   }
 
