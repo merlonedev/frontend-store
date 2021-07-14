@@ -104,3 +104,45 @@ html, * {
   height: 150px;
   width: 100%;
 }
+
+.button {
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: 0.3s;
+}
+
+.button * {
+  color: var(--dark-liver);
+  margin: 0;
+  padding: 10px;
+  transition: 0.3s;
+  text-decoration: none;
+}
+
+.button a:visited {
+  color: var(--dark-liver);
+}
+
+.add-button {
+  display: inline-block;
+  background-color: var(--persian-green);
+  border-radius: 2px;
+  box-shadow: 1px 1px 1px 1px var(--old-lavender);
+  margin: 5px;
+}
+
+.add-button * {
+  color: var(--magnolia);
+}
+
+.add-button *:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+  color: var(--dark-liver);
+  transition: 0.3s;
+}
+
+.button:active {
+  box-shadow: none;
+  transform: translate3d(1px, 1px, 0);
+}

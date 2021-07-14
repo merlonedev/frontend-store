@@ -43,6 +43,7 @@ export default class ProductsList extends Component {
               type="button"
               data-testid="product-add-to-cart"
               onClick={ () => callback({ ...product, qty: 1 }) }
+              className="add-button button"
             >
               <p>Adicionar ao Carrinho</p>
             </button>
