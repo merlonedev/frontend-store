@@ -116,7 +116,6 @@ class Home extends React.Component {
 
   callProductList() {
     const { products, cart } = this.state;
-    // console.log(products);
     if (products !== undefined) {
       return (
         <ProductList
