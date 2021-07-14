@@ -19,7 +19,7 @@ class CartPage extends Component {
               <p>{ product.price }</p>
               <img src={ product.thumbnail } alt="foto do produto" />
               <button type="button">+</button>
-              <p>1</p>
+              <p data-testid="shopping-cart-product-quantity">1</p>
               <button type="button">-</button>
             </div>))}
         </div>
