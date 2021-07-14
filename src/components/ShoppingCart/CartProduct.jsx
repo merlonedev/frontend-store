@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Buttons from './Buttons';
 
 class CartProduct extends Component {
   render() {
@@ -13,9 +14,9 @@ class CartProduct extends Component {
             >
               {product.title}
             </p>
-            <span data-testid="shopping-cart-product-quantity">
-              { product.quantity}
-            </span>
+            <Buttons
+              product={ product }
+            />
           </div>))}
       </div>
     );
