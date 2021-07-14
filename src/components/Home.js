@@ -34,6 +34,7 @@ class Home extends Component {
     const { cartList } = this.state;
     const selIndex = cartList.findIndex((item) => item.id === id);
     const selItem = cartList.find((item) => item.id === id);
+    if (selItem.quantity >= selItem.available_quantity) return null;
     cartList[selIndex].quantity = selItem.quantity + 1;
     this.setState({ cartList });
   }
