@@ -13,36 +13,55 @@ class Home extends Component {
       data: [],
     };
     this.handleChange = this.handleChange.bind(this);
-    this.apiRequest = this.apiRequest.bind(this);
+    this.getProduct = this.getProduct.bind(this);
+    this.getCategories = this.getCategories.bind(this);
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    this.getCategories();
+    this.getProduct();
+  }
 
   handleChange({ target }) {
     const { text } = this.state;
     const { value } = target;
-    this.setState({ text: value });
+    this.setState({ [text]: value });
   }
 
-  async apiRequest(id, query) {
-    const { categories, data } = this.state;
-    const allCategories = await api.getCategories();
+  async getProduct(id, query) {
+    const { data } = this.state;
     const searchProduct = await api.getProductsFromCategoryAndQuery(id, query);
     this.setState({
-      data: searchProduct.results,
-      categories: allCategories,
+      [data]: searchProduct,
+    });
+  }
+
+  async getCategories() {
+    const { categories } = this.state;
+    const allCategories = await api.getCategories();
+    this.setState({
+      [categories]: allCategories.results,
     });
   }
 
   render() {
-    const { data } = this.state;
+    const { data, categories } = this.state;
     return (
       <div>
         <SearchBar />
-        { data.map((categories) => (<Categories
-          key={ categories.id }
-          category={ categories }
-        />))}
+        <div>
+          { categories.map((category) => (<Categories
+            key={ category.id }
+            category={ category }
+          />))}
+        </div>
+        {/* <div>
+          { data.map((product) => (<Categories
+            key={ product.id }
+            category={ product }
+          />))}
+
+        </div> */}
       </div>
     );
   }
