@@ -24,16 +24,12 @@ class CardList extends Component {
 
   getValue = () => {
     const { value } = this.props;
-    try {
-      throw getProductsFromCategoryAndQuery('', value)
-        .then((data) => {
-          this.setState({
-            categories: data.results,
-          });
+    getProductsFromCategoryAndQuery('', value)
+      .then((data) => {
+        this.setState({
+          categories: data.results,
         });
-    } catch (e) {
-      console.log(e);
-    }
+      });
   }
 
   /* getIf = () => {
@@ -48,6 +44,7 @@ class CardList extends Component {
 
     getProductsFromCategoryAndQuery(id)
       .then(({ results }) => {
+        console.log(results);
         this.setState({
           categories: results,
           loading: false,
@@ -62,7 +59,6 @@ class CardList extends Component {
         <SideBar searchByCategorie={ this.searchByCategorie } />
         <div
           className="card-list"
-          data-testid="product"
         >
           { loading && <Loading /> }
           { categories.map((item) => (<CardItem
