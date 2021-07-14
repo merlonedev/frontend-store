@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-
+import ButtonToCart from './ButtonToCart';
 import { getProductsFromCategoryAndQuery } from '../services/api';
 
 class ProductDetail extends Component {
@@ -10,7 +10,6 @@ class ProductDetail extends Component {
     this.state = {
       product: {},
     };
-
     this.getProductDetail = this.getProductDetail.bind(this);
   }
 
@@ -23,8 +22,10 @@ class ProductDetail extends Component {
       match: {
         params: { id, categoryID },
       },
+
     } = this.props;
     const productList = await getProductsFromCategoryAndQuery(categoryID, '');
+
     const product = productList.results.find((prod) => prod.id === id);
     this.setState({
       product,
@@ -35,6 +36,7 @@ class ProductDetail extends Component {
     const { product } = this.state;
     return (
       <div>
+        <ButtonToCart />
         <p>DETALHES</p>
         <p data-testid="product-detail-name">{product.title}</p>
         <p>{ product.id }</p>
