@@ -1,7 +1,6 @@
 import React from 'react';
 import SearchInput from '../components/SearchInput';
 import ProductList from '../components/ProductList';
-import CartItems from '../components/CartItems';
 import Category from '../components/Category';
 import * as api from '../services/api';
 
@@ -25,6 +24,7 @@ class HomePage extends React.Component {
 
   componentDidMount() {
     this.fetchCategories();
+    this.fetchProducts();
   }
 
   handleChange({ target }) {
@@ -80,7 +80,6 @@ class HomePage extends React.Component {
           <Category categories={ categories } handleLiClick={ this.handleLiClick } />
         </aside>
         <ProductList products={ products } />
-        <CartItems />
         {
           products.length === 0 && <p>Nenhum produto foi encontrado</p>
         }
