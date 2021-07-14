@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import ProductCard from './ProductsCard';
 import { getProductsFromCategoryAndQuery } from '../services/api';
 
@@ -35,7 +36,16 @@ class CategoryPage extends Component {
 
   render() {
     const { results, loading } = this.state;
-    return loading ? this.renderLoading() : <ProductCard product={ results } />;
+    const { cartAdd } = this.props;
+    const render = (
+      <div>
+        <Link to="/shoppingcart" data-testid="shopping-cart-button">
+          Carrinho de Compras
+        </Link>
+        <ProductCard cartAdd={ cartAdd } product={ results } />
+      </div>
+    );
+    return loading ? this.renderLoading() : render;
   }
 }
 
@@ -45,6 +55,7 @@ CategoryPage.propTypes = {
       categoria: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
+  cartAdd: PropTypes.func.isRequired,
 };
 
 export default CategoryPage;

@@ -28,7 +28,7 @@ class ProductDetails extends Component {
         <img src={ details.thumbnail } alt={ details.title } />
         <p>{details.price}</p>
         <Link
-          to="/ShoppingCart"
+          to="/shoppingcart"
           data-testid="product-detail-link"
         >
           Carrinho de Compras
