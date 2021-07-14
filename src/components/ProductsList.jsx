@@ -6,38 +6,48 @@ export default class ProductsList extends Component {
   render() {
     const { products, callback } = this.props;
     return (
-      <div>
+      <div className="product-list">
         {products.map((product) => (
-          <div key={ product.id } data-testid="product">
-            <img alt="Product Cover" src={ product.thumbnail } />
-            <div>
-              <h4>{ product.title }</h4>
-              <p>{ product.price }</p>
+          <div key={ product.id } data-testid="product" className="product-card">
+            {/* <div> */}
+            <img
+              alt="Product Cover"
+              src={ product.thumbnail }
+              className="product-cover"
+            />
+            <div className="price-shipping">
+              <h2>
+                R$
+                { product.price }
+              </h2>
               { product.shipping.free_shipping ? (
-                <p data-testid="free-shipping">
-                  <strong> Frete Gratis! </strong>
+                <p data-testid="free-shipping" className="shipping">
+                  <strong className="green"> Frete Gratis! </strong>
                 </p>
               ) : (
-                <p data-testid="shipping">
+                <p data-testid="shipping" className="shipping">
                   Frete
-                  <strong> NÂO </strong>
+                  <strong className="red"> NÃO </strong>
                   incluso.
                 </p>
               )}
-              <button
-                type="button"
-                data-testid="product-add-to-cart"
-                onClick={ () => callback({ ...product, qty: 1 }) }
-              >
-                Adicionar ao Carrinho
-              </button>
             </div>
+            <p>{ product.title }</p>
             <Link
               data-testid="product-detail-link"
               to={ `/productdetails/${product.id}` }
             >
               Detalhes
             </Link>
+            <button
+              type="button"
+              data-testid="product-add-to-cart"
+              onClick={ () => callback({ ...product, qty: 1 }) }
+              className="add-button button"
+            >
+              <p>Adicionar ao Carrinho</p>
+            </button>
+            {/* </div> */}
           </div>
         ))}
       </div>

@@ -25,14 +25,14 @@ export default class CartItems extends Component {
 
   removeItem({ target }) {
     const itemToRemove = target.parentElement.id;
-    const qtyToRemove = Number(target.parentElement.className);
+    // const qtyToRemove = Number(target.parentElement.className);
     const { handlers } = this.props;
-    handlers.remove(itemToRemove, qtyToRemove);
+    handlers.remove(itemToRemove);
   }
 
-  renderButtons(id) {
+  renderButtons(id, qty) {
     return (
-      <div id={ id }>
+      <div id={ id } className="cart-btns-container">
         <button
           data-testid="product-decrease-quantity"
           type="button"
@@ -40,6 +40,7 @@ export default class CartItems extends Component {
         >
           -
         </button>
+        <p data-testid="shopping-cart-product-quantity" className="product-qty">{qty}</p>
         <button
           data-testid="product-increase-quantity"
           type="button"
@@ -50,7 +51,7 @@ export default class CartItems extends Component {
         <button type="button" onClick={ this.removeItem }>
           x
         </button>
-        <button type="button">Finalizar Compra</button>
+        {/* <button type="button">Finalizar Compra</button> */}
       </div>
     );
   }
@@ -58,11 +59,17 @@ export default class CartItems extends Component {
   render() {
     const { cartItems: items, showButtons } = this.props;
     return items.map((item) => (
-      <div key={ item.id }>
-        <p data-testid="shopping-cart-product-name">{item.title}</p>
-        <p>{item.price * item.qty}</p>
-        <p data-testid="shopping-cart-product-quantity">{item.qty}</p>
-        { showButtons === 'true' ? this.renderButtons(item.id) : null }
+      <div key={ item.id } className="cart-item">
+        <img src={ item.thumbnail } alt="Imagem do Produto" className="product-cover" />
+        <div>
+          <h4 data-testid="shopping-cart-product-name">{item.title}</h4>
+          { showButtons === 'true' ? this.renderButtons(item.id, item.qty) : null }
+        </div>
+        <h4 className="product-price">
+          R$
+          {item.price * item.qty}
+        </h4>
+        {/* <p data-testid="shopping-cart-product-quantity">{item.qty}</p> */}
       </div>
     ));
   }

@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import Quantities from './Quantities';
+// import { Link } from 'react-router-dom';
+// import Quantities from './Quantities';
+import ShoppingCartButton from './subcomponents/ShoppingCartButton';
+import ReturnButton from './subcomponents/ReturnButton';
 
 export default class ProductDetails extends Component {
   constructor(props) {
@@ -47,42 +49,69 @@ export default class ProductDetails extends Component {
     const { title, price, pictures, freeShipping } = this.state;
     const { quantity } = this.props;
     return (
-      <div>
-        <img src={ pictures.url } alt="Imagem do Produto" />
-        <h1 data-testid="product-detail-name">
-          {title}
-        </h1>
-        {!freeShipping ? (
-          <span data-testid="shipping">
-            Confira os preços de frete para sua residência.
-          </span>
-        ) : (
-          <span data-testid="free-shipping">
-            Frete Gratuito para sua residência.
-          </span>
-        )}
-        <p>{price}</p>
-        <input
-          name="rating"
-          type="range"
-          min="1"
-          max="5"
-        />
+      <div className="product-details">
+        <img src={ pictures.url } alt="Imagem do Produto" className="details-img" />
+        <div className="details">
+          <h1 data-testid="product-detail-name">
+            {title}
+          </h1>
+          {!freeShipping ? (
+            <span data-testid="shipping">
+              Confira os preços de frete para sua residência.
+            </span>
+          ) : (
+            <span data-testid="free-shipping">
+              Frete Gratuito para sua residência.
+            </span>
+          )}
+          <h2>
+            R$
+            {price}
+          </h2>
+          <label htmlFor="rating" className="rating">
+            Avaliação 1-5
+            <input
+              name="rating"
+              type="range"
+              min="1"
+              max="5"
+            />
+          </label>
 
-        <textarea data-testid="product-detail-evaluation" />
-        <button type="button">Submit</button>
-        <button type="button">
-          <Link to="/cart" data-testid="shopping-cart-button">Carrinho</Link>
-          <Quantities quantity={ quantity } />
-        </button>
-        <Link to="/">Voltar</Link>
-        <button
-          type="button"
-          data-testid="product-detail-add-to-cart"
-          onClick={ this.handleClick }
-        >
-          Adicionar ao carrinho
-        </button>
+          <textarea
+            data-testid="product-detail-evaluation"
+            placeholder="Conta mais sobre o que achou do produto..."
+            className="evaluation"
+          />
+          <button type="button" className="submit-btn button">
+            <p>Submit</p>
+          </button>
+          <div className="buttons-container">
+            {/* <button type="button" className="button cart-button">
+              <Link to="/cart" data-testid="shopping-cart-button">
+                <p>
+                  <i className="fas fa-shopping-cart" />
+                  <Quantities quantity={ quantity } />
+                </p>
+              </Link>
+            </button> */}
+            <ShoppingCartButton quantity={ quantity } />
+            <button
+              type="button"
+              data-testid="product-detail-add-to-cart"
+              onClick={ this.handleClick }
+              className="add-button button"
+            >
+              <p>Adicionar ao carrinho</p>
+            </button>
+            {/* <button type="button" className="button return-button">
+              <Link to="/">
+                <p>Voltar</p>
+              </Link>
+            </button> */}
+            <ReturnButton />
+          </div>
+        </div>
       </div>
     );
   }
