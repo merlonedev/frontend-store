@@ -45,13 +45,14 @@ export default class ProductPage extends Component {
   }
 
   handleProductClick(product) {
-    const { title, price, id } = product;
+    const { title, price, id, available_quantity: avQtd } = product;
+    console.log(avQtd);
     let cart = JSON.parse(localStorage.getItem('cart'));
     if (cart && cart[id]) {
       cart = { ...cart,
-        [id]: [title, cart[id][1] + 1, price] };
+        [id]: [title, cart[id][1] + 1, price, avQtd] };
     } else {
-      cart = { ...cart, [id]: [title, 1, price] };
+      cart = { ...cart, [id]: [title, 1, price, avQtd] };
     }
     localStorage.setItem('cart', JSON.stringify(cart));
   }

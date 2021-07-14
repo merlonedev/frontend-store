@@ -13,15 +13,16 @@ export default class ShoppingCart extends Component {
 
   handleIncrease(product) {
     let cart = JSON.parse(localStorage.getItem('cart'));
-    const [title, qtd, price] = cart[product];
-    cart = { ...cart, [product]: [title, qtd + 1, price] };
+    const [title, qtd, price, avQtd] = cart[product];
+    cart = (qtd === avQtd)
+      ? cart : { ...cart, [product]: [title, qtd + 1, price, avQtd] };
     localStorage.setItem('cart', JSON.stringify(cart));
   }
 
   handleDecrease(product) {
     let cart = JSON.parse(localStorage.getItem('cart'));
-    const [title, qtd, price] = cart[product];
-    cart = (qtd === 0) ? cart : { ...cart, [product]: [title, qtd - 1, price] };
+    const [title, qtd, price, avQtd] = cart[product];
+    cart = (qtd === 0) ? cart : { ...cart, [product]: [title, qtd - 1, price, avQtd] };
     localStorage.setItem('cart', JSON.stringify(cart));
   }
 
