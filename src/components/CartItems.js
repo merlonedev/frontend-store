@@ -7,13 +7,17 @@ class CartItems extends React.Component {
 
     this.state = {
       quantityEachItem: {},
-      productList: props.testCart,
+      productList: props.productList,
+      totalPrice: props.totalPrice,
     };
 
     this.setInitialQuantity = this.setInitialQuantity.bind(this);
     this.increaseQuantity = this.increaseQuantity.bind(this);
     this.decreaseQuantity = this.decreaseQuantity.bind(this);
     this.removeItem = this.removeItem.bind(this);
+    this.sumTotalPrice = this.sumTotalPrice.bind(this);
+    this.subtractTotalPrice = this.subtractTotalPrice.bind(this);
+    this.subtractPriceOfRemovedItem = this.subtractPriceOfRemovedItem.bind(this);
   }
 
   componentDidMount() {
@@ -52,11 +56,34 @@ class CartItems extends React.Component {
     this.setState((prevState) => ({
       ...prevState,
       productList: prevState.productList.filter((product) => product.id !== id),
+    }), () => {
+      const { productList } = this.state;
+      localStorage.setItem('productList', JSON.stringify(productList));
+    });
+  }
+
+  sumTotalPrice(price) {
+    this.setState(({ totalPrice }) => ({
+      totalPrice: totalPrice + price,
+    }));
+  }
+
+  subtractTotalPrice(price, quantity) {
+    if (quantity === 1) return;
+    this.setState(({ totalPrice }) => ({
+      totalPrice: totalPrice - price,
+    }));
+  }
+
+  subtractPriceOfRemovedItem(price, quantity) {
+    const updatedPrice = price * quantity;
+    this.setState(({ totalPrice }) => ({
+      totalPrice: totalPrice - updatedPrice,
     }));
   }
 
   render() {
-    const { productList } = this.state;
+    const { productList, totalPrice } = this.state;
 
     return (
       <ul>
@@ -66,45 +93,56 @@ class CartItems extends React.Component {
             <li key={ id }>
               <button
                 type="button"
-                onClick={ () => this.removeItem(id) }
+                onClick={ () => {
+                  this.removeItem(id);
+                  this.subtractPriceOfRemovedItem(price, quantity);
+                } }
               >
                 X
               </button>
               <img src={ thumbnail } alt={ title } />
-              <p>{ title }</p>
+              <p data-testid="shopping-cart-product-name">{ title }</p>
               <button
                 data-testid="product-decrease-quantity"
                 type="button"
-                onClick={ () => this.decreaseQuantity(id) }
+                onClick={ () => {
+                  this.decreaseQuantity(id);
+                  this.subtractTotalPrice(price, quantity);
+                } }
               >
                 -
               </button>
-              <div>{ quantity }</div>
+              <div data-testid="shopping-cart-product-quantity">{ quantity }</div>
               <button
                 data-testid="product-increase-quantity"
                 type="button"
-                onClick={ () => this.increaseQuantity(id) }
+                onClick={ () => {
+                  this.increaseQuantity(id);
+                  this.sumTotalPrice(price);
+                } }
               >
                 +
               </button>
               <p>
-                { (price * quantity).toFixed(2) }
+                { `R$${(price * quantity).toFixed(2)}` }
               </p>
             </li>
           );
         })}
+        <p>{`Valor Total da Compra: R$${totalPrice.toFixed(2)}`}</p>
       </ul>
     );
   }
 }
 
 CartItems.propTypes = {
-  testCart: PropTypes.arrayOf(PropTypes.shape({
+  productList: PropTypes.arrayOf(PropTypes.shape({
     title: PropTypes.string.isRequired,
     thumbnail: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     id: PropTypes.string.isRequired,
   })).isRequired,
+  totalPrice: PropTypes.number.isRequired,
 };
 
 export default CartItems;

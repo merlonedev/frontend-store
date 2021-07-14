@@ -8,12 +8,18 @@ class ProductCard extends React.Component {
     this.addToCart = this.addToCart.bind(this);
   }
 
-  addToCart() {
+  addToCart(id) {
     const { product } = this.props;
     let getItem = JSON.parse(localStorage.getItem('productList'));
-    getItem = [...getItem, product];
-    console.log(getItem);
-    localStorage.setItem('productList', JSON.stringify(getItem));
+    if (!getItem) {
+      localStorage.setItem('productList', JSON.stringify([product]));
+      return;
+    }
+    const repeatProduct = getItem.some((item) => item.id === id);
+    if (!repeatProduct) {
+      getItem = [...getItem, product];
+      localStorage.setItem('productList', JSON.stringify(getItem));
+    }
   }
 
   render() {
@@ -35,13 +41,13 @@ class ProductCard extends React.Component {
           Preço: R$
           { price }
         </p>
-        <Link
+        <button
+          type="button"
           data-testid="product-add-to-cart"
-          onClick={ this.addToCart }
-          to="CartPage"
+          onClick={ () => this.addToCart(id) }
         >
           Adicionar ao carrinho
-        </Link>
+        </button>
       </section>
     );
   }
