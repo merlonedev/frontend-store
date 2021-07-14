@@ -10,6 +10,7 @@ class FilterCategories extends React.Component {
     };
 
     this.getApi = this.getApi.bind(this);
+    this.clickHandle = this.clickHandle.bind(this);
   }
 
   componentDidMount() {
@@ -23,33 +24,36 @@ class FilterCategories extends React.Component {
     });
   }
 
+  clickHandle({ target: { name, id } }) {
+    const { getCategory } = this.props;
+    getCategory(name, id);
+  }
+
   render() {
     const { categories } = this.state;
-    const { onClick } = this.props;
     return (
-      <div className="bloco-aside">
-        <aside className="aside">
-          {
-            categories.map((categorie) => (
-              <button
-                onClick={ onClick }
-                type="button"
-                key={ categorie.id }
-                value={ categorie.id }
-                data-testid="category"
-              >
-                { categorie.name }
-              </button>
-            ))
-          }
-        </aside>
-      </div>
+      <aside className="aside">
+        {
+          categories.map((categorie) => (
+            <button
+              type="button"
+              name="category"
+              key={ categorie.id }
+              id={ categorie.id }
+              data-testid="category"
+              onClick={ this.clickHandle }
+            >
+              { categorie.name }
+            </button>
+          ))
+        }
+      </aside>
     );
   }
 }
 
-export default FilterCategories;
-
 FilterCategories.propTypes = {
-  onClick: PropTypes.func.isRequired,
+  getCategory: PropTypes.func.isRequired,
 };
+
+export default FilterCategories;

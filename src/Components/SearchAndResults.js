@@ -1,19 +1,28 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import * as api from '../services/api';
 import Products from './Products';
-import FilterCategories from './FilterCategories';
 
 class SearchAndResults extends React.Component {
   constructor() {
     super();
     this.state = {
-      categoryId: '',
       productList: [],
       search: '',
     };
     this.getInput = this.getInput.bind(this);
     this.getProducts = this.getProducts.bind(this);
-    this.filterByCategory = this.filterByCategory.bind(this);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { search } = this.state;
+    const { category } = this.props;
+    const { search: prevSearch } = prevState;
+    const { category: prevCategory } = prevProps;
+    console.log(prevSearch, prevCategory, search, category);
+    if (prevSearch !== search || prevCategory !== category) {
+      this.getProducts();
+    }
   }
 
   getInput({ target }) {
@@ -22,21 +31,13 @@ class SearchAndResults extends React.Component {
     });
   }
 
-  getProducts() {
-    const { categoryId, search } = this.state;
-    api.getProductsFromCategoryAndQuery(categoryId, search).then(({ results }) => (
-      this.setState({
-        productList: results,
-      })
-    ));
-  }
-
-  filterByCategory({ target }) {
-    const { value } = target;
-    const { productList } = this.state;
-    const newProducts = productList.filter((product) => product.category_id === value);
-    this.setState({ productList: newProducts });
-    console.log(value);
+  async getProducts() {
+    const { category } = this.props;
+    const { search } = this.state;
+    const response = await api.getProductsFromCategoryAndQuery(category, search);
+    this.setState({
+      productList: response.results,
+    });
   }
 
   render() {
@@ -58,16 +59,19 @@ class SearchAndResults extends React.Component {
           data-testid="query-button"
           onClick={ this.getProducts }
         >
-          Button
+          Search
         </button>
         <div className="main">
-          <FilterCategories onClick={ this.filterByCategory } />
           <Products productList={ productList } />
         </div>
       </div>
     );
   }
 }
+
+SearchAndResults.propTypes = {
+  category: PropTypes.string.isRequired,
+};
 
 export default SearchAndResults;
 
