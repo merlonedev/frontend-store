@@ -36,7 +36,17 @@ class ProductDetail extends Component {
 
   render() {
     const { product, loading } = this.state;
+    const {
+      title,
+      price,
+      thumbnail,
+      id,
+      available_quantity: availableQuantity,
+      sold_quantity: soldQuantity,
+      shipping,
+    } = product;
     const { addItemToCart } = this.props;
+
     if (loading) {
       return (
         <p>Carregando informações do produto</p>
@@ -47,13 +57,14 @@ class ProductDetail extends Component {
         <ButtonToCart />
         <div>
           <p>DETALHES</p>
-          <img alt="Foto do produto" src={ product.thumbnail } />
+          <img alt="Foto do produto" src={ thumbnail } />
           <div className="product-details-body">
-            <p data-testid="product-detail-name">{product.title}</p>
-            <p>{ product.id }</p>
-            <p>{`Preço: R$${product.price}`}</p>
-            <p>{`Quantidade disponivel: ${product.available_quantity}`}</p>
-            <p>{`Quantidade vendida: ${product.sold_quantity}`}</p>
+            <p data-testid="product-detail-name">{title}</p>
+            <p>{ id }</p>
+            <p>{`Preço: R$${price}`}</p>
+            {shipping.free_shipping && <p data-testid="free-shipping">FRETE GRATIS!</p>}
+            <p>{`Quantidade disponivel: ${availableQuantity}`}</p>
+            <p>{`Quantidade vendida: ${soldQuantity}`}</p>
           </div>
         </div>
         <button
