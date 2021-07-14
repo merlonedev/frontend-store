@@ -22,12 +22,12 @@ export default class ProductsList extends Component {
               </h2>
               { product.shipping.free_shipping ? (
                 <p data-testid="free-shipping" className="shipping">
-                  <strong> Frete Gratis! </strong>
+                  <strong className="green"> Frete Gratis! </strong>
                 </p>
               ) : (
                 <p data-testid="shipping" className="shipping">
                   Frete
-                  <strong> NÃO </strong>
+                  <strong className="red"> NÃO </strong>
                   incluso.
                 </p>
               )}
