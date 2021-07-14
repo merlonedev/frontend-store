@@ -1,42 +1,50 @@
 import React from 'react';
 import './App.css';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import SearchAndResults from './Components/SearchAndResults';
+import SearchResults from './Components/SearchResults';
 import FilterCategories from './Components/FilterCategories';
 import ShoppingCartButton from './Components/ShoppingCartButton';
 import ShoppingCart from './Components/ShoppingCart';
+import SearchBar from './Components/SearchBar';
+import InicialMessage from './Components/InicialMessage';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       category: '',
+      search: '',
     };
-    this.getCategory = this.getCategory.bind(this);
+    this.getState = this.getState.bind(this);
   }
 
-  getCategory(name, value) {
+  getState(name, value) {
     this.setState({
       [name]: value,
     });
   }
 
   render() {
-    const { category } = this.state;
+    const { category, search } = this.state;
     return (
       <div>
         <BrowserRouter>
           <ShoppingCartButton />
+          <SearchBar getState={ this.getState } />
           <Switch>
+            <Route exact path="/" component={ InicialMessage } />
             <Route
-              exact
-              path="/"
+              path="/search"
               render={ (props) => (
-                <SearchAndResults { ...props } category={ category } />) }
+                <SearchResults
+                  { ...props }
+                  category={ category }
+                  search={ search }
+                />) }
             />
             <Route path="/shopping-cart" component={ ShoppingCart } />
           </Switch>
-          <FilterCategories getCategory={ this.getCategory } />
+          <FilterCategories getState={ this.getState } />
         </BrowserRouter>
       </div>
     );
@@ -44,3 +52,5 @@ class App extends React.Component {
 }
 
 export default App;
+
+// Na refatoração realizada nesse código depois do requisito 6 consultei o repositório do Roberval Filho da Turma 12 Grupo 18. Lembrando que os testes do 1 ao 6 já estavam passando antes dessa refatoração. https://github.com/tryber/sd-12-project-frontend-online-store/pull/226/files
