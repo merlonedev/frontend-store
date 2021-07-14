@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import * as api from '../services/api';
+import AddToCartFromDetails from './AddToCartFromDetails';
 
 class ProductDetails extends React.Component {
   constructor() {
@@ -25,21 +26,14 @@ class ProductDetails extends React.Component {
   }
 
   render() {
-    const {
-      product: {
-        title,
-        price,
-        thumbnail,
-        attributes,
-      },
-      loading,
-    } = this.state;
+    const { product, loading } = this.state;
+    const { title, price, thumbnail, attributes } = product;
 
     if (loading) return <p>Carregando...</p>;
     return (
       <div>
         <Link to="/">Voltar Para Pagina Principal</Link>
-        <Link to="/Cart"> Ir para Carrinho</Link>
+        <Link data-testid="shopping-cart-button" to="/Cart"> Ir para Carrinho</Link>
         <h1 data-testid="product-detail-name">{ title }</h1>
         <p>
           {`Price ${price}`}
@@ -55,6 +49,7 @@ class ProductDetails extends React.Component {
             )) }
           </ul>
         </div>
+        <AddToCartFromDetails productObj={ product } />
       </div>
     );
   }
