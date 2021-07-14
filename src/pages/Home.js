@@ -45,9 +45,15 @@ class Home extends Component {
 
   async getProduct(category, query) {
     const productsRequest = await api.getProductsFromCategoryAndQuery(category, query);
-    this.setState({
-      products: productsRequest.results,
-    });
+    if (productsRequest === undefined) {
+      this.setState({
+        products: [],
+      });
+    } else {
+      this.setState({
+        products: productsRequest.results,
+      });
+    }
   }
 
   categoryHandleChange({ target }) {
