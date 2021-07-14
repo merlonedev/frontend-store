@@ -52,14 +52,16 @@ class ShoppingCart extends Component {
       );
     }
     return (
-      <ol className="ol-cart">
-        {lista.map((itemId) => <CartItem key={ itemId.id } lista={ itemId } />)}
+      <>
+        <ol className="ol-cart">
+          {lista.map((itemId) => <CartItem key={ itemId.id } lista={ itemId } />)}
+        </ol>
         <p>
           Valor Total:
           <span className="total-value">{ () => this.loadTotalValue() }</span>
         </p>
         <button type="button"><Link to="/">HOME</Link></button>
-      </ol>
+      </>
     );
   }
 }
