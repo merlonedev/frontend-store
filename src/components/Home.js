@@ -15,7 +15,7 @@ class Home extends Component {
           price: 39.9,
           currency_id: 'BRL',
           thumbnail: 'http://http2.mlstatic.com/D_660270-MLB46579103227_072021-O.jpg',
-          quantity: 1,
+          quantity: 2,
         },
         {
           id: 'MLB1595925546',
