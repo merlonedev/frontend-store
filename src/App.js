@@ -34,7 +34,14 @@ class App extends Component {
             path="/shoppingcart"
             render={ (props) => <ShoppingCart { ...props } cartAdd={ cartItens } /> }
           />
-          <Route exact path="/detalhes/:title/:id" component={ ProductDetails } />
+          <Route
+            exact
+            path="/detalhes/:title/:id"
+            render={ (props) => (<ProductDetails
+              { ...props }
+              cartAdd={ this.cartAdd }
+            />) }
+          />
           <Route
             exact
             path="/categorias/:categoria"

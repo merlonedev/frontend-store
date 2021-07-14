@@ -22,6 +22,7 @@ class ProductDetails extends Component {
 
   render() {
     const { details } = this.state;
+    const { cartAdd } = this.props;
     return (
       <>
         <h1 data-testid="product-detail-name">{details.title}</h1>
@@ -29,10 +30,17 @@ class ProductDetails extends Component {
         <p>{details.price}</p>
         <Link
           to="/shoppingcart"
-          data-testid="product-detail-link"
+          data-testid="shopping-cart-button"
         >
           Carrinho de Compras
         </Link>
+        <button
+          type="button"
+          data-testid="product-detail-add-to-cart"
+          onClick={ () => cartAdd(details) }
+        >
+          Adicionar ao Carrinho
+        </button>
       </>
     );
   }
@@ -44,6 +52,7 @@ ProductDetails.propTypes = {
       title: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
+  cartAdd: PropTypes.func.isRequired,
 };
 
 export default ProductDetails;
