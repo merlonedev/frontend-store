@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import * as api from '../services/api';
 
 class ProductDetails extends Component {
   constructor() {
@@ -12,17 +11,16 @@ class ProductDetails extends Component {
     this.getProducts = this.getProducts.bind(this);
   }
 
-  componentDidUpdate() {
+  componentDidMount() {
     this.getProducts();
   }
 
   async getProducts() {
-    const { match: { params: { category_id, id } } } = this.props;
-    const requisitionApi = await api.getProductsFromCategoryAndQuery(category_id, '');
-    const details = requisitionApi.results.find((product) => product.id === id);
-
+    const { match: { params: { id } } } = this.props;
+    const requisitionApi = await fetch(`https://api.mercadolibre.com/items/${id}`);
+    const result = await requisitionApi.json();
     this.setState({
-      product: details,
+      product: result,
     });
   }
 
