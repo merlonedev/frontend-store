@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import ManipularCarrinho from './ManipularCarrinho';
 
 class CartItems extends Component {
   render() {
-    const { cartList } = this.props;
+    const { cartList, removeItem } = this.props;
+    console.log(cartList);
     return (
       <div>
         {cartList.map((item) => (
-          <div key={ item.id }>
-            <h1 data-testid="shopping-cart-product-name">{ item.title }</h1>
-            <p data-testid="shopping-cart-product-quantity">1</p>
-          </div>
+          <ManipularCarrinho item={ item } key={ item.id } removeItem={ removeItem } />
         ))}
       </div>
     );
@@ -21,6 +20,7 @@ CartItems.propTypes = {
   cartList: PropTypes.arrayOf(
     PropTypes.object,
   ).isRequired,
+  removeItem: PropTypes.func.isRequired,
 };
 
 export default CartItems;

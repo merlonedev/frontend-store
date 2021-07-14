@@ -13,7 +13,7 @@ class App extends React.Component {
     this.state = {
       cartList: [],
     };
-
+    this.removeItem = this.removeItem.bind(this);
     this.addToCart = this.addToCart.bind(this);
   }
 
@@ -23,6 +23,15 @@ class App extends React.Component {
     }));
   }
 
+  removeItem(item) {
+    const { id } = item;
+    this.setState((prev) => {
+      const { cartList } = prev;
+      const filtro = cartList.filter((cartItem) => cartItem.id !== id);
+      return { cartList: filtro };
+    });
+  }
+
   render() {
     const { cartList } = this.state;
     return (
@@ -30,7 +39,11 @@ class App extends React.Component {
         <Switch>
           <Route
             path="/cart-basket"
-            render={ (props) => <CartBasket { ...props } cartList={ cartList } /> }
+            render={ (props) => (<CartBasket
+              { ...props }
+              cartList={ cartList }
+              removeItem={ this.removeItem }
+            />) }
           />
           <Route
             exact
