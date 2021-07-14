@@ -113,11 +113,11 @@ html, * {
 }
 
 .product-card button {
-  padding: 9px;
+  box-shadow: 0 0 6px -1px grey;
   color: white;
   font-size: 0.9em;
   font-weight: 600;
-  box-shadow: 0 0 6px -1px grey;
+  padding: 9px;
 }
 
 .added {
