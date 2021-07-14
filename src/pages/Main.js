@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import Categories from '../components/Categories';
 import ProductList from '../components/ProductList';
 
@@ -12,6 +13,9 @@ class Main extends Component {
   render() {
     return (
       <main>
+        <Link data-testid="shopping-cart-button" to="/shopping-cart">
+          Retorna
+        </Link>
         <ProductList />
         <Categories />
       </main>
