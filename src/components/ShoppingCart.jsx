@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import CartItems from './CartItems';
 
+// prettier-ignore
 export default class ShoppingCart extends React.Component {
   render() {
     const { cartItems, handlers } = this.props;
@@ -13,10 +14,10 @@ export default class ShoppingCart extends React.Component {
             Seu carrinho está vazio.
           </span>
         ) : (
-          <CartItems cartItems={ cartItems } handlers={ handlers } />
+          <CartItems cartItems={ cartItems } handlers={ handlers } showButtons="true" />
         )}
         <p>
-          <Link to="/checkout">Checkout</Link>
+          <Link data-testid="checkout-products" to="/checkout">Checkout</Link>
           <Link to="/">VOLTAR</Link>
         </p>
       </section>
@@ -24,6 +25,7 @@ export default class ShoppingCart extends React.Component {
   }
 }
 
+// prettier-ignore
 ShoppingCart.propTypes = {
   cartItems: PropTypes.arrayOf(
     PropTypes.shape({
