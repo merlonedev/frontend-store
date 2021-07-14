@@ -5,48 +5,64 @@ import ProductDetail from './ProductDetail';
 import ShoppingCart from './ShoppingCart';
 
 class Home extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
-      allCart: [],
+      cartList: [],
       newProduct: undefined,
     };
-    // this.handleSubmit = this.handleSubmit.bind(this);
-    // this.renderForm = this.renderForm.bind(this);
-    // this.renderList = this.renderList.bind(this);
+    this.removeItem = this.removeItem.bind(this);
+    this.cartItemAddQuantity = this.cartItemAddQuantity.bind(this);
+    this.cartItemDiminishQuantity = this.cartItemDiminishQuantity.bind(this);
     this.addItemToCart = this.addItemToCart.bind(this);
-    // this.handleCategoryText = this.handleCategoryText.bind(this);
   }
 
   addItemToCart(product) {
+    product.quantity = 1;
     this.setState(({
       newProduct: product,
     }), () => this.saveCart());
   }
 
   saveCart() {
-    this.setState(({ allCart, newProduct }) => ({
-      allCart: [...allCart, newProduct],
+    this.setState(({ cartList, newProduct }) => ({
+      cartList: [...cartList, newProduct],
     }));
   }
 
-  changeCartItemQuantity() {
-    // Funcao para alterar quantidade de itens no carrinho - Guilherme
+  cartItemAddQuantity(id) {
+    const { cartList } = this.state;
+    const selIndex = cartList.findIndex((item) => item.id === id);
+    const selItem = cartList.find((item) => item.id === id);
+    cartList[selIndex].quantity = selItem.quantity + 1;
+    this.setState({ cartList });
   }
 
-  removeItem() {
-    // Remove item do carrinho :)
+  cartItemDiminishQuantity(id) {
+    const { cartList } = this.state;
+    const selItem = cartList.find((item) => item.id === id);
+    if (selItem.quantity <= 1) return null;
+    const selIndex = cartList.findIndex((item) => item.id === id);
+    cartList[selIndex].quantity = selItem.quantity - 1;
+    this.setState({ cartList });
+  }
+
+  removeItem(id) {
+    const { cartList } = this.state;
+    const selIndex = cartList.findIndex((item) => item.id === id);
+    cartList.splice(selIndex, 1);
+    this.setState({ cartList });
   }
 
   render() {
-    const { allCart } = this.state;
+    const { cartList } = this.state;
     return (
       <Router>
         <Switch>
           <Route
             exact
             path="/"
-            render={ () => <Search allCart={ this.addItemToCart } /> }
+            render={ () => <Search addItemToCart={ this.addItemToCart } /> }
           />
           <Route
             exact
@@ -56,7 +72,12 @@ class Home extends Component {
           <Route
             exact
             path="/cart"
-            render={ (props) => <ShoppingCart allCart={ allCart } { ...props } /> }
+            render={ () => (<ShoppingCart
+              cartItemAddQuantity={ this.cartItemAddQuantity }
+              cartItemDiminishQuantity={ this.cartItemDiminishQuantity }
+              removeItem={ this.removeItem }
+              cartList={ cartList }
+            />) }
           />
           {/* <Route
             path="/checkout"

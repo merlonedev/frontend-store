@@ -62,8 +62,8 @@ class Search extends Component {
   }
 
   renderList() {
+    const { addItemToCart } = this.props;
     const { loading } = this.state;
-    const { allCart } = this.props;
     if (loading === 'loading') return <p>Loading...</p>;
     if (loading === 'none') return <div />;
     const { productList: { results } } = this.state;
@@ -75,7 +75,7 @@ class Search extends Component {
             (prod) => (<ProductCard
               key={ prod.id }
               product={ prod }
-              allCart={ allCart }
+              addItemToCart={ addItemToCart }
             />),
           )}
         </ul>
@@ -99,6 +99,7 @@ class Search extends Component {
 }
 
 Search.propTypes = {
-  allCart: PropTypes.func.isRequired,
+  addItemToCart: PropTypes.func.isRequired,
 };
+
 export default Search;
