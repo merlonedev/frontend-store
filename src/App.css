@@ -189,6 +189,10 @@ html, * {
   color: var(--magnolia);
 }
 
+.remove-btn * {
+  color: var(--magnolia);
+}
+
 .add-button *:hover, .search-btn *:hover, .cart-btn a:hover, .submit-btn *:hover {
   background-color: rgba(255, 255, 255, 0.5);
   color: var(--dark-liver);
@@ -304,9 +308,6 @@ html, * {
   background-color: var(--red-munsell);
 }
 
-.remove-btn * {
-  color: var(--magnolia);
-}
 
 .remove-btn *:hover {
   background-color: rgba(255, 255, 255, 0.5);
