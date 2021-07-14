@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { getProductsFromCategoryAndQuery } from '../services/api';
+import FormEvaluator from './FormEvaluator';
 
 class ProductDetail extends Component {
   constructor(props) {
@@ -41,6 +42,7 @@ class ProductDetail extends Component {
         <p>{`Preço: R$${product.price}`}</p>
         <p>{`Quantidade disponivel: ${product.available_quantity}`}</p>
         <p>{`Quantidade vendida: ${product.sold_quantity}`}</p>
+        <FormEvaluator />
         <Link to="/">FECHAR DETALHE</Link>
       </div>
     );
