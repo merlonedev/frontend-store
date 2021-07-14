@@ -61,7 +61,9 @@ class ProductInCart extends React.Component {
       <div data-testid="product" className="product">
         <AiFillCloseCircle onClick={ () => onClick(id) } className="remove-item-cart" />
         <img
-          src={ thumbnail.replace('I.jpg', 'O.jpg') }
+          src={ thumbnail
+            ? thumbnail.replace('I.jpg', 'O.jpg')
+            : '../images/imagem-indisponivel.jpg' }
           alt={ title }
           className="image-item"
         />

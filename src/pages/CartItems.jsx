@@ -34,7 +34,7 @@ class CartItems extends React.Component {
   itemCartRemove(itemId) {
     const { cartItens } = this.state;
     localStorage.removeItem(itemId);
-    const cartUpdated = cartItens.map((item) => item.id !== itemId);
+    const cartUpdated = cartItens.filter((item) => item.id !== itemId);
     this.setState({
       cartItens: [...cartUpdated],
     });
