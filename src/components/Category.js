@@ -12,6 +12,7 @@ class Category extends React.Component {
               key={ id }
             >
               <button
+                className="btn-list"
                 data-testid="category"
                 type="button"
                 onClick={ () => handleLiClick(id) }
