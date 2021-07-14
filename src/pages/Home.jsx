@@ -75,17 +75,19 @@ class Home extends Component {
   render() {
     const { categories, searchProducts } = this.state;
     return (
-      <div>
+      <>
         <SearchBarProducts
           handleChange={ this.handleChange }
           handleClick={ this.handleClick }
         />
-        <CategoryList
-          categories={ categories }
-          onChangeFilterCategory={ this.handleChange }
-        />
-        <AllProducts searchProducts={ searchProducts } addToCart={ this.addToCart } />
-      </div>
+        <div className="main">
+          <CategoryList
+            categories={ categories }
+            onChangeFilterCategory={ this.handleChange }
+          />
+          <AllProducts searchProducts={ searchProducts } addToCart={ this.addToCart } />
+        </div>
+      </>
     );
   }
 }

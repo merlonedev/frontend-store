@@ -33,7 +33,6 @@ class ProductDetails extends React.Component {
     const { match: { params: { id } } } = this.props;
     const result = await Api.getProductsFromCategoryAndQuery(id, '')
       .then((prod) => prod.results);
-    console.log(result);
     this.setState({
       productList: result,
     }, () => this.setProduct());
@@ -53,10 +52,22 @@ class ProductDetails extends React.Component {
 
   render() {
     const { product } = this.state;
+    const { attributes } = product;
+    console.log(attributes);
     return (
       <div>
         <HomeButton />
+        <CartButton />
         <p data-testid="product-detail-name">{product.title}</p>
+        <img src={ product.thumbnail } alt={ product.title } />
+        <div>
+          {
+            attributes && attributes.map((att) => (
+              <p key={ att.name }>
+                {`${att.name}: ${att.value_name}`}
+              </p>))
+          }
+        </div>
         <button
           data-testid="product-detail-add-to-cart"
           type="button"
@@ -64,7 +75,6 @@ class ProductDetails extends React.Component {
         >
           Adicionar ao carrinho
         </button>
-        <CartButton />
       </div>
     );
   }

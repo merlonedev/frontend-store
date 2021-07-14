@@ -22,12 +22,12 @@ class SearchBarProducts extends React.Component {
             >
               Buscar
             </button>
+            <CartButton />
           </div>
         </div>
         <h2 data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
         </h2>
-        <CartButton />
       </div>
     );
   }
