@@ -135,6 +135,8 @@ html, * {
 
 .button {
   border: none;
+  border-radius: 2px;
+  box-shadow: 1px 1px 1px 1px var(--old-lavender);
   cursor: pointer;
   padding: 0;
   transition: 0.3s;
@@ -168,8 +170,6 @@ html, * {
 
 .add-button, .search-btn, .cart-btn, .submit-btn, .checkout-btn {
   background-color: var(--persian-green);
-  border-radius: 2px;
-  box-shadow: 1px 1px 1px 1px var(--old-lavender);
   margin: 5px;
 }
 
@@ -274,6 +274,7 @@ html, * {
 
 .cart-item {
   align-items: center;
+  border: 1px solid var(--dark-liver);
   display: flex;
   margin: 10px auto;
   width: 650px;
@@ -284,8 +285,9 @@ html, * {
 }
 
 .cart-btns-container {
+  align-items: center;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
 }
 
 .product-qty {
@@ -296,4 +298,18 @@ html, * {
 .product-price {
   width: 100px;
   word-wrap: break-word;
+}
+
+.remove-btn {
+  background-color: var(--red-munsell);
+}
+
+.remove-btn * {
+  color: var(--magnolia);
+}
+
+.remove-btn *:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+  color: var(--dark-liver);
+  transition: 0.3s;
 }

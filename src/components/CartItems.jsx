@@ -12,19 +12,19 @@ export default class CartItems extends Component {
   }
 
   increaseQty({ target }) {
-    const itemToIncrease = target.parentElement.id;
+    const itemToIncrease = target.parentElement.parentElement.id;
     const { handlers } = this.props;
     handlers.increase(itemToIncrease);
   }
 
   decreaseQty({ target }) {
-    const itemToRemove = target.parentElement.id;
+    const itemToRemove = target.parentElement.parentElement.id;
     const { handlers } = this.props;
     handlers.decrease(itemToRemove);
   }
 
   removeItem({ target }) {
-    const itemToRemove = target.parentElement.id;
+    const itemToRemove = target.parentElement.parentElement.id;
     // const qtyToRemove = Number(target.parentElement.className);
     const { handlers } = this.props;
     handlers.remove(itemToRemove);
@@ -34,22 +34,26 @@ export default class CartItems extends Component {
     return (
       <div id={ id } className="cart-btns-container">
         <button
-          data-testid="product-decrease-quantity"
           type="button"
           onClick={ this.decreaseQty }
+          className="button add-button"
         >
-          -
+          <i className="fas fa-minus" data-testid="product-decrease-quantity" />
         </button>
         <p data-testid="shopping-cart-product-quantity" className="product-qty">{qty}</p>
         <button
-          data-testid="product-increase-quantity"
           type="button"
           onClick={ this.increaseQty }
+          className="button add-button"
         >
-          +
+          <i className="fas fa-plus" data-testid="product-increase-quantity" />
         </button>
-        <button type="button" onClick={ this.removeItem }>
-          x
+        <button
+          type="button"
+          onClick={ this.removeItem }
+          className="button remove-btn"
+        >
+          <i className="fas fa-times" />
         </button>
         {/* <button type="button">Finalizar Compra</button> */}
       </div>
@@ -63,8 +67,10 @@ export default class CartItems extends Component {
         <img src={ item.thumbnail } alt="Imagem do Produto" className="product-cover" />
         <div className="btn-name-container">
           <h4 data-testid="shopping-cart-product-name">{item.title}</h4>
+          <p>Quantidade:</p>
           { showButtons === 'true' ? this.renderButtons(item.id, item.qty) : null }
         </div>
+        <p>Total:</p>
         <h4 className="product-price">
           R$
           {item.price * item.qty}
