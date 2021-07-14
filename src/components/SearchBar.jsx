@@ -35,6 +35,8 @@ export default class SearchBar extends Component {
           data-testid="query-input"
           onChange={ this.handleChange }
           name="queryInput"
+          className="search-input"
+          placeholder="Busque e nos viramos nos 30..."
         />
         <button
           type="button"
