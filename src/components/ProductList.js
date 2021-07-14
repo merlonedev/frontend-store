@@ -6,7 +6,7 @@ class ProductList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      filter: '',
+      query: '',
       prodList: [],
       isEmpty: true,
     };
@@ -19,17 +19,18 @@ class ProductList extends Component {
   handleChange({ target }) {
     const { value } = target;
     this.setState({
-      filter: value,
+      query: value,
     });
   }
 
   buttonLogic() {
-    const { filter } = this.state;
-    if (filter) {
-      api.getProductsFromCategoryAndQuery(false, filter)
+    const { query } = this.state;
+    if (query) {
+      api.getProductsFromCategoryAndQuery(false, query)
         .then((res) => {
+          const products = res.results;
           this.setState({
-            prodList: [...res],
+            prodList: [...products],
             isEmpty: false,
           });
         });
@@ -49,21 +50,21 @@ class ProductList extends Component {
     console.log(prodList);
     return (
       prodList.map(
-        (prod) => <ProductCard key={ prod.id } product={ prod } data-testid="products" />,
+        (prod) => <ProductCard key={ prod.id } product={ prod } />,
       )
     );
   }
 
   render() {
-    const { filter, isEmpty } = this.state;
+    const { query, isEmpty } = this.state;
     return (
       <section>
         <input
           data-testid="query-input"
           type="text"
-          name="filter"
+          name="query"
           onChange={ this.handleChange }
-          value={ filter }
+          value={ query }
         />
         <button
           data-testid="query-button"
