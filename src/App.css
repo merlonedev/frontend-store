@@ -20,10 +20,10 @@
 
 .card {
   display: flex;
-  flex-direction: column;
   border: 1px solid black;
+  flex-direction: column;
+  margin: 5px;
   width: 200px;
-  margin: 5px 5px;
   text-align: center;
 }
 
