@@ -146,6 +146,7 @@ export default class App extends Component {
 
   sortProducts() {
     const { products, sorting } = this.setState;
+    console.log(products);
     if (sorting === 'higher') {
       products.sort((a, b) => b.price - a.price);
     }
@@ -155,6 +156,7 @@ export default class App extends Component {
     if (sorting === '') {
       this.setProducts();
     }
+    console.log(products);
   }
 
   callbackSort(method) {

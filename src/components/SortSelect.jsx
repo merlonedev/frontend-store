@@ -7,7 +7,7 @@ export default class SortSelect extends Component {
   constructor() {
     super();
     this.state = {
-      queryInput: '',
+      sorting: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -15,13 +15,15 @@ export default class SortSelect extends Component {
   }
 
   handleChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
+    console.log(e.target);
+    console.log(e.target.value);
+    this.setState({ sorting: e.target.value });
   }
 
   handleClick() {
     const { callback } = this.props;
-    const { queryInput } = this.state;
-    callback(queryInput);
+    const { sorting } = this.state;
+    callback(sorting);
   }
 
   render() {
@@ -29,10 +31,15 @@ export default class SortSelect extends Component {
       <div>
         <label htmlFor="sort-select" data-testid="sort-select-label">
           Ordem dos produtos:
-          <select name="sort-select" data-testid="sort-select">
+          <select
+            name="sort-select"
+            data-testid="sort-select"
+            onChange={ this.handleChange }
+            onClick={ this.handleClick }
+          >
             <option value=""> </option>
-            <option value="sort-higher">Maior preço</option>
-            <option value="sort-lower">Menor preço</option>
+            <option value="higher">Maior preço</option>
+            <option value="lower">Menor preço</option>
           </select>
         </label>
       </div>
