@@ -16,6 +16,7 @@ class Home extends React.Component {
     this.onChange = this.onChange.bind(this);
     this.onClick = this.onClick.bind(this);
     this.categoryChange = this.categoryChange.bind(this);
+    this.addCart = this.addCart.bind(this);
   }
 
   onChange({ target: { value } }) {
@@ -41,6 +42,15 @@ class Home extends React.Component {
     });
   }
 
+  addCart(product) {
+    const cart = JSON.parse(localStorage.getItem('cart'));
+    if (!cart) {
+      localStorage.setItem('cart', JSON.stringify([product]));
+    } else if (!cart.some(({ id }) => id === product.id)) {
+      localStorage.setItem('cart', JSON.stringify([...cart, product]));
+    }
+  }
+
   render() {
     const { products, search } = this.state;
     return (
@@ -49,7 +59,7 @@ class Home extends React.Component {
           <p className="pageName">
             Undefined FrontEnd Online Store
           </p>
-          <Link to="/Cart" data-testid="shopping-cart-button" />
+          <Link to="/Cart" data-testid="shopping-cart-button">Ver Carrinho</Link>
           <label
             htmlFor="searchText"
             data-testid="home-initial-message"
@@ -80,7 +90,7 @@ class Home extends React.Component {
         </header>
         <section className="mainSection">
           <NavBar click={ this.categoryChange } />
-          <ProductFilter products={ products } />
+          <ProductFilter products={ products } addCart={ this.addCart } />
         </section>
       </div>
     );

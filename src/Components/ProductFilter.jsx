@@ -4,7 +4,7 @@ import Products from './Products';
 
 class ProductFilter extends Component {
   render() {
-    const { products } = this.props;
+    const { products, addCart } = this.props;
     return (
       <div className="cardDiv">
         { products.map((product) => (
@@ -15,6 +15,8 @@ class ProductFilter extends Component {
             price={ product.price }
             id={ product.id }
             categoryId={ product.category_id }
+            addCart={ addCart }
+            product={ product }
           />
         ))}
       </div>
@@ -24,6 +26,7 @@ class ProductFilter extends Component {
 
 ProductFilter.propTypes = {
   products: PropTypes.arrayOf(Object).isRequired,
+  addCart: PropTypes.func.isRequired,
 };
 
 export default ProductFilter;
