@@ -131,9 +131,6 @@ export default class App extends Component {
       cartItems: items,
       quantity,
     }, this.handleLocalStorage);
-
-    localStorage.setItem('cartItems', JSON.stringify(items));
-    localStorage.setItem('quantity', JSON.stringify(quantity));
   }
 
   callbackCategory({ target }) {
