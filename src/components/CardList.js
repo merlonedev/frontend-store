@@ -37,7 +37,6 @@ class CardList extends Component {
 
     getProductsFromCategoryAndQuery(id)
       .then(({ results }) => {
-        console.log(results);
         this.setState({
           categories: results,
           loading: false,
@@ -55,6 +54,7 @@ class CardList extends Component {
         >
           { loading && <Loading /> }
           { categories.map((item) => (<CardItem
+            item={ item }
             key={ item.id }
             itemId={ item.id }
             title={ item.title }

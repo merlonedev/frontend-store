@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import FreeShipping from './FreeShipping';
+import productsCart from '../services/data';
 import './CardItem.css';
 
 class CardItem extends Component {
@@ -12,6 +13,7 @@ class CardItem extends Component {
       price,
       itemId,
       shipping,
+      item,
     } = this.props;
     return (
       <div data-testid="product" className="card-item">
@@ -46,7 +48,6 @@ CardItem.propTypes = {
   item: PropTypes.shape({
     title: PropTypes.string.isRequired,
     thumbnail: PropTypes.string.isRequired,
-    itemId: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
   }).isRequired,
   shipping: PropTypes.bool.isRequired,
