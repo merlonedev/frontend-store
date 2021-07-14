@@ -80,7 +80,7 @@ class DetailedProduct extends React.Component {
             Carrinho de Compras
           </Link>
         </header>
-        <main data-testid="product">
+        <main>
           {!title
             ? <h1>Loading...</h1>
             : (

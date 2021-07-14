@@ -38,8 +38,8 @@ class Home extends React.Component {
   }
 
   async categoryApi() {
-    const newCagories = await getCategories();
-    this.setState({ categories: newCagories });
+    const categories = await getCategories();
+    this.setState({ categories });
   }
 
   async categoryAndQuery(id = '') {
