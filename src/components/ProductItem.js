@@ -9,7 +9,11 @@ class ProductItem extends React.Component {
   }
 
   handleAddCart() {
-    const { product, handleCart, cart, shouldUpdateCart } = this.props;
+    const {
+      product,
+      handleCart,
+      cart,
+    } = this.props;
     const { title, thumbnail, price } = product;
     let isItemFound;
     if (cart.length > 0) {
@@ -24,7 +28,6 @@ class ProductItem extends React.Component {
     };
     if (isItemFound) {
       isItemFound.quantity += 1;
-      shouldUpdateCart();
       return;
     }
     // console.log(item.quantity);
@@ -61,7 +64,6 @@ ProductItem.propTypes = {
   product: PropTypes.objectOf(Object).isRequired,
   handleCart: PropTypes.func.isRequired,
   cart: PropTypes.arrayOf(PropTypes.string),
-  shouldUpdateCart: PropTypes.func.isRequired,
 };
 
 ProductItem.defaultProps = {

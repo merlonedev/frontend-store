@@ -5,8 +5,6 @@ import CategoryList from '../components/CategoryList';
 import ProductList from '../components/ProductList';
 import Loading from '../components/Loading';
 import '../App.css';
-// import CartList from '../components/CartList';
-import ShoppingCart from './ShoppingCart';
 
 let queryValue = 'QUERY';
 
@@ -28,8 +26,6 @@ class Home extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleClickCategory = this.handleClickCategory.bind(this);
-    this.callCart = this.callCart.bind(this);
-    this.emptyCart = this.emptyCart.bind(this);
     this.handleCart = this.handleCart.bind(this);
     this.shouldUpdateCart = this.shouldUpdateCart.bind(this);
   }
@@ -137,15 +133,6 @@ class Home extends React.Component {
     this.forceUpdate();
   }
 
-  callCart() {
-    const { cart } = this.state;
-    return (
-      <ShoppingCart
-        cart={ cart }
-      />
-    );
-  }
-
   emptyCart() {
     const { cart } = this.state;
     if (cart.length === 0) {
@@ -184,14 +171,13 @@ class Home extends React.Component {
         </h2>
         <Link
           data-testid="shopping-cart-button"
-          to={ "/shopping-cart" }
+          to={ { pathname: '/shopping-cart', state: cart } }
         >
           Carrinho
         </Link>
         <section className="main">
           { categories === undefined ? <Loading /> : this.callCategoryList() }
           { products === undefined ? <Loading /> : this.callProductList() }
-          { cart.length === 0 ? this.emptyCart() : this.callCart() }
         </section>
       </section>
     );

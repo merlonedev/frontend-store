@@ -4,7 +4,12 @@ import ProductItem from './ProductItem';
 
 class ProductList extends React.Component {
   render() {
-    const { products, handleCart, cart, shouldUpdateCart } = this.props;
+    const {
+      products,
+      handleCart,
+      cart,
+      shouldUpdateCart,
+    } = this.props;
     return (
       <div className="productList">
         { products.results

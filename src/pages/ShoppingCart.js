@@ -3,12 +3,17 @@ import PropTypes from 'prop-types';
 import CartList from '../components/CartList';
 
 export default class ShoppingCart extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+
+    const { location: { state } } = props;
+    console.log(props.location);
 
     this.state = {
-      cart: [],
+      cart: state,
     };
+
+    // console.log(this.state.cart);
 
     this.emptyCart = this.emptyCart.bind(this);
     this.callCart = this.callCart.bind(this);
@@ -32,15 +37,25 @@ export default class ShoppingCart extends Component {
   }
 
   render() {
-    const { cart } = this.props;
+    const { cart } = this.state;
     return (
       <div>
-        { cart.length === 0 ? this.emptyCart() : this.callCart() }
+        <CartList
+          cart={ cart }
+        />
       </div>
     );
   }
 }
 
 ShoppingCart.propTypes = {
-  cart: PropTypes.arrayOf(Object).isRequired,
+  location: PropTypes.objectOf(PropTypes.string),
+};
+
+ShoppingCart.defaultProps = {
+  location: {
+    hash: '',
+    key: '',
+    pathname: '',
+  },
 };
