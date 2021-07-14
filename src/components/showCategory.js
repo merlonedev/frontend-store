@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Proptypes from 'react';
 import ProductCard from './ProductCard';
 import { getCategories } from '../services/api';
 
@@ -40,10 +39,10 @@ render() {
     }    
 }
 
-showCategory.propTypes = {
-    match: Proptypes.shape({
-        params: Proptypes.shape({
-            categoria: Proptypes.string.isRequired,
-        }).isRequired,
-    }).isRequired,
-};
+// showCategory.propTypes = {
+//     match: Proptypes.shape({
+//         params: Proptypes.shape({
+//             categoria: Proptypes.string.isRequired,
+//         }).isRequired,
+//     }).isRequired,
+// };
