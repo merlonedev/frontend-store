@@ -55,6 +55,7 @@ ProductDetails.propTypes = {
     params: PropTypes.shape({
       id: PropTypes.string,
       categoryId: PropTypes.string,
+      title: PropTypes.string,
     }).isRequired,
   }).isRequired,
 };
