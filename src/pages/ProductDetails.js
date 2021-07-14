@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 class ProductDetails extends Component {
   constructor() {
@@ -35,6 +36,7 @@ class ProductDetails extends Component {
     } } = this.state;
     return (
       <div>
+        <Link to="/">Voltar</Link>
         <h1 data-testid="product-detail-name">{title }</h1>
         <img
           style={ { width: '200px' } }
