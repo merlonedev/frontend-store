@@ -43,7 +43,7 @@ class Home extends React.Component {
   }
 
   render() {
-    const { addToCart } = this.props;
+    const { addToCart, quantity } = this.props;
     const { productList, categories } = this.state;
     return (
       <form>
@@ -64,8 +64,14 @@ class Home extends React.Component {
         >
           Clique Aqui
         </button>
-        <CartButton />
-        <Products productList={ productList } addToCart={ addToCart } />
+        <CartButton
+          quantity={ quantity }
+        />
+        <Products
+          productList={ productList }
+          addToCart={ addToCart }
+          quantity={ quantity }
+        />
         <Category
           category={ categories }
           categoryAndQuery={ this.categorieAndQuery }
@@ -77,6 +83,13 @@ class Home extends React.Component {
 
 Home.propTypes = {
   addToCart: PropTypes.func.isRequired,
+  quantity: PropTypes.arrayOf(
+    PropTypes.object,
+  ),
+};
+
+Home.defaultProps = {
+  quantity: 0,
 };
 
 export default Home;

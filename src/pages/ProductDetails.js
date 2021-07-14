@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import * as api from '../services/api';
+import CartButton from '../Components/CartButton';
 
 class ProductDetails extends React.Component {
   constructor() {
@@ -28,12 +29,15 @@ class ProductDetails extends React.Component {
 
   render() {
     const { product, product: { title, thumbnail, price } } = this.state;
-    const { addToCart } = this.props;
+    const { addToCart, quantity } = this.props;
     return (
       <div>
         <Link to="/">
           Página Inicial
         </Link>
+        <CartButton
+          quantity={ quantity }
+        />
         <h3 data-testid="product-detail-name">{ title }</h3>
         <div>
           <img src={ thumbnail } alt="product" />
@@ -43,9 +47,6 @@ class ProductDetails extends React.Component {
             { price }
           </p>
         </div>
-        <Link to="/cart-basket" data-testid="shopping-cart-button">
-          <p>Carrinho</p>
-        </Link>
         <form>
           <input type="email" />
           <textarea
@@ -75,7 +76,10 @@ ProductDetails.propTypes = {
       categoryId: PropTypes.string,
     }).isRequired,
   }).isRequired,
-  addToCart: PropTypes.string.isRequired,
+  addToCart: PropTypes.func.isRequired,
+  quantity: PropTypes.arrayOf(
+    PropTypes.object,
+  ).isRequired,
 };
 
 export default ProductDetails;

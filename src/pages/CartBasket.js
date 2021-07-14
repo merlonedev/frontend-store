@@ -6,17 +6,15 @@ import CartItems from '../Components/CartItems';
 class CartBasket extends Component {
   render() {
     const { cartList } = this.props;
-    if (cartList.length === 0) {
-      return (
-        <main>
-          <span data-testid="shopping-cart-empty-message">Seu carrinho está vazio</span>
-        </main>
-      );
-    }
+    const emptyCartMsg = (
+      <span data-testid="shopping-cart-empty-message">
+        Seu carrinho está vazio
+      </span>
+    );
 
     return (
       <main>
-        <span data-testid="shopping-cart-empty-message">Seu carrinho está vazio</span>
+        {cartList.length < 1 ? emptyCartMsg : null }
         <Link to="/">Página Inicial</Link>
         <CartItems cartList={ cartList } />
         <Link to="/checkout" data-testid="checkout-products">
