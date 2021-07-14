@@ -10,6 +10,7 @@ import Checkout from './components/Checkout';
 import Header from './components/Header';
 import * as API from './services/api';
 import './App.css';
+import SortSelect from './components/SortSelect';
 
 export default class App extends Component {
   constructor() {
@@ -21,6 +22,7 @@ export default class App extends Component {
       category: '',
       cartItems: [],
       quantity: 0,
+      sorting: '',
     };
     this.setProducts = this.setProducts.bind(this);
     this.callback = this.callback.bind(this);
@@ -31,6 +33,8 @@ export default class App extends Component {
     this.decreaseQty = this.decreaseQty.bind(this);
     // this.loadQuantity = this.loadQuantity.bind(this);
     this.loadCart = this.loadCart.bind(this);
+    this.sortProducts = this.sortProducts.bind(this);
+    this.callbackSort = this.callbackSort.bind(this);
     this.handleLocalStorage = this.handleLocalStorage.bind(this);
   }
 
@@ -51,7 +55,7 @@ export default class App extends Component {
 
   // prettier-ignore
   async setProducts() {
-    const { queryInput, category } = this.state;
+    const { queryInput, category, sorting } = this.state;
     const results = await API.getProductsFromCategoryAndQuery(
       category,
       queryInput,
@@ -59,6 +63,9 @@ export default class App extends Component {
     this.setState({
       products: results.results,
     });
+    if (sorting !== '') {
+      this.sortProducts();
+    }
   }
 
   loadCart() {
@@ -136,8 +143,26 @@ export default class App extends Component {
     this.setState({ category: target.value }, () => this.setProducts());
   }
 
+  sortProducts() {
+    const { products, sorting } = this.state;
+    if (sorting === 'higher') {
+      products.sort((a, b) => b.price - a.price);
+    }
+    if (sorting === 'lower') {
+      products.sort((a, b) => a.price - b.price);
+    }
+    if (sorting === '') {
+      this.setProducts();
+    }
+    this.setState({});
+  }
+
+  callbackSort(method) {
+    this.setState({ sorting: method }, () => this.sortProducts());
+  }
+
   render() {
-    const { categories, products, cartItems, quantity } = this.state;
+    const { categories, products, cartItems, quantity, sorting } = this.state;
     return (
       <div className="App">
         <BrowserRouter>
@@ -176,6 +201,7 @@ export default class App extends Component {
                 render={ () => (
                   <div className="home">
                     <SearchBar quantity={ quantity } callback={ this.callback } />
+                    <SortSelect callback={ this.callbackSort } sorting={ sorting } />
                     {/* <button type="button">
                       <Link to="/cart" data-testid="shopping-cart-button">
                         Carrinho
