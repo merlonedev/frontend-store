@@ -51,16 +51,16 @@ export default class Infos extends React.Component {
                 .map((item, index) => (
                   <p key={ index }>{`${item.name}: ${item.value_name}`}</p>)) }
             </ul>
-            <div data-testid="product-detail-add-to-cart">
+            <div>
               <button
                 type="button"
-                data-testid="shopping-cart-button"
+                data-testid="product-detail-add-to-cart"
                 onClick={ () => addToCartItem(product) }
               >
                 Adicionar ao carrinho
               </button>
             </div>
-            <Link to="/cart">Ir para o carrinho</Link>
+            <Link data-testid="shopping-cart-button" to="/cart">Ir para o carrinho</Link>
           </div>
         </div>
       </div>

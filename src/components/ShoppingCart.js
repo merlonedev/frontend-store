@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 export default class ShoppingCart extends React.Component {
   render() {
     const { itemCart } = this.props;
-    console.log(itemCart);
     return (
       <div>
         {itemCart.length ? (itemCart.map(({ title, id, quantity, thumbnail }) => (
