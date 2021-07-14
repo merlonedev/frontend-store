@@ -1,20 +1,53 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import CommentForm from './CommentForm';
+import GenComment from './GenComment';
 
 import { getProductsFromCategoryAndQuery } from '../services/api';
+
+const savedAvaliations = JSON.parse(localStorage.getItem('avaliations'));
+
+const initialSatate = {
+  product: {},
+  aval: {
+    email: '',
+    rate: '0',
+    comment: '',
+  },
+  avaliations: !savedAvaliations ? [] : savedAvaliations,
+};
 
 class DetailedProduct extends React.Component {
   constructor() {
     super();
     this.setProductById = this.setProductById.bind(this);
-    this.state = {
-      product: {},
-    };
+    this.handleChangeAval = this.handleChangeAval.bind(this);
+    this.handleSendAval = this.handleSendAval.bind(this);
+    this.state = initialSatate;
   }
 
   componentDidMount() {
     this.setProductById();
+  }
+
+  handleChangeAval({ target }) {
+    const { aval } = this.state;
+    const { value, name } = target;
+    aval[name] = value;
+    this.setState({ aval });
+  }
+
+  handleSendAval() {
+    const { product: { id }, avaliations, aval } = this.state;
+    const addAval = [...avaliations, { id, aval }];
+    localStorage.setItem('avaliations', JSON.stringify(addAval));
+    this.setState({
+      avaliations: addAval }, () => this.setState({ aval: {
+      email: '',
+      rate: '0',
+      comment: '',
+    } }));
   }
 
   async setProductById() {
@@ -26,8 +59,10 @@ class DetailedProduct extends React.Component {
   }
 
   render() {
-    const { product } = this.state;
+    const { product, aval, avaliations } = this.state;
+    let allElements = [];
     const {
+      id,
       title,
       price,
       thumbnail,
@@ -38,7 +73,12 @@ class DetailedProduct extends React.Component {
       <section>
         <header>
           <Link to="/">Home</Link>
-          <Link to="/shopping-cart">Carrinho de Compras</Link>
+          <Link
+            to="/shopping-cart"
+            data-testid="shopping-cart-button"
+          >
+            Carrinho de Compras
+          </Link>
         </header>
         <main data-testid="product">
           {!title
@@ -58,6 +98,28 @@ class DetailedProduct extends React.Component {
                       </li>)) }
                   </ul>
                 </div>
+                <button
+                  type="button"
+                  data-testid="product-detail-add-to-cart"
+                  onClick={ (
+                    () => {
+                      const cartElements = { id, title, price };
+                      allElements = [...allElements, cartElements];
+                      return sessionStorage
+                        .setItem('addCart', JSON.stringify(allElements));
+                    }) }
+                >
+                  Adicionar ao Carrinho
+                </button>
+                <CommentForm
+                  aval={ aval }
+                  handleChangeAval={ this.handleChangeAval }
+                  handleSendAval={ this.handleSendAval }
+                />
+                <GenComment
+                  productId={ id }
+                  avaliations={ avaliations }
+                />
               </section>)}
         </main>
       </section>
