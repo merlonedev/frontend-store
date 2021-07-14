@@ -80,6 +80,13 @@ export default class ShoppingCart extends Component {
             { `Valor Total: ${Math.round(item[1][1] * item[1][2] * 100) / 100}`}
           </p>
         </div>))}
+      <p>
+        Valor Total da Compra:
+        <span>
+          R$
+          {Object.entries(cart).reduce((a, e) => a + e[1][2] * e[1][1], 0)}
+        </span>
+      </p>
     </section>
   );
 
@@ -87,14 +94,8 @@ export default class ShoppingCart extends Component {
     const cart = JSON.parse(localStorage.getItem('cart'));
     return (
       <div>
-        { (Object.keys(cart).length !== 0) ? this.listCartItem(cart) : this.noCartItem()}
-        <p>
-          Valor Total da Compra:
-          <span>
-            R$
-            {Object.entries(cart).reduce((a, e) => a + e[1][2] * e[1][1], 0)}
-          </span>
-        </p>
+        { (cart && Object.keys(cart).length !== 0)
+          ? this.listCartItem(cart) : this.noCartItem()}
         <button type="button" onClick={ this.handleFinish }>Finalizar Compra</button>
         <div>
           <Link data-testid="shopping-cart-button" to="/">Voltar</Link>
