@@ -4,9 +4,16 @@
   border-radius: 3px;
   display: inline-flex;
   flex-direction: column;
+  height: 300px;
   margin: 5px;
   overflow: hidden;
+  padding: 1rem;
   width: 200px;
+}
+
+.card-item img {
+  margin-top: 1rem;
+  width: 150px;
 }
 
 .card-item p {

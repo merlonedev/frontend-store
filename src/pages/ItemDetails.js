@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Loading from '../components/Loading';
 import Form from '../components/Form';
 import './ItemDetails.css';
-import * as api from '../services/api';
 
 class ItemDetails extends Component {
   constructor() {
@@ -20,18 +19,19 @@ class ItemDetails extends Component {
   componentDidMount() {
     const { match } = this.props;
     const { params } = match;
-    const { id, query } = params;
-    this.getItem(id, query);
+    const { id } = params;
+    this.getItem(id);
   }
 
-  getItem(id, query) {
-    api.getProductsFromCategoryAndQuery(id, query)
-      .then((response) => {
-        this.setState({
-          item: response.results.find((item) => item.id === id),
-          loading: false,
-        });
-      });
+  getItem(id) {
+    fetch(`https://api.mercadolibre.com/items/${id}`)
+      .then((response) => response.json()
+        .then((data) => {
+          this.setState({
+            item: data,
+            loading: false,
+          });
+        }));
   }
 
   render() {
@@ -39,8 +39,8 @@ class ItemDetails extends Component {
     const { title, price, thumbnail } = item;
     return (
       <div>
+        { loading && <Loading />}
         <main className="item-details">
-          { loading && <Loading />}
           <div className="item-details-left">
             <h1
               className="item-details-title"
@@ -69,7 +69,6 @@ ItemDetails.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string,
-      query: PropTypes.string,
     }),
   }).isRequired,
 };
