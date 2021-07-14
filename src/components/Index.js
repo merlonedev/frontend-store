@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Categories from './categoriesList';
 import Card from './card';
@@ -37,6 +38,7 @@ class Index extends React.Component {
 
   render() {
     const { searchBar, items } = this.state;
+    const { addCartItem } = this.props;
     return (
       <>
         <div>
@@ -63,14 +65,20 @@ class Index extends React.Component {
         para o component ShoppingCart */}
         <Link data-testid="shopping-cart-button" to="/cart">Carrinho</Link>
         <Categories handleClick={ this.handleClick } />
-        <div>
+        <div className="products-div">
           {items.length < 1
             ? <h3>Nenhum produto foi encontrado</h3>
-            : items.map((obj) => <Card item={ obj } key={ obj.id } />)}
+            : items.map(
+              (obj) => <Card item={ obj } key={ obj.id } addCartItem={ addCartItem } />,
+            )}
         </div>
       </>
     );
   }
 }
+
+Index.propTypes = {
+  addCartItem: PropTypes.func,
+}.isRequired;
 
 export default Index;
