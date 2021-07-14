@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
-import './Form.css';
 import StarRatings from 'react-star-ratings';
 
 class Form extends Component {
@@ -86,13 +84,5 @@ class Form extends Component {
     );
   }
 }
-
-// Form.propTypes = {
-//   onClick: PropTypes.func,
-// };
-
-// Form.defaultProps = {
-//   onClick: PropTypes.func,
-// };
 
 export default Form;
