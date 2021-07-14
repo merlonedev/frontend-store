@@ -18,6 +18,24 @@ html, * {
   box-sizing: border-box;
 }
 
+::-webkit-scrollbar {
+  position: relative;
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--old-lavender);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--dark-liver);
+}
+
 .App {
   color: var(--dark-liver);
   text-align: center;
