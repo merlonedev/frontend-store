@@ -18,7 +18,7 @@ class ShoppingCart extends Component {
 }
 
 ShoppingCart.propTypes = {
-  carrinho: PropTypes.objectOf(PropTypes.object).isRequired,
+  carrinho: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default ShoppingCart;
