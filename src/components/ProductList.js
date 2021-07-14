@@ -4,8 +4,11 @@ import ProductCard from './ProductCard';
 
 class ProductList extends React.Component {
   render() {
-    const { products } = this.props;
+    const { products, updateCartSize } = this.props;
     let allElements = [];
+    if (sessionStorage.getItem('addCart')) {
+      allElements = JSON.parse(sessionStorage.getItem('addCart'));
+    }
     return products.map(({ id, title, thumbnail, price }) => {
       const cartElements = { id, title, price };
       return (<ProductCard
@@ -17,7 +20,8 @@ class ProductList extends React.Component {
         onClick={ (
           () => {
             allElements = [...allElements, cartElements];
-            return sessionStorage.setItem('addCart', JSON.stringify(allElements));
+            sessionStorage.setItem('addCart', JSON.stringify(allElements));
+            updateCartSize();
           }
         ) }
       />);
@@ -27,6 +31,7 @@ class ProductList extends React.Component {
 
 ProductList.propTypes = {
   products: PropTypes.arrayOf(PropTypes.object).isRequired,
+  updateCartSize: PropTypes.func.isRequired,
 };
 
 export default ProductList;
