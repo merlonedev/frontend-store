@@ -34,6 +34,13 @@ Products.propTypes = {
   price: PropTypes.number.isRequired,
   categoryId: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
+  addCart: PropTypes.func.isRequired,
+  product: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    img: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    categoryId: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default Products;

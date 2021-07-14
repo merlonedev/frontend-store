@@ -26,6 +26,7 @@ class ProductFilter extends Component {
 
 ProductFilter.propTypes = {
   products: PropTypes.arrayOf(Object).isRequired,
+  addCart: PropTypes.func.isRequired,
 };
 
 export default ProductFilter;
