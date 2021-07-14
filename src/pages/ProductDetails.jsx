@@ -37,7 +37,9 @@ export default class ProductDetails extends Component {
       cart = { ...cart, [id]: [title, 1, price] };
     }
     localStorage.setItem('cart', JSON.stringify(cart));
-    this.getCartQTD(cart);
+    if (cart) {
+      this.getCartQTD(cart);
+    }
   }
 
   setItem(item) {
@@ -46,9 +48,11 @@ export default class ProductDetails extends Component {
 
   getCartQTD(cart) {
     let cartQTD = 0;
-    Object.values(cart).forEach((item) => {
-      cartQTD += item[1];
-    });
+    if (cart) {
+      Object.values(cart).forEach((item) => {
+        cartQTD += item[1];
+      });
+    }
     this.setState({
       cartQTD,
     });

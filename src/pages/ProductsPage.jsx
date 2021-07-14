@@ -25,9 +25,7 @@ export default class ProductPage extends Component {
 
   componentDidMount() {
     const cart = JSON.parse(localStorage.getItem('cart'));
-    if (cart) {
-      this.getCartQTD(cart);
-    }
+    this.getCartQTD(cart);
   }
 
   handleSearch(e) {
@@ -67,9 +65,11 @@ export default class ProductPage extends Component {
 
   getCartQTD(cart) {
     let cartQTD = 0;
-    Object.values(cart).forEach((item) => {
-      cartQTD += item[1];
-    });
+    if (cart) {
+      Object.values(cart).forEach((item) => {
+        cartQTD += item[1];
+      });
+    }
     this.setState({
       cartQTD,
     });
