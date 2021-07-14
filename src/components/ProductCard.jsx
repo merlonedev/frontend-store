@@ -1,12 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import './ProductCard.css';
+import '../css/ProductCard.css';
 
 class ProductCard extends React.Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      product: props.product,
+      category: props.category,
+    };
     this.addToStorage = this.addToStorage.bind(this);
   }
 
@@ -20,11 +24,15 @@ class ProductCard extends React.Component {
 
   render() {
     const {
-      product: { id,
-        category_id: category,
+      product: {
+        id,
+        category_id: categoryId,
         title,
         thumbnail,
-        price } } = this.props;
+        price },
+      category,
+    } = this.state;
+
     return (
       <div data-testid="product" className="product-card">
         <div className="product-each">
@@ -35,11 +43,9 @@ class ProductCard extends React.Component {
               src={ thumbnail.replace('I.jpg', 'O.jpg') }
               alt={ title }
             />
-            <p className="product-price">
-              <span>
-                R$
-                { price }
-              </span>
+            <p lassName="product-price">
+              { (price || 0).toLocaleString('pt-BR', {
+                minimumFractionDigits: 2, style: 'currency', currency: 'BRL' }) }
             </p>
           </div>
           <div className="product-btns">
@@ -54,7 +60,7 @@ class ProductCard extends React.Component {
             <Link
               className="product-link"
               data-testid="product-detail-link"
-              to={ `/item/${category}/${id}` }
+              to={ `/item/${category || categoryId}/${id}` }
             >
               Mais Detalhes
             </Link>
@@ -64,15 +70,19 @@ class ProductCard extends React.Component {
     );
   }
 }
-
 ProductCard.propTypes = {
   product: PropTypes.shape({
     id: PropTypes.string.isRequired,
     category_id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     thumbnail: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
+    price: PropTypes.number,
   }).isRequired,
+  category: PropTypes.string,
+};
+
+ProductCard.defaultProps = {
+  category: '',
 };
 
 export default ProductCard;

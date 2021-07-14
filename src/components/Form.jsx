@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './Form.css';
+import '../css/form.css';
 import StarRatings from 'react-star-ratings';
 
 class Form extends Component {
@@ -26,14 +26,12 @@ class Form extends Component {
   }
 
   onClick(e) {
-    // const { onClick } = this.props;
-    // onClick(this.state);
+    e.preventDefault();
     this.setState({
       rating: 1,
       email: '',
       opinion: '',
     });
-    e.preventDefault();
   }
 
   starRating(customerVal) {
@@ -63,6 +61,8 @@ class Form extends Component {
               starRatedColor="yellow"
               changeRating={ this.starRating }
               numberOfStars={ 5 }
+              starDimension="35px"
+              starHoverColor="yellow"
               name="rating"
             />
           </div>
