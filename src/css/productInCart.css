@@ -4,11 +4,11 @@
   border-radius: 20px;
   box-shadow: 2px 2px 5px black;
   display: flex;
-  height: 200px;
+  height: 150px;
   justify-content: space-between;
-  margin: 15px;
+  margin: 15px 0;
   padding: 0 20px;
-  width: 70%;
+  width: 50%;
 }
 
 .product:hover {
@@ -29,13 +29,14 @@
 .image-item {
   border-radius: 5px;
   box-shadow: 0 0 8px black;
-  height: 150px;
-  width: 150px;
+  height: 90px;
+  width: 90px;
 }
 
 .item-cart-name {
+  font-weight: 500;
   text-align: center;
-  width: 50%;
+  width: 35%;
 }
 
 .minus-item {
@@ -49,12 +50,12 @@
   opacity: 1;
 }
 
-.item-price-content {
+.item-count-content {
   background-color: white;
   border-radius: 10px;
   padding: 2px;
   text-align: center;
-  width: 100px;
+  width: 60px;
 }
 
 .plus-item {
@@ -66,4 +67,10 @@
 
 .plus-item:hover {
   opacity: 1;
+}
+
+.item-price {
+  font-weight: 500;
+  text-align: center;
+  width: 100px;
 }

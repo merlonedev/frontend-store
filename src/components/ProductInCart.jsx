@@ -8,8 +8,55 @@ import '../css/productInCart.css';
 import PropTypes from 'prop-types';
 
 class ProductInCart extends React.Component {
+  constructor({ product: { price } }) {
+    super();
+    this.state = {
+      price: Number(price),
+      totalPrice: 0,
+      count: 1,
+    };
+    this.totalPriceCalculator = this.totalPriceCalculator.bind(this);
+    this.plusItemCount = this.plusItemCount.bind(this);
+    this.minusItemCount = this.minusItemCount.bind(this);
+
+    this.mounted = false;
+  }
+
+  componentDidMount() {
+    this.mounted = true;
+    this.totalPriceCalculator();
+  }
+
+  componentWillUnmount() {
+    this.mounted = false;
+  }
+
+  totalPriceCalculator() {
+    const { price, count } = this.state;
+    if (this.mounted) {
+      this.setState({
+        totalPrice: (price * count).toLocaleString('pt-BR', {
+          minimumFractionDigits: 2, style: 'currency', currency: 'BRL',
+        }),
+      });
+    }
+  }
+
+  plusItemCount() {
+    this.setState((state) => ({
+      count: state.count + 1,
+    }), () => this.totalPriceCalculator());
+  }
+
+  minusItemCount() {
+    this.setState((state) => ({
+      count: state.count > 0 ? (state.count - 1) : 0,
+    }), () => this.totalPriceCalculator());
+  }
+
   render() {
-    const { product: { title, thumbnail, price } } = this.props;
+    const { product: { title, thumbnail } } = this.props;
+    const { totalPrice, count } = this.state;
     return (
       <div data-testid="product" className="product">
         <AiFillCloseCircle className="remove-item-cart" />
@@ -19,12 +66,20 @@ class ProductInCart extends React.Component {
           className="image-item"
         />
         <p className="item-cart-name" data-testid="shopping-cart-product-name">{title}</p>
-        <AiFillMinusCircle className="minus-item" />
-        <div className="item-price-content">
-          <span data-testid="shopping-cart-product-quantity">1</span>
+        <AiFillMinusCircle
+          onClick={ this.minusItemCount }
+          data-testid="product-decrease-quantity"
+          className="minus-item"
+        />
+        <div className="item-count-content">
+          <span data-testid="shopping-cart-product-quantity">{ count }</span>
         </div>
-        <AiFillPlusCircle className="plus-item" />
-        <p>{price}</p>
+        <AiFillPlusCircle
+          onClick={ this.plusItemCount }
+          data-testid="product-increase-quantity"
+          className="plus-item"
+        />
+        <span className="item-price">{ totalPrice }</span>
       </div>
     );
   }
