@@ -57,3 +57,23 @@
   overflow: hidden;
   width: 300px;
 }
+
+.header-cart-page {
+  display: flex;
+}
+
+.cart-icon {
+  width: 50px;
+  margin-right: 10px;
+}
+
+.cart-product-item {
+  display: flex;
+  align-items: center;
+}
+
+.item-button {
+  background-color: white;
+  border-radius: 50%;
+  
+}
