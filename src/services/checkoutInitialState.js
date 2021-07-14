@@ -14,6 +14,7 @@ const initialState = {
   phoneError: '',
   adressError: '',
   cityError: '',
+  loading: true,
 };
 
 export { initialState as default };

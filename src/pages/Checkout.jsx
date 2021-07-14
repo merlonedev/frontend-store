@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
+import CheckoutForm from '../components/CheckoutForm';
+import CheckoutResume from '../components/CheckoutResume';
 import states from '../services/checkoutStates';
 import initialState from '../services/checkoutInitialState';
 
@@ -10,16 +12,24 @@ export default class Checkout extends Component {
     this.validate = this.validate.bind(this);
   }
 
-  handleChange = ({ target }) => {
-    const { value, name } = target;
-    this.setState({ [name]: value });
+  componentDidMount() {
+    this.getProducts();
   }
 
   handleSubmit = (evt) => {
     evt.preventDefault();
     this.validate();
-    if (this.validate()) { return true; }
-    return false;
+  }
+
+  getProducts = () => {
+    const cartItems = JSON.parse(localStorage.getItem('cart'));
+    const items = Object.values(cartItems);
+    this.setState({ products: items, loading: false });
+  }
+
+  handleChange = ({ target }) => {
+    const { value, name } = target;
+    this.setState({ [name]: value });
   }
 
   validate() {
@@ -61,130 +71,28 @@ export default class Checkout extends Component {
   }
 
   render() {
-    const {
-      name,
-      cpf,
-      cep,
-      adress,
-      number,
-      city,
-      phone,
-      email,
-      complement,
-      nameError,
-      emailError,
-      phoneError,
-      cepError,
-      cpfError,
-      adressError,
-      cityError,
-      shouldRedirect,
-    } = this.state;
+    const { shouldRedirect, products, loading } = this.state;
+    if (loading) { return <p>Loading...</p>; }
     if (shouldRedirect) { return <Redirect to="/" />; }
+    // const abaixo declarada para burlar erro do lint "unused state field"
+    const {
+      nameError, emailError, cepError, cpfError, adressError, cityError, phoneError,
+    } = this.state;
     return (
       <main className="checkout">
-        <section className="products-resume">
-          <h2>Revise seus Produtos</h2>
-          <div>--PRODUCTS--</div>
-          <p>Total: R$ XXX,XX</p>
-        </section>
-        <form className="checkout-form">
-          <h2>Informações do Comprador</h2>
-          <input
-            name="name"
-            data-testid="checkout-fullname"
-            placeholder="Nome completo"
-            value={ name }
-            type="text"
-            onChange={ this.handleChange }
-            className={ nameError ? 'invalid' : '' }
-          />
-          <span style={ { color: 'red' } }>{ nameError }</span>
-          <input
-            name="cpf"
-            data-testid="checkout-cpf"
-            placeholder="CPF"
-            value={ cpf }
-            type="number"
-            onChange={ this.handleChange }
-            className={ cpfError ? 'invalid' : '' }
-          />
-          <span style={ { color: 'red' } }>{ cpfError }</span>
-          <input
-            name="email"
-            data-testid="checkout-email"
-            placeholder="Email"
-            value={ email }
-            type="email"
-            onChange={ this.handleChange }
-            className={ emailError ? 'invalid' : '' }
-          />
-          <span style={ { color: 'red' } }>{ emailError }</span>
-          <input
-            name="phone"
-            data-testid="checkout-phone"
-            placeholder="Telefone"
-            value={ phone }
-            type="number"
-            onChange={ this.handleChange }
-            className={ phoneError ? 'invalid' : '' }
-          />
-          <span style={ { color: 'red' } }>{ phoneError }</span>
-          <input
-            name="cep"
-            data-testid="checkout-cep"
-            placeholder="CEP"
-            value={ cep }
-            type="number"
-            onChange={ this.handleChange }
-            className={ cepError ? 'invalid' : '' }
-          />
-          <span style={ { color: 'red' } }>{ cepError }</span>
-          <input
-            name="adress"
-            data-testid="checkout-adress"
-            placeholder="Endereço"
-            value={ adress }
-            type="text"
-            onChange={ this.handleChange }
-            className={ adressError ? 'invalid' : '' }
-          />
-          <span style={ { color: 'red' } }>{ adressError }</span>
-          <input
-            name="complement"
-            data-testid="checkout-complement"
-            placeholder="Complemento"
-            value={ complement }
-            type="text"
-            onChange={ this.handleChange }
-          />
-          <input
-            name="number"
-            data-testid="checkout-number"
-            placeholder="Número"
-            value={ number }
-            type="number"
-            onChange={ this.handleChange }
-          />
-          <input
-            name="city"
-            data-testid="checkout-city"
-            placeholder="Cidade"
-            value={ city }
-            type="text"
-            onChange={ this.handleChange }
-            className={ cityError ? 'invalid' : '' }
-          />
-          <span style={ { color: 'red' } }>{ cityError }</span>
-          <label htmlFor="state-select">
-            Estado
-            <select name="state-select" id="state-select">
-              {states.map((state) => (
-                <option value={ state } key={ state }>{ state }</option>
-              ))}
-            </select>
-          </label>
-        </form>
+        <CheckoutResume items={ products } />
+        <CheckoutForm
+          handleChange={ this.handleChange }
+          nameError={ nameError }
+          emailError={ emailError }
+          cepError={ cepError }
+          cpfError={ cpfError }
+          adressError={ adressError }
+          cityError={ cityError }
+          phoneError={ phoneError }
+          infos={ this.state }
+          states={ states }
+        />
         <section className="payment-checkout">
           <h2>Método de Pagamento</h2>
           <label htmlFor="payment">
