@@ -5,17 +5,10 @@ import PropTypes from 'prop-types';
 export default class CartItems extends Component {
   constructor(props) {
     super(props);
-    this.getProductFromId = this.getProductFromId.bind(this);
     this.increaseQty = this.increaseQty.bind(this);
     this.decreaseQty = this.decreaseQty.bind(this);
     this.removeItem = this.removeItem.bind(this);
     this.renderButtons = this.renderButtons.bind(this);
-  }
-
-  async getProductFromId(url) {
-    const resultRequest = await fetch(url);
-    const result = await resultRequest.json();
-    return result;
   }
 
   increaseQty({ target }) {
