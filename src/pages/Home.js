@@ -74,7 +74,6 @@ class Home extends React.Component {
           Pesquisar
         </button>
         <ShoppingCartLink />
-        {/* {clickSearch && <SearchResult textToSearch={ search } />} */}
         <SearchResult products={ products } />
         <p data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
