@@ -36,42 +36,39 @@ export default class CartItems extends Component {
     handlers.remove(itemToRemove);
   }
 
-  renderButtons(bool) {
-    if (bool === 'true') {
-      return (
-        <div>
-          <button
-            data-testid="product-decrease-quantity"
-            type="button"
-            onClick={ this.decreaseQty }
-          >
-            -
-          </button>
-          <button
-            data-testid="product-increase-quantity"
-            type="button"
-            onClick={ this.increaseQty }
-          >
-            +
-          </button>
-          <button type="button" onClick={ this.removeItem }>
-            x
-          </button>
-          <button type="button">Finalizar Compra</button>
-        </div>
-      );
-    }
-    return null;
+  renderButtons(id) {
+    return (
+      <div id={ id }>
+        <button
+          data-testid="product-decrease-quantity"
+          type="button"
+          onClick={ this.decreaseQty }
+        >
+          -
+        </button>
+        <button
+          data-testid="product-increase-quantity"
+          type="button"
+          onClick={ this.increaseQty }
+        >
+          +
+        </button>
+        <button type="button" onClick={ this.removeItem }>
+          x
+        </button>
+        <button type="button">Finalizar Compra</button>
+      </div>
+    );
   }
 
   render() {
     const { cartItems: items, showButtons } = this.props;
     return items.map((item) => (
-      <div key={ item.id } id={ item.id }>
+      <div key={ item.id }>
         <p data-testid="shopping-cart-product-name">{item.title}</p>
         <p>{item.price * item.qty}</p>
         <p data-testid="shopping-cart-product-quantity">{item.qty}</p>
-        {this.renderButtons(showButtons)}
+        { showButtons === 'true' ? this.renderButtons(item.id) : null }
       </div>
     ));
   }
