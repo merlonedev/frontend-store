@@ -1,68 +1,39 @@
-// import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
-// // import { Loading } from '../components';
+import React, { Component } from 'react';
 
-// class Details extends Component {
-//   constructor() {
-//     super();
-//     this.fetchD = this.fetchD.bind(this);
+class Details extends Component {
+  constructor() {
+    super();
+    this.localStorageGet = this.localStorageGet.bind(this);
+    this.state = {
+      product: {},
+    };
+  }
 
-//     this.state = {
-//       // id: match.params.id,
-//       // movies: [],
-//       // loading: true,
-//     };
-//   }
+  componentDidMount() {
+    this.localStorageGet();
+  }
 
-//   componentDidMount() {
-//     this.fetchD();
-//   }
+  localStorageGet() {
+    const productStorage = JSON.parse(localStorage.getItem('prdctDetails'));
+    console.log(productStorage);
+    this.setState({
+      product: productStorage,
+    });
+  }
 
-//   async fetchD() {
-//     const { id } = this.state;
-//     // const fetchMovies = await movieAPI.getMovie(id);
-//     this.setState({
-//       // movies: { ...fetchMovies },
-//       // loading: false,
-//     });
-//   }
+  render() {
+    const { product } = this.state;
+    const { title, price, thumbnail, sold_quantity: soldQt, condition,
+      available_quantity: avaliables } = product;
+    return (
+      <div>
+        <img alt="Product Cover" src={ thumbnail } />
+        <p>{ `${condition} | Preço: R$ ${price}` }</p>
+        <p data-testid="product-detail-name">{ `Nome: ${title}` }</p>
+        <p>{ `Quantidade vendida: ${soldQt}( ${avaliables} disponíveis)` }</p>
+      </div>
+    );
+  }
+}
 
-//   render() {
-//     // const { movies, loading } = this.state;
-//     const { title, id, subtitle, storyline, imagePath, rating, genre } = movies;
-//     // if (loading) return <Loading />;
-
-//     return (
-//       <div data-testid="movie-details">
-//         <p>{ `title: ${title}` }</p>
-//         {console.log(`no return${id}${title}${subtitle}${storyline}`)}
-//         <img alt="Movie Cover" src={ `../${imagePath}` } />
-//         <p>{ `Subtitle: ${subtitle}` }</p>
-//         <p>{ `Storyline: ${storyline}` }</p>
-//         <p>{ `Genre: ${genre}` }</p>
-//         <p>{ `Rating: ${rating}` }</p>
-//       </div>
-//     );
-//   }
-// }
-
-// // MovieDetails.propTypes = {
-// //   movie: PropTypes.shape({
-// //     id: PropTypes.string.isRequired,
-// //     title: PropTypes.string,
-// //     subtitle: PropTypes.string,
-// //     storyline: PropTypes.string,
-// //     rating: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-// //     imagePath: PropTypes.string,
-// //   }).isRequired,
-// // };
-
-// MovieDetails.propTypes = {
-//   match: PropTypes.shape({
-//     params: PropTypes.shape({
-//       id: PropTypes.string.isRequired,
-//     }),
-//   }).isRequired,
-// };
-
-// export default Details;
+export default Details;
