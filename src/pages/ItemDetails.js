@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Loading from '../components/Loading';
 import Form from '../components/Form';
 import './ItemDetails.css';
+import products from '../services/data';
 
 class ItemDetails extends Component {
   constructor() {
@@ -52,6 +53,13 @@ class ItemDetails extends Component {
             <h2 className="item-details-price">
               { `R$${price}` }
             </h2>
+            <button
+              type="button"
+              data-testid="product-detail-add-to-cart"
+              onClick={ () => products.push(item) }
+            >
+              Adicionar ao carrinho
+            </button>
           </div>
           <div className="item-details-right">
             <h2>Especificações Técnicas</h2>
