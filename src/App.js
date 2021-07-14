@@ -61,6 +61,9 @@ export default class App extends Component {
   increaseQty(itemId) {
     const { cartItems } = this.state;
     const itemIndex = cartItems.findIndex(({ id }) => id === itemId);
+    const nextQuantity = cartItems[itemIndex].qty;
+    if ((nextQuantity + 1) > cartItems[itemIndex].available_quantity) return;
+
     this.setState({
       cartItems: [
         ...cartItems.slice(0, itemIndex),

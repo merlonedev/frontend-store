@@ -7,13 +7,13 @@ export default class ProductsList extends Component {
     const { products, callback } = this.props;
     return (
       <div>
-        {products.map(({ title, id, thumbnail, price, shipping }) => (
-          <div key={ id } data-testid="product">
-            <img alt="Product Cover" src={ thumbnail } />
+        {products.map((product) => (
+          <div key={ product.id } data-testid="product">
+            <img alt="Product Cover" src={ product.thumbnail } />
             <div>
-              <h4>{title}</h4>
-              <p>{price}</p>
-              {shipping.free_shipping ? (
+              <h4>{ product.title }</h4>
+              <p>{ product.price }</p>
+              { product.shipping.free_shipping ? (
                 <p data-testid="free-shipping">
                   <strong> Frete Gratis! </strong>
                 </p>
@@ -27,14 +27,14 @@ export default class ProductsList extends Component {
               <button
                 type="button"
                 data-testid="product-add-to-cart"
-                onClick={ () => callback({ title, id, thumbnail, price, qty: 1 }) }
+                onClick={ () => callback({ ...product, qty: 1 }) }
               >
                 Adicionar ao Carrinho
               </button>
             </div>
             <Link
               data-testid="product-detail-link"
-              to={ `/productdetails/${id}` }
+              to={ `/productdetails/${product.id}` }
             >
               Detalhes
             </Link>
