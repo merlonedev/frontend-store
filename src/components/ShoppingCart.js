@@ -2,6 +2,23 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 class ShoppingCart extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      quantity: 1,
+      total: 0,
+    };
+
+    this.quantityChange = this.quantityChange.bind(this);
+  }
+
+  quantityChange(event) {
+    const { name } = event.target;
+    this.setState((prevState) => ({
+      [name]: prevState.name ? prevState.name + 1 : 1,
+    }));
+  }
+
   render() {
     const { cartAdd } = this.props;
     const carrinhoVazio = (
@@ -16,6 +33,19 @@ class ShoppingCart extends React.Component {
             <p data-testid="shopping-cart-product-name">{item.title}</p>
             <p>{item.price}</p>
             <img src={ item.thumbnail } alt={ item.title } />
+            <button
+              type="button"
+              onClick={ this.quantityChange }
+              name={ item.id }
+            >
+              +
+            </button>
+            <button type="button">
+              -
+            </button>
+            <p>
+              QUANTIDADE
+            </p>
           </div>
         ))}
         <p
