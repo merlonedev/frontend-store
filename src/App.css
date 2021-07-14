@@ -44,14 +44,21 @@ html, * {
 .categories-bar {
   background-color: var(--magnolia);
   border-radius: 0 5px 5px 0;
+  box-shadow: 0 1px 2px 1px var(--old-lavender);
   display: flex;
   flex-direction: column;
   left: 0;
   padding: 1%;
   position: absolute;
   text-align: left;
-  top: 12%;
+  top: -25%;
   width: 20%;
+}
+
+.category-title {
+  margin-bottom: 10px;
+  margin-top: 0;
+  text-align: center;
 }
 
 .page-header {

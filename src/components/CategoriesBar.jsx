@@ -7,7 +7,8 @@ export default class CategoriesBar extends Component {
     const { categories, callback } = this.props;
     return (
       <label htmlFor="category" onChange={ callback } className="categories-bar">
-        Categorias
+        {/* Categorias */}
+        <h4 className="category-title">Escolha uma categoria</h4>
         {
           categories.map(({ id, name }) => (
             <label key={ id } htmlFor={ id }>
