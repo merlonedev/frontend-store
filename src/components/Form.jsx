@@ -25,12 +25,12 @@ class Form extends Component {
   }
 
   onClick(e) {
+    e.preventDefault();
     this.setState({
       rating: 1,
       email: '',
       opinion: '',
     });
-    e.preventDefault();
   }
 
   starRating(customerVal) {
@@ -59,6 +59,8 @@ class Form extends Component {
               starRatedColor="yellow"
               changeRating={ this.starRating }
               numberOfStars={ 5 }
+              starDimension="35px"
+              starHoverColor="yellow"
               name="rating"
             />
           </div>

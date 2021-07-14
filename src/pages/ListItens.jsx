@@ -4,7 +4,7 @@ import { FiShoppingCart } from 'react-icons/fi';
 import ProductCard from '../components/ProductCard';
 import CategoriesFilter from '../components/CategoriesFilter';
 import * as api from '../services/api';
-import './ListItens.css';
+import '../css/listItens.css';
 
 class ListItens extends React.Component {
   constructor(props) {

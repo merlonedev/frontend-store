@@ -34,7 +34,10 @@ class ProductCard extends React.Component {
       <div data-testid="product">
         <p>{title}</p>
         <img src={ thumbnail.replace('I.jpg', 'O.jpg') } alt={ title } />
-        <p>{price}</p>
+        <p>
+          { (price || 0).toLocaleString('pt-BR', {
+            minimumFractionDigits: 2, style: 'currency', currency: 'BRL' }) }
+        </p>
         <button
           data-testid="product-add-to-cart"
           onClick={ this.addToStorage }
@@ -59,7 +62,7 @@ ProductCard.propTypes = {
     category_id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     thumbnail: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
+    price: PropTypes.number,
   }).isRequired,
   category: PropTypes.string,
 };

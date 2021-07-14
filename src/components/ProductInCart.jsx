@@ -11,7 +11,7 @@ class ProductInCart extends React.Component {
   constructor({ product: { price } }) {
     super();
     this.state = {
-      price: Number(price),
+      price: Number(price || 0),
       totalPrice: 0,
       count: 1,
     };
