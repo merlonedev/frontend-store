@@ -81,7 +81,6 @@ class Home extends React.Component {
           products={ products }
           filter={ category }
           detailsHandler={ this.productDetails }
-
           localChanger={ this.localChanger }
           products={ products }
           filter={ category }
