@@ -47,7 +47,6 @@ class App extends React.Component {
               render={ (props) => (
                 <Home
                   { ...props }
-                  getEspecifyProducts={ this.getEspecifyProducts }
                 />
               ) }
             />
