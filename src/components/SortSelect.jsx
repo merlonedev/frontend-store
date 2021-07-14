@@ -15,8 +15,6 @@ export default class SortSelect extends Component {
   }
 
   handleChange(e) {
-    console.log(e.target);
-    console.log(e.target.value);
     this.setState({ sorting: e.target.value });
   }
 
