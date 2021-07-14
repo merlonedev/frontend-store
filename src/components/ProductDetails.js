@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import * as fetchApi from '../services/api';
-import Form from './Form';
 
 class ProductDetails extends Component {
   constructor() {
@@ -23,18 +22,25 @@ class ProductDetails extends Component {
 
   render() {
     const { details } = this.state;
+    const { cartAdd } = this.props;
     return (
       <>
         <h1 data-testid="product-detail-name">{details.title}</h1>
         <img src={ details.thumbnail } alt={ details.title } />
         <p>{details.price}</p>
         <Link
-          to="/ShoppingCart"
-          data-testid="product-detail-link"
+          to="/shoppingcart"
+          data-testid="shopping-cart-button"
         >
           Carrinho de Compras
         </Link>
-        <Form />
+        <button
+          type="button"
+          data-testid="product-detail-add-to-cart"
+          onClick={ () => cartAdd(details) }
+        >
+          Adicionar ao Carrinho
+        </button>
       </>
     );
   }
@@ -46,6 +52,7 @@ ProductDetails.propTypes = {
       title: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
+  cartAdd: PropTypes.func.isRequired,
 };
 
 export default ProductDetails;
