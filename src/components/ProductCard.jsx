@@ -5,7 +5,10 @@ import PropTypes from 'prop-types';
 class ProductCard extends React.Component {
   constructor(props) {
     super(props);
-
+    this.state = {
+      product: props.product,
+      category: props.category,
+    };
     this.addToStorage = this.addToStorage.bind(this);
   }
 
@@ -19,16 +22,22 @@ class ProductCard extends React.Component {
 
   render() {
     const {
-      product: { id,
-        category_id: category,
+      product: {
+        id,
+        category_id: categoryId,
         title,
         thumbnail,
-        price } } = this.props;
+        price },
+      category,
+    } = this.state;
     return (
       <div data-testid="product">
         <p>{title}</p>
         <img src={ thumbnail.replace('I.jpg', 'O.jpg') } alt={ title } />
-        <p>{price}</p>
+        <p>
+          { (price || 0).toLocaleString('pt-BR', {
+            minimumFractionDigits: 2, style: 'currency', currency: 'BRL' }) }
+        </p>
         <button
           data-testid="product-add-to-cart"
           onClick={ this.addToStorage }
@@ -38,7 +47,7 @@ class ProductCard extends React.Component {
         </button>
         <Link
           data-testid="product-detail-link"
-          to={ `/item/${category}/${id}` }
+          to={ `/item/${category || categoryId}/${id}` }
         >
           Mais Detalhes
         </Link>
@@ -53,8 +62,13 @@ ProductCard.propTypes = {
     category_id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     thumbnail: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
+    price: PropTypes.number,
   }).isRequired,
+  category: PropTypes.string,
+};
+
+ProductCard.defaultProps = {
+  category: '',
 };
 
 export default ProductCard;
