@@ -6,7 +6,7 @@ export default class CategoriesBar extends Component {
   render() {
     const { categories, callback } = this.props;
     return (
-      <label htmlFor="category" onChange={ callback }>
+      <label htmlFor="category" onChange={ callback } className="categories-bar">
         Categorias
         {
           categories.map(({ id, name }) => (

@@ -1,42 +1,89 @@
+:root {
+  --persian-green: rgba(27, 153, 139, 1);
+  --magnolia: rgba(248, 241, 255, 1);
+  --thistle: rgba(222, 205, 245, 1);
+  --old-lavender: rgba(101, 97, 118, 1);
+  --dark-liver: rgba(83, 77, 86, 1);
+}
+
+html, * {
+  box-sizing: border-box;
+}
+
 .App {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* .home {
+  display: flex;
+  flex-wrap: wrap;
+} */
+
+.body {
+  position: relative;
+  top: 120px;
+  z-index: 0;
 }
 
-@media ( prefers-reduced-motion : no-preference ) {
-
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-
+.search-bar p {
+  margin: 0;
 }
 
-.App-header {
-  align-items: center;
-  background-color: #282c34;
-  color: white;
+.categories-bar {
+  background-color: var(--magnolia);
+  border-radius: 0 5px 5px 0;
   display: flex;
   flex-direction: column;
-  font-size: calc(10px + 2vmin);
-  justify-content: center;
-  min-height: 100vh;
+  left: 0;
+  padding: 1%;
+  position: absolute;
+  text-align: left;
+  top: 12%;
+  width: 20%;
 }
 
-.App-link {
-  color: #61dafb;
+.page-header {
+  align-items: center;
+  background-color: var(--thistle);
+  display: flex;
+  justify-content: space-around;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1;
 }
 
-@keyframes App-logo-spin {
+.product-list {
+  display: flex;
+  flex-wrap: wrap;
+  position: absolute;
+  justify-content: flex-start;
+  left: 25%;
+  width: 75%;
+}
 
-  from {
-    transform: rotate(0deg);
-  }
+.product-card {
+  align-items: center;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1%;
+  margin: 0.5%;
+  width: 22%;
+}
 
-  to {
-    transform: rotate(360deg);
-  }
+.price-shipping {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.shipping {
+  width: 30%;
+}
+
+.product-cover {
+  height: 150px;
+  width: 100%;
 }

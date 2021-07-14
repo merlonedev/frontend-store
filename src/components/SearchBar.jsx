@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import Quantities from './Quantities';
 
 // import * as API from '../services/api';
 
@@ -25,26 +27,31 @@ export default class SearchBar extends Component {
   }
 
   render() {
+    const { quantity } = this.props;
     return (
-      <div>
+      <div className="search-bar">
         <input
           type="text"
           data-testid="query-input"
           onChange={ this.handleChange }
           name="queryInput"
         />
-        <p
-          data-testid="home-initial-message"
+        <button
+          type="button"
+          data-testid="query-button"
+          onClick={ this.handleClick }
         >
-          <button
-            type="button"
-            data-testid="query-button"
-            onClick={ this.handleClick }
-          >
-            Procurar
-          </button>
+          Procurar
+        </button>
+        <p data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
         </p>
+        <button type="button">
+          <Link to="/cart" data-testid="shopping-cart-button">
+            Carrinho
+            <Quantities quantity={ quantity } />
+          </Link>
+        </button>
       </div>
     );
   }
@@ -52,4 +59,5 @@ export default class SearchBar extends Component {
 
 SearchBar.propTypes = {
   callback: PropTypes.func.isRequired,
+  quantity: PropTypes.number.isRequired,
 };
