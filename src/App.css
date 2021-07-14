@@ -20,9 +20,9 @@ header, main {
 }
 
 .row {
-  display:flex;
-  justify-content: space-between;
   align-items: center;
+  display: flex;
+  justify-content: space-between;
 }
 
 .thumb-size {
@@ -30,32 +30,33 @@ header, main {
 }
 
 button {
-  font-size: 0.8rem;
-  padding: 0.2rem;
-  margin: 0.1rem;
-  border-radius: 0.5rem;
+  background-color: #87d534;
   border: 0.1rem #404040 solid;
-  background-color: #87D534;
-  width:auto;
+  border-radius: 0.5rem;
   cursor: pointer;
+  font-size: 0.8rem;
+  margin: 0.1rem;
+  padding: 0.2rem;
+  width: auto;
 }
-button.remove-item {
-  background-color: #F36B16;
+
+.remove-item {
+  background-color: #f36b16;
   width: 1.5rem;
 }
 
-button.add {
-  background-color: #87D534;
+.add {
+  background-color: #87d534;
   width: 1.5rem;
 }
 
-button.remove {
+.remove {
   background-color: #f04040;
   width: 1.5rem;
 }
 
-button.badge {
-  background-color: #E2C044;
-  width: 1.5rem;  
+.badge {
+  background-color: #e2c044;
+  width: 1.5rem;
 }
 
