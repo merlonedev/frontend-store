@@ -4,20 +4,23 @@ import Product from './Product';
 
 class AllProducts extends Component {
   render() {
-    const { searchProducts } = this.props;
+    const { searchProducts, addToCart } = this.props;
     return (
-      <div className="product-container">
-        {
-          searchProducts.map((product) => (
-            <Product
+      <main className="main">
+        <section className="product-container">
+          {
+            searchProducts.map((product) => (<Product
               key={ product.id }
               title={ product.title }
-              id={ product.id }
+              id={ product.category_id }
+              productId={ product.id }
               price={ product.price }
               thumbnail={ product.thumbnail }
+              addToCart={ () => addToCart(product) }
             />))
-        }
-      </div>
+          }
+        </section>
+      </main>
     );
   }
 }

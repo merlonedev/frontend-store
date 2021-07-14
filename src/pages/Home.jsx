@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import ProductList from '../components/ProductList';
-import AllProducts from '../components/AllProducts';
-import CategoryList from '../components/CategoryList';
+import SearchBarProducts from '../components/Home/SearchBarProducts';
+import AllProducts from '../components/Home/AllProducts';
+import CategoryList from '../components/Categories/CategoryList';
 import * as Api from '../services/api';
 
 class Home extends Component {
@@ -9,8 +9,8 @@ class Home extends Component {
     super();
     this.state = {
       categories: [],
-      category: '',
       query: '',
+      category: '',
       searchProducts: [],
     };
     this.handleChange = this.handleChange.bind(this);
@@ -37,7 +37,6 @@ class Home extends Component {
 
   async handleClick() {
     const { query, category } = this.state;
-    console.log(query, category);
     const products = await Api.getProductsFromCategoryAndQuery(category, query)
       .then((prod) => prod.results);
     this.setState({
@@ -45,10 +44,22 @@ class Home extends Component {
     });
   }
 
+  addToCart(stateProduct) {
+    const products = JSON.parse(localStorage.getItem('products')) || [];
+    stateProduct.quantity = 1;
+    if (!products.some((product) => product.id === stateProduct.id)) {
+      products.push(stateProduct);
+    } else {
+      const currentIndex = products.map((product) => product.id).indexOf(stateProduct.id);
+      products[currentIndex].quantity += 1;
+    }
+    localStorage.setItem('products', JSON.stringify(products));
+  }
+
   async fetchProducts() {
     const { category, query } = this.state;
-    const products = await Api.getProductsFromCategoryAndQuery(category, query)
-      .then((prod) => prod.results);
+    const result = await Api.getProductsFromCategoryAndQuery(category, query);
+    const products = result.results;
     this.setState({
       searchProducts: products,
     });
@@ -65,7 +76,7 @@ class Home extends Component {
     const { categories, searchProducts } = this.state;
     return (
       <div>
-        <ProductList
+        <SearchBarProducts
           handleChange={ this.handleChange }
           handleClick={ this.handleClick }
         />
@@ -73,7 +84,7 @@ class Home extends Component {
           categories={ categories }
           onChangeFilterCategory={ this.handleChange }
         />
-        <AllProducts searchProducts={ searchProducts } />
+        <AllProducts searchProducts={ searchProducts } addToCart={ this.addToCart } />
       </div>
     );
   }
