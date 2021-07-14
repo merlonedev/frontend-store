@@ -5,7 +5,7 @@ import CartItems from '../Components/CartItems';
 
 class CartBasket extends Component {
   render() {
-    const { cartList } = this.props;
+    const { cartList, removeItem } = this.props;
     if (cartList.length === 0) {
       return (
         <main>
@@ -16,9 +16,8 @@ class CartBasket extends Component {
 
     return (
       <main>
-        <span data-testid="shopping-cart-empty-message">Seu carrinho está vazio</span>
         <Link to="/">Página Inicial</Link>
-        <CartItems cartList={ cartList } />
+        <CartItems cartList={ cartList } removeItem={ removeItem } />
         <Link to="/checkout" data-testid="checkout-products">
           <button type="button">Finalizar Compra</button>
         </Link>
@@ -31,6 +30,7 @@ CartBasket.propTypes = {
   cartList: PropTypes.arrayOf(
     PropTypes.object,
   ).isRequired,
+  removeItem: PropTypes.func.isRequired,
 };
 
 export default CartBasket;
