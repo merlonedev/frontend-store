@@ -1,18 +1,16 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import CartItem from './CartItem';
 
 class ShoppingCart extends Component {
-  // constructor() {
-  //   super();
-  // }
-
   render() {
     const {
       removeItem,
       cartItemDiminishQuantity,
       cartItemAddQuantity,
-      cartList } = this.props;
+      cartList,
+      total } = this.props;
     if (cartList.length === 0) {
       return (
         <div data-testid="shopping-cart-empty-message">
@@ -34,6 +32,17 @@ class ShoppingCart extends Component {
               />),
             )}
           </ul>
+          <div>{ `Total: R$${total}` }</div>
+          <Link
+            to="/checkout"
+          >
+            <button
+              type="button"
+              data-testid="checkout-products"
+            >
+              Checkout
+            </button>
+          </Link>
         </div>
       </section>
     );
