@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './App.css';
-// import * as api from './services/api';
 import Home from './pages/Home';
 // import Categories from './Components/Categories';
 import ShoppingCart from './pages/ShoppingCart';
@@ -55,14 +54,6 @@ class App extends React.Component {
             />
           </Switch>
         </BrowserRouter>
-        {/* <div className="categories">
-          { categories.map((category) => (<Categories
-            key={ category.id }
-            name={ category.name }
-            id={ category.id }
-            getFilterId={ this.getFilterId }
-          />)) }
-        </div> */}
       </div>
     );
   }

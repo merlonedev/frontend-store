@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import ProductCard from './ProductCard';
 
@@ -21,11 +22,21 @@ class SearchResult extends React.Component {
     if (products.length !== 0) {
       return (
         products.map((current) => (
-          <ProductCard
-            key={ current.id }
-            product={ current }
-            addToCart={ this.getProductToAddInCart }
-          />
+          <div key={ current.id } data-testid="product">
+            <Link
+              data-testid="product-detail-link"
+              to={ { pathname: '/card', state: current } }
+              id={ current.id }
+              onClick={ this.handleClick }
+            >
+              <img src={ current.thumbnail } alt="Product" />
+              <p>
+                { current.title }
+                Preço:
+                { current.price }
+              </p>
+            </Link>
+          </div>
         ))
       );
     }
