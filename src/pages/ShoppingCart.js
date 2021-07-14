@@ -13,10 +13,13 @@ class ShoppingCart extends React.Component {
           && <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
         }
         {
-          products.map(({ id, title, thumbnail }) => (
+          products.map(({ id, title, thumbnail, quantityInCart }) => (
             <div key={ id }>
               <h3 data-testid="shopping-cart-product-name">{title}</h3>
               <img src={ thumbnail } alt="Imagem do produto" />
+              <p data-testid="shopping-cart-product-quantity">
+                {`Quantidade: ${quantityInCart}`}
+              </p>
             </div>
           ))
         }
@@ -26,7 +29,12 @@ class ShoppingCart extends React.Component {
 }
 
 ShoppingCart.propTypes = {
-  products: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  products: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    thumbnail: PropTypes.string.isRequired,
+    quantityInCart: PropTypes.number.isRequired,
+  }).isRequired).isRequired,
 };
 
 export default ShoppingCart;

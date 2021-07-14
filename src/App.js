@@ -19,6 +19,15 @@ class App extends React.Component {
 
   addAllProductsToCart(product) {
     const { productsToAddInCart } = this.state;
+    const alredyExist = productsToAddInCart.find((current) => current.id === product.id);
+
+    if (alredyExist) {
+      alredyExist.quantityInCart += 1;
+      return this.setState({
+        productsToAddInCart: [...productsToAddInCart],
+      });
+    }
+
     this.setState({
       productsToAddInCart: [...productsToAddInCart, product],
     });

@@ -51,6 +51,7 @@ class Home extends React.Component {
   }
 
   getProductsToAddInCart(product) {
+    product.quantityInCart = 1;
     const { addProductsInCart } = this.props;
     addProductsInCart(product);
   }
@@ -89,7 +90,6 @@ class Home extends React.Component {
         <p data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
         </p>
-        <ShoppingCartLink />
         <div className="categories">
           { categories.map((category) => (<Categories
             key={ category.id }
