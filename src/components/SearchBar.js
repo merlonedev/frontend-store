@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { SearchIcon } from '@primer/octicons-react';
 import { Link } from 'react-router-dom';
 import cartImage from '../assets/carro.svg';
 import './SearchBar.css';
@@ -47,9 +46,6 @@ class SearchBar extends Component {
             onClick={ this.getValueInput }
             data-testid="query-button"
           >
-            <SearchIcon
-              size={ 16 }
-            />
             Search
           </button>
           <Link to="/Cart" data-testid="shopping-cart-button">
