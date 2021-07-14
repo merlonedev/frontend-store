@@ -48,35 +48,25 @@ class Home extends Component {
   cartItemAddQuantity(id) {
     const { cartList } = this.state;
     const selIndex = cartList.findIndex((item) => item.id === id);
-    this.setState((prevState) => {
-      console.log('Entrou setState Aumentar');
-      prevState.cartList[selIndex].quantity += 1;
-      return prevState;
-    });
+    const selItem = cartList.find((item) => item.id === id);
+    cartList[selIndex].quantity = selItem.quantity + 1;
+    this.setState({ cartList });
   }
 
   cartItemDiminishQuantity(id) {
-    console.log('Diminuiu');
     const { cartList } = this.state;
     const selItem = cartList.find((item) => item.id === id);
     if (selItem.quantity <= 1) return null;
     const selIndex = cartList.findIndex((item) => item.id === id);
-    this.setState((prevState) => {
-      console.log('Entrou setState Diminuir');
-      prevState.cartList[selIndex].quantity -= 1;
-      return prevState;
-    });
+    cartList[selIndex].quantity = selItem.quantity - 1;
+    this.setState({ cartList });
   }
 
   removeItem(id) {
-    console.log('Diminuiu');
     const { cartList } = this.state;
     const selIndex = cartList.findIndex((item) => item.id === id);
-    this.setState((prevState) => {
-      console.log('Entrou setState remover');
-      prevState.cartList.splice(selIndex, 1);
-      return prevState;
-    });
+    cartList.splice(selIndex, 1);
+    this.setState({ cartList });
   }
 
   render() {
