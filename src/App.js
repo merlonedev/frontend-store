@@ -10,7 +10,7 @@ function App() {
         <Route exact path="/shoppingcart" component={ ShoppingCart } />
         <Route exact path="/" component={ ProductsPage } />
         <Route exact path="/product/:id" component={ ProductDetail } />
-        <Route exact path="/checkout" component={ Checkout } />
+        <Route exact path="/checkout" render={ Checkout } />
       </Switch>
     </BrowserRouter>
 

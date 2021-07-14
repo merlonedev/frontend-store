@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-export default class CheckoutForm extends Component {
+export default class CheckoutResume extends Component {
   render() {
     const cart = JSON.parse(localStorage.getItem('cart'));
     const formatter = new Intl.NumberFormat('pt-BR', {
@@ -28,3 +28,7 @@ export default class CheckoutForm extends Component {
     );
   }
 }
+
+CheckoutResume.propTypes = {
+  items: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)).isRequired,
+};
