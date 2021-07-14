@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import Cart from './pages/Cart';
 import ProductDetails from './components/ProductDetails';
+import SubmitPage from './pages/SubmitPage';
 
 class App extends React.Component {
   render() {
@@ -15,6 +16,7 @@ class App extends React.Component {
             path="/item/:categoryId/:productId"
             render={ (props) => (<ProductDetails { ...props } />) }
           />
+          <Route path="/submit-page" component={ SubmitPage } />
         </Switch>
       </BrowserRouter>
     );

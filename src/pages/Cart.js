@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import ShoppingCart from '../components/ShoppingCart';
 
 class Cart extends Component {
@@ -30,6 +31,7 @@ class Cart extends Component {
     }
     return (
       <div>
+        <Link to="/">Página Principal</Link>
         {(carrinho && <ShoppingCart carrinho={ carrinho } />)}
       </div>
     );
