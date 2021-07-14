@@ -4,7 +4,7 @@ import ProductCard from '../productCard/ProductCard';
 
 class ProductList extends React.Component {
   render() {
-    const { products } = this.props;
+    const { products, detailsHandler } = this.props;
 
     if (products && products.length !== 0) {
       return (
@@ -14,6 +14,7 @@ class ProductList extends React.Component {
               <ProductCard
                 key={ product.id }
                 product={ product }
+                detailsHandler={ detailsHandler }
               />
             ))
           }
@@ -32,6 +33,7 @@ class ProductList extends React.Component {
 
 ProductList.propTypes = {
   products: PropTypes.arrayOf(Object),
+  detailsHandler: PropTypes.func.isRequired,
 };
 
 ProductList.defaultProps = {

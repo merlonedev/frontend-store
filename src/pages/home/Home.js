@@ -11,6 +11,7 @@ class Home extends React.Component {
     this.eventHandler = this.eventHandler.bind(this);
     this.searchHandler = this.searchHandler.bind(this);
     this.categoryHandler = this.categoryHandler.bind(this);
+    this.productDetails = this.productDetails.bind(this);
     this.state = {
       products: undefined,
       productCategories: undefined,
@@ -50,6 +51,10 @@ class Home extends React.Component {
     });
   }
 
+  productDetails(product) {
+    localStorage.setItem('prdctDetails', JSON.stringify(product));
+  }
+
   render() {
     const { products, productCategories, searchText, category } = this.state;
     return (
@@ -60,7 +65,11 @@ class Home extends React.Component {
           eventHandler={ this.eventHandler }
         />
         <MarketButton />
-        <ProductList products={ products } filter={ category } />
+        <ProductList
+          products={ products }
+          filter={ category }
+          detailsHandler={ this.productDetails }
+        />
         <ProductCategories
           categoryHandler={ this.categoryHandler }
           productCategories={ productCategories }
