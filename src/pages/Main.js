@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import Categories from '../components/Categories';
 import * as api from '../services/api';
 import ProductCard from '../components/ProductCard';
@@ -99,6 +100,9 @@ class Main extends Component {
         >
           Pesquisar
         </button>
+        <Link data-testid="shopping-cart-button" to="/shopping-cart">
+          Retorna
+        </Link>
         { isEmpty && this.renderParag() }
         <Categories onClick={ this.handleChangeCategory } />
         { render && this.renderList() }
