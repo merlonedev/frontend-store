@@ -3,15 +3,6 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 export default class ProductsList extends Component {
-  sortProduct() {
-    const { products, sorting } = this.props;
-    if (sorting === 'higher') {
-      products.sort((a, b) => b.price - a.price);
-    }
-    if (sorting === 'lower') {
-      products.sort((a, b) => a.price - b.price);
-    }
-  }
 
   render() {
     const { products, callback } = this.props;
