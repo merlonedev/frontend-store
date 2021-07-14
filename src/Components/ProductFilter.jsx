@@ -4,7 +4,7 @@ import Products from './Products';
 
 class ProductFilter extends Component {
   render() {
-    const { products } = this.props;
+    const { products, addCart } = this.props;
     return (
       <div className="cardDiv">
         { products.map((product) => (
@@ -15,6 +15,8 @@ class ProductFilter extends Component {
             price={ product.price }
             id={ product.id }
             categoryId={ product.categoryId }
+            addCart={ addCart }
+            product={ product }
           />
         ))}
       </div>
