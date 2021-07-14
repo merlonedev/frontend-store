@@ -22,7 +22,7 @@ class App extends React.Component {
               render={ (props) => <Home { ...props } /> }
             />
             <Route
-              path="/product-detail/:categoryId/:id"
+              path="/product-detail/:id"
               render={ (props) => <ProductDetails { ...props } /> }
             />
           </Switch>

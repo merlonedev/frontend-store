@@ -14,7 +14,7 @@ class ProductFilter extends Component {
             img={ product.thumbnail }
             price={ product.price }
             id={ product.id }
-            categoryId={ product.categoryId }
+            categoryId={ product.category_id }
             addCart={ addCart }
             product={ product }
           />

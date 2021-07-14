@@ -7,12 +7,12 @@ import ProductFilter from './ProductFilter';
 class Home extends React.Component {
   constructor(props) {
     super(props);
-    const initialState = {
+    this.state = {
       search: '',
       products: [],
+      categoryId: undefined,
     };
 
-    this.state = initialState;
     this.onChange = this.onChange.bind(this);
     this.onClick = this.onClick.bind(this);
     this.categoryChange = this.categoryChange.bind(this);
@@ -26,8 +26,8 @@ class Home extends React.Component {
   }
 
   async onClick() {
-    const { search } = this.state;
-    const products = await getProductsFromCategoryAndQuery('categoryId', `$${search}`);
+    const { search, categoryId } = this.state;
+    const products = await getProductsFromCategoryAndQuery(categoryId, search);
     const { results } = products;
     this.setState({
       products: results,
