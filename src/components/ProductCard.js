@@ -28,7 +28,12 @@ class ProductCard extends Component {
             {`Preço R$ ${price}`}
           </p>
         </Link>
-        <button type="button">Adicionar ao Carrinho</button>
+        <button
+          type="button"
+          data-testid="product-add-to-cart"
+        >
+          Adicionar ao Carrinho
+        </button>
       </div>
     );
   }
