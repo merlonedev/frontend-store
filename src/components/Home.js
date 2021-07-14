@@ -22,28 +22,25 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    const localCartList = localStorage.getItem('cartList');
-    if (localCartList !== null) {
-      loadLocalStorage();
-    }
+    this.loadLocalStorage();
   }
 
   loadLocalStorage() {
-    const localCartList = localStorage.getItem('cartList');
-    this.setState({
-      cartList: localCartList,
-    });
+    const localState = JSON.parse(localStorage.getItem('state'));
+    console.log(localState);
+    if (localState === null) return null;
+    this.setState(localState);
   }
 
   saveLocalStorage() {
-    const { cartList } = this.state;
-    localStorage.setItem('cartlist', JSON.stringify(cartList));
+    localStorage.setItem('state', JSON.stringify(this.state));
     this.updateTotal = this.updateTotal.bind(this);
   }
 
   updateTotal() {
     const { cartList } = this.state;
     let total = 0;
+    this.saveLocalStorage();
     cartList.forEach((item) => {
       total += (item.price * item.quantity);
       return total;

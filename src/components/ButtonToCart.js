@@ -13,7 +13,7 @@ class ButtonToCart extends Component {
         >
           CARRINHO DE COMPRAS:
           <span data-testid="shopping-cart-size">
-            {cartList.length}
+            {cartList.reduce(((acc, item) => acc + item.quantity), 0)}
           </span>
         </Link>
       </button>
