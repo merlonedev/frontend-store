@@ -33,6 +33,7 @@ export default class Infos extends React.Component {
 
   render() {
     const { product, loaded } = this.state;
+    const { shipping } = product;
     const { addToCartItem } = this.props;
     // Mostra o elemento h1 dizendo loading caso não tenha carregado a página ainda.
     if (!loaded) {
@@ -40,10 +41,11 @@ export default class Infos extends React.Component {
     }
     return (
       <div>
-        <h3 data-testid="product-detail-name">{product.title}</h3>
-        <h2>{`R$ ${product.price}`}</h2>
+        <h2 data-testid="product-detail-name">{product.title}</h2>
+        <h3>{`R$ ${product.price}`}</h3>
+        { shipping.free_shipping && <img data-testid="free-shipping" src="https://cdn.awsli.com.br/511/511886/arquivos/frete-gratis-1.png" alt="Frete Gratis" width="100px" /> }
         <div>
-          <img src={ product.thumbnail } alt="a" />
+          <img src={ product.thumbnail } alt="thumbnail" />
           <div>
             <h4>Especificações Técnicas</h4>
             <ul>
