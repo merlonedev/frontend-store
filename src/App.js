@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './App.css';
 import Home from './pages/Home';
+import Card from './pages/Card';
 // import Categories from './Components/Categories';
 import ShoppingCart from './pages/ShoppingCart';
 
@@ -51,6 +52,14 @@ class App extends React.Component {
               render={ (props) => (
                 <ShoppingCart { ...props } products={ productsToAddInCart } />
               ) }
+            />
+            <Route
+              exact
+              path="/card/"
+              render={ (props) => (
+                <Card
+                  { ...props }
+                />) }
             />
           </Switch>
         </BrowserRouter>
