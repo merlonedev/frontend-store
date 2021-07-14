@@ -14,6 +14,7 @@ class Input extends React.Component {
 
     return (
       <div>
+        <label htmlFor={ id }>{ children }</label>
         <input
           type={ type }
           data-testid={ id }
@@ -21,7 +22,6 @@ class Input extends React.Component {
           value={ value }
           onChange={ handleChange }
         />
-        <label htmlFor={ id }>{ children }</label>
       </div>
     );
   }

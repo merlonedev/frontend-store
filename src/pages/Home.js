@@ -74,8 +74,6 @@ class Home extends React.Component {
       categories,
     } = this.state;
 
-    const { setCartSize } = this;
-
     const msg = didSearch ? notFoundMsg : initialMsg;
 
     return (
@@ -106,7 +104,13 @@ class Home extends React.Component {
           categoryAndQuery={ this.categoryAndQuery }
         />
         { (products.length > 0)
-          ? <ul><ProductList updateCartSize={ setCartSize } products={ products } /></ul>
+          ? (
+            <ul>
+              <ProductList
+                updateCartSize={ this.setCartSize }
+                products={ products }
+              />
+            </ul>)
           : msg }
       </section>
     );

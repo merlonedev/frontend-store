@@ -121,7 +121,7 @@ class DetailedProduct extends React.Component {
                   data-testid="product-detail-add-to-cart"
                   onClick={ (
                     () => {
-                      const cartElements = { id, title, price };
+                      const cartElements = { id, title, price, thumbnail };
                       allElements = [...allElements, cartElements];
                       sessionStorage.setItem('addCart', JSON.stringify(allElements));
                       this.updateCartSize();
