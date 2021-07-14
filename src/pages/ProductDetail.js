@@ -13,10 +13,9 @@ class ProductDetail extends React.Component {
         <span>{ price }</span>
         <ul>
           {attributes.map((attribute, index) => (
-            <>
-              <li key={ index }>{attribute.name}</li>
-              <li key={ index }>{attribute.value_name}</li>
-            </>))}
+            <li key={ index }>
+              {`${attribute.name}: ${attribute.value_name}`}
+            </li>))}
         </ul>
       </div>
     );
