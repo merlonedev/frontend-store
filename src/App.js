@@ -7,6 +7,7 @@ import ShoppingCartButton from './Components/ShoppingCartButton';
 import ShoppingCart from './Components/ShoppingCart';
 import SearchBar from './Components/SearchBar';
 import InicialMessage from './Components/InicialMessage';
+import ProductDetail from './Components/ProductDetail';
 
 class App extends React.Component {
   constructor(props) {
@@ -43,6 +44,10 @@ class App extends React.Component {
                 />) }
             />
             <Route path="/shopping-cart" component={ ShoppingCart } />
+            <Route
+              path="/details/:id"
+              render={ (props) => <ProductDetail { ...props } search={ search } /> }
+            />
           </Switch>
           <FilterCategories getState={ this.getState } />
         </BrowserRouter>
@@ -52,3 +57,5 @@ class App extends React.Component {
 }
 
 export default App;
+
+// Na refatoração realizada nesse código depois do requisito 6 consultei o repositório do Roberval Filho da Turma 12 Grupo 18. Lembrando que os testes do 1 ao 6 já estavam passando antes dessa refatoração. https://github.com/tryber/sd-12-project-frontend-online-store/pull/226/files
