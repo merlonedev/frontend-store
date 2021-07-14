@@ -49,7 +49,7 @@ export default class App extends Component {
 
   // prettier-ignore
   async setProducts() {
-    const { queryInput, category } = this.state;
+    const { queryInput, category, sorting } = this.state;
     const results = await API.getProductsFromCategoryAndQuery(
       category,
       queryInput,
@@ -57,6 +57,9 @@ export default class App extends Component {
     this.setState({
       products: results.results,
     });
+    if (sorting !== '') {
+      this.sortProducts();
+    }
   }
 
   loadQuantity() {
@@ -145,18 +148,16 @@ export default class App extends Component {
   }
 
   sortProducts() {
-    const { products, sorting } = this.setState;
-    console.log(products);
+    const { products, sorting } = this.state;
     if (sorting === 'higher') {
-      products.sort((a, b) => b.price - a.price);
+      products.sort((a, b) => a.price - b.price);
     }
     if (sorting === 'lower') {
-      products.sort((a, b) => a.price - b.price);
+      products.sort((a, b) => b.price - a.price);
     }
     if (sorting === '') {
       this.setProducts();
     }
-    console.log(products);
   }
 
   callbackSort(method) {
