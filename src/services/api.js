@@ -9,15 +9,14 @@ export async function getCategories() {
 }
 
 export async function getProductsFromCategoryAndQuery(categoryId, query) {
-  let response;
-  if (!categoryId) {
-    response = await fetch(`${URL_QUERY}${query}`);
-  } else if (!query) {
-    response = await fetch(`${URL_PRODS}${categoryId}`);
+  let resHead;
+  if (!categoryId && query) {
+    resHead = await fetch(`${URL_QUERY}${query}`);
+  } else if (categoryId && !query) {
+    resHead = await fetch(`${URL_PRODS}${categoryId}`);
   } else {
-    response = await fetch(`${URL_PRODS}${categoryId}&q=${query}`);
+    resHead = await fetch(`${URL_PRODS}${categoryId}&q=${query}`);
   }
-  let products = await response.json();
-  products = products.results;
-  return products;
+  const response = await resHead.json();
+  return response;
 }
