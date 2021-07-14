@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 
 class Categories extends Component {
   render() {
-    const { category: [name, id] } = this.props;
+    const { category } = this.props;
+    const { name, id } = category;
     return (
       <div>
-        <label htmlFor={ name }>
+        <label data-testid="category" htmlFor={ name }>
+          <input type="radio" value={ id } name="category" />
           { name }
-          <input type="radio" data-testid="category" value={ id } name="category" />
         </label>
       </div>
     );

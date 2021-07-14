@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
 import SearchBar from '../components/SearchBar';
-import * as api from '../services/api';
 import Categories from '../components/Categories';
+import * as api from '../services/api';
 
 class Home extends Component {
   constructor() {
     super();
     this.state = {
       categories: [],
-      status: true,
+      // status: true,
       text: '',
       data: [],
     };
+    const { categories } = this.state;
+    console.log(categories);
     this.handleChange = this.handleChange.bind(this);
     this.getProduct = this.getProduct.bind(this);
     this.getCategories = this.getCategories.bind(this);
@@ -37,31 +39,25 @@ class Home extends Component {
   }
 
   async getCategories() {
-    const { categories } = this.state;
     const allCategories = await api.getCategories();
     this.setState({
-      [categories]: allCategories.results,
+      categories: allCategories,
     });
   }
 
   render() {
-    const { data, categories } = this.state;
+    const { categories } = this.state;
     return (
       <div>
         <SearchBar />
         <div>
-          { categories.map((category) => (<Categories
-            key={ category.id }
-            category={ category }
-          />))}
+          {
+            categories.map((category) => (<Categories
+              key={ category.id }
+              category={ category }
+            />))
+          }
         </div>
-        {/* <div>
-          { data.map((product) => (<Categories
-            key={ product.id }
-            category={ product }
-          />))}
-
-        </div> */}
       </div>
     );
   }
