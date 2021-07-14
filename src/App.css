@@ -49,3 +49,31 @@
 .product-card img {
   width: 100%;
 }
+
+.search-bar-shoppingCart {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.search-bar-shoppingCart p {
+  color: white;
+  margin-left: 10px;
+}
+
+.details-shoppingCart {
+  align-items: center;
+  display: flex;
+}
+
+.details-shoppingCart p {
+  margin-left: 10px;
+}
+
+.invalid {
+  border: red solid 1px;
+}
+
+.valid {
+  border: green solid 1px;
+}

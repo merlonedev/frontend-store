@@ -13,6 +13,7 @@ export default class ProductPage extends Component {
       searchValue: '',
       list: [],
       showList: false,
+      cartQTD: 0,
     };
 
     this.handleSearch = this.handleSearch.bind(this);
@@ -20,6 +21,11 @@ export default class ProductPage extends Component {
     this.handleCategoryClick = this.handleCategoryClick.bind(this);
     this.handleProductClick = this.handleProductClick.bind(this);
     this.noList = this.noList.bind(this);
+  }
+
+  componentDidMount() {
+    const cart = JSON.parse(localStorage.getItem('cart'));
+    this.getCartQTD(cart);
   }
 
   handleSearch(e) {
@@ -45,15 +51,29 @@ export default class ProductPage extends Component {
   }
 
   handleProductClick(product) {
-    const { title, price, id } = product;
+    const { title, price, id, available_quantity: avQtd } = product;
+    console.log(avQtd);
     let cart = JSON.parse(localStorage.getItem('cart'));
     if (cart && cart[id]) {
       cart = { ...cart,
-        [id]: [title, cart[id][1] + 1, price] };
+        [id]: [title, cart[id][1] + 1, price, avQtd] };
     } else {
-      cart = { ...cart, [id]: [title, 1, price] };
+      cart = { ...cart, [id]: [title, 1, price, avQtd] };
     }
     localStorage.setItem('cart', JSON.stringify(cart));
+    this.getCartQTD(cart);
+  }
+
+  getCartQTD(cart) {
+    let cartQTD = 0;
+    if (cart) {
+      Object.values(cart).forEach((item) => {
+        cartQTD += item[1];
+      });
+    }
+    this.setState({
+      cartQTD,
+    });
   }
 
   noList() {
@@ -65,7 +85,7 @@ export default class ProductPage extends Component {
   }
 
   render() {
-    const { list, showList } = this.state;
+    const { list, showList, cartQTD } = this.state;
     return (
       <section>
         <div className="header">
@@ -73,14 +93,19 @@ export default class ProductPage extends Component {
             onSearchChange={ this.handleSearch }
             onSearchClick={ this.handleSearchClick }
           />
-          <Link to="/shoppingcart">
-            <button
-              data-testid="shopping-cart-button"
-              type="button"
-            >
-              Carrinho
-            </button>
-          </Link>
+          <div className="search-bar-shoppingCart">
+            <Link to="/shoppingcart">
+              <button
+                data-testid="shopping-cart-button"
+                type="button"
+              >
+                Carrinho
+              </button>
+            </Link>
+            <p data-testid="shopping-cart-size">
+              { cartQTD }
+            </p>
+          </div>
         </div>
         <section className="main">
           <div className="category">
