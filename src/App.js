@@ -7,20 +7,38 @@ import Checkout from './pages/Checkout';
 import './App.css';
 
 class App extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       cartList: [],
+      quantity: [],
     };
     this.removeItem = this.removeItem.bind(this);
     this.addToCart = this.addToCart.bind(this);
+    this.loadCartQuantity = this.loadCartQuantity.bind(this);
+  }
+
+  componentDidMount() {
+    this.loadCartQuantity();
   }
 
   addToCart(item) {
     this.setState((prevState) => ({
       cartList: [...prevState.cartList, item],
-    }));
+      quantity: [...prevState.quantity, item],
+    }), () => {
+      const { quantity } = this.state;
+      localStorage.setItem('quantity', JSON.stringify(quantity));
+    });
+  }
+
+  loadCartQuantity() {
+    if (!localStorage.quantity) {
+      return;
+    }
+    const quantity = JSON.parse(localStorage.getItem('quantity'));
+    this.setState({ quantity });
   }
 
   removeItem(item) {
@@ -33,11 +51,12 @@ class App extends React.Component {
   }
 
   render() {
-    const { cartList } = this.state;
+    const { cartList, quantity } = this.state;
     return (
       <BrowserRouter>
         <Switch>
           <Route
+            exact
             path="/cart-basket"
             render={ (props) => (<CartBasket
               { ...props }
@@ -48,12 +67,21 @@ class App extends React.Component {
           <Route
             exact
             path="/"
-            render={ (props) => <Home { ...props } addToCart={ this.addToCart } /> }
+            render={ (props) => (<Home
+              { ...props }
+              addToCart={ this.addToCart }
+              quantity={ quantity }
+            />) }
           />
           <Route
+            exact
             path="/product-details/:categoryId/:id"
             render={
-              (props) => <ProductDetails { ...props } addToCart={ this.addToCart } />
+              (props) => (<ProductDetails
+                { ...props }
+                addToCart={ this.addToCart }
+                quantity={ quantity }
+              />)
             }
           />
           <Route

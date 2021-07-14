@@ -17,7 +17,6 @@ class Cardproduct extends Component {
         <Link
           to={ `/product-details/${categoryId}/${id}` }
           data-testid="product-detail-link"
-          onClick={ () => console.log(categoryId) }
         >
           Ver Detalhes
         </Link>
@@ -25,6 +24,7 @@ class Cardproduct extends Component {
     );
   }
 }
+
 Cardproduct.propTypes = {
   title: PropTypes.string.isRequired,
   img: PropTypes.string.isRequired,
