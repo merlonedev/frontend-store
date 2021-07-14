@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import FreeShipping from './FreeShipping';
 import './CardItem.css';
-import productsCart from '../services/data';
 
 class CardItem extends Component {
   render() {
     const {
-      item,
       title,
       thumbnail,
       price,
       itemId,
+      shipping,
     } = this.props;
     return (
       <div data-testid="product" className="card-item">
@@ -32,6 +32,7 @@ class CardItem extends Component {
         >
           Adicionar ao carrinho
         </button>
+        { shipping && <FreeShipping /> }
       </div>
     );
   }
@@ -48,6 +49,7 @@ CardItem.propTypes = {
     itemId: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
   }).isRequired,
+  shipping: PropTypes.bool.isRequired,
 };
 
 export default CardItem;

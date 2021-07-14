@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './CardItem.css';
-import productsCart from '../services/data';
+import products from '../services/data';
 
 class CardItemCart extends React.Component {
   render() {
@@ -11,11 +11,10 @@ class CardItemCart extends React.Component {
       thumbnail,
       price,
       itemId,
-      query,
     } = this.props;
     return (
       <div className="card-item">
-        <Link to={ `/details/${query}/${itemId}` } data-testid="product-detail-link">
+        <Link to={ `/details/${itemId}` } data-testid="product-detail-link">
           <p data-testid="shopping-cart-product-name">
             { title }
           </p>
@@ -25,8 +24,15 @@ class CardItemCart extends React.Component {
             { price }
           </p>
           <div className="increase-div">
-            <p data-testid="shopping-cart-product-quantity">{ productsCart.length }</p>
+            <p data-testid="shopping-cart-product-quantity">
+              { `Quantidade: ${products.length}` }
+            </p>
           </div>
+        </Link>
+        <Link to="/payment">
+          <button data-testid="checkout-products" type="button">
+            Finalizar Compra
+          </button>
         </Link>
       </div>
     );
@@ -37,7 +43,6 @@ CardItemCart.propTypes = {
   title: PropTypes.string.isRequired,
   thumbnail: PropTypes.string.isRequired,
   itemId: PropTypes.string.isRequired,
-  query: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
 };
 

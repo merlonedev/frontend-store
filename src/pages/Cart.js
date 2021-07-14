@@ -1,6 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import CardItemCart from '../components/CardItemCart';
-import productsCart from '../services/data';
+import products from '../services/data';
+import BackSVG from '../SVGs/BackSVG';
 
 class Cart extends React.Component {
   constructor() {
@@ -11,18 +13,29 @@ class Cart extends React.Component {
   }
 
   render() {
-    console.log(productsCart);
     const { query } = this.state;
-    if (productsCart.length < 1) {
+    if (products.length < 1) {
       return (
-        <h1 className="Cart-message" data-testid="shopping-cart-empty-message">
-          Seu carrinho está vazio
-        </h1>
+        <main>
+          <div className="back-icon">
+            <Link to="/">
+              <BackSVG />
+            </Link>
+          </div>
+          <h1 className="Cart-message" data-testid="shopping-cart-empty-message">
+            Seu carrinho está vazio
+          </h1>
+        </main>
       );
     }
     return (
       <div className="card-list">
-        { productsCart.map((item) => (<CardItemCart
+        <div className="back-icon">
+          <Link to="/">
+            <BackSVG />
+          </Link>
+        </div>
+        { products.map((item) => (<CardItemCart
           key={ item.id }
           itemId={ item.id }
           query={ query }

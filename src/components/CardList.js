@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import CardItem from './CardItem';
 import Loading from './Loading';
 import { getProductsFromCategoryAndQuery } from '../services/api';
@@ -6,18 +7,37 @@ import SideBar from './SideBar';
 import './CardList.css';
 
 class CardList extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       categories: [],
       loading: false,
     };
   }
 
+  componentDidUpdate(prevProps) {
+    const { value } = this.props;
+    if (value !== prevProps.value) {
+      this.getValue();
+    }
+  }
+
+  getValue = () => {
+    const { value } = this.props;
+    getProductsFromCategoryAndQuery('', value)
+      .then((data) => {
+        this.setState({
+          categories: data.results,
+        });
+      });
+  }
+
   searchByCategorie = (id) => {
     this.setState({ loading: true });
+
     getProductsFromCategoryAndQuery(id)
       .then(({ results }) => {
+        console.log(results);
         this.setState({
           categories: results,
           loading: false,
@@ -30,7 +50,9 @@ class CardList extends Component {
     return (
       <>
         <SideBar searchByCategorie={ this.searchByCategorie } />
-        <div className="card-list">
+        <div
+          className="card-list"
+        >
           { loading && <Loading /> }
           { categories.map((item) => (<CardItem
             key={ item.id }
@@ -38,12 +60,16 @@ class CardList extends Component {
             title={ item.title }
             thumbnail={ item.thumbnail }
             price={ item.price }
-            item={ item }
+            shipping={ item.shipping.free_shipping }
           />)) }
         </div>
       </>
     );
   }
 }
+
+CardList.propTypes = {
+  value: PropTypes.string.isRequired,
+};
 
 export default CardList;

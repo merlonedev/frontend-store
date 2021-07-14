@@ -1,10 +1,13 @@
+* {
+  box-sizing: content-box;
+}
+
 .card-item {
   background-color: white;
   border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: 3px;
   display: inline-flex;
   flex-direction: column;
-  height: 300px;
   margin: 5px;
   overflow: hidden;
   padding: 1rem;
@@ -22,4 +25,10 @@
 
 .card-item a {
   text-decoration: none;
+}
+
+.free-shipping {
+  background-color: rgb(13, 252, 25);
+  border-radius: 15px;
+  margin-top: 1rem;
 }
