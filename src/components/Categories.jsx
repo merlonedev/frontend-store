@@ -1,29 +1,22 @@
-// import React, { Component } from 'react';
-// import * as Api from './services/api'
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
-// class Categories extends Component {
-//   constructor() {
-//     super();
-//     this.state= {
-//       categories: [],
-//     }
+class Categories extends Component {
+  render() {
+    const { category } = this.props;
+    const { name } = category;
+    return (
+      <div>
+        <h4>{name}</h4>
+      </div>
+    );
+  }
+}
 
-//   }
+Categories.propTypes = {
+  category: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+  }).isRequired,
+};
 
-//   componentDidMount() {
-//     Api.getCategories().then((response) => this.setState({
-//       categories: response,
-//     }))
-//   }
-
-//   render() {
-//     const { categories } = this.state;
-//     return(
-//       <div>
-//         {categories}
-//       </div>
-//     )
-//   }
-// }
-
-// export default Categories;
+export default Categories;
