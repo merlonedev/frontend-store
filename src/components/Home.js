@@ -8,32 +8,8 @@ class Home extends Component {
   constructor() {
     super();
     this.state = {
-      cartList: [
-        {
-          id: 'MLB1659970653',
-          title: 'Avião Bate Bate Com Som E Luz - Brinquedo Meninos',
-          price: 39.9,
-          currency_id: 'BRL',
-          thumbnail: 'http://http2.mlstatic.com/D_660270-MLB46579103227_072021-O.jpg',
-          quantity: 2,
-        },
-        {
-          id: 'MLB1595925546',
-          title: 'Avião Comercial Boeing 737 Gol Linhas Aéreas - Metal 15,5 Cm',
-          price: 78.9,
-          currency_id: 'BRL',
-          thumbnail: 'http://http2.mlstatic.com/D_853433-MLB44094958683_112020-I.jpg',
-          quantity: 1,
-        },
-        {
-          id: 'MLB1305552209',
-          title: 'Avião De Viagem Brinquedo Realista Com Som E Luzes Bbr Toys',
-          price: 80.96,
-          currency_id: 'BRL',
-          thumbnail: 'http://http2.mlstatic.com/D_983265-MLB31990120909_082019-O.jpg',
-          quantity: 1,
-        },
-      ],
+      cartList: [],
+      newProduct: undefined,
     };
     this.removeItem = this.removeItem.bind(this);
     this.cartItemAddQuantity = this.cartItemAddQuantity.bind(this);
@@ -41,8 +17,17 @@ class Home extends Component {
     this.addItemToCart = this.addItemToCart.bind(this);
   }
 
-  addItemToCart() {
-    // Funcao para adiciona itens para o carrinho - Luiz
+  addItemToCart(product) {
+    product.quantity = 1;
+    this.setState(({
+      newProduct: product,
+    }), () => this.saveCart());
+  }
+
+  saveCart() {
+    this.setState(({ cartList, newProduct }) => ({
+      cartList: [...cartList, newProduct],
+    }));
   }
 
   cartItemAddQuantity(id) {

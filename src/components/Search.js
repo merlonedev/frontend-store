@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import * as api from '../services/api';
 import CategoryList from './CategoryList';
 import ProductCard from './ProductCard';
@@ -61,6 +62,7 @@ class Search extends Component {
   }
 
   renderList() {
+    const { addItemToCart } = this.props;
     const { loading } = this.state;
     if (loading === 'loading') return <p>Loading...</p>;
     if (loading === 'none') return <div />;
@@ -73,6 +75,7 @@ class Search extends Component {
             (prod) => (<ProductCard
               key={ prod.id }
               product={ prod }
+              addItemToCart={ addItemToCart }
             />),
           )}
         </ul>
@@ -94,5 +97,9 @@ class Search extends Component {
     );
   }
 }
+
+Search.propTypes = {
+  addItemToCart: PropTypes.func.isRequired,
+};
 
 export default Search;

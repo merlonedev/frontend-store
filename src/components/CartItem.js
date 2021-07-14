@@ -18,7 +18,7 @@ class CartItem extends React.Component {
       <div>
         <img alt="Foto do produto" src={ thumbnail } />
         <div className="cart-item-body">
-          <h4>{title}</h4>
+          <h4 data-testid="shopping-cart-product-name">{title}</h4>
           <h5 className="cart-item-price">{`Preço: R$${price * quantity}`}</h5>
         </div>
         <button
@@ -28,7 +28,11 @@ class CartItem extends React.Component {
         >
           -
         </button>
-        <span>{ `Quantidade: ${quantity}` }</span>
+        <span
+          data-testid="shopping-cart-product-quantity"
+        >
+          { `Quantidade: ${quantity}` }
+        </span>
         <button
           data-testid="product-increase-quantity"
           type="button"
