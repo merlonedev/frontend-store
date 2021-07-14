@@ -11,7 +11,10 @@ export default class App extends Component {
         <h2>Frontend Online Store - Grupo 26</h2>
         <Switch>
           <Route exact path="/" component={ Home } />
-          <Route path="/shopping-cart" component={ ShoppingCart } />
+          <Route
+            path="/shopping-cart"
+            render={ (props) => <ShoppingCart { ...props } /> }
+          />
           <Route
             path="/product-details/:id"
             render={ (props) => <ProductDetails { ...props } /> }
