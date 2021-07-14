@@ -16,7 +16,6 @@ class App extends React.Component {
 
     this.state = {
       categories: [],
-      // isLoading: true,
     };
   }
 
@@ -28,7 +27,6 @@ class App extends React.Component {
     const category = await api.getCategories();
     this.setState({
       categories: category,
-      // isLoading: false,
     });
   }
 
@@ -37,10 +35,8 @@ class App extends React.Component {
   }
 
   render() {
-    const { categories, especifyProducts /* isLoading */ } = this.state;
-    // if (isLoading) {
-    //   return <span>Carregando</span>;
-    // }
+    const { categories } = this.state;
+
     return (
       <div className="App">
         <BrowserRouter>
@@ -48,17 +44,18 @@ class App extends React.Component {
             <Route
               exact
               path="/"
-              render={
-                (props) => <Home { ...props } getEspecifyProducts={ this.getEspecifyProducts } />
-              }
+              render={ (props) => (
+                <Home
+                  { ...props }
+                  getEspecifyProducts={ this.getEspecifyProducts }
+                />
+              ) }
             />
             <Route exact path="/shopping-cart" component={ ShoppingCart } />
             <Route
               exact
               path="/card/"
-              render={ (props) => <Card { ...props }
-              id={ especifyProducts }
-            /> }
+              render={ (props) => <Card { ...props } /> }
             />
           </Switch>
           <ShoppingCartLink />
