@@ -100,7 +100,9 @@ export default class ShoppingCart extends Component {
       <div>
         { (cart && Object.keys(cart).length !== 0)
           ? this.listCartItem(cart) : this.noCartItem()}
-        <button type="button" onClick={ this.handleFinish }>Finalizar Compra</button>
+        <Link to="/checkout" data-testid="checkout-products">
+          <button type="button" onClick={ this.handleFinish }>Finalizar Compra</button>
+        </Link>
         <div>
           <Link data-testid="shopping-cart-button" to="/">Voltar</Link>
         </div>
