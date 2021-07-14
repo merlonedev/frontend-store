@@ -9,23 +9,23 @@ class SearchBar extends Component {
     super(props);
 
     this.state = {
-      loading: true,
+      loading: false,
       products: [],
       value: '',
     };
 
-    this.hendleChange = this.hendleChange.bind(this);
-    this.hendleClick = this.hendleClick.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
-  hendleChange(e) {
+  handleChange(e) {
     this.setState({
       value: e.target.value,
     });
   }
 
-  async hendleClick() {
-    const { value, loading } = this.setState;
+  async handleClick() {
+    const { value } = this.setState;
 
     this.setState({ loading: true },
       async () => {
@@ -36,15 +36,17 @@ class SearchBar extends Component {
         });
       });
   }
+  //ENTENDER COMO FUNCIONA A FUNC GETPRODUCTS....
 
   render() {
     const { value, products, loading } = this.state;
-    // if (loading) return <Loading />;
+    if (loading) return <Loading />;
+
     return (
       <section>
         <input
           type="search"
-          onChange={ this.hendleChange }
+          onChange={ this.handleChange }
           value={ value }
           data-testid="query-input"
         />
@@ -55,8 +57,13 @@ class SearchBar extends Component {
         >
           Search
         </button>
-        <SearchMsg />
-        <ProductList products={ products } />
+
+        {
+          (products.length === 0)
+            ? <SearchMsg />
+            : <ProductList value={ value } products={ products } />
+        }
+
       </section>
     );
   }
