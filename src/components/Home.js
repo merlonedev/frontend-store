@@ -68,7 +68,10 @@ class Home extends Component {
           <Route
             exact
             path="/product-details/:categoryID/:id"
-            render={ (props) => <ProductDetail { ...props } /> }
+            render={ (props) => (<ProductDetail
+              { ...props }
+              addItemToCart={ this.addItemToCart }
+            />) }
           />
           <Route
             exact
