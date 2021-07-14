@@ -27,7 +27,6 @@ class Home extends Component {
 
   loadLocalStorage() {
     const localState = JSON.parse(localStorage.getItem('state'));
-    console.log(localState);
     if (localState === null) return null;
     this.setState(localState);
   }

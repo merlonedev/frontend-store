@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ButtonToCart from './ButtonToCart';
 import { getProductsFromCategoryAndQuery } from '../services/api';
+import FormEvaluator from './FormEvaluator';
 
 class ProductDetail extends Component {
   constructor(props) {
@@ -78,6 +79,7 @@ class ProductDetail extends Component {
           ADICIONAR ITEM AO CARRINHO
         </button>
         <Link to="/">Voltar para home page</Link>
+        <FormEvaluator />
       </div>
     );
   }
