@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { getProductsFromCategoryAndQuery } from '../services/api';
 
 export default class Infos extends React.Component {
@@ -25,7 +26,7 @@ export default class Infos extends React.Component {
     const { id, product } = params;
     const data = await getProductsFromCategoryAndQuery(id, product);
     this.setState({
-      product: data.results.find((item) => item.id === id),
+      product: data.results.find((item) => item.title === product),
       loaded: true,
     });
   }
@@ -33,6 +34,7 @@ export default class Infos extends React.Component {
   render() {
     const { count } = this.props;
     const { product, loaded } = this.state;
+    const { addToCartItem } = this.props;
     // Mostra o elemento h1 dizendo loading caso não tenha carregado a página ainda.
     if (!loaded) {
       return <h1>Loading</h1>;
@@ -69,6 +71,16 @@ export default class Infos extends React.Component {
                 .map((item, index) => (
                   <p key={ index }>{`${item.name}: ${item.value_name}`}</p>)) }
             </ul>
+            <div>
+              <button
+                type="button"
+                data-testid="product-detail-add-to-cart"
+                onClick={ () => addToCartItem(product) }
+              >
+                Adicionar ao carrinho
+              </button>
+            </div>
+            <Link data-testid="shopping-cart-button" to="/cart">Ir para o carrinho</Link>
           </div>
         </div>
       </div>
@@ -77,6 +89,7 @@ export default class Infos extends React.Component {
 }
 
 Infos.propTypes = {
+  addToCartItem: PropTypes.func.isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string,
