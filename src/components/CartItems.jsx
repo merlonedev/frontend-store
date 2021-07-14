@@ -30,14 +30,15 @@ export default class CartItems extends Component {
 
   removeItem({ target }) {
     const itemToRemove = target.parentElement.id;
+    const qtyToRemove = Number(target.parentElement.className);
     const { handlers } = this.props;
-    handlers.remove(itemToRemove);
+    handlers.remove(itemToRemove, qtyToRemove);
   }
 
   render() {
     const { cartItems: items } = this.props;
     return items.map((item) => (
-      <div key={ item.id } id={ item.id }>
+      <div key={ item.id } id={ item.id } className={ item.qty }>
         <p data-testid="shopping-cart-product-name">{item.title}</p>
         <p>{item.price * item.qty}</p>
         <p data-testid="shopping-cart-product-quantity">{item.qty}</p>

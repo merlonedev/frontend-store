@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import Quantities from './Quantities';
 
 export default class ProductDetails extends Component {
   constructor(props) {
@@ -44,6 +45,7 @@ export default class ProductDetails extends Component {
 
   render() {
     const { title, price, pictures, freeShipping } = this.state;
+    const { quantity } = this.props;
     return (
       <div>
         <img src={ pictures.url } alt="Imagem do Produto" />
@@ -69,8 +71,10 @@ export default class ProductDetails extends Component {
 
         <textarea data-testid="product-detail-evaluation" />
         <button type="button">Submit</button>
-
-        <Link to="/cart" data-testid="shopping-cart-button">Carrinho</Link>
+        <button type="button">
+          <Link to="/cart" data-testid="shopping-cart-button">Carrinho</Link>
+          <Quantities quantity={ quantity } />
+        </button>
         <Link to="/">Voltar</Link>
         <button
           type="button"
@@ -86,6 +90,7 @@ export default class ProductDetails extends Component {
 
 ProductDetails.defaultProps = {
   id: undefined,
+  quantity: undefined,
 };
 
 ProductDetails.propTypes = {
@@ -95,4 +100,5 @@ ProductDetails.propTypes = {
     }).isRequired }).isRequired,
   id: PropTypes.string,
   callback: PropTypes.func.isRequired,
+  quantity: PropTypes.number,
 };
