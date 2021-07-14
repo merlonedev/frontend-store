@@ -38,7 +38,7 @@ class Card extends React.Component {
         { !title ? <p>Loading...</p>
           : (
             <div>
-              <h1 data-testeid="product-detail-name">{ title }</h1>
+              <h1 data-testid="product-detail-name">{ title }</h1>
               <img src={ thumbnail } alt="Product" />
               <div className="infos">
                 <ul>
