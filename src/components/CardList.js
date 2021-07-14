@@ -32,13 +32,6 @@ class CardList extends Component {
       });
   }
 
-  /* getIf = () => {
-    const { value } = this.props;
-    if (value.lenght > 0) {
-      this.getValue();
-    }
-  } */
-
   searchByCategorie = (id) => {
     this.setState({ loading: true });
 
