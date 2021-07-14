@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './CardItem.css';
-import products from '../services/data';
+import productsCart from '../services/data';
 
 class CardItemCart extends React.Component {
   render() {
@@ -25,7 +25,7 @@ class CardItemCart extends React.Component {
           </p>
           <div className="increase-div">
             <p data-testid="shopping-cart-product-quantity">
-              { `Quantidade: ${products.length}` }
+              { `Quantidade: ${productsCart.length}` }
             </p>
           </div>
         </Link>
