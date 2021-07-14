@@ -19,6 +19,12 @@ class Home extends Component {
   }
 
   addItemToCart(product) {
+    const { cartList } = this.state;
+    const selItem = cartList.find((item) => item.id === product.id);
+    if (selItem !== undefined) {
+      return this.cartItemAddQuantity(product.id);
+    }
+
     product.quantity = 1;
     this.setState(({
       newProduct: product,
