@@ -38,7 +38,6 @@ class ShoppingCart extends Component {
     lista.forEach((item) => {
       aux += (item.price * item.howMuch);
     });
-    console.log(aux);
     return aux;
   }
 
