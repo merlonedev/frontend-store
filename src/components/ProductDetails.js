@@ -2,10 +2,12 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import Form from './Form';
 
 class ProductDetails extends Component {
   render() {
     const { product, callBack2 } = this.props;
+    const { title } = product;
     return (
       <>
         <h2 data-testid="product-detail-name">{ product.title }</h2>
@@ -19,6 +21,9 @@ class ProductDetails extends Component {
         </div>
         <button type="button" onClick={ () => callBack2() }>VOLTAR</button>
         <Link to="/ShoppingCart">CARRINHO DE COMPRAS</Link>
+        <div>
+          <Form title={ title } />
+        </div>
       </>
     );
   }
