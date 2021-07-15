@@ -72,3 +72,5 @@ Category.propTypes = {
   }).isRequired,
   callBack: PropTypes.func.isRequired,
 };
+
+export default Category;
