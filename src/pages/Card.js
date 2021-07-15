@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import ShoppingCartLink from '../Components/ShoppingCartLink';
 import { getProductsFromCategoryAndQuery } from '../services/api';
 
 class Card extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.setProduct = this.setProduct.bind(this);
+    this.getProductToAddInCart = this.getProductToAddInCart.bind(this);
 
     this.state = {
       product: {},
@@ -15,6 +17,14 @@ class Card extends React.Component {
 
   componentDidMount() {
     this.setProduct();
+  }
+
+  getProductToAddInCart() {
+    const { product } = this.state;
+    product.quantityInCart = 1;
+    const { addProductsInCart } = this.props;
+    addProductsInCart(product);
+    console.log(product);
   }
 
   async setProduct() {
@@ -55,7 +65,15 @@ class Card extends React.Component {
                   </li>
                 </ul>
               </div>
+              <button
+                type="button"
+                data-testid="product-detail-add-to-cart"
+                onClick={ this.getProductToAddInCart }
+              >
+                Adicionar ao carrinho
+              </button>
             </div>)}
+        <ShoppingCartLink />
       </div>
     );
   }
@@ -76,6 +94,7 @@ Card.propTypes = {
       }),
     }),
   }).isRequired,
+  addProductsInCart: PropTypes.func.isRequired,
 };
 
 export default Card;

@@ -96,6 +96,7 @@ class App extends React.Component {
               render={ (props) => (
                 <Card
                   { ...props }
+                  addProductsInCart={ this.addAllProductsToCart }
                 />) }
             />
           </Switch>
