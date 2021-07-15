@@ -9,10 +9,11 @@ class App extends Component {
   render() {
     return (
       <BrowserRouter>
+        <Route exact path="/ShoppingCart" component={ ShoppingCart } />
         <Route exact path="/" component={ ProductList } />
-        <Route exact path="/Shoppingcart" component={ ShoppingCart } />
       </BrowserRouter>
     );
   }
 }
+
 export default App;
