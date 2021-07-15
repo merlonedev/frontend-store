@@ -5,13 +5,14 @@ import ButtonShop from './ButtonShop';
 
 class ShoppingCart extends Component {
   render() {
-    const { carrinho } = this.props;
+    const { carrinho, updateState } = this.props;
     return (
       <div className="cart-page">
         <ButtonShop />
         <div className="cart-items">
           { carrinho.map((item) => (
             <ShoppingCartItem
+              updateState={ updateState }
               key={ item.id }
               item={ item }
             />)) }

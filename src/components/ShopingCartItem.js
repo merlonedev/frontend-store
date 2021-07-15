@@ -3,10 +3,13 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 class ShopingCartItem extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    const { item: { id } } = this.props;
+    const itemStorage = JSON.parse(localStorage.getItem('itens'));
+    const itemQtd = itemStorage.find((itemId) => itemId.id === id).quantity;
     this.state = {
-      quantity: 1,
+      quantity: itemQtd,
     };
     this.handleDecrement = this.handleDecrement.bind(this);
     this.handleIncrement = this.handleIncrement.bind(this);
@@ -14,18 +17,30 @@ class ShopingCartItem extends React.Component {
   }
 
   handleIncrement() {
-    this.setState((prevState) => ({ quantity: prevState.quantity + 1 }));
+    const { item: { id } } = this.props;
+    const storage = JSON.parse(localStorage.getItem('itens'));
+    const arrayIDs = storage.map((item) => item.id);
+    const indexObj = arrayIDs.indexOf(id);
+    storage[indexObj].quantity += 1;
+    localStorage.setItem('itens', JSON.stringify(storage));
+    this.setState({ quantity: storage[indexObj].quantity });
   }
 
   handleDecrement() {
-    this.setState((prevState) => ({ quantity: prevState.quantity - 1 }));
+    const { item: { id } } = this.props;
+    const storage = JSON.parse(localStorage.getItem('itens'));
+    const arrayIDs = storage.map((item) => item.id);
+    const indexObj = arrayIDs.indexOf(id);
+    storage[indexObj].quantity -= 1;
+    localStorage.setItem('itens', JSON.stringify(storage));
+    this.setState({ quantity: storage[indexObj].quantity });
   }
 
   handleRemove(event) {
     event.target.parentNode.parentNode.remove();
-    this.setState({
-      quantity: 0,
-    });
+    // this.setState({
+    //   quantity: 0,
+    // });
     this.removeStorage();
   }
 
@@ -38,7 +53,7 @@ class ShopingCartItem extends React.Component {
 
   render() {
     const { quantity } = this.state;
-    const { item } = this.props;
+    const { item, updateState } = this.props;
     const { id,
       category_id: category,
       title,
@@ -64,7 +79,10 @@ class ShopingCartItem extends React.Component {
             </p>
             <p data-testid="shopping-cart-product-quantity">{ quantity }</p>
             <button
-              onClick={ this.handleIncrement }
+              onClick={ () => {
+                this.handleIncrement();
+                updateState();
+              } }
               className="btn btn-warning"
               data-testid="product-increase-quantity"
               type="button"
@@ -72,7 +90,10 @@ class ShopingCartItem extends React.Component {
               +
             </button>
             <button
-              onClick={ this.handleDecrement }
+              onClick={ () => {
+                this.handleDecrement();
+                updateState();
+              } }
               className="btn btn-danger"
               data-testid="product-decrease-quantity"
               type="button"
@@ -81,7 +102,10 @@ class ShopingCartItem extends React.Component {
               -
             </button>
             <button
-              onClick={ this.handleRemove }
+              onClick={ () => {
+                updateState();
+                this.handleRemove();
+              } }
               className="btn btn-danger"
               data-testid="product-increase-quantity"
               type="button"

@@ -17,7 +17,6 @@ class ItemCard extends React.Component {
   }
 
   render() {
-    const { quantity } = this.state;
     const { item } = this.props;
     const { id,
       category_id: category,
@@ -41,10 +40,7 @@ class ItemCard extends React.Component {
           >
             Mais Detalhes
           </Link>
-          { (quantity === 0)
-            && <AddToCart qtdIncrement={ this.handleItemQtd } productObj={ item } />}
-          { (quantity > 0
-            && <Link to="/Cart">Ver no carrinho</Link>)}
+          <AddToCart qtdIncrement={ this.handleItemQtd } productObj={ item } />
         </div>
       </div>
     );

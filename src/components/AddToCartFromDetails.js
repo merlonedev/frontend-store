@@ -7,10 +7,21 @@ class AddToCartFromDetails extends React.Component {
     this.addItem = this.addItem.bind(this);
   }
 
+  checkAvailability(arr, val) {
+    return arr.some((arrVal) => val === arrVal);
+  }
+
   addItem() {
     const { productObj } = this.props;
+    const newObj = { ...productObj, quantity: 1 };
     const storage = JSON.parse(localStorage.getItem('itens')) || [];
-    const newStorage = [...storage, productObj];
+    const arrayIDs = storage.map((item) => item.id);
+    if (this.checkAvailability(arrayIDs, productObj.id)) {
+      const indexObj = arrayIDs.indexOf(productObj.id);
+      storage[indexObj].quantity += 1;
+      return localStorage.setItem('itens', JSON.stringify(storage));
+    }
+    const newStorage = [...storage, newObj];
     localStorage.setItem('itens', JSON.stringify(newStorage));
   }
 

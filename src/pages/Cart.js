@@ -7,12 +7,23 @@ class Cart extends Component {
     super();
     this.state = {
       carrinho: [],
+      quantidade: 0,
     };
     this.addStorage = this.addStorage.bind(this);
+    this.getQtdFromStorage = this.getQtdFromStorage.bind(this);
   }
 
   componentDidMount() {
     this.addStorage();
+    this.getQtdFromStorage();
+  }
+
+  getQtdFromStorage() {
+    const storageItems = JSON.parse(localStorage.getItem('itens'));
+    const storageQtd = storageItems.reduce((acc, curr) => (acc + curr.quantity), 0);
+    this.setState({
+      quantidade: storageQtd,
+    });
   }
 
   addStorage() {
@@ -25,7 +36,7 @@ class Cart extends Component {
   }
 
   render() {
-    const { carrinho } = this.state;
+    const { carrinho, quantidade } = this.state;
     if (carrinho.length === 0) {
       return (
         <div className="cart">
@@ -47,7 +58,8 @@ class Cart extends Component {
         >
           Página Principal
         </Link>
-        {(carrinho && <ShoppingCart carrinho={ carrinho } />)}
+        {(carrinho && <ShoppingCart updateState={ this.getQtdFromStorage } carrinho={ carrinho } />)}
+        <p data-testid="shopping-cart-product-quantity">{ quantidade }</p>
       </div>
     );
   }
