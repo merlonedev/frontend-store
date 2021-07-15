@@ -63,7 +63,7 @@ class Home extends React.Component {
             data-testid="query-button"
             onClick={ this.getProductList }
           >
-            Pesquisar
+            Pesquisa
           </button>
           <CartButton />
         </header>
