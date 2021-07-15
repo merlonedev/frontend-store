@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import AddButton from './AddButton';
+import SubtractButton from './SubtractButton';
+import RemoveButton from './RemoveButton';
 
-class CartItems extends React.Component {
+class CartItems extends Component {
   constructor(props) {
     super(props);
 
@@ -87,42 +90,35 @@ class CartItems extends React.Component {
 
     return (
       <ul>
-        {productList.map(({ price, title, thumbnail, id }) => {
+        {productList.map(({ price, title, thumbnail, id, available_quantity }) => {
           const { quantityEachItem: { [id]: quantity } } = this.state;
           return (
             <li key={ id }>
-              <button
-                type="button"
-                onClick={ () => {
-                  this.removeItem(id);
-                  this.subtractPriceOfRemovedItem(price, quantity);
-                } }
-              >
-                X
-              </button>
+              <RemoveButton
+                id={ id }
+                price={ price }
+                quantity={ quantity }
+                removeItem={ this.removeItem }
+                subtractPriceOfRemovedItem={ this.subtractPriceOfRemovedItem }
+              />
               <img src={ thumbnail } alt={ title } />
               <p data-testid="shopping-cart-product-name">{ title }</p>
-              <button
-                data-testid="product-decrease-quantity"
-                type="button"
-                onClick={ () => {
-                  this.decreaseQuantity(id);
-                  this.subtractTotalPrice(price, quantity);
-                } }
-              >
-                -
-              </button>
+              <SubtractButton
+                id={ id }
+                price={ price }
+                quantity={ quantity }
+                decreaseQuantity={ this.decreaseQuantity }
+                subtractTotalPrice={ this.subtractTotalPrice }
+              />
               <div data-testid="shopping-cart-product-quantity">{ quantity }</div>
-              <button
-                data-testid="product-increase-quantity"
-                type="button"
-                onClick={ () => {
-                  this.increaseQuantity(id);
-                  this.sumTotalPrice(price);
-                } }
-              >
-                +
-              </button>
+              <AddButton
+                id={ id }
+                price={ price }
+                quantity={ quantity }
+                increaseQuantity={ this.increaseQuantity }
+                sumTotalPrice={ this.sumTotalPrice }
+                availableQuantity={ available_quantity }
+              />
               <p>
                 { `R$${(price * quantity).toFixed(2)}` }
               </p>
