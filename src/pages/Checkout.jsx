@@ -1,5 +1,6 @@
 import React from 'react';
 import HomeButton from '../components/Home/HomeButton';
+import FormCheckout from '../components/Form/FormCheckout';
 
 class Checkout extends React.Component {
   render() {
@@ -7,6 +8,7 @@ class Checkout extends React.Component {
       <div>
         <HomeButton />
         <p>Hello World!!!</p>
+        <FormCheckout />
       </div>
     );
   }
