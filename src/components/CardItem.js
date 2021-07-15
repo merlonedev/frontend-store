@@ -6,6 +6,14 @@ import productsCart from '../services/data';
 import './CardItem.css';
 
 class CardItem extends Component {
+  addToData = (item) => {
+    const i = productsCart.findIndex(({ id }) => id === item.id);
+    if (i < 0) {
+      return productsCart.push(item);
+    }
+    productsCart[i].quantidade += 1;
+  }
+
   render() {
     const {
       title,
@@ -31,7 +39,7 @@ class CardItem extends Component {
         <button
           type="button"
           data-testid="product-add-to-cart"
-          onClick={ () => productsCart.push(item) }
+          onClick={ () => this.addToData(item) }
         >
           Adicionar ao carrinho
         </button>
