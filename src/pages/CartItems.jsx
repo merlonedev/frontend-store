@@ -1,46 +1,90 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FiShoppingCart } from 'react-icons/fi';
 import { TiArrowBack } from 'react-icons/ti';
 import { Link } from 'react-router-dom';
 import ProductInCart from '../components/ProductInCart';
+import '../css/cartItems.css';
 
 class CartItems extends React.Component {
   constructor(props) {
-    super(props);
+    super();
     this.state = {
-      cartItens: [
-        ...this.loadItens(),
-      ],
+      cartItens: [...props.setItemCart],
+      total: 0,
     };
-    this.loadItens = this.loadItens.bind(this);
+    this.itemCartRemove = this.itemCartRemove.bind(this);
+    this.totalCartCalculator = this.totalCartCalculator.bind(this);
   }
 
-  loadItens() {
-    const keys = Object.keys(localStorage);
-    return keys.map((key) => JSON.parse(localStorage.getItem(key)));
+  itemCartRemove(itemId) {
+    const { cartItens } = this.state;
+    const { removeItem } = this.props;
+    const cartUpdated = cartItens.filter((item) => item.id !== itemId);
+    removeItem(cartUpdated);
+    this.setState({
+      cartItens: [...cartUpdated],
+    });
+  }
+
+  totalCartCalculator(totalPriceItem) {
+    this.setState((prevState) => ({
+      total: prevState.total + totalPriceItem,
+    }));
   }
 
   render() {
-    const { cartItens } = this.state;
-    console.log(cartItens);
+    const { cartItens, total } = this.state;
     return (
-      <div>
-        <Link to="/"><TiArrowBack /></Link>
-        <FiShoppingCart />
-        Carrinho de Compras
+      <div className="cart">
+        <div className="cart-header">
+          <Link className="goBack-cart" to="/"><TiArrowBack /></Link>
+          <div className="cart-title">
+            <FiShoppingCart className="cart-logo" />
+            Carrinho de Compras
+          </div>
+        </div>
+
         {
           cartItens.length > 0
-            ? cartItens.map((cartItem) => (
-              <ProductInCart
-                key={ cartItem.id }
-                product={ cartItem }
-              />
-            ))
-            : <div data-testid="shopping-cart-empty-message">Seu carrinho está vazio</div>
+            ? (
+              <div className="cart-items">
+                {cartItens.map((cartItem) => (
+                  <ProductInCart
+                    key={ cartItem.id }
+                    product={ cartItem }
+                    onClick={ this.itemCartRemove }
+                    onChange={ this.totalCartCalculator }
+                    onChangeExclude={ this.itemCartRemove }
+                  />
+                ))}
+              </div>
+            )
+            : (
+              <div
+                data-testid="shopping-cart-empty-message"
+              >
+                Seu carrinho está vazio
+              </div>
+            )
         }
+        <div className="checkout-cart">
+          <span className="total-cart">
+            { `Valor Total da Compra: ${(total).toLocaleString('pt-BR', {
+              minimumFractionDigits: 2, style: 'currency', currency: 'BRL' })}`}
+          </span>
+          <button type="button" onClick={ () => {} } className="checkout-btn">
+            Finalizar Compra
+          </button>
+        </div>
       </div>
     );
   }
 }
+
+CartItems.propTypes = {
+  setItemCart: PropTypes.arrayOf(PropTypes.object).isRequired,
+  removeItem: PropTypes.func.isRequired,
+};
 
 export default CartItems;
