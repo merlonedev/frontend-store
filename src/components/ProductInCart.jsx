@@ -18,6 +18,7 @@ class ProductInCart extends React.Component {
     this.totalPriceCalculator = this.totalPriceCalculator.bind(this);
     this.plusItemCount = this.plusItemCount.bind(this);
     this.minusItemCount = this.minusItemCount.bind(this);
+    this.getInfoItem = this.getInfoItem.bind(this);
 
     this.mounted = false;
   }
@@ -37,6 +38,19 @@ class ProductInCart extends React.Component {
     this.mounted = false;
   }
 
+  getInfoItem() {
+    const { getInfoItem, product } = this.props;
+    const { totalPrice } = this.state;
+    const info = {
+      id: product.id,
+      title: product.title,
+      thumbnail: product.thumbnail,
+      totalPrice,
+    };
+    console.log('info', info);
+    getInfoItem(info);
+  }
+
   totalPriceCalculator() {
     const { price, count } = this.state;
     if (this.mounted) {
@@ -48,26 +62,29 @@ class ProductInCart extends React.Component {
 
   plusItemCount() {
     const { price } = this.state;
-    const { onChange } = this.props;
+    const { onChange, sumCountProduct } = this.props;
     this.setState((state) => ({
       count: state.count + 1,
     }), () => {
       this.totalPriceCalculator();
       onChange(price);
+      sumCountProduct();
     });
   }
 
   minusItemCount() {
     const { price } = this.state;
-    const { onChange, onChangeExclude, product: { id } } = this.props;
+    const { onChange, onChangeExclude, product: { id }, subCountProduct } = this.props;
     this.setState((state) => ({
       count: state.count ? (state.count - 1) : 0,
     }), () => {
       this.totalPriceCalculator();
       const { count } = this.state;
       if (count) {
+        subCountProduct();
         return onChange(-price);
       }
+      subCountProduct();
       onChangeExclude(id);
     });
   }
@@ -121,6 +138,7 @@ ProductInCart.propTypes = {
   onClick: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
   onChangeExclude: PropTypes.func.isRequired,
+  getInfoItem: PropTypes.func.isRequired,
 };
 
 export default ProductInCart;

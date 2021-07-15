@@ -15,7 +15,6 @@ class ProductDetails extends React.Component {
       loading: true,
     };
     this.getProduct = this.getProduct.bind(this);
-    this.addToStorage = this.addToStorage.bind(this);
   }
 
   componentDidMount() {
@@ -29,11 +28,6 @@ class ProductDetails extends React.Component {
     this.setState({ product: { ...product }, loading: false });
   }
 
-  addToStorage() {
-    const { product } = this.state;
-    localStorage.setItem(product.id, JSON.stringify(product));
-  }
-
   render() {
     const {
       product: {
@@ -42,9 +36,11 @@ class ProductDetails extends React.Component {
         thumbnail,
         attributes,
       },
+      product,
       loading,
     } = this.state;
     const { cartQtd } = this.props;
+    const { addToCartItems } = this.props;
     if (loading) return <Loading />;
     return (
       <div>
@@ -74,7 +70,7 @@ class ProductDetails extends React.Component {
           <button
             data-testid="product-detail-add-to-cart"
             type="button"
-            onClick={ this.addToStorage }
+            onClick={ () => addToCartItems(product) }
           >
             Adicionar ao carrinho
           </button>
@@ -94,6 +90,7 @@ ProductDetails.propTypes = {
     }),
   }).isRequired,
   cartQtd: PropTypes.func.isRequired,
+  addToCartItems: PropTypes.func.isRequired,
 };
 
 export default ProductDetails;

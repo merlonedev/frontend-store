@@ -12,9 +12,23 @@ class CartItems extends React.Component {
     this.state = {
       cartItens: [...props.setItemCart],
       total: 0,
+      itemsQtd: props.setItemCart.length,
     };
+    this.loadCartItemStorage = this.loadCartItemStorage.bind(this);
     this.itemCartRemove = this.itemCartRemove.bind(this);
     this.totalCartCalculator = this.totalCartCalculator.bind(this);
+    this.getCheckoutInfos = this.getCheckoutInfos.bind(this);
+    this.sumOfItens = this.sumOfItens.bind(this);
+    this.subOfItens = this.subOfItens.bind(this);
+    this.cartInfos = [];
+  }
+
+  componentDidMount() {
+    this.loadCartItemStorage();
+  }
+
+  getCheckoutInfos(infoItem) {
+    this.cartInfos = [...this.cartInfos, infoItem];
   }
 
   itemCartRemove(itemId) {
@@ -24,6 +38,7 @@ class CartItems extends React.Component {
     removeItem(cartUpdated);
     this.setState({
       cartItens: [...cartUpdated],
+      itemsQtd: cartUpdated.length,
     });
   }
 
@@ -33,9 +48,31 @@ class CartItems extends React.Component {
     }));
   }
 
+  sumOfItens() {
+    this.setState((prevState) => ({
+      itemsQtd: prevState.itemsQtd + 1,
+    }));
+  }
+
+  subOfItens() {
+    this.setState((prevState) => ({
+      itemsQtd: prevState.itemsQtd - 1,
+    }));
+  }
+
+  loadCartItemStorage() {
+    const storage = JSON.parse(localStorage.getItem('cartItems'));
+    if (Array.isArray(storage) && storage.length) {
+      this.setState({
+        cartItens: [...storage],
+      });
+    }
+  }
+
   render() {
-    const { cartItens, total } = this.state;
-    const qtd = cartItens.length;
+    const { cartItens, total, itemsQtd } = this.state;
+    const qtd = itemsQtd;
+    const { checkoutInfos } = this.props;
     return (
       <div className="cart">
         <div className="cart-header">
@@ -57,6 +94,9 @@ class CartItems extends React.Component {
                     onClick={ this.itemCartRemove }
                     onChange={ this.totalCartCalculator }
                     onChangeExclude={ this.itemCartRemove }
+                    getInfoItem={ this.getCheckoutInfos }
+                    sumCountProduct={ this.sumOfItens }
+                    subCountProduct={ this.subOfItens }
                   />
                 ))}
               </div>
@@ -74,9 +114,14 @@ class CartItems extends React.Component {
             { `Valor Total da Compra: ${(total).toLocaleString('pt-BR', {
               minimumFractionDigits: 2, style: 'currency', currency: 'BRL' })}`}
           </span>
-          <button type="button" onClick={ () => {} } className="checkout-btn">
+          <Link
+            to="/checkout"
+            data-testid="checkout-products"
+            onClick={ () => checkoutInfos(this.cartInfos) }
+            className="checkout-btn"
+          >
             Finalizar Compra
-          </button>
+          </Link>
         </div>
       </div>
     );
@@ -86,6 +131,7 @@ class CartItems extends React.Component {
 CartItems.propTypes = {
   setItemCart: PropTypes.arrayOf(PropTypes.object).isRequired,
   removeItem: PropTypes.func.isRequired,
+  checkoutInfos: PropTypes.func.isRequired,
 };
 
 export default CartItems;
