@@ -11,6 +11,7 @@ class CardItemCart extends React.Component {
       price,
       itemId,
       onClick,
+      quantity,
       amount,
     } = this.props;
     return (
@@ -37,6 +38,7 @@ class CardItemCart extends React.Component {
             data-testid="product-increase-quantity"
             type="button"
             name="+"
+            disabled={ amount === quantity }
             onClick={ (event) => onClick(itemId, event) }
           >
             +
@@ -46,11 +48,6 @@ class CardItemCart extends React.Component {
           R$
           { price }
         </p>
-        <Link to="/payment">
-          <button data-testid="checkout-products" type="button">
-            Finalizar Compra
-          </button>
-        </Link>
       </div>
     );
   }
@@ -63,6 +60,7 @@ CardItemCart.propTypes = {
   price: PropTypes.number.isRequired,
   onClick: PropTypes.func.isRequired,
   amount: PropTypes.number.isRequired,
+  quantity: PropTypes.number.isRequired,
 };
 
 export default CardItemCart;

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import CardItemCart from '../components/CardItemCart';
 import productsCart from '../services/data';
 import BackSVG from '../SVGs/BackSVG';
+import './Cart.css';
 
 class Cart extends React.Component {
   handleClick = (itemid, { target }) => {
@@ -29,22 +30,34 @@ class Cart extends React.Component {
       );
     }
     return (
-      <div className="card-list">
-        <div className="back-icon">
-          <Link to="/">
-            <BackSVG />
-          </Link>
+      <main>
+        <div className="card-list">
+          <div className="back-icon">
+            <Link to="/">
+              <BackSVG />
+            </Link>
+          </div>
+          { productsCart.map((item) => (<CardItemCart
+            key={ item.id }
+            itemId={ item.id }
+            title={ item.title }
+            thumbnail={ item.thumbnail }
+            price={ item.price }
+            amount={ item.quantidade }
+            onClick={ this.handleClick }
+            quantity={ item.available_quantity }
+          />)) }
         </div>
-        { productsCart.map((item) => (<CardItemCart
-          key={ item.id }
-          itemId={ item.id }
-          title={ item.title }
-          thumbnail={ item.thumbnail }
-          price={ item.price }
-          amount={ item.quantidade }
-          onClick={ this.handleClick }
-        />)) }
-      </div>
+        <Link to="/payment">
+          <button
+            data-testid="checkout-products"
+            className="checkout-button"
+            type="button"
+          >
+            Finalizar Compra
+          </button>
+        </Link>
+      </main>
     );
   }
 }
