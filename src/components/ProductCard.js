@@ -19,7 +19,10 @@ class ProductCard extends React.Component {
       <div>
         <Link
           data-testid="product-detail-link"
-          to={ `/product-details/${categoryID}/${id}` }
+          to={ {
+            pathname: `/product-details/${categoryID}/${id}`,
+            checkListInCart,
+          } }
         >
           <div data-testid="product">
             <img alt="Foto do produto" src={ thumbnail } />
