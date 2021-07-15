@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import NavBar from '../Components/NavBar';
 import SearchBar from '../Components/SearchBar';
 import ButtonCart from '../Components/ButtonCart';
+import ProductList from '../Components/ProductList';
 import { getCategories, getProductsFromCategoryAndQuery } from '../services/api';
 
 class Home extends Component {
@@ -12,11 +13,13 @@ class Home extends Component {
       products: [],
       categories: [],
       value: '',
+      productList: [],
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.mountCategorieList = this.mountCategorieList.bind(this);
+    this.addToCart = this.addToCart.bind(this);
   }
 
   async componentDidMount() {
@@ -50,8 +53,15 @@ class Home extends Component {
     });
   }
 
+  addToCart(product) {
+    console.log(product);
+    this.setState((prevState) => ({
+      productList: [...prevState.productList, product],
+    }));
+  }
+
   render() {
-    const { products, value, categories } = this.state;
+    const { products, value, categories, productList } = this.state;
     return (
 
       <section>
@@ -66,6 +76,10 @@ class Home extends Component {
           <NavBar
             categories={ categories }
             click={ this.handleClick }
+          />
+          <ProductList
+            products={ productList }
+            addToCart={ this.addToCart }
           />
         </div>
       </section>
