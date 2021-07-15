@@ -8,13 +8,22 @@ class ProductDetails extends Component {
     super();
 
     this.state = {
+      email: '',
+      ratting: '',
+      message: '',
       productDetail: {},
     };
+    this.handleChange = this.handleChange.bind(this);
     this.searchProduct = this.searchProduct.bind(this);
   }
 
   componentDidMount() {
     this.searchProduct();
+  }
+
+  handleChange({ target }) {
+    const { name, value } = target;
+    this.setState({ [name]: value });
   }
 
   async searchProduct() {

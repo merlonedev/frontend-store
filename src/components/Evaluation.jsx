@@ -1,12 +1,30 @@
 import React, { Component } from 'react';
 
 class Evaluation extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      
+    };
+
+  }
+
   render() {
+    const { email, ratting, message } = this.props;
+
     return (
       <form method="get">
+        Avaliações
         <div>
           <label htmlFor="email">
-            <input type="email" name="email" id="email" placeholder="Email" />
+            <input
+              type="email"
+              name="email"
+              id="email"
+              placeholder="Email"
+              onChange={ this.handleChange }
+            />
           </label>
         </div>
         <div>
