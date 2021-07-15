@@ -9,7 +9,6 @@ class Products extends Component {
     if (shipping.free_shipping === true) {
       return (<p data-testid="free-shipping">Frete Grátis</p>);
     }
-    console.log(shipping.free_shipping);
   }
 
   render() {
@@ -46,10 +45,6 @@ Products.propTypes = {
   id: PropTypes.string.isRequired,
   addCart: PropTypes.func.isRequired,
   product: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    img: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    categoryId: PropTypes.string.isRequired,
     shipping: PropTypes.shape({
       free_shipping: PropTypes.bool,
     }),

@@ -133,3 +133,26 @@ nav {
 .productImg {
   height: 200px;
 }
+
+.avaliacaoLabel {
+  margin: 20px;
+}
+
+.avaliacao {
+  background-color: black;
+  color: white;
+  margin-left: 10px;
+  padding: 5px;
+}
+
+.comentarioLabel {
+  margin: 10px;
+}
+
+.comentario {
+  margin-left: 10px;
+}
+
+.submitBtn {
+  padding: 10px;
+}
