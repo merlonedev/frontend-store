@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import * as api from '../services/api';
 import Products from './Products';
 import CartButton from '../Components/CartButton';
-import Category from '../Components/Categorias';
+import Category from '../Components/Category';
 import SearchInput from '../Components/SearchInput';
 import '../styles/home.css';
 

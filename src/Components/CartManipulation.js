@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-class ManipularCarrinho extends React.Component {
+class CartManipulation extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -62,11 +62,11 @@ class ManipularCarrinho extends React.Component {
   }
 }
 
-ManipularCarrinho.propTypes = {
+CartManipulation.propTypes = {
   item: PropTypes.objectOf({
     price: PropTypes.number.isRequired,
   }).isRequired,
   removeItem: PropTypes.func.isRequired,
 };
 
-export default ManipularCarrinho;
+export default CartManipulation;

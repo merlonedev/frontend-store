@@ -11,8 +11,12 @@ header {
   width: 100%;
 }
 
+.market {
+  color: white;
+}
+
 .header-content {
-  background-color: aquamarine;
+  background-color: #22272e;
   width: 100%;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
