@@ -33,22 +33,26 @@ class FilterCategories extends React.Component {
   render() {
     const { categories } = this.state;
     return (
-      <aside>
-        {
-          categories.map((categorie) => (
-            <Link
-              to="/search"
-              name="category"
-              key={ categorie.id }
-              id={ categorie.id }
-              data-testid="category"
-              onClick={ this.clickHandle }
-            >
-              { categorie.name }
-            </Link>
-          ))
-        }
-      </aside>
+      <div className="bloco-aside">
+        <aside className="aside">
+          {
+            categories.map((categorie) => (
+              <Link
+                to="/search"
+                name="category"
+                key={ categorie.id }
+                id={ categorie.id }
+                data-testid="category"
+                onClick={ this.clickHandle }
+              >
+                <button type="button">
+                  { categorie.name }
+                </button>
+              </Link>
+            ))
+          }
+        </aside>
+      </div>
     );
   }
 }

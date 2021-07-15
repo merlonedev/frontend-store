@@ -25,6 +25,8 @@ class App extends React.Component {
     this.setState((previousState) => ({
       cart: [...previousState.cart, obj],
     }));
+    const { cart } = this.state;
+    console.log(cart);
   }
 
   getState(name, value) {
@@ -61,7 +63,12 @@ class App extends React.Component {
             <Route
               exact
               path="/details/:id"
-              render={ (props) => <ProductDetail { ...props } search={ search } /> }
+              render={ (props) => (
+                <ProductDetail
+                  { ...props }
+                  search={ search }
+                  setCartStorage={ this.setCartStorage }
+                />) }
             />
           </Switch>
           <FilterCategories getState={ this.getState } />
