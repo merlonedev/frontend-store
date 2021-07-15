@@ -69,7 +69,7 @@ class Search extends Component {
     const { productList: { results } } = this.state;
     if (results.length === 0) return <p>Nenhum produto foi encontrado</p>;
     return (
-      <div>
+      <div className="d-flex flex-row flex-wrap">
         <ul>
           { results.map(
             (prod) => (<ProductCard
@@ -86,14 +86,20 @@ class Search extends Component {
   render() {
     const { cartList } = this.props;
     return (
-      <div>
-        <div data-testid="home-initial-message">
-          Digite algum termo de pesquisa ou escolha uma categoria.
+      <div className="d-flex flex-row w-100">
+        <div>
+          <CategoryList handleCategoryText={ this.handleCategoryText } />
         </div>
-        <ButtonToCart cartList={ cartList } />
-        <CategoryList handleCategoryText={ this.handleCategoryText } />
-        {this.renderForm()}
-        {this.renderList()}
+        <div className="d-flex flex-column">
+          <div className="d-flex flex-row w-100">
+            <div data-testid="home-initial-message">
+              Digite algum termo de pesquisa ou escolha uma categoria.
+            </div>
+            {this.renderForm()}
+            <ButtonToCart cartList={ cartList } />
+          </div>
+          {this.renderList()}
+        </div>
       </div>
     );
   }
