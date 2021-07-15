@@ -53,7 +53,6 @@ class Home extends Component {
     if (selItem !== undefined) {
       return this.cartItemAddQuantity(product.id);
     }
-
     product.quantity = 1;
     this.setState(({
       newProduct: product,

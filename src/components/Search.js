@@ -31,7 +31,7 @@ class Search extends Component {
       loading: 'done',
       productList: results,
     }, (() => {
-      this.handleSort('increasingPrice');
+      // this.handleSort('increasingPrice');
       this.checkListInCart();
     }));
   }
@@ -95,13 +95,20 @@ class Search extends Component {
     return (
       <form>
         <label htmlFor="sort_select">
-          <select
-            id="sort_select"
-            onChange={ (event) => this.handleSort(event.target.value) }
-          >
-            <option value="increasingPrice">Ordenação por preço crescente</option>
-            <option value="decreasingPrice">Ordenação por preço decrescente</option>
-          </select>
+          <input
+            name="sort_select"
+            type="radio"
+            value="increasingPrice"
+            onClick={ (event) => this.handleSort(event.target.value) }
+          />
+          Preço crescente
+          <input
+            name="sort_select"
+            type="radio"
+            value="decreasingPrice"
+            onClick={ (event) => this.handleSort(event.target.value) }
+          />
+          Preço decrescente
         </label>
       </form>
     );
