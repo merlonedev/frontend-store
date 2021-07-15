@@ -9,7 +9,8 @@ class ProductCard extends Component {
       const futureCart = { ...currentCart, product };
       localStorage.setItem('carrinho', JSON.stringify(futureCart));
     } else {
-      localStorage.setItem('carrinho', JSON.stringify(product));
+      const cart = [product];
+      localStorage.setItem('carrinho', JSON.stringify(cart));
     }
   }
 
