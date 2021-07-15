@@ -6,29 +6,32 @@ class SearchBarProducts extends React.Component {
   render() {
     const { handleChange, handleClick } = this.props;
     return (
-      <div>
+      <header className="header">
         <div className="search-container">
           <div className="search">
-            <input
-              name="query"
-              type="text"
-              data-testid="query-input"
-              onChange={ handleChange }
-            />
-            <button
-              type="button"
-              data-testid="query-button"
-              onClick={ handleClick }
-            >
-              Buscar
-            </button>
+            <div className="input-search-container">
+              <input
+                className="input-search"
+                name="query"
+                type="text"
+                data-testid="query-input"
+                onChange={ handleChange }
+              />
+              <button
+                type="button"
+                data-testid="query-button"
+                onClick={ handleClick }
+              >
+                Buscar
+              </button>
+            </div>
             <CartButton />
           </div>
         </div>
-        <h2 data-testid="home-initial-message">
+        <p data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
-        </h2>
-      </div>
+        </p>
+      </header>
     );
   }
 }
