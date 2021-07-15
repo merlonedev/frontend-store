@@ -76,7 +76,7 @@ class ShoppingCart extends React.Component {
         <p
           data-testid="shopping-cart-product-quantity"
         >
-          {`Total de itens: ${totalQuantity}`}
+          { totalQuantity }
         </p>
         <p>
           Valor Total da Compra: R$
