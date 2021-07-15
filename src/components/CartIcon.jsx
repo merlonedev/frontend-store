@@ -8,7 +8,7 @@ class CartIcon extends Component {
   render() {
     const { qtd } = this.props;
     return (
-      <div style={ { display: 'block', padding: 30 } }>
+      <div style={ { display: 'block' } }>
         <Badge
           data-testid="shopping-cart-size"
           color="secondary"

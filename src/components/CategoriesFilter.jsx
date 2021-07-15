@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import '../css/CategoriesFilter.css';
 
 class CategoriesFilter extends React.Component {
   render() {
@@ -12,8 +13,10 @@ class CategoriesFilter extends React.Component {
               htmlFor={ id }
               data-testid="category"
               key={ id }
+              className="rad-label"
             >
               <input
+                className="radio-input"
                 id={ id }
                 type="radio"
                 name="categoryId"

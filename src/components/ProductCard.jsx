@@ -34,27 +34,31 @@ class ProductCard extends React.Component {
               src={ thumbnail.replace('I.jpg', 'O.jpg') }
               alt={ title }
             />
-            <p lassName="product-price">
+          </div>
+          <p className="product-price">
+            <span>
               { (price || 0).toLocaleString('pt-BR', {
                 minimumFractionDigits: 2, style: 'currency', currency: 'BRL' }) }
-            </p>
-          </div>
-          <div className="product-btns">
-            <button
-              data-testid="product-add-to-cart"
-              onClick={ () => addToCartItems(product) }
-              type="button"
-              className="product-btn"
-            >
-              Adicionar ao carrinho
-            </button>
-            <Link
-              className="product-link"
-              data-testid="product-detail-link"
-              to={ `/item/${category || categoryId}/${id}` }
-            >
-              Mais Detalhes
-            </Link>
+            </span>
+          </p>
+          <div className="cart-details">
+            <div className="product-btns">
+              <button
+                data-testid="product-add-to-cart"
+                onClick={ () => addToCartItems(product) }
+                type="button"
+                className="product-btn"
+              >
+                Adicionar ao carrinho
+              </button>
+              <Link
+                className="product-link"
+                data-testid="product-detail-link"
+                to={ `/item/${category || categoryId}/${id}` }
+              >
+                Mais Detalhes
+              </Link>
+            </div>
           </div>
         </div>
       </div>

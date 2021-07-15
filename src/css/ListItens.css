@@ -1,0 +1,52 @@
+.navbar {
+  background-color: whitesmoke;
+  box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 26px;
+}
+
+.nav-title {
+  color: rgb(240, 160, 11);
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.nav-input {
+  border: none;
+  border-bottom: 1px solid #757575;
+  border-radius: 10px;
+  font-size: 15px;
+  padding: 5px;
+  width: 200px;
+}
+
+.nav-btn {
+  background-color: white;
+  border: none;
+  border-bottom: 1px solid #757575;
+  border-radius: 10px;
+  cursor: pointer;
+  padding: 5px 10px;
+}
+
+.info {
+  padding: 20px;
+}
+
+.nav-input:focus, .nav-btn:focus {
+  outline: none;
+}
+
+.nav-btn:hover, .nav-input:hover {
+  transform: scale(1.03);
+}
+
+.nav-form label {
+  margin-right: 10px;
+}
+
+.nav-form label input {
+  margin-right: 10px;
+}

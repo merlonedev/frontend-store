@@ -2,11 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import CartIcon from '../components/CartIcon';
-// import { FiShoppingCart } from 'react-icons/fi';
 import ProductCard from '../components/ProductCard';
 import CategoriesFilter from '../components/CategoriesFilter';
 import * as api from '../services/api';
-import '../css/listItens.css';
+import '../css/ListItens.css';
 
 class ListItems extends React.Component {
   constructor(props) {
@@ -112,6 +111,7 @@ class ListItems extends React.Component {
           <form className="nav-form">
             <label htmlFor="search-bar">
               <input
+                className="nav-input"
                 id="search-bar"
                 type="text"
                 data-testid="query-input"
@@ -121,6 +121,7 @@ class ListItems extends React.Component {
                 placeholder="Procure seu produto..."
               />
               <button
+                className="nav-btn"
                 type="submit"
                 data-testid="query-button"
                 onClick={ this.handleClick }
@@ -133,7 +134,7 @@ class ListItems extends React.Component {
             <CartIcon qtd={ cartQtd } />
           </Link>
         </nav>
-        <div data-testid="home-initial-message">
+        <div data-testid="home-initial-message" className="info">
           Digite algum termo de pesquisa ou escolha uma categoria.
         </div>
         <CategoriesFilter

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { TiArrowBack } from 'react-icons/ti';
-import { FiShoppingCart } from 'react-icons/fi';
 import PropTypes from 'prop-types';
+import CartIcon from '../components/CartIcon';
 import Loading from '../components/Loading';
 import Form from '../components/Form';
 import * as api from '../services/api';
@@ -44,12 +44,13 @@ class ProductDetails extends React.Component {
       },
       loading,
     } = this.state;
+    const { cartQtd } = this.props;
     if (loading) return <Loading />;
     return (
       <div>
         <Link to="/"><TiArrowBack /></Link>
         <Link to="/cart" data-testid="shopping-cart-button">
-          <FiShoppingCart />
+          <CartIcon qtd={ cartQtd } />
         </Link>
         <h2 data-testid="product-detail-name">
           { `${title} - ${(price || 0).toLocaleString('pt-BR', {
@@ -92,6 +93,7 @@ ProductDetails.propTypes = {
       categoryId: PropTypes.string,
     }),
   }).isRequired,
+  cartQtd: PropTypes.func.isRequired,
 };
 
 export default ProductDetails;
