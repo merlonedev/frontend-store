@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import CartItems from './CartItems';
 import ReturnButton from './subcomponents/ReturnButton';
 import CheckoutButton from './subcomponents/CheckoutButton';
+import TotalCart from './subcomponents/TotalCart';
 
 // prettier-ignore
 export default class ShoppingCart extends React.Component {
@@ -25,6 +26,7 @@ export default class ShoppingCart extends React.Component {
           <CheckoutButton />
           {/* <Link to="/">VOLTAR</Link> */}
           <ReturnButton path="/" />
+          <TotalCart cartItems={ cartItems } />
         </p>
       </section>
     );
