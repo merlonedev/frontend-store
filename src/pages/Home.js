@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import NavBar from '../Components/NavBar';
 import SearchBar from '../Components/SearchBar';
 import ButtonCart from '../Components/ButtonCart';
-import { getProductsFromCategoryAndQuery } from '../services/api';
+import { getCategories, getProductsFromCategoryAndQuery } from '../services/api';
 
 class Home extends Component {
   constructor(props) {
@@ -11,11 +11,17 @@ class Home extends Component {
     this.state = {
       loading: false,
       products: [],
+      categories: [],
       value: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.mountCategorieList = this.mountCategorieList.bind(this);
+  }
+
+  componentDidMount() {
+    this.mountCategorieList();
   }
 
   handleChange(e) {
@@ -25,10 +31,10 @@ class Home extends Component {
   }
 
   async handleClick() {
-    const { value } = this.state;
+    const { value, categories } = this.state;
     this.setState({ loading: true },
       async () => {
-        const products = await getProductsFromCategoryAndQuery('', value);
+        const products = await getProductsFromCategoryAndQuery(categories, value);
         this.setState({
           loading: false,
           products: products.results,
@@ -36,8 +42,19 @@ class Home extends Component {
       });
   }
 
+  async mountCategorieList() {
+    this.setState({ loading: true },
+      async () => {
+        const response = await getCategories();
+        this.setState({
+          categories: response,
+          loading: false,
+        });
+      });
+  }
+
   render() {
-    const { loading, products, value } = this.state;
+    const { loading, products, value, categories } = this.state;
     return (
       <section>
         <div>
@@ -49,7 +66,11 @@ class Home extends Component {
             click={ this.handleClick }
           />
           <ButtonCart />
-          <NavBar />
+          <NavBar
+            loading={ loading }
+            categories={ categories }
+            click={ this.handleClick }
+          />
         </div>
       </section>
     );

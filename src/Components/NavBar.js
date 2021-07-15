@@ -1,51 +1,32 @@
 import React, { Component } from 'react';
-import { getCategories } from '../services/api';
+import PropTypes from 'prop-types';
+import Loading from './Loading';
 
 class NavBar extends Component {
-  constructor() {
-    super();
-
-    this.mountListCategory = this.mountListCategory.bind(this);
-
-    this.state = {
-      categoryList: [],
-    };
-  }
-
-  componentDidMount() {
-    this.mountListCategory();
-  }
-
-  async mountListCategory() {
-    const response = await getCategories();
-    this.setState({
-      categoryList: response,
-    });
-  }
-
   render() {
-    const { categoryList } = this.state;
+    const { categories, loading, click } = this.props;
+    console.log('NavBar', categories);
+    if (loading) return <Loading />;
     return (
       <nav>
         <ul>
-          {categoryList.map((category) => (
-            <li key={ category.id } data-testid="category">
-              { category.name }
-            </li>))}
+          { categories.map((categorie) => (
+            <li
+              key={ categorie.id }
+              onClick={ click }
+              data-testid="categorie"
+            >
+              { categorie.name }
+            </li>)) }
         </ul>
-        {/* {categoryList.map((category) => (
-          <input
-            type="radio"
-            key={ category.id }
-            data-testid="category"
-          >
-            { category.name }
-          </input>))
-        } */}
-
       </nav>
     );
   }
 }
+
+NavBar.propTypes = {
+  categories: PropTypes.arrayOf(Object).isRequired,
+  loading: PropTypes.bool.isRequired,
+};
 
 export default NavBar;
