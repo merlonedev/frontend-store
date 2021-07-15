@@ -6,7 +6,7 @@ export default class Rating extends React.Component {
     super(props);
     this.state = {
       email: '',
-      rating: '',
+      rating: '5',
       comment: '',
       reviews: [],
     };
@@ -35,10 +35,12 @@ export default class Rating extends React.Component {
   showReviews(reviews) {
     if (!reviews) return;
     return reviews.map((review, index) => (
-      <section key={ index }>
-        <h4>{ review.email }</h4>
-        <h5>{ review.rating }</h5>
-        <p><span>{ review.comment }</span></p>
+      <section key={ index } className="review">
+        <h4 className="review-email">{ review.email }</h4>
+        <span>deu nota</span>
+        <h5 className="review-rating">{ review.rating }</h5>
+        <span>e comentou</span>
+        <p className="review-comment">{ review.comment }</p>
       </section>
     ));
   }
@@ -70,39 +72,47 @@ export default class Rating extends React.Component {
     return (
       <section>
         <section>
-          <form>
-            <h3>Avaliações</h3>
+          <form className="rating">
+            <h3>Conte-nos o que achou deste produto!</h3>
             <input
               name="email"
               type="email"
               placeholder="Email"
               onChange={ this.handleChange }
               value={ email }
+              className="eval-input"
             />
-            <input
-              name="rating"
-              type="range"
-              min="1"
-              max="5"
-              onChange={ this.handleChange }
-              value={ rating }
-            />
+            <label htmlFor="rating" className="rating-label">
+              Avaliação
+              <p>1 - 5</p>
+              <input
+                name="rating"
+                type="range"
+                min="1"
+                max="5"
+                onChange={ this.handleChange }
+                value={ rating }
+              />
+            </label>
             <textarea
               name="comment"
               placeholder="Mensagem (Opcional)"
               data-testid="product-detail-evaluation"
               onChange={ this.handleChange }
               value={ comment }
+              className="evaluation"
             />
             <button
               type="button"
               onClick={ this.submitReview }
+              className="submit-btn button"
             >
-              Avaliar
+              <p>Avaliar</p>
             </button>
           </form>
         </section>
-        <section>
+        <section className="reviews">
+          <h2>Avaliações</h2>
           { this.showReviews(reviews) }
         </section>
       </section>

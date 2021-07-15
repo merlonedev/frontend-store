@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import AddToCartButton from './subcomponents/AddToCartButton';
 
 export default class ProductsList extends Component {
   constructor() {
@@ -57,14 +58,18 @@ export default class ProductsList extends Component {
             >
               Detalhes
             </Link>
-            <button
+            {/* <button
               type="button"
               data-testid="product-add-to-cart"
               onClick={ () => callback({ ...product, qty: 1 }) }
               className="add-button button"
             >
               <i className="fas fa-cart-arrow-down"> Adicionar ao Carrinho</i>
-            </button>
+            </button> */}
+            <AddToCartButton
+              onClick={ () => callback({ ...product, qty: 1 }) }
+              datatestid="product-add-to-cart"
+            />
           </div>
         ))}
       </div>

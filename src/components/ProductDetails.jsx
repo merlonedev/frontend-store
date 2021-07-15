@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 // import Quantities from './Quantities';
 import ShoppingCartButton from './subcomponents/ShoppingCartButton';
 import ReturnButton from './subcomponents/ReturnButton';
+import AddToCartButton from './subcomponents/AddToCartButton';
 import Rating from './Rating';
 
 export default class ProductDetails extends Component {
@@ -56,24 +57,26 @@ export default class ProductDetails extends Component {
     return (
       <div className="product-details">
         <img src={ pictures.url } alt="Imagem do Produto" className="details-img" />
-        <div className="details">
-          <h1 data-testid="product-detail-name">
-            {title}
-          </h1>
-          {!freeShipping ? (
-            <span data-testid="shipping">
-              Confira os preços de frete para sua residência.
-            </span>
-          ) : (
-            <span data-testid="free-shipping">
-              Frete Gratuito para sua residência.
-            </span>
-          )}
-          <h2>
-            {formatter.format(price)}
-          </h2>
-          <div className="buttons-container">
-            {/* <button type="button" className="button cart-button">
+        <div className="column">
+
+          <div className="details">
+            <h1 data-testid="product-detail-name">
+              {title}
+            </h1>
+            {!freeShipping ? (
+              <span data-testid="shipping">
+                Confira os preços de frete para sua residência.
+              </span>
+            ) : (
+              <span data-testid="free-shipping">
+                Frete Gratuito para sua residência.
+              </span>
+            )}
+            <h2>
+              {formatter.format(price)}
+            </h2>
+            <div className="buttons-container">
+              {/* <button type="button" className="button cart-button">
               <Link to="/cart" data-testid="shopping-cart-button">
                 <p>
                   <i className="fas fa-shopping-cart" />
@@ -81,24 +84,29 @@ export default class ProductDetails extends Component {
                 </p>
               </Link>
             </button> */}
-            <ShoppingCartButton quantity={ quantity } />
-            <button
-              type="button"
-              data-testid="product-detail-add-to-cart"
-              onClick={ this.handleClick }
-              className="add-button button"
-            >
-              <i className="fas fa-cart-arrow-down"> Adicionar ao carrinho</i>
-            </button>
-            {/* <button type="button" className="button return-button">
+              <ShoppingCartButton quantity={ quantity } />
+              {/* <button
+                type="button"
+                data-testid="product-detail-add-to-cart"
+                onClick={ this.handleClick }
+                className="add-button button"
+              >
+                <i className="fas fa-cart-arrow-down"> Adicionar ao carrinho</i>
+              </button> */}
+              <AddToCartButton
+                onClick={ this.handleClick }
+                datatestid="product-detail-add-to-cart"
+              />
+              {/* <button type="button" className="button return-button">
               <Link to="/">
                 <p>Voltar</p>
               </Link>
             </button> */}
-            <ReturnButton path="/" />
+              <ReturnButton path="/" />
+            </div>
           </div>
+          <Rating pid={ id } />
         </div>
-        <Rating pid={ id } />
       </div>
     );
   }
