@@ -72,7 +72,7 @@ export default class CartItems extends Component {
         <div className="btn-name-container">
           <h4 data-testid="shopping-cart-product-name">{item.title}</h4>
           <p>Quantidade:</p>
-          { showButtons === 'true' ? this.renderButtons(item.id, item.qty) : null }
+          { showButtons === 'true' ? this.renderButtons(item.id, item.qty) : item.qty }
         </div>
         <p>Total:</p>
         <h4 className="product-price">

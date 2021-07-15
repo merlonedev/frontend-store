@@ -313,9 +313,37 @@ html, * {
   background-color: var(--red-munsell);
 }
 
-
 .remove-btn *:hover {
   background-color: rgba(255, 255, 255, 0.5);
   color: var(--dark-liver);
   transition: 0.3s;
+}
+
+.payment-icon {
+  width: 50px;
+}
+
+.payment {
+  align-items: center;
+  display: flex;
+  justify-content: space-around;
+
+}
+
+.form, .forms {
+  display: flex;
+  flex-direction: column;
+}
+
+.forms {
+  width: 60%;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+}
+
+.data-input {
+  width: 200px;
 }

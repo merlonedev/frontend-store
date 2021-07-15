@@ -197,6 +197,20 @@ export default class App extends Component {
               />
               <Route
                 exact
+                path="/checkout"
+                render={ () => (
+                  <Checkout
+                    handlers={ {
+                      remove: this.removeItem,
+                      increase: this.increaseQty,
+                      decrease: this.decreaseQty,
+                    } }
+                    cartItems={ cartItems }
+                    showButtons="false"
+                  />) }
+              />
+              <Route
+                exact
                 path="/"
                 render={ () => (
                   <div className="home">
@@ -215,20 +229,6 @@ export default class App extends Component {
                     <ProductsList products={ products } callback={ this.addToCart } />
                   </div>
                 ) }
-              />
-              <Route
-                exact
-                path="/checkout"
-                render={ () => (
-                  <Checkout
-                    handlers={ {
-                      remove: this.removeItem,
-                      increase: this.increaseQty,
-                      decrease: this.decreaseQty,
-                    } }
-                    cartItems={ cartItems }
-                    showButtons="false"
-                  />) }
               />
             </Switch>
           </div>

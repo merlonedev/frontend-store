@@ -22,7 +22,7 @@ export default class ShoppingCart extends React.Component {
           {/* <Link data-testid="checkout-products" to="/checkout">Checkout</Link> */}
           <CheckoutButton />
           {/* <Link to="/">VOLTAR</Link> */}
-          <ReturnButton />
+          <ReturnButton path="/" />
         </p>
       </section>
     );
