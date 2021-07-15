@@ -41,3 +41,11 @@
 .card-image {
   width: 200px;
 }
+
+.cart-card {
+  display: flex;
+}
+
+.input{
+  color: red;
+}

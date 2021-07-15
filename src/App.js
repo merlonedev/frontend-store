@@ -8,6 +8,7 @@ import ShoppingCart from './Components/ShoppingCart';
 import SearchBar from './Components/SearchBar';
 import InicialMessage from './Components/InicialMessage';
 import ProductDetail from './Components/ProductDetail';
+import Checkout from './Components/Checkout';
 
 class App extends React.Component {
   constructor(props) {
@@ -25,8 +26,6 @@ class App extends React.Component {
     this.setState((previousState) => ({
       cart: [...previousState.cart, obj],
     }));
-    const { cart } = this.state;
-    console.log(cart);
   }
 
   getState(name, value) {
@@ -70,6 +69,7 @@ class App extends React.Component {
                   setCartStorage={ this.setCartStorage }
                 />) }
             />
+            <Route path="/checkout" component={ Checkout } />
           </Switch>
           <FilterCategories getState={ this.getState } />
         </BrowserRouter>

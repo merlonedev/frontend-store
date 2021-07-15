@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 export default class ShoppingCart extends React.Component {
   render() {
@@ -9,19 +10,22 @@ export default class ShoppingCart extends React.Component {
     }
     return (
       <div>
-        <p data-testid="shopping-cart-product-quantity">{cart.length}</p>
         {cart.map(({ title, thumbnail, price }) => (
-          <div className="card" key="title">
-            <p
-              className="card-title"
-              data-testid="shopping-cart-product-name"
-            >
-              { title }
-            </p>
-            <img className="card-image" src={ thumbnail } alt={ title } />
-            <p>{`R$: ${price}`}</p>
+          <div key={ `${title}` } className="cart-card">
+            <div className="card">
+              <p
+                className="card-title"
+                data-testid="shopping-cart-product-name"
+              >
+                { title }
+              </p>
+              <img className="card-image" src={ thumbnail } alt={ title } />
+              <p>{`R$: ${price}`}</p>
+            </div>
+            <p data-testid="shopping-cart-product-quantity">{cart.length}</p>
           </div>
         ))}
+        <button type="button" data-testid="checkout-products"><Link to="/checkout">Botao</Link></button>
       </div>
     );
   }
