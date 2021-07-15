@@ -1,11 +1,13 @@
 .App {
   text-align: center;
 }
+
 body {
   background-color: rgb(230, 230, 230);
   box-sizing: border-box;
   font-size: 16px;
 }
+
 .home-header {
   align-items: center;
   background-color: #249666;
@@ -13,12 +15,14 @@ body {
   height: 100px;
   justify-content: center;
 }
+
 [data-testid="query-input"] {
   min-width: 40%;
   align-content: auto;
   margin: 3% 1% 1% 1%;
   padding: 0.5%;
 }
+
 [data-testid="query-button"] {
   background-color: #1E396D;
   border: solid 2px rgb(55, 0, 255);
@@ -28,6 +32,7 @@ body {
   padding: 0.5%;
   text-transform: uppercase;
 }
+
 [data-testid="home-initial-message"] {
   margin: 0% 1% 5%;
   padding: 0.5%;
