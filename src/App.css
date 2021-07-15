@@ -165,3 +165,21 @@ nav {
 .productImg {
   height: 200px;
 }
+
+.finalform {
+  border: 2px solid red;
+  display: flex;
+  flex-wrap: wrap;
+  margin: auto;
+  width: 100%;
+}
+
+.form {
+  background-color: white;
+  flex: auto;
+  padding: 30px;
+}
+
+.formInput {
+  padding: 10px;
+}

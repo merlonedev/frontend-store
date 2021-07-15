@@ -1,4 +1,5 @@
 import React from 'react';
+import FinalForm from './FinalForm';
 
 class Checkout extends React.Component {
   constructor() {
@@ -24,9 +25,10 @@ class Checkout extends React.Component {
 
   render() {
     return (
-      <div>
+      <main>
         <h1>Finalizar Compra</h1>
-      </div>
+        <FinalForm />
+      </main>
     );
   }
 }
