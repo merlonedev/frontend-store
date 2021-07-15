@@ -9,18 +9,19 @@ import CategoryPage from './components/CategoryPage';
 class App extends Component {
   constructor() {
     super();
-    this.state = { cartItens: [] };
+    this.state = { cartItens: [], price: [] };
     this.cartAdd = this.cartAdd.bind(this);
   }
 
   cartAdd(product) {
     this.setState((prevState) => ({
       cartItens: [...prevState.cartItens, product],
+      price: [...prevState.price, product.price],
     }));
   }
 
   render() {
-    const { cartItens } = this.state;
+    const { cartItens, price } = this.state;
     return (
       <BrowserRouter>
         <Switch>
@@ -32,7 +33,11 @@ class App extends Component {
           <Route
             exact
             path="/shoppingcart"
-            render={ (props) => <ShoppingCart { ...props } cartAdd={ cartItens } /> }
+            render={ (props) => (<ShoppingCart
+              { ...props }
+              price={ price }
+              cartAdd={ cartItens }
+            />) }
           />
           <Route
             exact

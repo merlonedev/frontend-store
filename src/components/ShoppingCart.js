@@ -7,6 +7,7 @@ class ShoppingCart extends React.Component {
     this.state = {
       totalQuantity: props.cartAdd.length,
       cartAdd: props.cartAdd,
+      price: props.price,
     };
 
     this.quantitySum = this.quantitySum.bind(this);
@@ -30,7 +31,8 @@ class ShoppingCart extends React.Component {
   }
 
   render() {
-    const { cartAdd, totalQuantity } = this.state;
+    const { totalQuantity, price } = this.state;
+    const { cartAdd } = this.props;
     const carrinhoVazio = (
       <div data-testid="shopping-cart-empty-message">
         <p>Seu carrinho está vazio</p>
@@ -38,12 +40,15 @@ class ShoppingCart extends React.Component {
     );
     const carrinhoCheio = (
       <div>
-        {cartAdd.map((item) => {
+        {cartAdd.map((item, index) => {
           const { [item.id]: quantidade } = this.state;
           return (
             <div key={ item.id }>
               <p data-testid="shopping-cart-product-name">{item.title}</p>
-              <p>{item.price}</p>
+              <p>
+                Preço:R$
+                {typeof quantidade === 'number' ? price[index] * quantidade : price }
+              </p>
               <img src={ item.thumbnail } alt={ item.title } />
               <button
                 type="button"
@@ -62,7 +67,7 @@ class ShoppingCart extends React.Component {
                 -
               </button>
               <p>
-                QUANTIDADE:
+                Quantidade:
                 { quantidade || 1 }
               </p>
             </div>
@@ -74,7 +79,8 @@ class ShoppingCart extends React.Component {
           {`Total de itens: ${totalQuantity}`}
         </p>
         <p>
-          {`Valor Total da Compra: ${cartAdd.price}`}
+          Valor Total da Compra: R$
+          {price.length === 0 ? 0 : price.reduce((acc, numb) => acc + numb)}
         </p>
       </div>
     );
