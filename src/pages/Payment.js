@@ -63,7 +63,7 @@ class Payment extends Component {
           <input
             className="payment-input"
             data-testid="checkout-cpf"
-            type="number"
+            type="text"
             placeholder="CPF"
           />
           <input
@@ -81,7 +81,7 @@ class Payment extends Component {
           <input
             className="payment-input"
             data-testid="checkout-cep"
-            type="number"
+            type="text"
             placeholder="CEP"
           />
           <input
