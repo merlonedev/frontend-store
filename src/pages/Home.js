@@ -15,6 +15,8 @@ class Home extends Component {
     this.searchHandleChange = this.searchHandleChange.bind(this);
     this.searchHandleClick = this.searchHandleClick.bind(this);
 
+    this.addCarrinho = this.addCarrinho.bind(this);
+
     this.state = {
       categories: [],
       search: '',
@@ -32,7 +34,7 @@ class Home extends Component {
   componentDidUpdate(prevProps, prevStates) {
     const { selectedCategory, searchSend } = this.state;
     if ((prevStates.selectedCategory !== selectedCategory)
-       || (prevStates.searchSend !== searchSend)) {
+      || (prevStates.searchSend !== searchSend)) {
       this.getProducts(selectedCategory, searchSend);
     }
   }
@@ -83,12 +85,12 @@ class Home extends Component {
       <div className="category-sidebar">
         <h2 className="sidebar-title">Categorias:</h2>
         <ul className="category-list">
-          { categories.map((category) => (
+          {categories.map((category) => (
             <Category
-              key={ category.id }
-              category={ category }
-              checked={ selectedCategory }
-              onChange={ this.categoryHandleChange }
+              key={category.id}
+              category={category}
+              checked={selectedCategory}
+              onChange={this.categoryHandleChange}
             />
           ))}
         </ul>
@@ -97,7 +99,25 @@ class Home extends Component {
   }
 
   renderProductCards() {
+  }
 
+  addCarrinho(item) {
+    let copiaCarrinho = [];
+    if (JSON.parse(sessionStorage.getItem('carrinho'))) {
+      copiaCarrinho = JSON.parse(sessionStorage.getItem('carrinho'));
+    }
+
+    const index = copiaCarrinho.findIndex(({ id }) => id === item.id);
+    let count = 1;
+    if (index >= 0) {
+      copiaCarrinho.forEach(({id}) => {
+        if(id === item.id) count += 1;
+      })
+      if (count > copiaCarrinho[index].available_quantity) return;
+    }
+
+    copiaCarrinho.push(item);
+    sessionStorage.setItem('carrinho', JSON.stringify(copiaCarrinho));
   }
 
   renderSearchContent() {
@@ -123,8 +143,9 @@ class Home extends Component {
       <div className="products-list">
         { products.map((product) => (
           <ProductCard
-            key={ product.id }
-            product={ product }
+            key={product.id}
+            product={product}
+            addCarrinho={ this.addCarrinho }
           />
         ))}
       </div>
@@ -135,10 +156,10 @@ class Home extends Component {
     return (
       <div className="search-form">
         <SearchBar
-          onChange={ this.searchHandleChange }
-          onClick={ this.searchHandleClick }
+          onChange={this.searchHandleChange}
+          onClick={this.searchHandleClick}
         />
-        { this.renderSearchContent() }
+        { this.renderSearchContent()}
       </div>
     );
   }
@@ -146,8 +167,8 @@ class Home extends Component {
   render() {
     return (
       <div className="home-container">
-        { this.renderSideBar() }
-        { this.renderSearchForm() }
+        { this.renderSideBar()}
+        { this.renderSearchForm()}
       </div>
     );
   }

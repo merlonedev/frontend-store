@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 class ProductCard extends Component {
   render() {
-    const { product } = this.props;
+    const { product, addCarrinho } = this.props;
     const { title, thumbnail, price, id } = product;
     const CORRECT_SIZE = -5;
 
@@ -43,6 +43,7 @@ class ProductCard extends Component {
               { `R$ ${formatPrice}` }
             </span>
           </Link>
+          <button type="button" onClick={() => addCarrinho(product)}>Adicionar ao Carrinho</button>
         </div>
       </div>
     );
