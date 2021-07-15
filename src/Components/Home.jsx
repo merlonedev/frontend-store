@@ -59,7 +59,13 @@ class Home extends React.Component {
           <p className="pageName">
             Undefined FrontEnd Online Store
           </p>
-          <Link to="/Cart" data-testid="shopping-cart-button">Ver Carrinho</Link>
+          <Link
+            to="/Cart"
+            data-testid="shopping-cart-button"
+            className="cartBtn"
+          >
+            Ver Carrinho
+          </Link>
           <label
             htmlFor="searchText"
             data-testid="home-initial-message"
@@ -75,7 +81,7 @@ class Home extends React.Component {
               value={ search }
               onChange={ this.onChange }
             />
-            <p className="infoText">
+            <p className="infoInitial">
               Digite algum termo de pesquisa ou escolha uma categoria.
             </p>
             <button

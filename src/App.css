@@ -15,6 +15,22 @@ header {
   width: 100%;
 }
 
+.cartBtn {
+  background-color: whitesmoke;
+  color: green;
+  padding: 10px;
+  text-decoration: none;
+}
+
+.cart {
+  display: flex;
+}
+
+.infoInitial {
+  font-size: x-large;
+  font-weight: 700;
+}
+
 .mainSection {
   display: flex;
   flex-direction: row;
@@ -56,8 +72,15 @@ header {
 }
 
 .infoText {
+  background-image: url('./wrong.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  color: white;
   font-size: x-large;
   font-weight: 700;
+  margin: auto;
+  margin-top: 50px;
+  width: 350px;
 }
 
 nav {
@@ -110,6 +133,15 @@ nav {
   color: white;
   font-size: x-large;
   margin: 10px;
+  padding: 10px;
+  text-shadow: 3px 2px 2px black;
+}
+
+.link2 {
+  background-color: grey;
+  color: white;
+  font-size: x-large;
+  margin-top: 100px;
   padding: 10px;
   text-shadow: 3px 2px 2px black;
 }
