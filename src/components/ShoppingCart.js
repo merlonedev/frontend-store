@@ -49,9 +49,17 @@ class ShoppingCart extends React.Component {
 
   render() {
     const allProducts = JSON.parse(localStorage.getItem('item'));
+    let renderConditional;
+    if (!allProducts) {
+      renderConditional = false;
+    } else if (allProducts.length > 0) {
+      renderConditional = true;
+    } else {
+      renderConditional = false;
+    }
     return (
       <div>
-        {allProducts.length ? (allProducts.map(({ title, id, thumbnail, quantity }) => (
+        {renderConditional ? (allProducts.map(({ title, id, thumbnail, quantity }) => (
           <div key={ id }>
             <h3 data-testid="shopping-cart-product-name">{title}</h3>
             <img src={ thumbnail } alt="Imagem do produto" />
