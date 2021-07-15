@@ -32,7 +32,7 @@ export default class CompletePurchase extends Component {
     this.redirecting();
     const { willReturn } = this.state;
     return (
-      <div>
+      <div className="complete">
         { willReturn && <Redirect to="/" /> }
         <h1>Parabéns, sua compra foi finalizada!</h1>
         <img
