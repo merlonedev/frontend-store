@@ -27,6 +27,7 @@ class Cart extends React.Component {
 
   deleteCart = () => {
     localStorage.removeItem('Cart');
+    localStorage.removeItem('Total');
     this.setState({
       cartItems: undefined,
     });
@@ -40,6 +41,7 @@ class Cart extends React.Component {
           <Link to="/"><AiFillHome color="green" /></Link>
           <button type="button" onClick={ this.deleteCart }>Apagar Todos</button>
           {cartItems.map((item) => <CartCard key={ item.id } product={ item } />)}
+          <Link to="/checkout" data-testid="checkout-products">Finalizar Compra</Link>
         </section>
 
       );
