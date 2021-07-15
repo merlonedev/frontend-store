@@ -11,6 +11,14 @@ class CartManipulation extends React.Component {
     this.retira = this.retira.bind(this);
   }
 
+  shouldComponentUpdate(_nextProps, nextState) {
+    const { item } = this.props;
+    const availableQuantity = item.available_quantity;
+    const { quantidade } = nextState;
+    if (availableQuantity >= quantidade && quantidade > 0) return true;
+    return false;
+  }
+
   add() {
     this.setState((prev) => ({
       quantidade: prev.quantidade + 1,

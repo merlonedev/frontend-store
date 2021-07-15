@@ -28,7 +28,8 @@ class ProductDetails extends React.Component {
   }
 
   render() {
-    const { product, product: { title, thumbnail, price } } = this.state;
+    const { product, product: { title, thumbnail, price, shipping } } = this.state;
+    const freeShipping = shipping ? shipping.free_shipping : undefined;
     const { addToCart, quantity } = this.props;
     return (
       <div>
@@ -46,6 +47,7 @@ class ProductDetails extends React.Component {
             {' '}
             { price }
           </p>
+          { freeShipping && <p data-testid="free-shipping">Frete Grátis</p> }
         </div>
         <form>
           <input type="email" />

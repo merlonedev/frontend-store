@@ -5,7 +5,16 @@ import '../styles/productCard.css';
 
 class Cardproduct extends Component {
   render() {
-    const { product, title, img, price, id, categoryId, addToCart } = this.props;
+    const {
+      product,
+      title,
+      img,
+      price,
+      id,
+      categoryId,
+      addToCart,
+      shipping,
+    } = this.props;
     return (
       <div data-testid="product" className="card-product">
         <div className="card-product-content">
@@ -16,6 +25,7 @@ class Cardproduct extends Component {
             {' '}
             { price }
           </p>
+          { shipping.free_shipping && <p data-testid="free-shipping">Frete Grátis</p> }
           <Link
             to={ `/product-details/${categoryId}/${id}` }
             data-testid="product-detail-link"
@@ -46,6 +56,9 @@ Cardproduct.propTypes = {
   id: PropTypes.string.isRequired,
   categoryId: PropTypes.string.isRequired,
   addToCart: PropTypes.func.isRequired,
+  shipping: PropTypes.objectOf({
+    free_shipping: PropTypes.bool.isRequired,
+  }).isRequired,
 };
 
 export default Cardproduct;
