@@ -11,11 +11,14 @@ class HomePage extends React.Component {
 
     this.state = {
       search: '',
-      results: '',
+      // results: '',
+      products: [],
+      shoppingCart: [],
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.queryProducts = this.queryProducts.bind(this);
+    this.setShoppingCart = this.setShoppingCart.bind(this);
   }
 
   handleChange({ target }) {
@@ -25,22 +28,26 @@ class HomePage extends React.Component {
     });
   }
 
-  queryProducts() {
+  async setShoppingCart({ target: { id: idCategoria, value: idProduct } }) {
+    const { results } = await getProductsFromCategoryAndQuery(idCategoria, '');
+    const product = results.find((e) => e.id === idProduct);
+
+    this.setState((state) => ({
+      shoppingCart: [...state.shoppingCart, product],
+    }));
+  }
+
+  async queryProducts() {
     const { search } = this.state;
-    if (search.length > 0) {
-      getProductsFromCategoryAndQuery('', search)
-        .then((response) => this.setState({
-          results: response.results,
-        }));
-    } else {
-      this.setState({
-        results: '',
-      });
-    }
+    const { results } = await getProductsFromCategoryAndQuery('', search);
+
+    this.setState({
+      products: results,
+    });
   }
 
   render() {
-    const { search, results } = this.state;
+    const { search, products, shoppingCart } = this.state;
     return (
       <div>
         <input
@@ -57,8 +64,10 @@ class HomePage extends React.Component {
         >
           Pesquisar
         </button>
-        <CartButton />
-        { results.length > 0 ? <ProductList products={ results } /> : <InicialMessage /> }
+        <CartButton shoppingCart={ shoppingCart } />
+        { products.length > 0
+          ? <ProductList products={ products } setShoppingCart={ this.setShoppingCart } />
+          : <InicialMessage /> }
         <CategoryList />
       </div>
     );

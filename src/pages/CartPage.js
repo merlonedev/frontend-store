@@ -26,7 +26,12 @@ class CartPage extends React.Component {
   }
 
   render() {
+
+    const { history } = this.props;
+    const { shoppingCart } = history.location;
+    console.log(shoppingCart);
     const { totalPrice } = this.state;
+
     return (
       <div>
         <header className="header-cart-page">
