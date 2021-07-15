@@ -12,7 +12,7 @@ class CartButton extends React.Component {
         data-testid="shopping-cart-button"
         to={ { pathname: '/cart-page', shoppingCart } }
       >
-        <img src={ cartIcon } alt="cart icon" />
+        <img className="cart-icon" src={ cartIcon } alt="cart icon" />
       </Link>
     );
   }
