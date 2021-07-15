@@ -26,11 +26,7 @@ export default class Infos extends React.Component {
     const { id, product } = params;
     const data = await getProductsFromCategoryAndQuery(id, product);
     this.setState({
-<<<<<<< HEAD
-      product: data.results.find((item) => item.id === id || item.title === product),
-=======
       product: data.results.find((item) => item.title === product || item.id === id),
->>>>>>> abde18df78cb3881bde73d478d06d7996d180014
       loaded: true,
     });
   }
