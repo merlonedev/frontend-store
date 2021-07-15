@@ -9,13 +9,21 @@ class ShoppingCart extends React.Component {
       total: 0,
     };
 
-    this.quantityChange = this.quantityChange.bind(this);
+    this.quantitySum = this.quantitySum.bind(this);
+    this.quantitySub = this.quantitySub.bind(this);
   }
 
-  quantityChange(event) {
+  quantitySum(event) {
     const { name } = event.target;
     this.setState((prevState) => ({
-      [name]: prevState.name ? prevState.name + 1 : 1,
+      [name]: prevState[name] ? prevState[name] + 1 : 1,
+    }));
+  }
+
+  quantitySub(event) {
+    const { name } = event.target;
+    this.setState((prevState) => ({
+      [name]: prevState[name] ? prevState[name] - 1 : 0,
     }));
   }
 
@@ -35,12 +43,16 @@ class ShoppingCart extends React.Component {
             <img src={ item.thumbnail } alt={ item.title } />
             <button
               type="button"
-              onClick={ this.quantityChange }
+              onClick={ this.quantitySum }
               name={ item.id }
             >
               +
             </button>
-            <button type="button">
+            <button
+              type="button"
+              onClick={ this.quantitySub }
+              name={ item.id }
+            >
               -
             </button>
             <p>
