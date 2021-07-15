@@ -27,6 +27,7 @@ class App extends React.Component {
     this.resgateCount(count, itemCart);
   }
 
+  // Essa função recupera os valores do LocalStorage
   resgateCount({ count }) {
     if (count !== 0) {
       const arrCartStorage = localStorage.getItem('item');
