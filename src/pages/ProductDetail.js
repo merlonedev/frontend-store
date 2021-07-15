@@ -13,6 +13,7 @@ class ProductDetail extends React.Component {
         thumbnail: '',
         price: '',
         atributtes: [],
+        productList: props.productList,
       },
     };
     this.fetchDataFromProduct = this.fetchDataFromProduct.bind(this);
@@ -21,6 +22,15 @@ class ProductDetail extends React.Component {
 
   componentDidMount() {
     this.fetchDataFromProduct();
+  }
+
+  componentDidUpdate() {
+    const { productList } = this.state;
+    const totalQuantity = productList.reduce((acc, { id }) => {
+      const { quantityEachItem: { [id]: quantity } } = this.state;
+      return acc + quantity;
+    }, 0);
+    localStorage.setItem('totalQuantity', totalQuantity);
   }
 
   async fetchDataFromProduct() {
@@ -51,13 +61,6 @@ class ProductDetail extends React.Component {
     }
   }
 
-  // addToCart() {
-  //   const { product } = this.state;
-  //   let getItem = JSON.parse(localStorage.getItem('productList'));
-  //   getItem = [...getItem, product];
-  //   localStorage.setItem('productList', JSON.stringify(getItem));
-  // }
-
   render() {
     const { product } = this.state;
     const { title, thumbnail, price, atributtes } = product;
@@ -69,7 +72,12 @@ class ProductDetail extends React.Component {
         <p>{ price }</p>
         <p>{ atributtes }</p>
         <Link data-testid="shopping-cart-button" to="/CartPage">
-          <button type="button">Retorne ao carrinho de compras</button>
+          <button type="button">Ir para o carrinho</button>
+          <span
+            data-testid="shopping-cart-size"
+          >
+            {JSON.parse(localStorage.getItem('totalQuantity'))}
+          </span>
         </Link>
         <button
           data-testid="product-detail-add-to-cart"
@@ -85,6 +93,12 @@ class ProductDetail extends React.Component {
 }
 
 ProductDetail.propTypes = {
+  productList: PropTypes.arrayOf(PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    thumbnail: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
+  })).isRequired,
   location: PropTypes.shape({
     data: PropTypes.shape({
       title: PropTypes.string,

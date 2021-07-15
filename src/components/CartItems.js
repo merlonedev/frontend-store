@@ -28,6 +28,15 @@ class CartItems extends Component {
     productList.forEach(({ id }) => this.setInitialQuantity(id));
   }
 
+  componentDidUpdate() {
+    const { productList } = this.state;
+    const totalQuantity = productList.reduce((acc, { id }) => {
+      const { quantityEachItem: { [id]: quantity } } = this.state;
+      return acc + quantity;
+    }, 0);
+    localStorage.setItem('totalQuantity', totalQuantity);
+  }
+
   setInitialQuantity(id) {
     this.setState(({ quantityEachItem }) => ({
       quantityEachItem: {
@@ -97,6 +106,7 @@ class CartItems extends Component {
           id,
           available_quantity: availableQuantity }) => {
           const { quantityEachItem: { [id]: quantity } } = this.state;
+          // localStorage.setItem('productList')
           return (
             <li key={ id }>
               <RemoveButton
