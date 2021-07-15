@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import CartItemProduct from '../Components/CartItemProduct';
 
 class CartPages extends Component {
@@ -18,7 +17,8 @@ class CartPages extends Component {
 
   getItens() {
     const keys = Object.keys(localStorage);
-    return keys.map((key) => JSON.parse(localStorage.getItem(key)));
+    const array = keys.filter((key) => key.includes('MLB'));
+    return array.map((key) => JSON.parse(localStorage.getItem(key)));
   }
 
   renderCartItens() {
@@ -43,15 +43,5 @@ class CartPages extends Component {
     );
   }
 }
-
-CartPages.propTypes = {
-  product: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-  }),
-};
-
-CartPages.defaultProps = {
-  product: PropTypes.object,
-};
 
 export default CartPages;

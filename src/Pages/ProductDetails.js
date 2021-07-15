@@ -19,14 +19,23 @@ class ProductDetails extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.onStarClick = this.onStarClick.bind(this);
     this.importEvaluations = this.importEvaluations.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
-    const { location: { state: { product: { id } } } } = this.props;
-    const importedEvaluations = JSON.parse(localStorage.getItem(id));
+    const { location: { state: { product: { title } } } } = this.props;
+    const importedEvaluations = JSON.parse(localStorage.getItem(title));
     if (importedEvaluations !== null) {
       this.importEvaluations(importedEvaluations);
     }
+  }
+
+  handleClick() {
+    const { location: { state: { product } } } = this.props;
+    localStorage.setItem(
+      product.id,
+      JSON.stringify(product),
+    );
   }
 
   handleChange({ target }) {
@@ -49,10 +58,10 @@ class ProductDetails extends Component {
   }
 
   updateEvaluations() {
-    const { location: { state: { product: { id } } } } = this.props;
+    const { location: { state: { product: { title } } } } = this.props;
     const { evaluations, email, rating, commentary } = this.state;
     const newEvaluation = { email, rating, commentary };
-    localStorage.setItem(id, JSON.stringify([...evaluations, newEvaluation]));
+    localStorage.setItem(title, JSON.stringify([...evaluations, newEvaluation]));
     this.setState({
       evaluations: [...evaluations, newEvaluation],
       email: '',
@@ -74,6 +83,13 @@ class ProductDetails extends Component {
           <h1 data-testid="product-detail-name">{ product.title }</h1>
           <p>{ `Preço: R$${product.price}` }</p>
           <img src={ product.thumbnail } alt="product" />
+          <button
+            type="button"
+            data-testid="product-detail-add-to-cart"
+            onClick={ this.handleClick }
+          >
+            Adicoinar ao Carrinho
+          </button>
         </main>
 
         <fieldset className="rating-fieldset">
