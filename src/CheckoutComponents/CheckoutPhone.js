@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default class CheckoutPhone extends React.Component {
   render() {
@@ -15,3 +16,8 @@ export default class CheckoutPhone extends React.Component {
     );
   }
 }
+
+CheckoutPhone.propTypes = {
+  phone: PropTypes.string.isRequired,
+  handleChange: PropTypes.func.isRequired,
+};

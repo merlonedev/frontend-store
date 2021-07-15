@@ -1,7 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import CartItem from './CartItem';
-import { Link } from 'react-router-dom';
 
 export default class ShoppingCart extends React.Component {
   constructor() {
@@ -51,7 +51,16 @@ export default class ShoppingCart extends React.Component {
             setQuantity={ setQuantity }
           />))
         }
-        <button type="button" data-testid="checkout-products"><Link to="/checkout">Finalizar compra</Link></button>
+        <button
+          type="button"
+          data-testid="checkout-products"
+        >
+          <Link
+            to="/checkout"
+          >
+            Finalizar compra
+          </Link>
+        </button>
       </div>
     );
   }

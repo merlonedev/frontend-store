@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default class CheckoutButton extends React.Component {
   render() {
@@ -8,3 +9,7 @@ export default class CheckoutButton extends React.Component {
     );
   }
 }
+
+CheckoutButton.propTypes = {
+  onClick: PropTypes.func.isRequired,
+};

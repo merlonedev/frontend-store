@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default class CheckoutPayment extends React.Component {
   render() {
@@ -46,3 +47,8 @@ export default class CheckoutPayment extends React.Component {
     );
   }
 }
+
+CheckoutPayment.propTypes = {
+  checkbox: PropTypes.bool.isRequired,
+  handleChange: PropTypes.func.isRequired,
+};

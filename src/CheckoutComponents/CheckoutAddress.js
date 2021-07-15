@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default class CheckoutAddress extends React.Component {
   render() {
@@ -15,3 +16,8 @@ export default class CheckoutAddress extends React.Component {
     );
   }
 }
+
+CheckoutAddress.propTypes = {
+  address: PropTypes.string.isRequired,
+  handleChange: PropTypes.func.isRequired,
+};
