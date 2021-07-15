@@ -2,9 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { getCategories } from '../services/api';
 
-export default class Category extends Component {
+class Category extends Component {
   constructor() {
     super();
+    this.handleState = this.handleState.bind(this);
+    this.handleButton = this.handleButton.bind(this);
+
     this.state = {
       categories: [],
     };
@@ -16,9 +19,15 @@ export default class Category extends Component {
     this.handleState();
   }
 
+  handleButton(e) {
+    const { callBack } = this.props;
+    const atribute = e.target.getAttribute('id');
+    callBack(atribute);
+  }
+
   handleState() {
     getCategories().then((category) => this.setState({
-      categories: category,
+      categories: [...category],
     }));
   }
 
