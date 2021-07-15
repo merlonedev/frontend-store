@@ -1,42 +1,25 @@
-.App {
-  text-align: center;
+.rating-fieldset {
+  max-width: 95%;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.email-and-star-container {
+  display: flex;
+  max-width: 50%;
 }
 
-@media ( prefers-reduced-motion : no-preference ) {
-
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-
-}
-
-.App-header {
-  align-items: center;
-  background-color: #282c34;
-  color: white;
+.rating-form {
   display: flex;
   flex-direction: column;
-  font-size: calc(10px + 2vmin);
-  justify-content: center;
-  min-height: 100vh;
 }
 
-.App-link {
-  color: #61dafb;
+.rating-form-email {
+  max-width: 40%;
 }
 
-@keyframes App-logo-spin {
+.rating-form-textarea {
+  max-width: 50%;
+}
 
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
+.rating-form-button {
+  max-width: 7%;
 }
