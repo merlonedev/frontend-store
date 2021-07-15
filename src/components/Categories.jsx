@@ -1,28 +1,26 @@
 import React, { Component } from 'react';
-import * as Api from '../services/api';
+import PropTypes from 'prop-types';
 
 class Categories extends Component {
-  constructor() {
-    super();
-    this.state = {
-      categories: [],
-    };
-  }
-
-  componentDidMount() {
-    Api.getCategories().then((response) => this.setState({
-      categories: response,
-    }));
-  }
-
   render() {
-    const { categories } = this.state;
+    const { category } = this.props;
+    const { name, id } = category;
     return (
       <div>
-        {categories}
+        <label data-testid="category" htmlFor={ name }>
+          <input type="radio" value={ id } name="category" />
+          { name }
+        </label>
       </div>
     );
   }
 }
+
+Categories.propTypes = {
+  category: PropTypes.shape({
+    name: PropTypes.string,
+    id: PropTypes.string,
+  }).isRequired,
+};
 
 export default Categories;

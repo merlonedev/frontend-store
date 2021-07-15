@@ -1,12 +1,19 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import CartIcon from '../Icons/CartIcon';
 
 class SearchBar extends Component {
   render() {
+    const { onChange, inputText } = this.props;
     return (
       <div>
-        <label htmlFor="label-imput-search">
-          <input data-testid="imput-search" />
+        <label data-testid="input-search" htmlFor="label-input-search">
+          <input
+            name="inputText"
+            value={ inputText }
+            data-testid="query-input"
+            onChange={ onChange }
+          />
         </label>
         <CartIcon />
         <div>
@@ -20,5 +27,10 @@ class SearchBar extends Component {
     );
   }
 }
+
+SearchBar.propTypes = {
+  onChange: PropTypes.func.isRequired,
+  inputText: PropTypes.string.isRequired,
+};
 
 export default SearchBar;
