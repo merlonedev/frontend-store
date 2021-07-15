@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { getProductsFromCategoryAndQuery } from '../services/api';
+import ProductReview from './ProductReview';
 
 export default class Infos extends React.Component {
   constructor() {
@@ -116,6 +117,7 @@ export default class Infos extends React.Component {
             <Link data-testid="shopping-cart-button" to="/cart">Ir para o carrinho</Link>
           </div>
         </div>
+        <ProductReview />
       </div>
     );
   }
