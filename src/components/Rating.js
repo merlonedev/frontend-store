@@ -1,33 +1,15 @@
 import React from 'react';
-import StarRatingComponent from 'react-star-rating-component';
 
-class Rating extends React.Component {
-  constructor() {
-    super();
-
-    this.state = {
-      rating: 1,
-    };
-  }
-
-  onStarClick(nextValue) {
-    this.setState({ rating: nextValue });
-  }
-
+export default class Rating extends React.Component {
   render() {
-    const { rating } = this.state;
-
     return (
       <div>
-        <StarRatingComponent
-          name="rate1"
-          starCount={ 5 }
-          value={ rating }
-          onStarClick={ this.onStarClick.bind(this) }
-        />
+        <input type="radio" name="nota" value="1" />
+        <input type="radio" name="nota" value="2" />
+        <input type="radio" name="nota" value="3" />
+        <input type="radio" name="nota" value="4" />
+        <input type="radio" name="nota" value="5" />
       </div>
     );
   }
 }
-
-export default Rating;
