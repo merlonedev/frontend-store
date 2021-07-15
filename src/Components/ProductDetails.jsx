@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import Form from './Form';
 
 class ProductDetails extends Component {
   constructor() {
@@ -9,6 +10,7 @@ class ProductDetails extends Component {
       product: [],
     };
     this.getProducts = this.getProducts.bind(this);
+    this.addCart = this.addCart.bind(this);
   }
 
   componentDidMount() {
@@ -24,14 +26,23 @@ class ProductDetails extends Component {
     });
   }
 
+  addCart(product) {
+    const cart = JSON.parse(localStorage.getItem('cart'));
+    if (!cart) {
+      localStorage.setItem('cart', JSON.stringify([product]));
+    } else if (!cart.some(({ id }) => id === product.id)) {
+      localStorage.setItem('cart', JSON.stringify([...cart, product]));
+    }
+  }
+
   render() {
-    const { product: { title, thumbnail, price } } = this.state;
+    const { product: { title, thumbnail, price }, product } = this.state;
     return (
       <section className="detailSection">
         <Link to="/" className="link">
           Voltar
         </Link>
-        <Link to="/Components/Cart" className="link">
+        <Link to="/Cart" data-testid="shopping-cart-button" className="link">
           Carrinho
         </Link>
         <h3 data-testid="product-detail-name" className="productTitle">
@@ -43,6 +54,14 @@ class ProductDetails extends Component {
         <div>
           <img alt="imagem do produto" src={ thumbnail } className="productImg" />
         </div>
+        <Form />
+        <button
+          type="button"
+          data-testid="product-detail-add-to-cart"
+          onClick={ () => this.addCart(product) }
+        >
+          addCart22
+        </button>
       </section>
     );
   }
