@@ -62,6 +62,10 @@ export default class CartItems extends Component {
 
   render() {
     const { cartItems: items, showButtons } = this.props;
+    const formatter = new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL',
+    });
     return items.map((item) => (
       <div key={ item.id } className="cart-item">
         <img src={ item.thumbnail } alt="Imagem do Produto" className="product-cover" />
@@ -72,8 +76,7 @@ export default class CartItems extends Component {
         </div>
         <p>Total:</p>
         <h4 className="product-price">
-          R$
-          {parseFloat(Math.round((item.price * item.qty) * 100) / 100).toFixed(2)}
+          {formatter.format(item.price * item.qty)}
         </h4>
         {/* <p data-testid="shopping-cart-product-quantity">{item.qty}</p> */}
       </div>
