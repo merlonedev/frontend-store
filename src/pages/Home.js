@@ -40,6 +40,16 @@ class Home extends React.Component {
   }
 
   render() {
+    const productListArray = JSON.parse(localStorage.getItem('productList'));
+    let totalQuantity;
+    if (productListArray) {
+      totalQuantity = productListArray.length;
+    } else {
+      totalQuantity = 0;
+    }
+    console.log('renderizei');
+    // console.log(productListArray);
+    // console.log(totalQuantity);
     const { buttonClick, productList } = this.state;
     const initialMsg = (
       <p data-testid="home-initial-message">
@@ -65,6 +75,7 @@ class Home extends React.Component {
           >
             Pesquisar
           </button>
+          <span data-testid="shopping-cart-size">{totalQuantity}</span>
           <CartButton />
         </header>
         <main className="main-content-container">

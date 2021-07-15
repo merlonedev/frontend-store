@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 class ProductCard extends React.Component {
   constructor() {
     super();
+    this.state = {};
     this.addToCart = this.addToCart.bind(this);
   }
 
@@ -20,6 +21,7 @@ class ProductCard extends React.Component {
       getItem = [...getItem, product];
       localStorage.setItem('productList', JSON.stringify(getItem));
     }
+    this.setState({});
   }
 
   render() {
