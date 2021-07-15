@@ -69,8 +69,8 @@ class Search extends Component {
     const { productList: { results } } = this.state;
     if (results.length === 0) return <p>Nenhum produto foi encontrado</p>;
     return (
-      <div className="d-flex flex-row flex-wrap">
-        <ul>
+      <div>
+        <ul className="d-flex flex-row flex-wrap justify-content-evenly">
           { results.map(
             (prod) => (<ProductCard
               key={ prod.id }
