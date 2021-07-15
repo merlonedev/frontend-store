@@ -5,45 +5,27 @@ class ShoppingCart extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      items: '',
       tracker: false,
     };
     this.decreaseQtt = this.decreaseQtt.bind(this);
     this.increaseQtt = this.increaseQtt.bind(this);
-    this.loadState = this.loadState.bind(this);
-  }
-
-  componentDidMount() {
-    this.loadState();
-  }
-
-  loadState() {
-    const { itemCart } = this.props;
-    const { items } = this.state;
-    const infos = itemCart.map((item) => {
-      const obj = {
-        id: item.id,
-        title: item.title,
-        quantity: item.quantity,
-        thumbnail: item.thumbnail,
-        price: item.price,
-      };
-      return obj;
-    });
-    this.setState({
-      items: [...items, infos],
-    });
   }
 
   // Função para decrementar a quntidade
   decreaseQtt(id) {
-    const { items, tracker } = this.state;
-    const value = items[0].find((item) => item.id === id);
+    const allProducts = JSON.parse(localStorage.getItem('item'));
+    const { tracker } = this.state;
+    const value = allProducts.find((item) => item.id === id);
     value.quantity -= 1;
     if (value.quantity === 0) {
-      const indexToRemove = items[0].indexOf(value);
-      items[0].splice(indexToRemove, 1);
+      const indexToRemove = allProducts.indexOf(value);
+      allProducts.splice(indexToRemove, 1);
     }
+    const productUpdate = JSON.stringify(allProducts);
+    localStorage.setItem('item', productUpdate);
+    let itemCount = parseInt(localStorage.getItem('count'), 10);
+    itemCount -= 1;
+    localStorage.setItem('count', itemCount);
     this.setState({
       tracker: !tracker,
     });
@@ -51,20 +33,25 @@ class ShoppingCart extends React.Component {
 
   // Função para incrementar a quantidade
   increaseQtt(id) {
-    const { items, tracker } = this.state;
-    const value = items[0].find((item) => item.id === id);
+    const allProducts = JSON.parse(localStorage.getItem('item'));
+    const { tracker } = this.state;
+    const value = allProducts.find((item) => item.id === id);
     value.quantity += 1;
+    const productUpdate = JSON.stringify(allProducts);
+    localStorage.setItem('item', productUpdate);
+    let itemCount = parseInt(localStorage.getItem('count'), 10);
+    itemCount += 1;
+    localStorage.setItem('count', itemCount);
     this.setState({
       tracker: !tracker,
     });
   }
 
   render() {
-    const { items } = this.state;
-    const abc = localStorage.getItem('count');
+    const allProducts = JSON.parse(localStorage.getItem('item'));
     return (
       <div>
-        {abc && items.length ? (items[0].map(({ title, id, thumbnail, quantity }) => (
+        {allProducts.length ? (allProducts.map(({ title, id, thumbnail, quantity }) => (
           <div key={ id }>
             <h3 data-testid="shopping-cart-product-name">{title}</h3>
             <img src={ thumbnail } alt="Imagem do produto" />
