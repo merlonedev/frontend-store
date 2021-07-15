@@ -3,7 +3,6 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './App.css';
 import Home from './pages/Home';
 import Card from './pages/Card';
-// import Categories from './Components/Categories';
 import ShoppingCart from './pages/ShoppingCart';
 
 class App extends React.Component {
@@ -24,10 +23,13 @@ class App extends React.Component {
     const alredyExist = productsToAddInCart.find((current) => current.id === product.id);
 
     if (alredyExist) {
-      alredyExist.quantityInCart += 1;
-      return this.setState({
-        productsToAddInCart: [...productsToAddInCart],
-      });
+      if (product.quantityInCart < product.available_quantity) {
+        alredyExist.quantityInCart += 1;
+        return this.setState({
+          productsToAddInCart: [...productsToAddInCart],
+        });
+      }
+      return product.quantityInCart;
     }
 
     this.setState({
