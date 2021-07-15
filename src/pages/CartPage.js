@@ -23,11 +23,12 @@ class CartPage extends Component {
             ? <h3 data-testid="shopping-cart-empty-message">Seu carrinho está vazio</h3>
             : <CartItems totalPrice={ this.totalValue() } productList={ productList } />
         }
-        <button
-          type="button"
+        <Link
+          to="/checkout"
+          data-testid="checkout-products"
         >
           Finalizar Compra
-        </button>
+        </Link>
       </div>
     );
   }

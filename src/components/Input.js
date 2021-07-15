@@ -40,7 +40,7 @@ class Input extends Component {
         />
 
         <input
-          type="number"
+          type="text"
           data-testid="checkout-phone"
           placeholder="phone"
           name="phone"
@@ -50,7 +50,7 @@ class Input extends Component {
         />
 
         <input
-          type="number"
+          type="text"
           data-testid="checkout-cep"
           placeholder="cep"
           name="cep"
@@ -77,8 +77,8 @@ Input.propTypes = {
   fullname: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
   cpf: PropTypes.string.isRequired,
-  phone: PropTypes.number.isRequired,
-  cep: PropTypes.number.isRequired,
+  phone: PropTypes.string.isRequired,
+  cep: PropTypes.string.isRequired,
   address: PropTypes.string.isRequired,
   handlerChange: PropTypes.func.isRequired,
 };
