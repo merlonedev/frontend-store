@@ -38,10 +38,7 @@ class ProductList extends Component {
     });
     const { searchText } = this.state;
     this.getProducts(categoryid, searchText);
-    // console.log(`getCategory:
-    //   categoryid: ${categoryid}
-    //   searchText: ${searchText}
-    //   categoryname: ${categoryname}`);
+    ;
   }
 
   getSearchText(searchText) {
