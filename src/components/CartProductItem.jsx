@@ -2,12 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 class CartProductItem extends React.Component {
-  constructor() {
+  constructor({ product }) {
     super();
 
     console.log('teste');
     this.state = {
       count: 1,
+      quantity: product.available_quantity,
     };
 
     this.plusCount = this.plusCount.bind(this);
@@ -21,11 +22,14 @@ class CartProductItem extends React.Component {
 
   plusCount() {
     const { plusPrice, product } = this.props;
+    const { quantity, count } = this.state;
     const { price } = product;
-    this.setState((oldState) => ({
-      count: oldState.count + 1,
-    }));
-    plusPrice(price);
+    if (count < quantity) {
+      this.setState((oldState) => ({
+        count: oldState.count + 1,
+      }));
+      plusPrice(price);
+    }
   }
 
   minusCount() {
