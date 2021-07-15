@@ -84,8 +84,6 @@ export default class Infos extends React.Component {
           </svg>
           <span data-testid="shopping-cart-size">{`${count}`}</span>
         </div>
-        <h3 data-testid="product-detail-name">{product.title}</h3>
-        <h2>{`R$ ${product.price}`}</h2>
         <h2 data-testid="product-detail-name">{product.title}</h2>
         <h3>{`R$ ${product.price}`}</h3>
         { shipping.free_shipping && <img data-testid="free-shipping" src="https://cdn.awsli.com.br/511/511886/arquivos/frete-gratis-1.png" alt="Frete Gratis" width="100px" /> }
