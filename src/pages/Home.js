@@ -1,10 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { getCategories, getProductsFromCategoryAndQuery } from '../services/api';
+import Header from '../components/Header';
 import CategoryAside from '../components/CategoryAside';
 import ProductList from '../components/ProductList';
 import Input from '../components/Input';
-import CartSize from '../components/CartSize';
+
+import Layout from '../styles/Layout';
+import { ProductsContainer } from '../styles/styledComponents';
+import { Cart, Search } from '../sources/Icons';
 
 const initialMsg = (
   <p data-testid="home-initial-message">
@@ -77,42 +81,46 @@ class Home extends React.Component {
     const msg = didSearch ? notFoundMsg : initialMsg;
 
     return (
-      <section>
-        <Input
-          id="query-input"
-          type="text"
-          name="queryText"
-          value={ queryText }
-          handleChange={ this.handleChange }
-        />
-        <button
-          type="button"
-          onClick={ () => { this.categoryAndQuery(''); } }
-          data-testid="query-button"
-        >
-          Pesquisar
-        </button>
-        <Link
-          to="/shopping-cart"
-          data-testid="shopping-cart-button"
-        >
-          Carrinho de Compras
-          <CartSize size={ cartSize } />
-        </Link>
-        <CategoryAside
-          categoryObj={ categories }
-          categoryAndQuery={ this.categoryAndQuery }
-        />
-        { (products.length > 0)
-          ? (
-            <ul>
-              <ProductList
-                updateCartSize={ this.setCartSize }
-                products={ products }
-              />
-            </ul>)
-          : msg }
-      </section>
+      <Layout>
+        <Header>
+          <Input
+            id="query-input"
+            type="text"
+            name="queryText"
+            value={ queryText }
+            handleChange={ this.handleChange }
+          />
+          <button
+            type="button"
+            onClick={ () => { this.categoryAndQuery(''); } }
+            data-testid="query-button"
+          >
+            <Search />
+          </button>
+          <Link
+            to="/shopping-cart"
+            data-testid="shopping-cart-button"
+          >
+            <Cart />
+            <p data-testid="shopping-cart-size">{ cartSize }</p>
+          </Link>
+        </Header>
+        <ProductsContainer>
+          <CategoryAside
+            categoryObj={ categories }
+            categoryAndQuery={ this.categoryAndQuery }
+          />
+          { (products.length > 0)
+            ? (
+              <ul>
+                <ProductList
+                  updateCartSize={ this.setCartSize }
+                  products={ products }
+                />
+              </ul>)
+            : msg }
+        </ProductsContainer>
+      </Layout>
     );
   }
 }

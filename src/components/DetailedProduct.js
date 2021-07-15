@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import CommentForm from './CommentForm';
 import GenComment from './GenComment';
-import CartSize from './CartSize';
 
 import { getProductsFromCategoryAndQuery } from '../services/api';
 
@@ -97,7 +96,7 @@ class DetailedProduct extends React.Component {
             data-testid="shopping-cart-button"
           >
             Carrinho de Compras
-            <CartSize size={ cartSize } />
+            <p data-testid="shopping-cart-size">{ cartSize }</p>
           </Link>
         </header>
         <main>
@@ -115,6 +114,7 @@ class DetailedProduct extends React.Component {
                   <img src={ thumbnail } alt={ title } />
                 </div>
                 <div>
+                  <h3>Especificações técnicas:</h3>
                   <ul>
                     { attributes.map(({ name, value_name: value }) => (
                       <li key={ name }>

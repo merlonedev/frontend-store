@@ -1,13 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { CategoryList, CategoryItem } from '../styles/styledComponents';
+
 class CategoryAside extends React.Component {
   render() {
     const { categoryObj, categoryAndQuery } = this.props;
     return (
-      <ul>
+      <CategoryList>
         {categoryObj.map(({ id, name }) => (
-          <li key={ id }>
+          <CategoryItem key={ id }>
             <button
               type="button"
               data-testid="category"
@@ -15,8 +17,8 @@ class CategoryAside extends React.Component {
             >
               { name }
             </button>
-          </li>))}
-      </ul>
+          </CategoryItem>))}
+      </CategoryList>
     );
   }
 }
