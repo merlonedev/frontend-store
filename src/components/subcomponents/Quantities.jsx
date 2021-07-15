@@ -5,7 +5,10 @@ export default class Quantities extends Component {
   render() {
     const { quantity } = this.props;
     return (
-      <span data-testid="shopping-cart-size">
+      <span
+        data-testid="shopping-cart-size"
+        className="quantities"
+      >
         {quantity}
       </span>
     );
