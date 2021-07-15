@@ -1,24 +1,25 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import '../styles/category.css';
 
 class Category extends Component {
   render() {
     const { category, categoryAndQuery } = this.props;
     return (
-      <div>
-        <h4>
-          Categorias:
-        </h4>
-        <ul>
+      <div className="category-content">
+        <h4>Categorias:</h4>
+        <ul className="category-ul">
           {
             category.map(({ id, name }) => (
-              <li key={ id }>
+              <li key={ id } className="category-li">
                 <button
                   type="button"
                   data-testid="category"
                   onClick={ () => categoryAndQuery(id) }
+                  className="category-btn"
                 >
                   {name}
+                  <hr />
                 </button>
               </li>
             ))
