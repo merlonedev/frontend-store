@@ -49,17 +49,26 @@ class Home extends Component {
   }
 
   async getProductByIdAndQuery(id, query) {
-    const searchProduct = await api.getProductsFromCategoryAndQuery(id, query);
-    this.setState({
-      data: searchProduct.results,
-    });
+    try {
+      const searchProduct = await api.getProductsFromCategoryAndQuery(id, query);
+      this.setState({
+        data: searchProduct.results,
+      });
+    } catch (erro) {
+      console.log(erro.message);
+    }
   }
 
   async getCategories() {
-    const allCategories = await api.getCategories();
-    this.setState({
-      categories: allCategories,
-    });
+    try {
+      const allCategories = await api.getCategories();
+      console.log(allCategories);
+      this.setState({
+        categories: allCategories,
+      });
+    } catch (erro) {
+      console.log(erro.message);
+    }
   }
 
   render() {

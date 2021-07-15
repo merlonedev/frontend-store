@@ -1,9 +1,11 @@
-import React, { Component } from 'react';
+// import React, { Component } from 'react';
 
-class Message extends Component {
-  render() {
-    return()
-  }
-};
+// class Message extends Component {
+//   render() {
+//     return(
 
-export default Message;
+//     )
+//   }
+// };
+
+// export default Message;
