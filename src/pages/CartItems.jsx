@@ -15,6 +15,12 @@ class CartItems extends React.Component {
     };
     this.itemCartRemove = this.itemCartRemove.bind(this);
     this.totalCartCalculator = this.totalCartCalculator.bind(this);
+    this.getCheckoutInfos = this.getCheckoutInfos.bind(this);
+    this.cartInfos = [];
+  }
+
+  getCheckoutInfos(infoItem) {
+    this.cartInfos = [...this.cartInfos, infoItem];
   }
 
   itemCartRemove(itemId) {
@@ -35,6 +41,7 @@ class CartItems extends React.Component {
 
   render() {
     const { cartItens, total } = this.state;
+    const { checkoutInfos } = this.props;
     return (
       <div className="cart">
         <div className="cart-header">
@@ -56,6 +63,7 @@ class CartItems extends React.Component {
                     onClick={ this.itemCartRemove }
                     onChange={ this.totalCartCalculator }
                     onChangeExclude={ this.itemCartRemove }
+                    getInfoItem={ this.getCheckoutInfos }
                   />
                 ))}
               </div>
@@ -73,9 +81,14 @@ class CartItems extends React.Component {
             { `Valor Total da Compra: ${(total).toLocaleString('pt-BR', {
               minimumFractionDigits: 2, style: 'currency', currency: 'BRL' })}`}
           </span>
-          <button type="button" onClick={ () => {} } className="checkout-btn">
+          <Link
+            to="/checkout"
+            data-testid="checkout-products"
+            onClick={ () => checkoutInfos(this.cartInfos) }
+            className="checkout-btn"
+          >
             Finalizar Compra
-          </button>
+          </Link>
         </div>
       </div>
     );
@@ -85,6 +98,7 @@ class CartItems extends React.Component {
 CartItems.propTypes = {
   setItemCart: PropTypes.arrayOf(PropTypes.object).isRequired,
   removeItem: PropTypes.func.isRequired,
+  checkoutInfos: PropTypes.func.isRequired,
 };
 
 export default CartItems;
