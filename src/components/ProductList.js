@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import SearchBar from './SearchBar';
 import ProductCard from './ProductCard';
 import * as API from '../services/api';
+import Category from './Category';
 
 class ProductList extends Component {
   constructor(props) {
@@ -12,8 +13,8 @@ class ProductList extends Component {
     this.getProducts = this.getProducts.bind(this);
   }
 
-  async getProducts(searchText) {
-    const products = await API.getProductsFromCategoryAndQuery(searchText);
+  async getProducts(categorieId = '', searchText = '') {
+    const products = await API.getProductsFromCategoryAndQuery(categorieId, searchText);
     this.setState({
       products: products.results,
     });
@@ -24,6 +25,7 @@ class ProductList extends Component {
     return (
       <main>
         <SearchBar callBack={ this.getProducts } />
+        <Category callBack={ this.getProducts } />
         {products
           .map((product) => (
             <ProductCard
