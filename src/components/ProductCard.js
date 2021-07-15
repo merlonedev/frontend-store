@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import ButtonToCard from './ButtonToCard';
 
 class ProductCard extends React.Component {
   render() {
@@ -10,6 +11,7 @@ class ProductCard extends React.Component {
         <h2>{ title }</h2>
         <img src={ thumbnail } alt={ title } />
         <p>{ price }</p>
+        <ButtonToCard />
       </section>
     );
   }
