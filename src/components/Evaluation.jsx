@@ -1,17 +1,10 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import RadioInput from './RadioInput';
 
 class Evaluation extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      
-    };
-
-  }
-
   render() {
-    const { email, ratting, message } = this.props;
+    const { handleChange } = this.props;
 
     return (
       <form method="get">
@@ -23,39 +16,51 @@ class Evaluation extends Component {
               name="email"
               id="email"
               placeholder="Email"
-              onChange={ this.handleChange }
+              onChange={ handleChange }
             />
           </label>
         </div>
         <div>
-          <label htmlFor="1start">
-            1
-            <input type="radio" name="1stat" id="star" value="1" />
-          </label>
-          <label htmlFor="2start">
-            2
-            <input type="radio" name="2stat" id="star" value="2" />
-          </label>
-          <label htmlFor="3start">
-            3
-            <input type="radio" name="3stat" id="star" value="3" />
-          </label>
-          <label htmlFor="4start">
-            4
-            <input type="radio" name="4stat" id="star" value="4" />
-          </label>
-          <label htmlFor="5start">
-            5
-            <input type="radio" name="5stat" id="star" value="5" />
-          </label>
+          <RadioInput
+            id="1"
+            name="1star"
+            value="1"
+            number="1"
+            checked={ handleChange }
+          />
+          <RadioInput
+            id="2"
+            name="2star"
+            value="2"
+            number="2"
+          />
+          <RadioInput
+            id="3"
+            name="3star"
+            value="3"
+            number="3"
+          />
+          <RadioInput
+            id="4"
+            name="4star"
+            value="4"
+            number="4"
+          />
+          <RadioInput
+            id="5"
+            name="5star"
+            value="5"
+            number="5"
+          />
         </div>
         <div>
           <label htmlFor="coment">
             <input
               data-testid="product-detail-evaluation"
-              type="text"
+              type="textarea"
               name="coment"
               placeholder="Mensagem (Opcional)"
+              onChange={ handleChange }
             />
           </label>
         </div>
@@ -64,5 +69,9 @@ class Evaluation extends Component {
     );
   }
 }
+
+Evaluation.propTypes = {
+  handleChange: PropTypes.func.isRequired,
+};
 
 export default Evaluation;
