@@ -4,6 +4,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import ShoppingCartPage from './pages/ShoppingCartPage';
 import ProductDetails from './pages/ProductDetails';
+import Footer from './components/Footer/Footer';
 
 class App extends React.Component {
   render() {
@@ -16,6 +17,7 @@ class App extends React.Component {
             <Route path="/product/:id/:pid" component={ ProductDetails } />
           </Switch>
         </BrowserRouter>
+        <Footer />
       </div>
     );
   }
