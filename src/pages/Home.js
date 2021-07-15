@@ -2,20 +2,26 @@ import React, { Component } from 'react';
 import NavBar from '../Components/NavBar';
 import SearchBar from '../Components/SearchBar';
 import ButtonCart from '../Components/ButtonCart';
-import { getProductsFromCategoryAndQuery } from '../services/api';
+import { getCategories, getProductsFromCategoryAndQuery } from '../services/api';
 
 class Home extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      loading: false,
       products: [],
+      categories: [],
       value: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.mountCategorieList = this.mountCategorieList.bind(this);
+  }
+
+  async componentDidMount() {
+    const result = await getCategories();
+    this.mountCategorieList(result);
   }
 
   handleChange(e) {
@@ -24,32 +30,43 @@ class Home extends Component {
     });
   }
 
-  async handleClick() {
+  async handleClick(e) {
+    const { target: { id, name } } = e;
+    console.log('func', id);
     const { value } = this.state;
-    this.setState({ loading: true },
-      async () => {
-        const products = await getProductsFromCategoryAndQuery('', value);
-        this.setState({
-          loading: false,
-          products: products.results,
-        });
-      });
+    const byCategorie = name === 'categorie' ? id : '';
+    const bySearch = name === 'searchButton' ? value : '';
+
+    const products = await getProductsFromCategoryAndQuery(byCategorie, bySearch);
+
+    this.setState({
+      products: products.results,
+    });
+  }
+
+  mountCategorieList(categories) {
+    this.setState({
+      categories,
+    });
   }
 
   render() {
-    const { loading, products, value } = this.state;
+    const { products, value, categories } = this.state;
     return (
+
       <section>
         <div>
           <SearchBar
-            loading={ loading }
             products={ products }
             value={ value }
             change={ this.handleChange }
             click={ this.handleClick }
           />
           <ButtonCart />
-          <NavBar />
+          <NavBar
+            categories={ categories }
+            click={ this.handleClick }
+          />
         </div>
       </section>
     );
