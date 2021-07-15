@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import NotFound from './NotFound';
 import Cardproduct from '../Components/ProductCard';
-import '../styles/productList.css';
 
 class Products extends Component {
   render() {

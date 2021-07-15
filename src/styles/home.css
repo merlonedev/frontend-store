@@ -16,14 +16,14 @@ header {
 }
 
 .header-content {
-  background-color: #22272e;
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
   align-items: center;
+  background-color: #22272e;
+  display: grid;
   flex-flow: row nowrap;
-  padding: 10px 60px;
+  grid-template-columns: repeat(3, 1fr);
   height: 60px;
+  padding: 10px 60px;
+  width: 100%;
 }
 
 .product-list-home {
