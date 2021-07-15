@@ -16,24 +16,24 @@ body {
   justify-content: center;
 }
 
-[data-testid="query-input"] {
-  min-width: 40%;
+[ data-testid = 'query-input' ] {
   align-content: auto;
-  margin: 3% 1% 1% 1%;
+  margin: 3% 1% 1%;
+  min-width: 40%;
   padding: 0.5%;
 }
 
-[data-testid="query-button"] {
-  background-color: #1E396D;
+[ data-testid = 'query-button' ] {
+  background-color: #1e396d;
   border: solid 2px rgb(55, 0, 255);
   border-radius: 20px;
   color: white;
-  margin: 3% 1% 1% 1%;
+  margin: 3% 1% 1%;
   padding: 0.5%;
   text-transform: uppercase;
 }
 
-[data-testid="home-initial-message"] {
+[ data-testid = 'home-initial-message' ] {
   margin: 0% 1% 5%;
   padding: 0.5%;
 }
