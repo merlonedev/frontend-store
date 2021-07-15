@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 // import Quantities from './Quantities';
 import ShoppingCartButton from './subcomponents/ShoppingCartButton';
 import ReturnButton from './subcomponents/ReturnButton';
+import Rating from './Rating';
 
 export default class ProductDetails extends Component {
   constructor(props) {
@@ -46,7 +47,7 @@ export default class ProductDetails extends Component {
   }
 
   render() {
-    const { title, price, pictures, freeShipping } = this.state;
+    const { title, price, pictures, freeShipping, id } = this.state;
     const { quantity } = this.props;
     const formatter = new Intl.NumberFormat('pt-BR', {
       style: 'currency',
@@ -71,24 +72,6 @@ export default class ProductDetails extends Component {
           <h2>
             {formatter.format(price)}
           </h2>
-          <label htmlFor="rating" className="rating">
-            Avaliação 1-5
-            <input
-              name="rating"
-              type="range"
-              min="1"
-              max="5"
-            />
-          </label>
-
-          <textarea
-            data-testid="product-detail-evaluation"
-            placeholder="Conta mais sobre o que achou do produto..."
-            className="evaluation"
-          />
-          <button type="button" className="submit-btn button">
-            <p>Enviar</p>
-          </button>
           <div className="buttons-container">
             {/* <button type="button" className="button cart-button">
               <Link to="/cart" data-testid="shopping-cart-button">
@@ -115,6 +98,7 @@ export default class ProductDetails extends Component {
             <ReturnButton />
           </div>
         </div>
+        <Rating pid={ id } />
       </div>
     );
   }
