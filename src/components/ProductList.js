@@ -12,7 +12,7 @@ class ProductList extends Component {
     };
     this.getProducts = this.getProducts.bind(this);
   }
-
+  
   async getProducts(categorieId = '', searchText = '') {
     const products = await API.getProductsFromCategoryAndQuery(categorieId, searchText);
     this.setState({
