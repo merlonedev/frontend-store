@@ -13,7 +13,7 @@ class CartItems extends React.Component {
     } = this.props;
 
     return (
-      noRepetitions.map(({ id, title, price, thumbnail }) => (
+      noRepetitions.map(({ id, title, price, thumbnail, maxAmount }) => (
         <li key={ `${id}${Math.random() * 100}` }>
           {/* Math.random() para nenhuma key se repetir; */}
           <div>
@@ -39,7 +39,7 @@ class CartItems extends React.Component {
               <button
                 data-testid="product-increase-quantity"
                 type="button"
-                onClick={ () => { plusUnit(id, sessionItems); } }
+                onClick={ () => { plusUnit(id, sessionItems, maxAmount); } }
               >
                 Mais
               </button>

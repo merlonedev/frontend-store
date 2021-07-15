@@ -63,16 +63,18 @@ class ShoppingCart extends React.Component {
   }
 
   // Altera o estado e a sessionStorage, adicionando uma unidade;
-  plusUnit(id, session) {
-    // Encontra o primeiro elemento com o id passado por parâmetro;
-    const item = session.find(({ id: currId }) => currId === id);
+  plusUnit(id, session, maxAmount) {
+    const { amount } = this.state;
+    if (amount[id] < maxAmount) {
+      // Encontra o primeiro elemento com o id passado por parâmetro;
+      const item = session.find(({ id: currId }) => currId === id);
 
-    // Array que contém todos os elementos salvos mais o atual;
-    const plusOneItem = [...session, item];
-
-    // Modifica quantidade no session;
-    sessionStorage.setItem('addCart', JSON.stringify(plusOneItem));
-    this.setAmount(); // Modifica quantidade no estado;
+      // Array que contém todos os elementos salvos mais o atual;
+      const plusOneItem = [...session, item];
+      // Modifica quantidade no session;
+      sessionStorage.setItem('addCart', JSON.stringify(plusOneItem));
+      this.setAmount(); // Modifica quantidade no estado;
+    }
   }
 
   // Altera o estado sessionStorage, removendo uma unidade;

@@ -85,6 +85,7 @@ class DetailedProduct extends React.Component {
       thumbnail,
       attributes,
       shipping,
+      available_quantity: maxAmount,
     } = product;
 
     return (
@@ -126,7 +127,13 @@ class DetailedProduct extends React.Component {
                   data-testid="product-detail-add-to-cart"
                   onClick={ (
                     () => {
-                      const cartElements = { id, title, price, thumbnail };
+                      const cartElements = {
+                        id,
+                        title,
+                        price,
+                        thumbnail,
+                        maxAmount,
+                      };
                       allElements = [...allElements, cartElements];
                       sessionStorage.setItem('addCart', JSON.stringify(allElements));
                       this.updateCartSize();
