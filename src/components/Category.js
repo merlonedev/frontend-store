@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { getCategories } from '../services/api';
 
 export default class Category extends Component {
   constructor() {
     super();
     this.state = {
-      selected: '',
       categories: [],
     };
     this.handleState = this.handleState.bind(this);
@@ -32,23 +32,34 @@ export default class Category extends Component {
   render() {
     const { categories } = this.state;
     return (
-        <ul>
-          {categories.map((category) => (
-            <button
-              type="button"
-              key={ category.id }
-              onClick={ this.handleClick }
+      <ul>
+        {categories.map((category) => (
+          <button
+            type="button"
+            key={ category.id }
+            onClick={ this.handleClick }
+          >
+            <li
+              data-testid="category"
+              categoryid={ category.id }
+              categoryname={ category.name }
             >
-              <li
-                data-testid="category"
-                categoryid={ category.id }
-                categoryname={ category.name }
-              >
-                {category.name}
-              </li>
-            </button>
-          ))}
-        </ul>
+              {category.name}
+            </li>
+          </button>
+        ))}
+      </ul>
     );
   }
 }
+
+Category.propTypes = {
+  product: PropTypes.shape({
+    title: PropTypes.string,
+    thumbnail: PropTypes.string,
+    price: PropTypes.number,
+    id: PropTypes.string,
+    category_id: PropTypes.string,
+  }).isRequired,
+  callBack: PropTypes.func.isRequired,
+};

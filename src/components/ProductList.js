@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
 import SearchBar from './SearchBar';
 import ProductCard from './ProductCard';
 import * as API from '../services/api';
@@ -10,8 +9,6 @@ class ProductList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      categoryid: '',
-      categoryname: '',
       searchText: '',
       products: [],
       productId: '',
@@ -24,24 +21,15 @@ class ProductList extends Component {
   }
 
   async getProducts(categoryid, searchText) {
-    // console.log('getProducts chamada');
     const products = await API.getProductsFromCategoryAndQuery(categoryid, searchText);
     this.setState({
       products: products.results,
     });
   }
 
-  getCategory(categoryid, categoryname) {
-    this.setState({
-      categoryid,
-      categoryname,
-    });
+  getCategory(categoryid) {
     const { searchText } = this.state;
     this.getProducts(categoryid, searchText);
-    // console.log(`getCategory:
-    //   categoryid: ${categoryid}
-    //   searchText: ${searchText}
-    //   categoryname: ${categoryname}`);
   }
 
   getSearchText(searchText) {
@@ -49,11 +37,6 @@ class ProductList extends Component {
       searchText,
     });
     this.getProducts(undefined, searchText);
-    // const { categoryid, categoryname } = this.state;
-    // console.log(`getSearchText:
-    //   categoryid: ${categoryid}
-    //   searchText: ${searchText}
-    //   categoryname: ${categoryname}`);
   }
 
   whichProduct(products, productId) {
@@ -61,7 +44,8 @@ class ProductList extends Component {
   }
 
   renderDetails(productid) {
-    const selectedProduct = this.whichProduct(this.state.products, productid);
+    const { products } = this.state;
+    const selectedProduct = this.whichProduct(products, productid);
     this.setState({
       productId: selectedProduct,
       toggleDetails: true,
