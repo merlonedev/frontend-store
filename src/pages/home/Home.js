@@ -1,7 +1,6 @@
 import React from 'react';
 import Search from '../../components/search/Search';
 import ProductList from '../../components/productList/ProductList';
-import MarketButton from '../../components/marketButton/MarketButton';
 import ProductCategories from '../../components/productCategories/ProductCategories';
 import { getCategories, getProductsFromCategoryAndQuery } from '../../services/api';
 
@@ -58,7 +57,6 @@ class Home extends React.Component {
 
   localChanger(product) {
     if (localStorage.getItem('Cart') !== null) {
-      console.log('oi');
       let local = JSON.parse(localStorage.getItem('Cart'));
       local = [...local, product];
       localStorage.setItem('Cart', JSON.stringify(local));
@@ -76,7 +74,6 @@ class Home extends React.Component {
           searchHandler={ this.searchHandler }
           eventHandler={ this.eventHandler }
         />
-        <MarketButton />
         <ProductList
           products={ products }
           filter={ category }

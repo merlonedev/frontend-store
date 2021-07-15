@@ -6,6 +6,7 @@ class Details extends Component {
   constructor() {
     super();
     this.localStorageGet = this.localStorageGet.bind(this);
+    this.localChanger = this.localChanger.bind(this);
     this.formClickHandler = this.formClickHandler.bind(this);
     this.formHandleChange = this.formHandleChange.bind(this);
     this.saveFeedBacks = this.saveFeedBacks.bind(this);
@@ -36,6 +37,16 @@ class Details extends Component {
     this.setState({
       usersFeedbacks: feedbacks !== null ? [...feedbacks] : [],
     });
+  }
+
+  localChanger(product) {
+    if (localStorage.getItem('Cart') !== null) {
+      let local = JSON.parse(localStorage.getItem('Cart'));
+      local = [...local, product];
+      localStorage.setItem('Cart', JSON.stringify(local));
+    } else {
+      localStorage.setItem('Cart', JSON.stringify([product]));
+    }
   }
 
   formHandleChange({ target }) {
@@ -76,6 +87,13 @@ class Details extends Component {
           <p>{ `${condition} | Preço: R$ ${price}` }</p>
           <p data-testid="product-detail-name">{ `Nome: ${title}` }</p>
           <p>{ `Quantidade vendida: ${soldQt}( ${avaliables} disponíveis)` }</p>
+          <button
+            type="button"
+            onClick={ () => this.localChanger(product) }
+            data-testid="product-detail-add-to-cart"
+          >
+            Adicionar ao Carrinho
+          </button>
         </div>
         <AvaliationForm
           userComent={ userComent }
@@ -86,7 +104,6 @@ class Details extends Component {
         />
         <Feedbacks usersFeedbacks={ usersFeedbacks } />
       </section>
-
     );
   }
 }

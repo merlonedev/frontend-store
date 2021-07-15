@@ -10,7 +10,7 @@ class ProductCard extends React.Component {
       <div data-testid="product">
         <h1>{ product.title}</h1>
         <Link
-          to="/details"
+          to={ { pathname: `/details/${product.id}`, state: { product } } }
           onClick={ () => detailsHandler(product) }
           data-testid="product-detail-link"
         >
@@ -19,7 +19,6 @@ class ProductCard extends React.Component {
             alt={ product.id }
           />
         </Link>
-        <Link to="/shopping-cart">Carrinho</Link>
 
         <p>
           R$
