@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Evaluation from '../components/Evaluation';
 import * as api from '../services/api';
 
 class ProductDetails extends Component {
@@ -26,11 +27,15 @@ class ProductDetails extends Component {
   render() {
     const { productDetail: { title, price, thumbnail } } = this.state;
     return (
-      <div>
-        <h1 data-testid="product-detail-name">{title}</h1>
-        <h1>{price}</h1>
-        <img src={ thumbnail } alt={ title } />
-      </div>
+      <section>
+        <div>
+          <h1 data-testid="product-detail-name">{title}</h1>
+          <h1>{price}</h1>
+          <img src={ thumbnail } alt={ title } />
+        </div>
+        <Evaluation />
+      </section>
+
     );
   }
 }
