@@ -11,14 +11,16 @@ class HomePage extends React.Component {
 
     this.state = {
       search: '',
-      // results: '',
       products: [],
       shoppingCart: [],
+      results: '',
+      category: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.queryProducts = this.queryProducts.bind(this);
     this.setShoppingCart = this.setShoppingCart.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleChange({ target }) {
@@ -37,13 +39,25 @@ class HomePage extends React.Component {
     }));
   }
 
-  async queryProducts() {
-    const { search } = this.state;
-    const { results } = await getProductsFromCategoryAndQuery('', search);
-
+  handleClick({ target }) {
+    const { value } = target;
     this.setState({
-      products: results,
-    });
+      category: value,
+    }, () => this.queryProducts());
+  }
+
+  queryProducts() {
+    const { search, category } = this.state;
+    if (search.length > 0 || category.length > 0) {
+      getProductsFromCategoryAndQuery(category, search)
+        .then((response) => this.setState({
+          products: response.results,
+        }));
+    } else {
+      this.setState({
+        products: [],
+      });
+    }
   }
 
   render() {
@@ -68,7 +82,8 @@ class HomePage extends React.Component {
         { products.length > 0
           ? <ProductList products={ products } setShoppingCart={ this.setShoppingCart } />
           : <InicialMessage /> }
-        <CategoryList />
+        
+        <CategoryList clickFunction={ this.handleClick } />
       </div>
     );
   }

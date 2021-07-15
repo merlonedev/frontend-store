@@ -1,4 +1,6 @@
 import React from 'react';
+import CartEmptyMessage from '../components/CartEmptyMessage';
+import CartProductItem from '../components/CartProductItem';
 import cartIcon from '../icon/cart3.svg';
 
 class CartPage extends React.Component {
@@ -38,7 +40,9 @@ class CartPage extends React.Component {
           <img src={ cartIcon } alt="cart icon" className="cart-icon" />
           <h1>Carrinho de Compras</h1>
         </header>
-
+        { shoppingCart && shoppingCart.length > 0 
+        ? shoppingCart.map((product) => <CartProductItem key={ product.id } plusPrice={ this.plusPrice } minusPrice={ this.minusPrice } product={ product } />)
+        : <CartEmptyMessage />}
         <p>{`Preço Total: R$ ${totalPrice}`}</p>
 
       </div>
