@@ -50,7 +50,7 @@ export default class ProductDetail extends React.Component {
             data-testid="product-detail-evaluation"
             placeholder="Mensagem (Opcional)"
           />
-          <button type="button"> Avaliar </button>
+          <button type="button" className="rating-button"> Avaliar </button>
         </form>
       </div>
     );
