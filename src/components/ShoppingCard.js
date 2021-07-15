@@ -37,9 +37,12 @@ class ShoppingCard extends Component {
   addItemFromCart(id) {
     const currentCart = JSON.parse(localStorage.getItem('carrinho'));
     currentCart.map((item) => {
-      if (item.id === id) {
+      if (item.id === id && item.quantity < item.available_quantity) {
         item.quantity += 1;
         return item;
+      }
+      if (item.quantity === item.available_quantity) {
+        this.disable = true;
       }
       return item;
     });
