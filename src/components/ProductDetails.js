@@ -5,43 +5,44 @@ import { Link } from 'react-router-dom';
 import * as API from '../services/api';
 
 class ProductDetails extends Component {
-  constructor(props) {
-    super(props);
+  // constructor(props) {
+  //   super(props);
 
-    this.state = {
-      product: {},
-    };
-    this.getProductDetails = this.getProductDetails.bind(this);
-  }
+  //   this.state = {
+  //     product: {},
+  //   };
+  // this.getProductDetails = this.getProductDetails.bind(this);
+  // }
 
-  componentDidMount() {
-    this.getProductDetails();
-  }
+  // componentDidMount() {
+  //   this.getProductDetails();
+  // }
 
-  async getProductDetails() {
-    const { match } = this.props;
-    const { params } = match;
-    const { id, searchText = '', category_id } = params;
-    console.log(`getProductDetails:
-      category_id: ${category_id}
-      searchText: ${searchText}
-      id: ${id}`);
-    const { results } = await API.getProductsFromCategoryAndQuery(category_id, searchText);
-    const product = results.find((item) => item.id === id);
-    console.log(`results:
-      ${results}
-      __________
-      product: ${product}
-      __________`);
-    this.setState({
-      product,
-    });
-  }
+  // async getProductDetails() {
+  // const { match, product } = this.props;
+  // const { params } = match;
+  // const { id, searchText = '', category_id } = params;
+  // console.log(`getProductDetails:
+  //   category_id: ${category_id}
+  //   searchText: ${searchText}
+  //   id: ${id}
+  //   PRODUCT: ${product}`);
+  // const { results } = await API.getProductsFromCategoryAndQuery(category_id, searchText);
+  // const product = results.find((item) => item.id === id);
+  // console.log(`results:
+  //   ${results}
+  //   __________
+  //   product: ${product}
+  //   __________`);
+  //   this.setState({
+  //     product,
+  //   });
+  // }
 
   render() {
-    const { product } = this.state;
+    const { product, callBack2 } = this.props;
     return (
-      <div>
+      <>
         <h2 data-testid="product-detail-name">{ product.title }</h2>
         <div>
           <img alt={ product.title } src={ product.thumbnail } />
@@ -51,9 +52,9 @@ class ProductDetails extends Component {
             <li>{product.price}</li>
           </ul>
         </div>
-        <Link to="/">VOLTAR</Link>
+        <button type="button" onClick={ () => callBack2() }>VOLTAR</button>
         <Link to="/ShoppingCart">CARRINHO DE COMPRAS</Link>
-      </div>
+      </>
     );
   }
 }

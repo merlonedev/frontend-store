@@ -1,23 +1,30 @@
 /* eslint-disable camelcase */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, Route } from 'react-router-dom';
+// import { Button } from 'semantic-ui-react';
+import ProductDetails from './ProductDetails';
 
 class ProductCard extends Component {
   render() {
-    const { product, searchText } = this.props;
+    const { product, searchText, callBack } = this.props;
     const { category_id, id, title, thumbnail, price } = product;
     return (
-      <Link
-        to={ `/product-details/${category_id}/${searchText}/${id}` }
-        data-testid="product-detail-link"
-      >
-        <div data-testid="product">
-          <h3>{title}</h3>
-          <h4>{price}</h4>
-          <img src={ thumbnail } alt={ title } />
-        </div>
-      </Link>
+      <>
+        <button
+          type="button"
+          data-testid="product-detail-link"
+          onClick={ () => {
+            callBack(id);
+          } }
+        >
+          <div data-testid="product">
+            <h3>{title}</h3>
+            <h4>{price}</h4>
+            <img src={ thumbnail } alt={ title } />
+          </div>
+        </button>
+      </>
     );
   }
 }

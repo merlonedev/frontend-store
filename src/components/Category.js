@@ -32,7 +32,6 @@ export default class Category extends Component {
   render() {
     const { categories } = this.state;
     return (
-      <div>
         <ul>
           {categories.map((category) => (
             <button
@@ -50,7 +49,6 @@ export default class Category extends Component {
             </button>
           ))}
         </ul>
-      </div>
     );
   }
 }
