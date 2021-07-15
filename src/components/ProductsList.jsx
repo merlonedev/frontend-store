@@ -17,6 +17,10 @@ export default class ProductsList extends Component {
 
   render() {
     const { products } = this.props;
+    const formatter = new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL',
+    });
     return (
       <div className="product-list">
         {products.map((product) => (
@@ -29,8 +33,7 @@ export default class ProductsList extends Component {
             />
             <div className="price-shipping">
               <h2>
-                R$
-                { parseFloat(product.price).toFixed(2) }
+                { formatter.format(product.price) }
               </h2>
               { product.shipping.free_shipping ? (
                 <p data-testid="free-shipping" className="shipping">

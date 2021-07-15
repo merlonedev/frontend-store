@@ -48,6 +48,10 @@ export default class ProductDetails extends Component {
   render() {
     const { title, price, pictures, freeShipping } = this.state;
     const { quantity } = this.props;
+    const formatter = new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL',
+    });
     return (
       <div className="product-details">
         <img src={ pictures.url } alt="Imagem do Produto" className="details-img" />
@@ -65,8 +69,7 @@ export default class ProductDetails extends Component {
             </span>
           )}
           <h2>
-            R$
-            {price}
+            {formatter.format(price)}
           </h2>
           <label htmlFor="rating" className="rating">
             Avaliação 1-5
