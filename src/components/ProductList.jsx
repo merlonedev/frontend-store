@@ -5,7 +5,6 @@ import ProductCard from './ProductCard';
 export default class ProductList extends Component {
   render() {
     const { list, onProductClick } = this.props;
-
     return (
       <section className="product-list">
         { list.map((product) => (<ProductCard
