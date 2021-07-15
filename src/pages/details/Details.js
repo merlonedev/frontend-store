@@ -71,7 +71,6 @@ class Details extends Component {
   }
 
   saveFeedBacks() {
-
     const { product } = this.state;
     const { usersFeedbacks } = this.state;
     localStorage.setItem(`usersFeedbacks${product.id}`, JSON.stringify(usersFeedbacks));
@@ -89,10 +88,12 @@ class Details extends Component {
           <p data-testid="product-detail-name">{ `Nome: ${title}` }</p>
           <p>{ `Quantidade vendida: ${soldQt}( ${avaliables} disponíveis)` }</p>
           <button
-          type="button"
-          onClick={ () => this.localChanger(product) }
-          data-testid="product-detail-add-to-cart"
+            type="button"
+            onClick={ () => this.localChanger(product) }
+            data-testid="product-detail-add-to-cart"
           >
+            Adicionar ao Carrinho
+          </button>
         </div>
         <AvaliationForm
           userComent={ userComent }
