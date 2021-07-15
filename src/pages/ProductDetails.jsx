@@ -7,7 +7,6 @@ export default class ProductDetails extends Component {
   constructor() {
     super();
     this.state = {
-      loading: false,
       cartQTD: 0,
     };
   }
@@ -45,18 +44,13 @@ export default class ProductDetails extends Component {
     });
   }
 
-  clearStorage() {
-    localStorage.removeItem('product');
-  }
-
   render() {
-    const { loading, cartQTD } = this.state;
+    const { cartQTD } = this.state;
     const { location: { state: { product } } } = this.props;
     const { title, price, thumbnail, attributes } = product;
-    if (loading) { return <p>Loading...</p>; }
     return (
       <main>
-        <Link to="/" onClick={ this.clearStorage }>VOLTAR</Link>
+        <Link to="/">VOLTAR</Link>
         <div className="details-shoppingCart">
           <Link data-testid="shopping-cart-button" to="/shoppingcart">CARRINHO</Link>
           <p data-testid="shopping-cart-size">{ cartQTD }</p>

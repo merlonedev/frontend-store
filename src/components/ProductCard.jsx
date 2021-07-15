@@ -3,11 +3,6 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 export default class ProductCard extends Component {
-  handleCardClick = (product) => {
-    const item = JSON.stringify(product);
-    localStorage.setItem('product', item);
-  }
-
   CheckFreeShipping(product) {
     if (product.shipping.free_shipping === true) {
       return (
@@ -25,7 +20,6 @@ export default class ProductCard extends Component {
             pathname: `/product/${product.id}`,
             state: { product },
           } }
-          onClick={ () => this.handleCardClick(product) }
           className="product-card"
         >
           <img src={ product.thumbnail } alt="" />
