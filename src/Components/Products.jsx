@@ -3,10 +3,20 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 class Products extends Component {
+  freeShipping = () => {
+    const { product } = this.props;
+    const { shipping } = product;
+    if (shipping.free_shipping === true) {
+      return (<p data-testid="free-shipping">Frete Grátis</p>);
+    }
+    console.log(shipping.free_shipping);
+  }
+
   render() {
     const { title, img, price, id, addCart, product } = this.props;
     return (
       <div data-testid="product" className="card">
+        {this.freeShipping()}
         <p>{ title }</p>
         <img src={ img } width="50px" alt="produto" className="photo" />
         <p>{ price }</p>
@@ -44,6 +54,9 @@ Products.propTypes = {
     img: PropTypes.string,
     price: PropTypes.number.isRequired,
     categoryId: PropTypes.string,
+    shipping: PropTypes.shape({
+      free_shipping: PropTypes.bool,
+    }),
   }).isRequired,
 };
 
