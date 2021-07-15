@@ -15,7 +15,7 @@ class ShoppingCard extends Component {
             >
               {product.title}
             </span>
-            <span data-testid="shopping-cart-product-quantity"> 1</span>
+            <span data-testid="shopping-cart-product-quantity">{product.quantity}</span>
           </div>))}
         <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
       </div>
