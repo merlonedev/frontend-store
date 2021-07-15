@@ -9,7 +9,7 @@ class CartButton extends React.Component {
         data-testid="shopping-cart-button"
         to="/cart-page"
       >
-        <img src={ cartIcon } alt="cart icon" />
+        <img className="cart-icon" src={ cartIcon } alt="cart icon" />
       </Link>
     );
   }

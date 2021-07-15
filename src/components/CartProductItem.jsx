@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class CartProductItem extends React.Component {
   constructor() {
@@ -8,7 +9,7 @@ class CartProductItem extends React.Component {
     this.state = {
       count: 1,
     };
-    
+
     this.plusCount = this.plusCount.bind(this);
     this.minusCount = this.minusCount.bind(this);
   }
@@ -46,16 +47,18 @@ class CartProductItem extends React.Component {
     return (
       <div className="cart-product-item">
         <img src={ thumbnail } alt={ title } />
-        <h6>{ title }</h6>
+        <h6 data-testid="shopping-cart-product-name">{ title }</h6>
         <button
+          data-testid="product-decrease-quantity"
           className="item-button"
           type="button"
           onClick={ this.minusCount }
         >
           -
         </button>
-        <p>{ count }</p>
+        <p data-testid="shopping-cart-product-quantity">{ count }</p>
         <button
+          data-testid="product-increase-quantity"
           className="item-button"
           type="button"
           onClick={ this.plusCount }
@@ -67,5 +70,15 @@ class CartProductItem extends React.Component {
     );
   }
 }
+
+CartProductItem.propTypes = {
+  product: PropTypes.objectOf({
+    title: PropTypes.string.isRequired,
+    thumbnail: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+  }).isRequired,
+  plusPrice: PropTypes.func.isRequired,
+  minusPrice: PropTypes.func.isRequired,
+};
 
 export default CartProductItem;
