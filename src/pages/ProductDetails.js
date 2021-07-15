@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import ButtonCart from '../Components/ButtonCart';
 
-class Productetails extends Component {
+class ProductDetails extends Component {
   render() {
+    // MLB1370656442 id test
     return (
       <section>
         <ButtonCart />
@@ -20,4 +21,4 @@ class Productetails extends Component {
   }
 }
 
-export default Productetails;
+export default ProductDetails;
