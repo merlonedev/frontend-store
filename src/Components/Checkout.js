@@ -52,7 +52,7 @@ export default class Checkout extends React.Component {
         <form>
           <div>
             <p>Informações do Comprador</p>
-            <p className="input">{ mensagem }</p>
+            <p className="erro">{ mensagem }</p>
             <CheckoutName name={ name } handleChange={ this.handleChange } />
             <CheckoutCpf cpf={ cpf } handleChange={ this.handleChange } />
             <CheckoutEmail email={ email } handleChange={ this.handleChange } />
