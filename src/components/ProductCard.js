@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import ButtonToCard from './ButtonToCard';
 
 class ProductCard extends React.Component {
   constructor() {
@@ -23,7 +24,12 @@ class ProductCard extends React.Component {
   }
 
   render() {
-    const { product: { title, thumbnail, price, id } } = this.props;
+    const { product: {
+      title,
+      thumbnail,
+      price,
+      id,
+      shipping: { free_shipping: freeShipping } } } = this.props;
     return (
       <section data-testid="product">
         <Link
@@ -37,6 +43,9 @@ class ProductCard extends React.Component {
         </Link>
         <h2>{ title }</h2>
         <img src={ thumbnail } alt={ title } />
+        <p>{ price }</p>
+        {freeShipping ? <h4 data-testid="free-shipping">Frete Grátis</h4> : ''}
+        <ButtonToCard />
         <p>
           Preço: R$
           { price }
@@ -59,6 +68,9 @@ ProductCard.propTypes = {
     thumbnail: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     id: PropTypes.string.isRequired,
+    shipping: PropTypes.shape({
+      free_shipping: PropTypes.bool.isRequired,
+    }),
   }).isRequired,
 };
 
