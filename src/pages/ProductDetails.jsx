@@ -5,7 +5,6 @@ import * as api from '../services/api';
 class ProductDetails extends Component {
   constructor() {
     super();
-
     this.state = {
       productDetail: {},
     };
