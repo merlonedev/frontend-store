@@ -45,6 +45,7 @@ class ShoppingCart extends React.Component {
               type="button"
               onClick={ this.quantitySum }
               name={ item.id }
+              data-testid="product-increase-quantity"
             >
               +
             </button>
@@ -52,6 +53,7 @@ class ShoppingCart extends React.Component {
               type="button"
               onClick={ this.quantitySub }
               name={ item.id }
+              data-testid="product-decrease-quantity"
             >
               -
             </button>
