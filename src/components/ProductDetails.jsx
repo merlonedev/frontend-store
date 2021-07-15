@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import ShoppingCartButton from './subcomponents/ShoppingCartButton';
 import ReturnButton from './subcomponents/ReturnButton';
 import AddToCartButton from './subcomponents/AddToCartButton';
+import Header from './Header';
 import Rating from './Rating';
 
 export default class ProductDetails extends Component {
@@ -56,6 +57,7 @@ export default class ProductDetails extends Component {
     });
     return (
       <div className="product-details">
+        <Header title="Detalhes do Produto" />
         <div className="image-container">
           <img src={ pictures.url } alt="Imagem do Produto" className="details-img" />
         </div>
@@ -78,32 +80,11 @@ export default class ProductDetails extends Component {
               {formatter.format(price)}
             </h2>
             <div className="buttons-container">
-              {/* <button type="button" className="button cart-button">
-              <Link to="/cart" data-testid="shopping-cart-button">
-                <p>
-                  <i className="fas fa-shopping-cart" />
-                  <Quantities quantity={ quantity } />
-                </p>
-              </Link>
-            </button> */}
               <ShoppingCartButton quantity={ quantity } />
-              {/* <button
-                type="button"
-                data-testid="product-detail-add-to-cart"
-                onClick={ this.handleClick }
-                className="add-button button"
-              >
-                <i className="fas fa-cart-arrow-down"> Adicionar ao carrinho</i>
-              </button> */}
               <AddToCartButton
                 onClick={ this.handleClick }
                 datatestid="product-detail-add-to-cart"
               />
-              {/* <button type="button" className="button return-button">
-              <Link to="/">
-                <p>Voltar</p>
-              </Link>
-            </button> */}
               <ReturnButton path="/" />
             </div>
           </div>

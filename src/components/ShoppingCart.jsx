@@ -5,13 +5,15 @@ import CartItems from './CartItems';
 import ReturnButton from './subcomponents/ReturnButton';
 import CheckoutButton from './subcomponents/CheckoutButton';
 import TotalCart from './subcomponents/TotalCart';
+import Header from './Header';
 
 // prettier-ignore
 export default class ShoppingCart extends React.Component {
   render() {
     const { cartItems, handlers } = this.props;
     return (
-      <section>
+      <div className="cart">
+        <Header title="Carrinho de Compras" />
         {!cartItems.length ? (
           <span data-testid="shopping-cart-empty-message">
             Seu carrinho está vazio.
@@ -26,9 +28,9 @@ export default class ShoppingCart extends React.Component {
           <CheckoutButton />
           {/* <Link to="/">VOLTAR</Link> */}
           <ReturnButton path="/" />
-          <TotalCart cartItems={ cartItems } />
         </p>
-      </section>
+        <TotalCart cartItems={ cartItems } />
+      </div>
     );
   }
 }

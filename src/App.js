@@ -171,7 +171,6 @@ export default class App extends Component {
     return (
       <div className="App">
         <BrowserRouter>
-          <Header quantity={ quantity } callback={ this.callback } />
           <div className="body">
             <Switch>
               <Route
@@ -225,6 +224,7 @@ export default class App extends Component {
                 path="/"
                 render={ () => (
                   <div className="home">
+                    <Header title="Mercadão Se Vira nos 30" />
                     <SearchBar quantity={ quantity } callback={ this.callback } />
                     <SortSelect callback={ this.callbackSort } sorting={ sorting } />
                     <CategoriesBar

@@ -7,6 +7,7 @@ import CartItems from './CartItems';
 import ReturnButton from './subcomponents/ReturnButton';
 import TotalCart from './subcomponents/TotalCart';
 import CompletePurchaseButton from './subcomponents/CompletePurchaseButton';
+import Header from './Header';
 
 // prettier-ignore
 export default class Checkout extends React.Component {
@@ -61,6 +62,7 @@ export default class Checkout extends React.Component {
 
     return (
       <div className="checkout">
+        <Header title="Checkout" />
         <div className="cart-items-checkout">
           <CartItems cartItems={ cartItems } handlers={ handlers } showButtons="false" />
         </div>

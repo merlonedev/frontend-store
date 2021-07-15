@@ -1,18 +1,25 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Logo from '../img/se_vira_logo.png';
-// import { Link } from 'react-router-dom';
 
 export default class Header extends Component {
   render() {
+    const { title } = this.props;
     return (
       <header className="page-header">
-        <h1 className="page-title"><img className="logo" src={ Logo } alt="logo" /></h1>
-        {/* <button type="button">
-          <Link to="/cart">
-            Carrinho
-          </Link>
-        </button> */}
+        <img className="logo" src={ Logo } alt="logo" />
+        <h1 className="page-title">
+          {title}
+        </h1>
       </header>
     );
   }
 }
+
+Header.defaultProps = {
+  title: undefined,
+};
+
+Header.propTypes = {
+  title: PropTypes.string,
+};
