@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-class Carrinho extends React.Component {
+class Cart extends Component {
   render() {
     return (
       <div>
@@ -10,4 +10,4 @@ class Carrinho extends React.Component {
   }
 }
 
-export default Carrinho;
+export default Cart;
