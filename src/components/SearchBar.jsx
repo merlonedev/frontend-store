@@ -7,11 +7,11 @@ class SearchBar extends Component {
     const { onChange, inputText } = this.props;
     return (
       <div>
-        <label data-testid="query-input" htmlFor="label-input-search">
+        <label data-testid="input-search" htmlFor="label-input-search">
           <input
             name="inputText"
             value={ inputText }
-            data-testid="input-search"
+            data-testid="query-input"
             onChange={ onChange }
           />
         </label>

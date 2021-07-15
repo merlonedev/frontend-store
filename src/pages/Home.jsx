@@ -12,6 +12,7 @@ class Home extends Component {
       // status: true,
       inputText: '',
       data: [],
+      id: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -34,10 +35,10 @@ class Home extends Component {
   // }
 
   async handleClick() {
-    const { inputText } = this.state;
-    const searchProductByQuery = await api.getProductsFromQuery(inputText);
+    const { inputText, id } = this.state;
+    const searchProduct = await api.getProductsFromCategoryAndQuery(id, inputText);
     this.setState({
-      data: searchProductByQuery.results,
+      data: searchProduct.results,
       inputText: '',
     });
   }
@@ -46,10 +47,6 @@ class Home extends Component {
     const { name, value } = target;
     this.setState({ [name]: value });
   }
-
-  // async getProductByQuery(query) {
-
-  // }
 
   async getProductByIdAndQuery(id, query) {
     const searchProduct = await api.getProductsFromCategoryAndQuery(id, query);
