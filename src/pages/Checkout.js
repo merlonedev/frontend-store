@@ -47,7 +47,8 @@ class Checkout extends React.Component {
           endereço: '',
         },
         redirect: true,
-      }, () => sessionStorage.setItem('addCart', JSON.stringify([])));
+      });
+      sessionStorage.setItem('addCart', JSON.stringify([]));
     }
   }
 
