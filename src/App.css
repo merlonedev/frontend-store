@@ -287,7 +287,7 @@ html, * {
   display: flex;
   flex-direction: column;
   padding: 20px;
-  width: 60%;
+  width: 600px;
 }
 
 .rating {
@@ -301,6 +301,10 @@ html, * {
 .details-img {
   max-height: 500px;
   max-width: 50%;
+}
+
+.image-container {
+  width: 50%;
 }
 
 .column {
@@ -416,7 +420,7 @@ html, * {
   margin-right: auto;
   position: absolute;
   right: 0;
-  top: 90vh;
+  top: 100%;
   width: 60%;
 }
 

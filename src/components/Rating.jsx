@@ -34,15 +34,20 @@ export default class Rating extends React.Component {
 
   showReviews(reviews) {
     if (!reviews) return;
-    return reviews.map((review, index) => (
-      <section key={ index } className="review">
-        <h4 className="review-email">{ review.email }</h4>
-        <span>deu nota</span>
-        <h5 className="review-rating">{ review.rating }</h5>
-        <span>e comentou</span>
-        <p className="review-comment">{ review.comment }</p>
+    return (
+      <section className="reviews">
+        <h2>Avaliações</h2>
+        {reviews.map((review, index) => (
+          <section key={ index } className="review">
+            <h4 className="review-email">{ review.email }</h4>
+            <span>deu nota</span>
+            <h5 className="review-rating">{ review.rating }</h5>
+            <span>e comentou</span>
+            <p className="review-comment">{ review.comment }</p>
+          </section>
+        ))}
       </section>
-    ));
+    );
   }
 
   submitReview() {
@@ -63,7 +68,7 @@ export default class Rating extends React.Component {
     } else {
       reviews.push(review);
       localStorage.setItem(pid, JSON.stringify(reviews));
-      this.setState({ reviews });
+      this.setState({ reviews, email: '', comment: '' });
     }
   }
 
@@ -73,7 +78,7 @@ export default class Rating extends React.Component {
       <section>
         <section>
           <form className="rating">
-            <h3>Conte-nos o que achou deste produto!</h3>
+            <h3>Comprou? Conte-nos o que achou deste produto!</h3>
             <input
               name="email"
               type="email"
@@ -111,10 +116,10 @@ export default class Rating extends React.Component {
             </button>
           </form>
         </section>
-        <section className="reviews">
-          <h2>Avaliações</h2>
-          { this.showReviews(reviews) }
-        </section>
+        {/* <section className="reviews"> */}
+        {/* <h2>Avaliações</h2> */}
+        { this.showReviews(reviews) }
+        {/* </section> */}
       </section>
     );
   }

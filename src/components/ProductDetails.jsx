@@ -56,13 +56,15 @@ export default class ProductDetails extends Component {
     });
     return (
       <div className="product-details">
-        <img src={ pictures.url } alt="Imagem do Produto" className="details-img" />
+        <div className="image-container">
+          <img src={ pictures.url } alt="Imagem do Produto" className="details-img" />
+        </div>
         <div className="column">
 
           <div className="details">
-            <h1 data-testid="product-detail-name">
+            <h2 data-testid="product-detail-name">
               {title}
-            </h1>
+            </h2>
             {!freeShipping ? (
               <span data-testid="shipping">
                 Confira os preços de frete para sua residência.
