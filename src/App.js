@@ -15,6 +15,8 @@ class App extends React.Component {
     };
 
     this.addAllProductsToCart = this.addAllProductsToCart.bind(this);
+    this.decreaseItem = this.decreaseItem.bind(this);
+    this.removeItem = this.removeItem.bind(this);
   }
 
   addAllProductsToCart(product) {
@@ -31,6 +33,35 @@ class App extends React.Component {
     this.setState({
       productsToAddInCart: [...productsToAddInCart, product],
     });
+  }
+
+  decreaseItem(product) {
+    const { productsToAddInCart } = this.state;
+    const alredyExist = productsToAddInCart.find((current) => current.id === product.id);
+
+    if (alredyExist.quantityInCart === 1) {
+      const newCart = productsToAddInCart.filter((item) => item.id !== product.id);
+      return this.setState({
+        productsToAddInCart: newCart,
+      });
+    }
+
+    alredyExist.quantityInCart -= 1;
+    return this.setState({
+      productsToAddInCart: [...productsToAddInCart],
+    });
+  }
+
+  removeItem(product) {
+    const { productsToAddInCart } = this.state;
+    const alredyExist = productsToAddInCart.find((current) => current.id === product.id);
+
+    if (alredyExist) {
+      const newCart = productsToAddInCart.filter((item) => item.id !== product.id);
+      return this.setState({
+        productsToAddInCart: newCart,
+      });
+    }
   }
 
   render() {
@@ -50,7 +81,13 @@ class App extends React.Component {
               exact
               path="/shopping-cart"
               render={ (props) => (
-                <ShoppingCart { ...props } products={ productsToAddInCart } />
+                <ShoppingCart
+                  { ...props }
+                  products={ productsToAddInCart }
+                  increaseQuantity={ this.addAllProductsToCart }
+                  decreaseQuantity={ this.decreaseItem }
+                  removeThisItem={ this.removeItem }
+                />
               ) }
             />
             <Route

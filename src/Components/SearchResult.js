@@ -10,7 +10,6 @@ class SearchResult extends React.Component {
   }
 
   getProductToAddInCart(product) {
-    console.log(product);
     const { addToCart } = this.props;
     addToCart(product);
   }

@@ -8,3 +8,55 @@
   align-self: center;
   text-align: center;
 }
+
+header, main {
+  align-items: center;
+  max-width: 50%;
+  padding: 20px;
+}
+
+.shopping-cart-size {
+  height: 3rem;
+}
+
+.row {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.thumb-size {
+  width: 5rem;
+}
+
+button {
+  background-color: #87d534;
+  border: 0.1rem #404040 solid;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-size: 0.8rem;
+  margin: 0.1rem;
+  padding: 0.2rem;
+  width: auto;
+}
+
+.remove-item {
+  background-color: #f36b16;
+  width: 1.5rem;
+}
+
+.add {
+  background-color: #87d534;
+  width: 1.5rem;
+}
+
+.remove {
+  background-color: #f04040;
+  width: 1.5rem;
+}
+
+.badge {
+  background-color: #e2c044;
+  width: 1.5rem;
+}
+
