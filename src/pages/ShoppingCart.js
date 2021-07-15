@@ -8,7 +8,7 @@ class ShoppingCart extends Component {
     if (localStorage.getItem('carrinho')) {
       const cart = JSON.parse(localStorage.getItem('carrinho'));
       this.state = {
-        items: [cart],
+        items: [...cart],
       };
     } else {
       this.state = {
