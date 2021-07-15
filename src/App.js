@@ -69,7 +69,7 @@ class App extends React.Component {
         <Link to="/">Home</Link>
         <Switch>
           <Route
-            path="/infos/:id/:product"
+            path="/infos/:category/:id/:product"
             render={ (props) => (<Infos
               { ...props }
               count={ count }

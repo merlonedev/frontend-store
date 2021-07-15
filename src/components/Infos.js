@@ -13,6 +13,7 @@ export default class Infos extends React.Component {
     };
 
     this.createProduct = this.createProduct.bind(this);
+    this.finishedLoading = this.finishedLoading.bind(this);
   }
 
   componentDidMount() {
@@ -23,10 +24,16 @@ export default class Infos extends React.Component {
   async createProduct() {
     const { match } = this.props;
     const { params } = match;
-    const { id, product } = params;
-    const data = await getProductsFromCategoryAndQuery(id, product);
+    const { category, id, product } = params;
+    const data = await getProductsFromCategoryAndQuery(category, product);
+    const result = data.results.find((item) => item.id === id);
     this.setState({
-      product: data.results.find((item) => item.title === product || item.id === id),
+      product: result,
+    }, () => this.finishedLoading());
+  }
+
+  finishedLoading() {
+    this.setState({
       loaded: true,
     });
   }
@@ -118,6 +125,7 @@ Infos.propTypes = {
   addToCartItem: PropTypes.func.isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
+      category: PropTypes.string,
       id: PropTypes.string,
       product: PropTypes.string,
     }),

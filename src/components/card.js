@@ -9,6 +9,7 @@ export default class Card extends Component {
     this.state = {
       id: '',
       title: '',
+      category: '',
       shouldRedirect: false,
     };
 
@@ -21,20 +22,21 @@ export default class Card extends Component {
     addCartItem(item);
   }
 
-  itemClicked(id, title) {
+  itemClicked(id, title, category) {
     this.setState({
       id,
       title,
+      category,
       shouldRedirect: true,
     });
   }
 
   render() {
     const { item } = this.props;
-    const { title, price, thumbnail, id, shipping } = item;
-    const { shouldRedirect, id: idState, title: titleState } = this.state;
+    const { title, price, thumbnail, id, shipping, category_id: categoryId } = item;
+    const { shouldRedirect, id: idState, title: titleState, category } = this.state;
     if (shouldRedirect) {
-      return <Redirect to={ `/infos/${idState}/${titleState}` } />;
+      return <Redirect to={ `/infos/${category}/${idState}/${titleState}` } />;
     }
     return (
       <div className="container-product">
@@ -42,7 +44,7 @@ export default class Card extends Component {
           data-testid="product"
           className="products"
           role="presentation"
-          onClick={ () => this.itemClicked(id, title) }
+          onClick={ () => this.itemClicked(id, title, categoryId) }
         >
           <h4 data-testid="product-detail-link">{ title }</h4>
           <p>{ price }</p>
@@ -68,6 +70,7 @@ Card.propTypes = {
     price: PropTypes.number,
     thumbnail: PropTypes.string,
     id: PropTypes.string,
+    category_id: PropTypes.string,
     shipping: PropTypes.shape({
       free_shipping: PropTypes.bool,
     }),
