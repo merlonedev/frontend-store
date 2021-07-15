@@ -26,7 +26,7 @@ export default class Infos extends React.Component {
     const { id, product } = params;
     const data = await getProductsFromCategoryAndQuery(id, product);
     this.setState({
-      product: data.results.find((item) => item.title === product),
+      product: data.results.find((item) => item.id === id || item.title === product),
       loaded: true,
     });
   }
