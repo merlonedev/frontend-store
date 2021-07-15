@@ -5,20 +5,24 @@ import Loading from './Loading';
 class NavBar extends Component {
   render() {
     const { categories, loading, click } = this.props;
-    console.log('NavBar', categories);
+    // console.log('NavBar', categories);
     if (loading) return <Loading />;
     return (
       <nav data-testid="nav-container">
         { categories.map((categorie) => (
-          <label htmlFor="nav-categorie" key={ categorie.id }>
-            <input
-              type="radio"
-              onClick={ click }
-              data-testid="categorie"
-              id="nav-categorie"
-            />
+          // {/*  */}<label htmlFor="nav-categorie" key={ categorie.id }>
+          <button
+            type="button"
+            key={ categorie.id }
+            onClick={ click }
+            data-testid="categorie"
+            id={ categorie.id }
+            name="categorie"
+          >
             { categorie.name }
-          </label>
+          </button>
+
+          // </label>
         )) }
       </nav>
     );

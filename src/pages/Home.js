@@ -30,16 +30,26 @@ class Home extends Component {
     });
   }
 
-  async handleClick() {
-    const { value, categories } = this.state;
+  async handleClick(e) {
+    const { target: { id, name } } = e;
+    console.log('func', id);
+    const { value } = this.state;
     this.setState({ loading: true },
       async () => {
-        const products = await getProductsFromCategoryAndQuery(categories, value);
+        const byCategorie = name === 'categorie' ? id : '';
+        const bySearch = name === 'searchButton' ? value : '';
+
+        const products = await getProductsFromCategoryAndQuery(byCategorie, bySearch);
+
         this.setState({
           loading: false,
           products: products.results,
         });
       });
+    // this.setState({
+    //   loading: false,
+    //   products: products.results,
+    // });
   }
 
   async mountCategorieList() {

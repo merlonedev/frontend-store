@@ -21,6 +21,7 @@ class SearchBar extends Component {
           type="button"
           onClick={ click }
           data-testid="query-button"
+          name="searchButton"
         >
           Search
         </button>
