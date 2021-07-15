@@ -1,5 +1,6 @@
 import React from 'react';
-import { Rating } from '@material-ui/lab';
+import Rating from './Rating';
+// import { Rating } from '@material-ui/lab';
 
 export default class ProductReview extends React.Component {
   constructor(props) {
@@ -30,7 +31,7 @@ export default class ProductReview extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     const { email } = this.state;
-    alert(`Olá: ${email}`);
+    console.log(email);
   }
 
   render() {
@@ -45,11 +46,12 @@ export default class ProductReview extends React.Component {
             value={ email }
             onChange={ this.handleEmailOnChange }
           />
-          <Rating
+          <Rating />
+          {/* <Rating
             name="half-rating"
             defaultValue={ 2.5 }
             precision={ 0.5 }
-          />
+          /> */}
           <textarea
             data-testid="product-detail-evaluation"
             placeholder="Mensagem (opcional)"
