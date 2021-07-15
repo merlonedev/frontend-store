@@ -5,7 +5,6 @@ import ShoppingCardIcon from './ShoppingCardIcon';
 class ShoppingCard extends Component {
   render() {
     const { productList } = this.props;
-    console.log(productList);
     return (
       <div>
         <ShoppingCardIcon />
