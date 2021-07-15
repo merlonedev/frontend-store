@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
+import CheckoutForm from '../components/checkout_form/CheckoutFom';
 
 class Checkout extends Component {
   render() {
     return (
-      <h1>Checkout</h1>
+      <div>
+        <h1>Checkout</h1>
+        <CheckoutForm />
+      </div>
     );
   }
 }

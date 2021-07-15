@@ -1,28 +1,29 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-class InputCPF extends Component {
+class InputPhone extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isOk: '',
     };
-    this.cpfCheck = this.cpfCheck.bind(this);
-    this.isNumber = this.isNumber.bind(this);
+    this.cpfCheck = this.phoneCheck.bind(this);
+    this.isNumber = this.isValid.bind(this);
   }
 
-  cpfCheck({ target }) {
+  phoneCheck({ target }) {
     const { onChange } = this.props;
-    const check = target.value.match(/\d{11}/);
+    const check = target.value.match(/\d{10,11}/);
     if (Array.isArray(check) && check.length) {
-      target.value = check[0].replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+      target.value = check[0].replace(/(\d{2})(\d)?(\d{4})(\d{4})/, '($1)$2$3-$4');
+      console.log(target.value);
       onChange(target);
       return this.setState({ isOk: 'yes' });
     }
     this.setState({ isOk: 'not' });
   }
 
-  isNumber({ target }) {
+  isValid({ target }) {
     const { onChange } = this.props;
     const check = target.value.match(/\d{0,11}/)[0];
     target.value = check || '';
@@ -37,34 +38,34 @@ class InputCPF extends Component {
       color = isOk === 'yes' ? 'lime' : 'red';
     }
     return (
-      <label htmlFor="input-cpf">
+      <label htmlFor="input-phone">
         <input
           style={ { border: `2px solid ${color}` } }
           name={ name }
-          className="input-cpf"
-          id="input-cpf"
+          className="input-phone"
+          id="input-phone"
           value={ value }
           type="text"
-          placeholder="CPF"
-          onChange={ (e) => this.isNumber(e) }
+          placeholder="Telefone"
+          onChange={ (e) => this.isValid(e) }
           onBlur={ (e) => {
-            this.cpfCheck(e);
+            this.phoneCheck(e);
           } }
-          data-testid="checkout-cpf"
+          data-testid="checkout-phone"
         />
       </label>
     );
   }
 }
 
-InputCPF.propTypes = {
+InputPhone.propTypes = {
   name: PropTypes.string.isRequired,
   value: PropTypes.string,
   onChange: PropTypes.func.isRequired,
 };
 
-InputCPF.defaultProps = {
+InputPhone.defaultProps = {
   value: '',
 };
 
-export default InputCPF;
+export default InputPhone;
