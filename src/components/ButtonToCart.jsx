@@ -2,7 +2,14 @@ import React from 'react';
 
 class ButtonToCart extends React.Component {
   render() {
-    return <button type="button">Cart</button>;
+    return (
+      <button
+        type="button"
+        data-testid="product-add-to-cart"
+      // onClick={}
+      >
+        Add to Cart
+      </button>);
   }
 }
 
