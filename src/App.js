@@ -58,13 +58,25 @@ class App extends React.Component {
     this.setState((prev) => {
       const { cartList } = prev;
       const filtro = cartList.filter((cartItem) => cartItem.id !== id);
-      localStorage.removeItem('cartProducts', id[0]);
       return { cartList: filtro };
     });
+    const { cartList, quantity } = this.state;
+    const cartProducts = cartList.findIndex((cart) => cart.id === id);
+    const length = -1;
+    if (cartProducts !== length) {
+      cartList.splice(cartProducts, 1);
+      localStorage.setItem('cartProducts', JSON.stringify(cartList));
+    }
+    const cartQuantity = quantity.findIndex((quant) => quant.id === id);
+    if (cartQuantity !== length) {
+      quantity.splice(cartQuantity, 1);
+      localStorage.setItem('quantity', JSON.stringify(quantity));
+    }
   }
 
   render() {
     const { cartList, quantity } = this.state;
+
     return (
       <BrowserRouter>
         <Switch>

@@ -37,7 +37,9 @@ class Cardproduct extends Component {
 }
 
 Cardproduct.propTypes = {
-  product: PropTypes.object.isRequired,
+  product: PropTypes.oneOfType(
+    PropTypes.object,
+  ).isRequired,
   title: PropTypes.string.isRequired,
   img: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
