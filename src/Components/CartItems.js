@@ -5,7 +5,6 @@ import ManipularCarrinho from './ManipularCarrinho';
 class CartItems extends Component {
   render() {
     const { cartList, removeItem } = this.props;
-    console.log(cartList);
     return (
       <div>
         {cartList.map((item) => (
