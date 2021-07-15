@@ -16,13 +16,15 @@ export default class ShoppingCart extends React.Component {
             Seu carrinho está vazio.
           </span>
         ) : (
-          <CartItems cartItems={ cartItems } handlers={ handlers } showButtons="true" />
+          <div className="cart-items">
+            <CartItems cartItems={ cartItems } handlers={ handlers } showButtons="true" />
+          </div>
         )}
         <p>
           {/* <Link data-testid="checkout-products" to="/checkout">Checkout</Link> */}
           <CheckoutButton />
           {/* <Link to="/">VOLTAR</Link> */}
-          <ReturnButton />
+          <ReturnButton path="/" />
         </p>
       </section>
     );

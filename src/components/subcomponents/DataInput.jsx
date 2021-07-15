@@ -11,7 +11,11 @@ class DataInput extends React.Component {
     } = this.props;
 
     return (
-      <label htmlFor={ `${inputID}` } data-testid={ `checkout-${inputID}` }>
+      <label
+        htmlFor={ `${inputID}` }
+        data-testid={ `checkout-${inputID}` }
+        className="data-input"
+      >
         { label }
         <input
           name={ inputName }

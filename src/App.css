@@ -34,6 +34,7 @@
 
 html, * {
   box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 
 
@@ -102,7 +103,7 @@ html, * {
 
 .product-card {
   align-items: center;
-  border: 1px solid black;
+  border: 1px solid var(--dark-liver);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -113,7 +114,7 @@ html, * {
 }
 
 .added {
-  border: solid 3px;
+  outline: 2px solid var(--persian-green);
 }
 
 .product-card:hover {
@@ -184,10 +185,12 @@ html, * {
 }
 
 .return-button {
+  align-self: center;
   background-color: var(--thistle);
   border-radius: 2px;
   box-shadow: 1px 1px 1px 1px var(--old-lavender);
   margin: 5px;
+  width: fit-content;
 }
 
 .add-button *, .search-btn *, .cart-btn *, .submit-btn *, .checkout-btn * {
@@ -313,9 +316,70 @@ html, * {
   background-color: var(--red-munsell);
 }
 
-
 .remove-btn *:hover {
   background-color: rgba(255, 255, 255, 0.5);
   color: var(--dark-liver);
   transition: 0.3s;
+}
+
+.payment-icon {
+  width: 50px;
+}
+
+.payment {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+}
+
+.form, .forms {
+  display: flex;
+  flex-direction: column;
+}
+
+.forms {
+  border: 1px solid var(--dark-liver);
+  padding: 10px;
+  width: 30%;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+}
+
+.data-input {
+  width: 200px;
+}
+
+.payment-label {
+  align-items: center;
+  display: flex;
+}
+
+.cart-items-checkout {
+  border: 1px solid var(--dark-liver);
+  height: fit-content;
+  max-height: 70vh;
+  overflow-y: scroll;
+  padding: 5px;
+  width: fit-content;
+}
+
+.cart-items {
+  border: 1px solid var(--dark-liver);
+  height: fit-content;
+  margin: auto;
+  max-height: 70vh;
+  overflow-y: scroll;
+  padding: 5px;
+  width: fit-content;
+}
+
+.checkout {
+  display: flex;
+  justify-content: space-around;
+  padding: 50px;
 }

@@ -95,7 +95,7 @@ export default class ProductDetails extends Component {
                 <p>Voltar</p>
               </Link>
             </button> */}
-            <ReturnButton />
+            <ReturnButton path="/" />
           </div>
         </div>
         <Rating pid={ id } />
