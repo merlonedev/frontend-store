@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 export default class CompletePurchaseButton extends Component {
   constructor(props) {
@@ -8,6 +9,8 @@ export default class CompletePurchaseButton extends Component {
   }
 
   handleClick() {
+    const { handlers } = this.props;
+    handlers.emptyCart();
     localStorage.clear();
   }
 
@@ -25,3 +28,9 @@ export default class CompletePurchaseButton extends Component {
     );
   }
 }
+
+CompletePurchaseButton.propTypes = {
+  handlers: PropTypes.shape({
+    emptyCart: PropTypes.func.isRequired,
+  }).isRequired,
+};

@@ -8,6 +8,7 @@ import ProductDetails from './components/ProductDetails';
 import CompletePurchase from './components/CompletePurchase';
 import Checkout from './components/Checkout';
 import Header from './components/Header';
+import NotFound from './components/NotFound';
 import * as API from './services/api';
 import './App.css';
 import SortSelect from './components/SortSelect';
@@ -217,9 +218,7 @@ export default class App extends Component {
               <Route
                 exact
                 path="/complete"
-                render={ () => (
-                  <CompletePurchase />
-                ) }
+                render={ () => (<CompletePurchase />) }
               />
               <Route
                 exact
@@ -240,6 +239,7 @@ export default class App extends Component {
                   </div>
                 ) }
               />
+              <Route component={ NotFound } />
             </Switch>
           </div>
         </BrowserRouter>
