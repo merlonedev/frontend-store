@@ -121,14 +121,24 @@ body {
   color: rgb(30, 30, 30);
 }
 
+.cart-container {
+  display: flex;
+  flex-direction: column;
+  order: 2;
+}
+
 .cart {
   color: black;
   font-size: 35px;
   text-decoration: none;
 }
 
-.search-cart {
-  order: 2;
+.total-cart-items {
+  border: solid 2px black;
+  border-radius: 50%;
+  font-size: 20px;
+  right: 1%;
+  z-index: 1;
 }
 
 .search-title {
@@ -194,6 +204,14 @@ body {
 .product-price {
   margin: 0;
   text-align: center;
+}
+
+.add-cart {
+  border: solid 0.5px rgb(205, 205, 205);
+  background-color: rgb(230, 230, 230);
+  color: black;
+  border-radius: 20%;
+  z-index: 2;
 }
 
 .product-link {
@@ -309,4 +327,19 @@ body {
 .specs {
   margin-left: 3%;
   text-align: left;
+}
+
+.cart-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 0.2%;
+}
+
+.item-title {
+  margin-left: 10%;
+}
+
+.item-quantity {
+  margin-right: 10%;
 }

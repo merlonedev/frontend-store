@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 class ProductCard extends Component {
   render() {
-    const { product } = this.props;
+    const { product, addToCart } = this.props;
     const { title, thumbnail, price, id } = product;
     const CORRECT_SIZE = -5;
 
@@ -43,6 +43,14 @@ class ProductCard extends Component {
               { `R$ ${formatPrice}` }
             </span>
           </Link>
+          <button
+            type="button"
+            className="material-icons add-cart"
+            data-testid="product-add-to-cart"
+            onClick={ () => addToCart(product) }
+          >
+            add_shopping_cart
+          </button>
         </div>
       </div>
     );
@@ -56,6 +64,8 @@ ProductCard.propTypes = {
     thumbnail: PropTypes.string,
     price: PropTypes.number,
   }).isRequired,
+  addToCart: PropTypes.func.isRequired,
+  // cartHandleCounter: PropTypes.func.isRequired,
 };
 
 export default ProductCard;
