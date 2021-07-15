@@ -4,12 +4,17 @@ import PropTypes from 'prop-types';
 export default class TotalCart extends Component {
   render() {
     const { cartItems } = this.props;
+    const formatter = new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL',
+    });
     return (
       <span className="total-cart">
         <strong>TOTAL: </strong>
         {
           cartItems.length
-            ? cartItems.reduce((acc, { price, qty }) => acc + price * qty, 0)
+            ? formatter.format(cartItems
+              .reduce((acc, { price, qty }) => acc + price * qty, 0))
             : null
         }
       </span>

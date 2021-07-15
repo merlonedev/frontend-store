@@ -5,6 +5,7 @@ import Form1 from './Form1';
 import Form2 from './Form2';
 import CartItems from './CartItems';
 import ReturnButton from './subcomponents/ReturnButton';
+import TotalCart from './subcomponents/TotalCart';
 
 // prettier-ignore
 export default class Checkout extends React.Component {
@@ -57,6 +58,7 @@ export default class Checkout extends React.Component {
           <Form1 />
           <Form2 />
           <ReturnButton path="/cart" />
+          <TotalCart cartItems={ cartItems } />
         </div>
       </div>
     );
