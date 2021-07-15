@@ -24,11 +24,16 @@ class ProductInCart extends React.Component {
 
   componentDidMount() {
     this.mounted = true;
+    const { onChange } = this.props;
+    const { price } = this.state;
     this.totalPriceCalculator();
+    onChange(price);
   }
 
   componentWillUnmount() {
-    // const { onChange } = this.props;
+    const { onChange } = this.props;
+    const { price } = this.state;
+    onChange(-price);
     this.mounted = false;
   }
 
@@ -54,13 +59,16 @@ class ProductInCart extends React.Component {
 
   minusItemCount() {
     const { price } = this.state;
-    const { onChange } = this.props;
+    const { onChange, onChangeExclude, product: { id } } = this.props;
     this.setState((state) => ({
-      count: state.count >= 2 ? (state.count - 1) : 1,
+      count: state.count ? (state.count - 1) : 0,
     }), () => {
       this.totalPriceCalculator();
       const { count } = this.state;
-      if (count > 1) onChange((-price));
+      if (count) {
+        return onChange(-price);
+      }
+      onChangeExclude(id);
     });
   }
 
@@ -112,6 +120,7 @@ ProductInCart.propTypes = {
   }).isRequired,
   onClick: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
+  onChangeExclude: PropTypes.func.isRequired,
 };
 
 export default ProductInCart;

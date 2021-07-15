@@ -11,15 +11,6 @@ class ProductCard extends React.Component {
       product: props.product,
       category: props.category,
     };
-    this.addToStorage = this.addToStorage.bind(this);
-  }
-
-  addToStorage() {
-    const { product } = this.props;
-    localStorage.setItem(
-      product.id,
-      JSON.stringify(product),
-    );
   }
 
   render() {
@@ -32,7 +23,7 @@ class ProductCard extends React.Component {
         price },
       category,
     } = this.state;
-
+    const { addToCartItems, product } = this.props;
     return (
       <div data-testid="product" className="product-card">
         <div className="product-each">
@@ -51,7 +42,7 @@ class ProductCard extends React.Component {
           <div className="product-btns">
             <button
               data-testid="product-add-to-cart"
-              onClick={ this.addToStorage }
+              onClick={ () => addToCartItems(product) }
               type="button"
               className="product-btn"
             >
@@ -75,10 +66,11 @@ ProductCard.propTypes = {
     id: PropTypes.string.isRequired,
     category_id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-    thumbnail: PropTypes.string.isRequired,
-    price: PropTypes.number,
+    thumbnail: PropTypes.node.isRequired,
+    price: PropTypes.node,
   }).isRequired,
   category: PropTypes.string,
+  addToCartItems: PropTypes.func.isRequired,
 };
 
 ProductCard.defaultProps = {

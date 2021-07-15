@@ -2,28 +2,27 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Badge from '@material-ui/core/Badge';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import ButtonGroup2 from './ButtonGroup2';
 
 class CartIcon extends Component {
+  // AJUDA EM: https://www.geeksforgeeks.org/how-to-create-shopping-cart-button-in-reactjs/
   render() {
-    const { total } = this.props;
+    const { qtd } = this.props;
     return (
       <div style={ { display: 'block', padding: 30 } }>
         <Badge
           data-testid="shopping-cart-size"
           color="secondary"
-          badgeContent={ total }
+          badgeContent={ qtd }
         >
           <ShoppingCartIcon />
         </Badge>
-        <ButtonGroup2 />
       </div>
     );
   }
 }
 
 CartIcon.propTypes = {
-  total: PropTypes.number.isRequired,
-}
+  qtd: PropTypes.number.isRequired,
+};
 
 export default CartIcon;

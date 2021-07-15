@@ -1,12 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import CartIcon from '../components/CartIcon';
+// import { FiShoppingCart } from 'react-icons/fi';
 import ProductCard from '../components/ProductCard';
 import CategoriesFilter from '../components/CategoriesFilter';
 import * as api from '../services/api';
 import '../css/listItens.css';
 
-class ListItens extends React.Component {
+class ListItems extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -100,6 +102,9 @@ class ListItens extends React.Component {
       categories,
       categoryId,
     } = this.state;
+
+    const { addToCartItems, cartQtd } = this.props;
+
     return (
       <div>
         <nav className="navbar">
@@ -125,7 +130,7 @@ class ListItens extends React.Component {
             </label>
           </form>
           <Link to="/cart" data-testid="shopping-cart-button">
-            <CartIcon />
+            <CartIcon qtd={ cartQtd } />
           </Link>
         </nav>
         <div data-testid="home-initial-message">
@@ -144,6 +149,7 @@ class ListItens extends React.Component {
                     key={ product.id }
                     product={ product }
                     category={ categoryId }
+                    addToCartItems={ addToCartItems }
                   />
                 ))
               : <span>Nenhum produto foi encontrado</span>
@@ -154,4 +160,9 @@ class ListItens extends React.Component {
   }
 }
 
-export default ListItens;
+ListItems.propTypes = {
+  addToCartItems: PropTypes.func.isRequired,
+  cartQtd: PropTypes.func.isRequired,
+};
+
+export default ListItems;
