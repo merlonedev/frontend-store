@@ -42,6 +42,7 @@ class ProductCard extends Component {
         </Link>
         <button
           type="button"
+          data-testid="product-add-to-cart"
           onClick={ this.handleClick }
         >
           Adicionar ao Carrinho
