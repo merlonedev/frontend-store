@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import SearchBar from '../components/SearchBar';
 import Categories from '../components/Categories';
+import ListProd from '../components/ListProd';
 import * as api from '../services/api';
 
 class Home extends Component {
@@ -9,30 +10,44 @@ class Home extends Component {
     this.state = {
       categories: [],
       // status: true,
-      text: '',
+      inputText: '',
       data: [],
     };
+
     this.handleChange = this.handleChange.bind(this);
-    this.getProduct = this.getProduct.bind(this);
+    this.getProductByIdAndQuery = this.getProductByIdAndQuery.bind(this);
     this.getCategories = this.getCategories.bind(this);
+    this.getProductByQuery = this.getProductByQuery.bind(this);
   }
 
   componentDidMount() {
     this.getCategories();
-    this.getProduct();
+    this.getProductByIdAndQuery();
+  }
+
+  componentDidUpdate(state, prevState) {
+    const { inputText } = this.state;
+    if (state !== prevState) {
+      this.getProductByQuery(inputText);
+    }
   }
 
   handleChange({ target }) {
-    const { text } = this.state;
-    const { value } = target;
-    this.setState({ [text]: value });
+    const { name, value } = target;
+    this.setState({ [name]: value });
   }
 
-  async getProduct(id, query) {
-    const { data } = this.state;
+  async getProductByQuery(query) {
+    const searchProductByQuery = await api.getProductsFromQuery(query);
+    this.setState({
+      data: searchProductByQuery.results,
+    });
+  }
+
+  async getProductByIdAndQuery(id, query) {
     const searchProduct = await api.getProductsFromCategoryAndQuery(id, query);
     this.setState({
-      [data]: searchProduct,
+      data: searchProduct.results,
     });
   }
 
@@ -44,10 +59,13 @@ class Home extends Component {
   }
 
   render() {
-    const { categories } = this.state;
+    const { categories, data, inputText } = this.state;
     return (
       <div>
-        <SearchBar />
+        <SearchBar
+          inputText={ inputText }
+          onChange={ this.handleChange }
+        />
         <div>
           {
             categories.map((category) => (<Categories
@@ -55,6 +73,9 @@ class Home extends Component {
               category={ category }
             />))
           }
+        </div>
+        <div>
+          <ListProd products={ data } />
         </div>
       </div>
     );
