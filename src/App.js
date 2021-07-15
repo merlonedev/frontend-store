@@ -15,18 +15,20 @@ class App extends React.Component {
     this.state = {
       category: '',
       search: '',
-      cart: [],
+      itemList: [],
+      cartList: [],
     };
     this.getState = this.getState.bind(this);
     this.setCartStorage = this.setCartStorage.bind(this);
+    this.setQuantity = this.setQuantity.bind(this);
+    this.addQuantity = this.addQuantity.bind(this);
+    this.removeItem = this.removeItem.bind(this);
   }
 
   setCartStorage(obj) {
     this.setState((previousState) => ({
-      cart: [...previousState.cart, obj],
-    }));
-    const { cart } = this.state;
-    console.log(cart);
+      itemList: [...previousState.itemList, obj],
+    }), () => this.addQuantity());
   }
 
   getState(name, value) {
@@ -35,8 +37,36 @@ class App extends React.Component {
     });
   }
 
+  setQuantity(quantity, id) {
+    this.setState((prev) => {
+      const cartList = prev.cartList.map((item) => {
+        if (item.id === id) item.quantity = quantity;
+        return item;
+      });
+      return { cartList };
+    });
+  }
+
+  addQuantity() {
+    const { itemList } = this.state;
+    const cartList = itemList.reduce((list, item) => {
+      const includes = list.some(({ id }) => item.id === id);
+      if (includes) return list;
+      item.quantity = itemList.filter(({ id }) => id === item.id).length;
+      return [...list, item];
+    }, []);
+    this.setState({ cartList });
+  }
+
+  removeItem(idItem) {
+    this.setState((prev) => {
+      const clearList = prev.itemList.filter(({ id }) => id !== idItem);
+      return { itemList: clearList };
+    }, () => this.addQuantity());
+  }
+
   render() {
-    const { category, search, cart } = this.state;
+    const { category, search, cartList } = this.state;
     return (
       <div>
         <BrowserRouter>
@@ -47,7 +77,11 @@ class App extends React.Component {
             <Route
               exact
               path="/shopping-cart"
-              render={ () => <ShoppingCart cart={ cart } /> }
+              render={ () => (<ShoppingCart
+                cartList={ cartList }
+                removeItem={ this.removeItem }
+                setQuantity={ this.setQuantity }
+              />) }
             />
             <Route
               exact
