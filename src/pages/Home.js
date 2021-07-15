@@ -9,7 +9,6 @@ class Home extends Component {
     super(props);
 
     this.state = {
-      loading: false,
       products: [],
       categories: [],
       value: '',

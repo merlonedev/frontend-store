@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ProductList from './ProductList';
 import SearchMsg from './SearchMsg';
-import Loading from './Loading';
 
 class SearchBar extends Component {
   render() {
