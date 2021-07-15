@@ -1,6 +1,12 @@
 .main {
   display: flex;
+  flex-direction: column;
   margin-top: 10px;
+}
+
+.cart-button {
+  height: 21px;
+  margin-right: 5px;
 }
 
 .bloco-aside {
