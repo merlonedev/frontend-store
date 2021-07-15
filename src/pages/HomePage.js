@@ -12,10 +12,12 @@ class HomePage extends React.Component {
     this.state = {
       search: '',
       results: '',
+      category: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.queryProducts = this.queryProducts.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleChange({ target }) {
@@ -25,10 +27,17 @@ class HomePage extends React.Component {
     });
   }
 
+  handleClick({ target }) {
+    const { value } = target;
+    this.setState({
+      category: value,
+    }, () => this.queryProducts());
+  }
+
   queryProducts() {
-    const { search } = this.state;
-    if (search.length > 0) {
-      getProductsFromCategoryAndQuery('', search)
+    const { search, category } = this.state;
+    if (search.length > 0 || category.length > 0) {
+      getProductsFromCategoryAndQuery(category, search)
         .then((response) => this.setState({
           results: response.results,
         }));
@@ -59,7 +68,7 @@ class HomePage extends React.Component {
         </button>
         <CartButton />
         { results.length > 0 ? <ProductList products={ results } /> : <InicialMessage /> }
-        <CategoryList />
+        <CategoryList clickFunction={ this.handleClick } />
       </div>
     );
   }
