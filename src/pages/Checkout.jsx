@@ -6,7 +6,7 @@ class Checkout extends React.Component {
     return (
       <div>
         <HomeButton />
-        <p>Hello World!</p>
+        <p>Hello World!!!</p>
       </div>
     );
   }
