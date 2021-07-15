@@ -3,7 +3,13 @@ import PropTypes from 'prop-types';
 
 class AddButton extends Component {
   render() {
-    const { increaseQuantity, sumTotalPrice, id, price, availableQuantity, quantity } = this.props;
+    const {
+      increaseQuantity,
+      sumTotalPrice,
+      id,
+      price,
+      availableQuantity,
+      quantity } = this.props;
     return (
       <button
         data-testid="product-increase-quantity"

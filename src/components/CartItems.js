@@ -90,7 +90,12 @@ class CartItems extends Component {
 
     return (
       <ul>
-        {productList.map(({ price, title, thumbnail, id, available_quantity }) => {
+        {productList.map(({
+          price,
+          title,
+          thumbnail,
+          id,
+          available_quantity: availableQuantity }) => {
           const { quantityEachItem: { [id]: quantity } } = this.state;
           return (
             <li key={ id }>
@@ -117,7 +122,7 @@ class CartItems extends Component {
                 quantity={ quantity }
                 increaseQuantity={ this.increaseQuantity }
                 sumTotalPrice={ this.sumTotalPrice }
-                availableQuantity={ available_quantity }
+                availableQuantity={ availableQuantity }
               />
               <p>
                 { `R$${(price * quantity).toFixed(2)}` }
