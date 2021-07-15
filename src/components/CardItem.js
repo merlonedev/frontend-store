@@ -15,6 +15,7 @@ class CardItem extends Component {
       shipping,
       item,
     } = this.props;
+    item.quantidade = 1;
     return (
       <div data-testid="product" className="card-item">
         <Link to={ `/details/${itemId}` } data-testid="product-detail-link">
@@ -49,6 +50,7 @@ CardItem.propTypes = {
     title: PropTypes.string.isRequired,
     thumbnail: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
+    quantidade: PropTypes.number.isRequired,
   }).isRequired,
   shipping: PropTypes.bool.isRequired,
 };

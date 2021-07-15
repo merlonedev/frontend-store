@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './CardItem.css';
-import productsCart from '../services/data';
 
 class CardItemCart extends React.Component {
   render() {
@@ -11,6 +10,8 @@ class CardItemCart extends React.Component {
       thumbnail,
       price,
       itemId,
+      onClick,
+      amount,
     } = this.props;
     return (
       <div className="card-item">
@@ -19,16 +20,32 @@ class CardItemCart extends React.Component {
             { title }
           </p>
           <img alt="" src={ thumbnail } />
-          <p>
-            R$
-            { price }
-          </p>
-          <div className="increase-div">
-            <p data-testid="shopping-cart-product-quantity">
-              { `Quantidade: ${productsCart.length}` }
-            </p>
-          </div>
         </Link>
+        <div className="increase-div">
+          <button
+            data-testid="product-decrease-quantity"
+            type="button"
+            name="-"
+            onClick={ (event) => onClick(itemId, event) }
+          >
+            -
+          </button>
+          <p data-testid="shopping-cart-product-quantity">
+            { `Quantidade: ${amount}` }
+          </p>
+          <button
+            data-testid="product-increase-quantity"
+            type="button"
+            name="+"
+            onClick={ (event) => onClick(itemId, event) }
+          >
+            +
+          </button>
+        </div>
+        <p>
+          R$
+          { price }
+        </p>
         <Link to="/payment">
           <button data-testid="checkout-products" type="button">
             Finalizar Compra
@@ -44,6 +61,8 @@ CardItemCart.propTypes = {
   thumbnail: PropTypes.string.isRequired,
   itemId: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
+  onClick: PropTypes.func.isRequired,
+  amount: PropTypes.number.isRequired,
 };
 
 export default CardItemCart;

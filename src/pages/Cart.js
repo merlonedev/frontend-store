@@ -5,6 +5,14 @@ import productsCart from '../services/data';
 import BackSVG from '../SVGs/BackSVG';
 
 class Cart extends React.Component {
+  handleClick = (itemid, { target }) => {
+    const i = productsCart.findIndex((p) => p.id === itemid);
+    const value = target.name === '+' ? productsCart[i].quantidade += 1
+      : productsCart[i].quantidade -= 1;
+    if (value < 1) productsCart[i].quantidade = 1;
+    this.forceUpdate();
+  }
+
   render() {
     if (productsCart.length < 1) {
       return (
@@ -33,6 +41,8 @@ class Cart extends React.Component {
           title={ item.title }
           thumbnail={ item.thumbnail }
           price={ item.price }
+          amount={ item.quantidade }
+          onClick={ this.handleClick }
         />)) }
       </div>
     );
