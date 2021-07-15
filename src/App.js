@@ -11,12 +11,21 @@ class App extends Component {
     super();
     this.state = { cartItens: [] };
     this.cartAdd = this.cartAdd.bind(this);
+    this.removeItem = this.removeItem.bind(this);
   }
 
   cartAdd(product) {
     this.setState((prevState) => ({
       cartItens: [...prevState.cartItens, product],
     }));
+  }
+
+  removeItem(product) {
+    this.setState((prevState) => {
+      const { cartItens } = prevState;
+      const delFilter = cartItens.filter((cartItem) => cartItem.id !== product);
+      return { cartItens: delFilter };
+    });
   }
 
   render() {
@@ -32,7 +41,11 @@ class App extends Component {
           <Route
             exact
             path="/shoppingcart"
-            render={ (props) => <ShoppingCart { ...props } cartAdd={ cartItens } /> }
+            render={ (props) => (<ShoppingCart
+              { ...props }
+              removeItem={ this.removeItem }
+              cartAdd={ cartItens }
+            />) }
           />
           <Route
             exact
