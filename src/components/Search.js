@@ -87,7 +87,7 @@ class Search extends Component {
     const { cartList } = this.props;
     return (
       <div className="d-flex flex-row w-100">
-        <div>
+        <div className="list-group category-list">
           <CategoryList handleCategoryText={ this.handleCategoryText } />
         </div>
         <div className="d-flex flex-column">

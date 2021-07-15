@@ -12,3 +12,49 @@ img {
 .card{
   min-height: 300px;
 }
+/* css category list */
+.category-list {
+  margin-top: 50px;
+  min-width: 280px;
+  width: 20%;
+}
+
+/* .li-list:hover {
+  background-color: rgb(155, 221, 221);
+  padding-top: .6rem;
+  padding-bottom: .6rem;
+} */
+
+.list-title {
+  background: #03a9f4;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  color: white;
+  font-weight: 500;
+  margin-bottom: 0.1px;
+  margin-left: 2rem;
+  padding: 10px 20px;
+  text-align: center;
+}
+
+.li-list:hover {
+  background: #25bcff;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+  color: white;
+  transform: scale(1.1);
+  z-index: 100;
+}
+
+.btn-list {
+  background: none;
+  border: none;
+  height: 100%;
+  text-align: left;
+  width: 100%;
+}
+
+/* css category list */
+
+.btn-info{
+  background: #25bcff;
+}

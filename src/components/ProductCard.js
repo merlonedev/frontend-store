@@ -46,7 +46,7 @@ class ProductCard extends React.Component {
           </div>
         </Link>
         <button
-          className="btn btn-primary position-absolute bottom-0 start-0 m-1 btn-sm"
+          className="btn btn-info position-absolute bottom-0 start-0 m-1 btn-sm"
           type="button"
           onClick={ () => addItemToCart(product) }
           data-testid="product-add-to-cart"
