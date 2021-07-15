@@ -39,14 +39,11 @@ class ProductInCart extends React.Component {
 
   totalPriceCalculator() {
     const { price, count } = this.state;
-    // if (this.mounted) {
-    // this.setState({
-    //   totalPrice: (price * count),
-    // });
-    // }
-    this.setState({
-      totalPrice: (price * count),
-    });
+    if (this.mounted) {
+      this.setState({
+        totalPrice: (price * count),
+      });
+    }
   }
 
   plusItemCount() {
