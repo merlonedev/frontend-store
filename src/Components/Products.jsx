@@ -9,7 +9,6 @@ class Products extends Component {
     if (shipping.free_shipping === true) {
       return (<p data-testid="free-shipping">Frete Grátis</p>);
     }
-    console.log(shipping.free_shipping);
   }
 
   render() {
