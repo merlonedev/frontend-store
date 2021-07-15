@@ -25,3 +25,8 @@ header {
   padding: 10px 60px;
   height: 60px;
 }
+
+.product-list-home {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}

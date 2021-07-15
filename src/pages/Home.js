@@ -52,24 +52,22 @@ class Home extends React.Component {
         <header>
           <div className="header-content">
             <h2 className="market">Undefined Shop</h2>
-            <div className="search-input-component">
-              <SearchInput
-                inputList={ this.inputList }
-                categorieAndQuery={ this.categorieAndQuery }
-              />
-            </div>
-            <div className="cart-button">
-              <CartButton
-                quantity={ quantity }
-              />
-            </div>
+            <SearchInput
+              inputList={ this.inputList }
+              categorieAndQuery={ this.categorieAndQuery }
+            />
+            <CartButton
+              quantity={ quantity }
+            />
           </div>
         </header>
-        <Products
-          productList={ productList }
-          addToCart={ addToCart }
-          quantity={ quantity }
-        />
+        <div className="product-list-home">
+          <Products
+            productList={ productList }
+            addToCart={ addToCart }
+            quantity={ quantity }
+          />
+        </div>
         <Category
           category={ categories }
           categoryAndQuery={ this.categorieAndQuery }
