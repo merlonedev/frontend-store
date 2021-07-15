@@ -10,9 +10,11 @@ class App extends React.Component {
     super(props); // usado como referencia lógica do código do Grupo 10 (source: https://github.com/tryber/sd-12-project-frontend-online-store/blob/main-group-10/src/App.js)
     this.state = {
       cartItems: [],
+      checkoutItems: [],
     };
     this.addToCartItems = this.addToCartItems.bind(this);
     this.removeItem = this.removeItem.bind(this);
+    this.checkoutInfos = this.checkoutInfos.bind(this);
     this.loadCartItemStorage = this.loadCartItemStorage.bind(this);
     this.saveCartItemStorage = this.saveCartItemStorage.bind(this);
   }
@@ -40,6 +42,12 @@ class App extends React.Component {
     }
   }
 
+  checkoutInfos(cartInfo) {
+    this.setState({
+      checkoutItems: [...cartInfo],
+    });
+  }
+
   addToCartItems(newItem) {
     const { cartItems } = this.state;
     const isRepeated = cartItems.some((item) => item === newItem);
@@ -57,7 +65,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { cartItems } = this.state;
+    const { cartItems, checkoutItems } = this.state;
     return (
       <Router>
         <Switch>
@@ -79,6 +87,7 @@ class App extends React.Component {
                 { ...props }
                 setItemCart={ cartItems }
                 removeItem={ this.removeItem }
+                checkoutInfos={ this.checkoutInfos }
               />)
             }
           />
@@ -91,7 +100,7 @@ class App extends React.Component {
           />
           <Route
             path="/checkout"
-            render={ (props) => (<Checkout { ...props } />) }
+            render={ (props) => (<Checkout { ...props } cartItems={ checkoutItems } />) }
           />
         </Switch>
       </Router>
