@@ -2,33 +2,35 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 class ShoppingCart extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      quantity: 1,
-      total: 0,
+      totalQuantity: props.cartAdd.length,
+      cartAdd: props.cartAdd,
     };
 
     this.quantitySum = this.quantitySum.bind(this);
     this.quantitySub = this.quantitySub.bind(this);
   }
 
-  quantitySum(event) {
-    const { name } = event.target;
+  quantitySum({ target }) {
+    const { name } = target;
     this.setState((prevState) => ({
-      [name]: prevState[name] ? prevState[name] + 1 : 1,
+      [name]: prevState[name] ? prevState[name] + 1 : 2,
+      totalQuantity: prevState.totalQuantity + 1,
     }));
   }
 
-  quantitySub(event) {
-    const { name } = event.target;
+  quantitySub({ target }) {
+    const { name } = target;
     this.setState((prevState) => ({
-      [name]: prevState[name] ? prevState[name] - 1 : 0,
+      [name]: prevState[name] ? prevState[name] - 1 : 1,
+      totalQuantity: prevState.totalQuantity ? prevState.totalQuantity - 1 : 1,
     }));
   }
 
   render() {
-    const { cartAdd } = this.props;
+    const { cartAdd, totalQuantity } = this.state;
     const carrinhoVazio = (
       <div data-testid="shopping-cart-empty-message">
         <p>Seu carrinho está vazio</p>
@@ -36,36 +38,43 @@ class ShoppingCart extends React.Component {
     );
     const carrinhoCheio = (
       <div>
-        {cartAdd.map((item) => (
-          <div key={ item.id }>
-            <p data-testid="shopping-cart-product-name">{item.title}</p>
-            <p>{item.price}</p>
-            <img src={ item.thumbnail } alt={ item.title } />
-            <button
-              type="button"
-              onClick={ this.quantitySum }
-              name={ item.id }
-              data-testid="product-increase-quantity"
-            >
-              +
-            </button>
-            <button
-              type="button"
-              onClick={ this.quantitySub }
-              name={ item.id }
-              data-testid="product-decrease-quantity"
-            >
-              -
-            </button>
-            <p>
-              QUANTIDADE
-            </p>
-          </div>
-        ))}
+        {cartAdd.map((item) => {
+          const { [item.id]: quantidade } = this.state;
+          return (
+            <div key={ item.id }>
+              <p data-testid="shopping-cart-product-name">{item.title}</p>
+              <p>{item.price}</p>
+              <img src={ item.thumbnail } alt={ item.title } />
+              <button
+                type="button"
+                onClick={ this.quantitySum }
+                name={ item.id }
+                data-testid="product-increase-quantity"
+              >
+                +
+              </button>
+              <button
+                type="button"
+                onClick={ this.quantitySub }
+                name={ item.id }
+                data-testid="product-decrease-quantity"
+              >
+                -
+              </button>
+              <p>
+                QUANTIDADE:
+                { quantidade || 1 }
+              </p>
+            </div>
+          );
+        })}
         <p
           data-testid="shopping-cart-product-quantity"
         >
-          {`Total de itens: ${cartAdd.length}`}
+          {`Total de itens: ${totalQuantity}`}
+        </p>
+        <p>
+          {`Valor Total da Compra: ${cartAdd.price}`}
         </p>
       </div>
     );
