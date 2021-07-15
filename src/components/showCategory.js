@@ -1,48 +1,47 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import ProductCard from './ProductCard';
 import { getCategories } from '../services/api';
 
-export default class showCategory extends Component {
+class ShowCategory extends Component {
   constructor() {
-  super();
-  this.state= {
-    results: [],
-    loading: true,
+    super();
+    this.state = {
+      results: [],
+      loading: true,
     };
     this.changeState = this.changeState.bind(this);
     this.loadingShow = this.loadingShow.bind(this);
-}
+  }
 
-componentDidMount() {
+  componentDidMount() {
     this.changeState();
-}
+  }
 
-changeState() {
-    const { match: { params: {id } } } = this.props;
-    getCategories()
-    .then(({ results }) => ( 
+  async changeState() {
+    const results = await getCategories();
     this.setState({
-        results,
-        loading: false,
-    })
-    ));
-}
+      results,
+      loading: false,
+    });
+  }
 
-loadingShow() {
+  loadingShow() {
     return <img src="./loading.gif" alt="Loading" />;
-}
+  }
 
-render() {
+  render() {
     const { results, loading } = this.state;
     return loading ? this.loadingShow() : <ProductCard product={ results } />;
-
-    }    
+  }
 }
 
-// showCategory.propTypes = {
-//     match: Proptypes.shape({
-//         params: Proptypes.shape({
-//             categoria: Proptypes.string.isRequired,
-//         }).isRequired,
-//     }).isRequired,
-// };
+ShowCategory.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      categoria: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
+};
+
+export default ShowCategory;

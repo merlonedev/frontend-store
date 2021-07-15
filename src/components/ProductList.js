@@ -8,27 +8,24 @@ class ProductList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      xablau: [],
+      products: [],
     };
     this.getProducts = this.getProducts.bind(this);
   }
 
-  async getProducts(categorieId = "", searchText = "") {
-      console.log(searchText);
-      const products = await API.getProductsFromCategoryAndQuery( categorieId,searchText);
-      console.log(products.results)  
-      this.setState({
-        xablau: products.results,
-      });
-      console.log(this.state.xablau);
+  async getProducts(categorieId = '', searchText = '') {
+    const products = await API.getProductsFromCategoryAndQuery(categorieId, searchText);
+    this.setState({
+      products: products.results,
+    });
   }
 
   render() {
-    const { xablau: products } = this.state;
-        return (
+    const { products } = this.state;
+    return (
       <main>
         <SearchBar callBack={ this.getProducts } />
-        <Category callBack={ this.getProducts }/>
+        <Category callBack={ this.getProducts } />
         {products
           .map((product) => (
             <ProductCard

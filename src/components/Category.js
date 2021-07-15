@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { getCategories, getProductsFromCategoryAndQuery } from '../services/api';
+import PropTypes from 'prop-types';
+import { getCategories } from '../services/api';
 
-export default class Category extends Component {
+class Category extends Component {
   constructor() {
     super();
     this.handleState = this.handleState.bind(this);
@@ -13,16 +13,14 @@ export default class Category extends Component {
     };
   }
 
-  handleButton(e) {
-  const { callBack } = this.props; 
-  
-  const atribute = e.target.getAttribute("id"); 
-  callBack(atribute);
-  
-  }
-
   componentDidMount() {
     this.handleState();
+  }
+
+  handleButton(e) {
+    const { callBack } = this.props;
+    const atribute = e.target.getAttribute('id');
+    callBack(atribute);
   }
 
   handleState() {
@@ -37,18 +35,24 @@ export default class Category extends Component {
       <div>
         {categories.map((category) => (
           <div key={ category.id }>
-            <Link
+            <button
               data-testid="category"
               key={ category.id }
-              to={ `/categorias/${category.id}` }
               type="button"
               id={ category.id }
               className="btncategory"
-              onClick={ this.handleButton } >
+              onClick={ this.handleButton }
+            >
               { category.name }
-            </Link>
+            </button>
           </div>))}
       </div>
     );
   }
 }
+
+Category.propTypes = {
+  callBack: PropTypes.func.isRequired,
+};
+
+export default Category;
