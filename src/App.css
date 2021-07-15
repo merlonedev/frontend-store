@@ -26,6 +26,12 @@
 
   --red-munsell: rgb(234, 53, 70);
 
+  --highland: rgb(211, 237, 202);
+
+  --oxley: rgb(110, 155, 120);
+
+  --tanawera: rgb(8, 42, 69);
+
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -39,13 +45,13 @@ html, * {
 
 
 .App {
-  color: var(--dark-liver);
+  color: var(--tanawera);
   text-align: center;
 }
 
 .body {
   position: relative;
-  top: 120px;
+  top: 140px;
   z-index: 0;
 }
 
@@ -62,7 +68,7 @@ html, * {
 }
 
 .categories-bar {
-  background-color: var(--magnolia);
+  background-color: var(--highland);
   border-radius: 0 5px 5px 0;
   box-shadow: 0 1px 2px 1px var(--old-lavender);
   display: flex;
@@ -71,7 +77,7 @@ html, * {
   padding: 1%;
   position: absolute;
   text-align: left;
-  top: -25%;
+  top: 0;
   width: 20%;
 }
 
@@ -83,7 +89,7 @@ html, * {
 
 .page-header {
   align-items: center;
-  background-color: var(--thistle);
+  background-color: var(--oxley);
   display: flex;
   justify-content: space-around;
   position: fixed;
@@ -103,7 +109,7 @@ html, * {
 
 .product-card {
   align-items: center;
-  border: 1px solid var(--dark-liver);
+  border: 1px solid var(--tanawera);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -148,7 +154,7 @@ html, * {
 }
 
 .button * {
-  color: var(--dark-liver);
+  color: var(--tanawera);
   display: inline-block;
   font-weight: 600;
   margin: 0;
@@ -166,7 +172,7 @@ html, * {
 }
 
 .button a:visited {
-  color: var(--dark-liver);
+  color: var(--tanawera);
 }
 
 .button:active {
@@ -186,7 +192,7 @@ html, * {
 
 .return-button {
   align-self: center;
-  background-color: var(--thistle);
+  background-color: var(--oxley);
   border-radius: 2px;
   box-shadow: 1px 1px 1px 1px var(--old-lavender);
   margin: 5px;
@@ -198,7 +204,7 @@ html, * {
 }
 
 .remove-btn * {
-  color: var(--magnolia);
+  color: var(--highland);
 }
 
 .review * {
@@ -207,26 +213,26 @@ html, * {
 
 .add-button *:hover, .search-btn *:hover, .cart-btn a:hover, .submit-btn *:hover {
   background-color: rgba(255, 255, 255, 0.5);
-  color: var(--dark-liver);
+  color: var(--tanawera);
   transition: 0.3s;
 }
 
 .checkout-btn *:hover {
   background-color: rgba(255, 255, 255, 0.5);
-  color: var(--dark-liver);
+  color: var(--tanawera);
   transition: 0.3s;
 }
 
 .return-button *:hover {
   background-color: rgba(0, 0, 0, 0.2);
-  color: var(--magnolia);
+  color: var(--highland);
   transition: 0.3s;
 }
 
 .cart-btn span {
-  background-color: var(--thistle);
+  background-color: var(--oxley);
   border-radius: 50%;
-  color: var(--dark-liver);
+  color: var(--magnolia);
   padding: 3px 7px;
   position: absolute;
 }
@@ -237,8 +243,8 @@ html, * {
 }
 
 .search-input, .eval-input, .evaluation {
-  background-color: var(--magnolia);
-  border-bottom: 1px solid var(--dark-liver);
+  background-color: var(--highland);
+  border-bottom: 1px solid var(--tanawera);
   border-left: 1px solid rgba(255, 255, 255, 0);
   border-radius: 2px;
   border-right: 1px solid rgba(255, 255, 255, 0);
@@ -263,8 +269,8 @@ html, * {
 }
 
 .search-input:focus, .eval-input:focus, .evaluation:focus {
-  background-color: var(--thistle);
-  border: 1px solid var(--dark-liver);
+  background-color: var(--oxley);
+  border: 1px solid var(--tanawera);
   outline: none;
   transition: 0.2s;
 }
@@ -283,7 +289,7 @@ html, * {
 }
 
 .details {
-  border: 1px solid var(--dark-liver);
+  border: 1px solid var(--tanawera);
   display: flex;
   flex-direction: column;
   padding: 20px;
@@ -316,7 +322,7 @@ html, * {
 
 .cart-item {
   align-items: center;
-  border: 1px solid var(--dark-liver);
+  border: 1px solid var(--tanawera);
   display: flex;
   margin: 10px auto;
   width: 650px;
@@ -348,7 +354,7 @@ html, * {
 
 .remove-btn *:hover {
   background-color: rgba(255, 255, 255, 0.5);
-  color: var(--dark-liver);
+  color: var(--tanawera);
   transition: 0.3s;
 }
 
@@ -370,7 +376,7 @@ html, * {
 }
 
 .forms {
-  border: 1px solid var(--dark-liver);
+  border: 1px solid var(--tanawera);
   padding: 10px;
   width: 30%;
 }
@@ -390,7 +396,7 @@ html, * {
 }
 
 .cart-items-checkout {
-  border: 1px solid var(--dark-liver);
+  border: 1px solid var(--tanawera);
   height: fit-content;
   max-height: 70vh;
   overflow-y: scroll;
@@ -399,7 +405,7 @@ html, * {
 }
 
 .cart-items {
-  border: 1px solid var(--dark-liver);
+  border: 1px solid var(--tanawera);
   height: fit-content;
   margin: auto;
   max-height: 70vh;
@@ -426,7 +432,7 @@ html, * {
 
 .review {
   align-items: center;
-  border: 1px solid var(--dark-liver);
+  border: 1px solid var(--tanawera);
   display: flex;
   flex-direction: column;
   margin: 10px;
@@ -440,4 +446,8 @@ html, * {
 .review-comment {
   font-weight: 500;
   text-align: justify;
+}
+
+.logo {
+  height: 8vh;
 }
