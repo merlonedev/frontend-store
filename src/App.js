@@ -4,7 +4,7 @@ import './App.css';
 import Checkout from './pages/Checkout';
 import Details from './pages/Details';
 import Main from './pages/Main';
-import ShoppingCart from './pages/ShoppingCart';
+import ShoppingCard from './components/ShoppingCard';
 import NotFound from './pages/NotFound';
 
 class App extends Component {
@@ -12,10 +12,10 @@ class App extends Component {
     return (
       <BrowserRouter>
         <Switch>
-          <Route exact path="/shopping-cart" component={ ShoppingCart } />
+          <Route exact path="/shopping-cart" component={ ShoppingCard } />
           <Route exact path="/checkout" component={ Checkout } />
           <Route exact path="/details/:id" component={ Details } />
-          <Route exact path="/cart" component={ ShoppingCart } />
+          <Route exact path="/cart" component={ ShoppingCard } />
           <Route exact path="/" component={ Main } />
           <Route path="*" component={ NotFound } />
         </Switch>

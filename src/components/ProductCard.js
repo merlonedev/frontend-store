@@ -21,7 +21,6 @@ class ProductCard extends Component {
         product.quantity = 1;
         futureCart = [...currentCart, product];
       }
-      // const futureCart = [...currentCart, product];
       localStorage.setItem('carrinho', JSON.stringify(futureCart));
     } else {
       product.quantity = 1;
