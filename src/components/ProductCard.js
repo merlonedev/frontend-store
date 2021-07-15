@@ -6,6 +6,11 @@ import Button from './Button';
 class ProductCard extends Component {
   constructor() {
     super();
+
+    this.state = {
+      counter: 0,
+    };
+
     this.handleClick = this.handleClick.bind(this);
     this.setLocalStorage = this.setLocalStorage.bind(this);
   }
@@ -15,9 +20,15 @@ class ProductCard extends Component {
   }
 
   setLocalStorage() {
-    let { product } = this.props;
-    product = JSON.stringify(product);
-    localStorage.setItem('produto', product);
+    const { product } = this.props;
+    const { counter } = this.state;
+    let key = product.title;
+    key = `${counter} ${key}`;
+    const value = JSON.stringify(product);
+    localStorage.setItem(key, value);
+    this.setState((prevState) => ({
+      counter: prevState.counter + 1,
+    }));
   }
 
   render() {

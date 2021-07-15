@@ -70,6 +70,9 @@ class HomePage extends React.Component {
 
     return (
       <div data-testid="home-initial-message">
+        <Link to="/cart" data-testid="shopping-cart-button">
+          <i className="fas fa-shopping-cart" />
+        </Link>
         <SearchInput
           name="query"
           value={ query }
@@ -80,9 +83,6 @@ class HomePage extends React.Component {
           <Category categories={ categories } handleLiClick={ this.handleLiClick } />
         </aside>
         <ProductList products={ products } />
-        <Link to="/cart" data-testid="shopping-cart-button">
-          <i className="fas fa-shopping-cart" />
-        </Link>
         {
           products.length === 0 && <p>Nenhum produto foi encontrado</p>
         }
