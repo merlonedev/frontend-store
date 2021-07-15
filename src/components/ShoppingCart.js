@@ -15,7 +15,7 @@ class ShoppingCart extends React.Component {
   quantityChange(event) {
     const { name } = event.target;
     this.setState((prevState) => ({
-      [name]: prevState.name ? prevState.name + 1 : 1,
+      [name]: prevState[name] ? prevState[name] + 1 : 1,
     }));
   }
 
@@ -26,6 +26,7 @@ class ShoppingCart extends React.Component {
         <p>Seu carrinho está vazio</p>
       </div>
     );
+    const { item: { id } } = this.state;
     const carrinhoCheio = (
       <div>
         {cartAdd.map((item) => (
@@ -44,14 +45,14 @@ class ShoppingCart extends React.Component {
               -
             </button>
             <p>
-              QUANTIDADE
+              Quantidade:
             </p>
           </div>
         ))}
         <p
           data-testid="shopping-cart-product-quantity"
         >
-          {`Total de itens: ${cartAdd.length}`}
+          {`Total de itens: ${id}`}
         </p>
       </div>
     );
