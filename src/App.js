@@ -9,19 +9,27 @@ import CategoryPage from './components/CategoryPage';
 class App extends Component {
   constructor() {
     super();
-    this.state = { cartItens: [], price: [] };
+    this.state = { cartItens: [] };
     this.cartAdd = this.cartAdd.bind(this);
+    this.removeItem = this.removeItem.bind(this);
   }
 
   cartAdd(product) {
     this.setState((prevState) => ({
       cartItens: [...prevState.cartItens, product],
-      price: [...prevState.price, product.price],
     }));
   }
 
+  removeItem(product) {
+    this.setState((prevState) => {
+      const { cartItens } = prevState;
+      const delFilter = cartItens.filter((cartItem) => cartItem.id !== product);
+      return { cartItens: delFilter };
+    });
+  }
+
   render() {
-    const { cartItens, price } = this.state;
+    const { cartItens } = this.state;
     return (
       <BrowserRouter>
         <Switch>
@@ -35,7 +43,7 @@ class App extends Component {
             path="/shoppingcart"
             render={ (props) => (<ShoppingCart
               { ...props }
-              price={ price }
+              removeItem={ this.removeItem }
               cartAdd={ cartItens }
             />) }
           />
