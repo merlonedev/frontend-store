@@ -167,7 +167,7 @@ html, * {
   padding: 0;
 }
 
-.return-button a {
+.return-button a, .complete-btn a {
   padding: 0;
 }
 
@@ -218,15 +218,9 @@ html, * {
   transition: 0.3s;
 }
 
-.checkout-btn *:hover, .complete-btn *:hover {
+.checkout-btn *:hover, .complete-btn *:hover, .return-button *:hover {
   background-color: rgba(255, 255, 255, 0.5);
   color: var(--tanawera);
-  transition: 0.3s;
-}
-
-.return-button *:hover {
-  background-color: rgba(0, 0, 0, 0.2);
-  color: var(--highland);
   transition: 0.3s;
 }
 
