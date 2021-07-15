@@ -40,6 +40,7 @@ class SearchResults extends React.Component {
 
   render() {
     const { productList, loading } = this.state;
+    const { setCartStorage } = this.props;
     if (loading) return <p>Carregando...</p>;
     if (productList.length === 0) {
       return (
@@ -48,7 +49,7 @@ class SearchResults extends React.Component {
     }
     return (
       <div>
-        <Products productList={ productList } />
+        <Products productList={ productList } setCartStorage={ setCartStorage } />
       </div>
     );
   }
@@ -57,6 +58,7 @@ class SearchResults extends React.Component {
 SearchResults.propTypes = {
   category: PropTypes.string.isRequired,
   search: PropTypes.string.isRequired,
+  setCartStorage: PropTypes.func.isRequired,
 };
 
 export default SearchResults;
