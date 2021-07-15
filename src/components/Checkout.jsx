@@ -6,6 +6,7 @@ import Form2 from './Form2';
 import CartItems from './CartItems';
 import ReturnButton from './subcomponents/ReturnButton';
 import TotalCart from './subcomponents/TotalCart';
+import CompletePurchaseButton from './subcomponents/CompletePurchaseButton';
 
 // prettier-ignore
 export default class Checkout extends React.Component {
@@ -20,7 +21,12 @@ export default class Checkout extends React.Component {
   }
 
   componentDidMount() {
+    this.mounted = true;
     this.checkEmpty();
+  }
+
+  componentWillUnmount() {
+    this.mounted = false;
   }
 
   checkEmpty() {
@@ -30,7 +36,11 @@ export default class Checkout extends React.Component {
 
   redirecting() {
     const timeout = 3500;
-    setTimeout(() => this.setState({ willReturn: true }), timeout);
+    setTimeout(() => {
+      if (this.mounted) {
+        this.setState({ willReturn: true });
+      }
+    }, timeout);
   }
 
   render() {
@@ -57,8 +67,11 @@ export default class Checkout extends React.Component {
         <div className="forms">
           <Form1 />
           <Form2 />
-          <ReturnButton path="/cart" />
           <TotalCart cartItems={ cartItems } />
+          <div className="cart-btns-container">
+            <CompletePurchaseButton handlers={ handlers } />
+            <ReturnButton path="/cart" />
+          </div>
         </div>
       </div>
     );

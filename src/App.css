@@ -174,12 +174,12 @@ html, * {
   transform: translate3d(1px, 1px, 0);
 }
 
-.add-button, .search-btn, .cart-btn, .submit-btn, .checkout-btn {
+.add-button, .search-btn, .cart-btn, .submit-btn, .checkout-btn, .complete-btn {
   background-color: var(--persian-green);
   margin: 5px;
 }
 
-.submit-btn {
+.submit-btn, .complete-btn {
   align-self: center;
   width: fit-content;
 }
@@ -197,7 +197,7 @@ html, * {
   color: var(--magnolia);
 }
 
-.remove-btn * {
+.remove-btn *, .complete-btn * {
   color: var(--magnolia);
 }
 
@@ -211,7 +211,7 @@ html, * {
   transition: 0.3s;
 }
 
-.checkout-btn *:hover {
+.checkout-btn *:hover, .complete-btn *:hover {
   background-color: rgba(255, 255, 255, 0.5);
   color: var(--dark-liver);
   transition: 0.3s;
@@ -440,4 +440,8 @@ html, * {
 .review-comment {
   font-weight: 500;
   text-align: justify;
+}
+
+.gif-faustao {
+  border-radius: 50%;
 }
