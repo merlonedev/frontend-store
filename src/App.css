@@ -207,21 +207,16 @@ body {
 }
 
 .add-cart {
-  border: solid 0.5px rgb(205, 205, 205);
   background-color: rgb(230, 230, 230);
-  color: black;
+  border: solid 0.5px rgb(205, 205, 205);
   border-radius: 20%;
+  color: black;
   z-index: 2;
 }
 
 .product-link {
   color: black;
   text-decoration: none;
-}
-
-.cart-container {
-  display: flex;
-  flex-direction: column;
 }
 
 .cart-nav {
