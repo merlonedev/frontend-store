@@ -15,12 +15,16 @@ class AddToCart extends React.Component {
   }
 
   render() {
+    const { qtdIncrement } = this.props;
     return (
       <button
         className="btn btn-outline-primary"
         type="button"
         data-testid="product-add-to-cart"
-        onClick={ this.addItem }
+        onClick={ () => {
+          this.addItem();
+          qtdIncrement();
+        } }
       >
         Adicione item ao carrinho
       </button>
@@ -36,6 +40,7 @@ AddToCart.propTypes = {
     thumbnail: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
   }).isRequired,
+  qtdIncrement: PropTypes.func.isRequired,
 };
 
 export default AddToCart;

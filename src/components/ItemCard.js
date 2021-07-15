@@ -4,7 +4,20 @@ import PropTypes from 'prop-types';
 import AddToCart from './AddToCart';
 
 class ItemCard extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      quantity: 0,
+    };
+    this.handleItemQtd = this.handleItemQtd.bind(this);
+  }
+
+  handleItemQtd() {
+    this.setState((prevState) => ({ quantity: prevState.quantity + 1 }));
+  }
+
   render() {
+    const { quantity } = this.state;
     const { item } = this.props;
     const { id,
       category_id: category,
@@ -28,7 +41,10 @@ class ItemCard extends React.Component {
           >
             Mais Detalhes
           </Link>
-          <AddToCart productObj={ item } />
+          { (quantity === 0)
+            && <AddToCart qtdIncrement={ this.handleItemQtd } productObj={ item } />}
+          { (quantity > 0
+            && <Link to="/Cart">Ver no carrinho</Link>)}
         </div>
       </div>
     );
