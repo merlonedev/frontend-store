@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { AiOutlineSearch } from 'react-icons/ai';
 import * as api from '../services/api';
 import Products from './Products';
 import CartButton from '../Components/CartButton';
 import Category from '../Components/Categorias';
+import SearchInput from '../Components/SearchInput';
 import '../styles/home.css';
 
 class Home extends React.Component {
@@ -49,50 +49,31 @@ class Home extends React.Component {
     const { productList, categories } = this.state;
     return (
       <section>
-        <div className="header">
-          <header>
-            <h2 className="market">Undefined Market</h2>
-          </header>
-        </div>
-        <div className="content">
-          <form>
-            <p
-              data-testid="home-initial-message"
-              className="searchInput"
-            >
-              Digite algum termo de pesquisa ou escolha uma categoria.
-            </p>
-            <input
-              type="text"
-              data-testid="query-input"
-              onChange={ this.inputList }
-              className="inputSearch"
-            />
-            <AiOutlineSearch className="searchIcon" />
-            <button
-              type="button"
-              data-testid="query-button"
-              onClick={ this.categorieAndQuery }
-              className="searchBtn"
-            >
-              <span>
-                Pesquisar
-              </span>
-            </button>
-            <CartButton
-              quantity={ quantity }
-            />
-            <Products
-              productList={ productList }
-              addToCart={ addToCart }
-              quantity={ quantity }
-            />
-            <Category
-              category={ categories }
-              categoryAndQuery={ this.categorieAndQuery }
-            />
-          </form>
-        </div>
+        <header>
+          <div className="header-content">
+            <h2 className="market">Undefined Shop</h2>
+            <div className="search-input-component">
+              <SearchInput
+                inputList={ this.inputList }
+                categorieAndQuery={ this.categorieAndQuery }
+              />
+            </div>
+            <div className="cart-button">
+              <CartButton
+                quantity={ quantity }
+              />
+            </div>
+          </div>
+        </header>
+        <Products
+          productList={ productList }
+          addToCart={ addToCart }
+          quantity={ quantity }
+        />
+        <Category
+          category={ categories }
+          categoryAndQuery={ this.categorieAndQuery }
+        />
       </section>
     );
   }

@@ -2,20 +2,26 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
-import { FiCircle } from 'react-icons/fi';
+import '../styles/cartBtn.css';
 
 class CartButton extends Component {
   render() {
     const { quantity } = this.props;
 
     return (
-      <div>
-        <Link to="/cart-basket" data-testid="shopping-cart-button">
-          <AiOutlineShoppingCart size={ 60 } color="black" />
-        </Link>
-        <FiCircle size={ 30 } color="black" />
-        <p data-testid="shopping-cart-size">{ quantity.length }</p>
-      </div>
+      <section className="cart-button">
+        <div className="cart-icon">
+          <Link to="/cart-basket" data-testid="shopping-cart-button">
+            <AiOutlineShoppingCart size={ 50 } color="black" />
+          </Link>
+        </div>
+        <p
+          data-testid="shopping-cart-size"
+          className="cart-quantity"
+        >
+          { quantity.length }
+        </p>
+      </section>
     );
   }
 }
