@@ -8,15 +8,14 @@ export default class ProductsList extends Component {
     this.addedToCart = this.addedToCart.bind(this);
   }
 
-  addedToCart({ target }, product) {
-    const { callback } = this.props;
-    const productCard = target.parentElement.parentElement;
-    productCard.classList.add('added');
-    callback(product);
+  addedToCart(productId) {
+    const { cart } = this.props;
+    if (cart.some(({ id }) => id === productId)) return 'product-card added';
+    return 'product-card';
   }
 
   render() {
-    const { products } = this.props;
+    const { products, callback } = this.props;
     const formatter = new Intl.NumberFormat('pt-BR', {
       style: 'currency',
       currency: 'BRL',
@@ -24,7 +23,11 @@ export default class ProductsList extends Component {
     return (
       <div className="product-list">
         {products.map((product) => (
-          <div key={ product.id } data-testid="product" className="product-card">
+          <div
+            key={ product.id }
+            data-testid="product"
+            className={ this.addedToCart(product.id) }
+          >
             {/* <div> */}
             <img
               alt="Product Cover"
@@ -57,12 +60,11 @@ export default class ProductsList extends Component {
             <button
               type="button"
               data-testid="product-add-to-cart"
-              onClick={ (event) => this.addedToCart(event, { ...product, qty: 1 }) }
+              onClick={ () => callback({ ...product, qty: 1 }) }
               className="add-button button"
             >
               <i className="fas fa-cart-arrow-down"> Adicionar ao Carrinho</i>
             </button>
-            {/* </div> */}
           </div>
         ))}
       </div>
@@ -80,4 +82,9 @@ ProductsList.propTypes = {
     }),
   ).isRequired,
   callback: PropTypes.func.isRequired,
+  cart: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.string.isRequired,
+    }),
+  ).isRequired,
 };
