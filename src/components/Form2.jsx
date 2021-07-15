@@ -10,17 +10,17 @@ export default class Form1 extends React.Component {
       <form>
         <label htmlFor="payment" className="payment">
           <div className="row">
-            <label htmlFor="checkbox-barcode">
+            <label htmlFor="checkbox-barcode" className="payment-label">
               <input type="radio" id="checkbox-barcode" name="payment" value="Boleto" />
               <img className="payment-icon" src={ boleto } alt="icone" />
             </label>
-            <label htmlFor="checkbox-visa">
+            <label htmlFor="checkbox-visa" className="payment-label">
               <input type="radio" id="checkbox-visa" name="payment" value="Visa" />
               <img className="payment-icon" src={ visa } alt="icone" />
             </label>
           </div>
           <div className="row">
-            <label htmlFor="checkbox-master">
+            <label htmlFor="checkbox-master" className="payment-label">
               <input
                 type="radio"
                 id="checkbox-master"
@@ -29,7 +29,7 @@ export default class Form1 extends React.Component {
               />
               <img className="payment-icon" src={ master } alt="icone" />
             </label>
-            <label htmlFor="checkbox-elo">
+            <label htmlFor="checkbox-elo" className="payment-label">
               <input type="radio" id="checkbox-elo" name="payment" value="Elo" />
               <img className="payment-icon" src={ elo } alt="icone" />
             </label>
