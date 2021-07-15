@@ -16,6 +16,7 @@ class Products extends Component {
         { productList.map((product) => (
           <div className="product-list" key={ product.id }>
             <Cardproduct
+              shipping={ product.shipping }
               title={ product.title }
               img={ product.thumbnail }
               price={ product.price }
