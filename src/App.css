@@ -7,12 +7,6 @@ body {
   text-align: center;
 }
 
-.carrinho {
-  color: black;
-  font-size: 40px;
-  text-decoration: none;
-}
-
 .home-container {
   align-items: flex-start;
   display: flex;
@@ -21,7 +15,7 @@ body {
 }
 
 .category-sidebar {
-  border: solid 1px black;
+  border: solid 2px black;
   height: 80%;
   margin: 1% 5%;
   order: 1;
@@ -59,4 +53,260 @@ body {
   margin-top: 1%;
   order: 2;
   width: 75%;
+}
+
+.search-input-container {
+  color: black;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: auto;
+  position: relative;
+  width: 80%;
+}
+
+.search-bar {
+  align-items: center;
+  border: solid 2px black;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: row;
+  height: 80%;
+  justify-content: space-between;
+  order: 1;
+  width: 90%;
+  z-index: 2;
+}
+
+.search-label {
+  order: 1;
+  width: 100%;
+}
+
+.search-input {
+  background-color: transparent;
+  border: transparent;
+  border-radius: 20px;
+  font-size: 20px;
+  text-indent: 4.5%;
+  width: 100%;
+}
+
+.search-input:focus {
+  outline-width: 0;
+}
+
+.magnifier {
+  font-size: 25px;
+  margin-left: 0.5%;
+  order: 1;
+  position: absolute;
+  z-index: -1;
+}
+
+.search-button {
+  background-color: transparent;
+  border: transparent;
+  border-radius: 20px;
+  font-size: 15px;
+  font-weight: 600;
+  height: 2em;
+  order: 2;
+  width: 7em;
+  z-index: 2;
+}
+
+.search-button:hover {
+  background-color: rgb(230, 230, 230);
+  color: rgb(30, 30, 30);
+}
+
+.cart {
+  color: black;
+  font-size: 35px;
+  text-decoration: none;
+}
+
+.search-cart {
+  order: 2;
+}
+
+.search-title {
+  font-size: 22px;
+  font-weight: 400;
+  margin-top: 2%;
+}
+
+.products-list {
+  display: flex;
+  flex-flow: wrap;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin-top: 2%;
+  max-width: 90%;
+}
+
+.product-container {
+  border: solid 2px black;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  height: 14em;
+  margin-bottom: 2%;
+  width: 17.5%;
+}
+
+.product-title-container {
+  background-color: rgb(230, 230, 230);
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  height: 30%;
+  justify-content: flex-start;
+  overflow: hidden;
+  width: 100%;
+}
+
+.product-title {
+  font-size: 16px;
+  margin: auto;
+  max-width: 95%;
+  text-align: left;
+  width: 100%;
+}
+
+.product-description-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 70%;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.product-image {
+  margin: 0;
+  max-height: 7em;
+  max-width: 90%;
+}
+
+.product-price {
+  margin: 0;
+  text-align: center;
+}
+
+.product-link {
+  color: black;
+  text-decoration: none;
+}
+
+.cart-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.cart-nav {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  margin: 1% 5%;
+}
+
+.previous {
+  color: black;
+  font-size: 35px;
+  margin-bottom: 0.5%;
+  text-decoration: none;
+}
+
+.cart-nav-title {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+}
+
+.cart-title {
+  font-size: 22px;
+  margin: 0 1em;
+  order: 2;
+}
+
+.cart-icon {
+  order: 1;
+}
+
+.empty-bag {
+  color: black;
+  font-size: 270px;
+  padding-top: 4%;
+}
+
+.cart-empty-title {
+  font-size: 22px;
+  margin-top: 0;
+}
+
+.details-container {
+  align-content: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 2.5% 2.5% 0;
+}
+
+.details-header-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.details-menu {
+  align-content: flex-start;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.details-title {
+  font-size: 25px;
+  margin: 0 0 1%;
+  text-align: left;
+}
+
+.details-image-container {
+  align-content: center;
+  display: flex;
+  justify-content: center;
+  min-height: max-content;
+  width: 30%;
+}
+
+.details-image {
+  margin: auto;
+  max-height: 90%;
+  max-width: 90%;
+}
+
+.details-content {
+  align-content: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.specs-container {
+  border: solid 2px black;
+  min-height: max-content;
+  width: 60%;
+}
+
+.specs-title {
+  font-size: 20px;
+  margin-left: 3%;
+  text-align: left;
+}
+
+.specs {
+  margin-left: 3%;
+  text-align: left;
 }

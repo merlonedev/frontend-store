@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import Card from '../components/Card';
-import Category from '../components/Category';
+import { Category, SearchBar, ProductCard } from '../components';
 import * as api from '../services/api';
 
 class Home extends Component {
@@ -9,30 +7,33 @@ class Home extends Component {
     super();
 
     this.getCategories = this.getCategories.bind(this);
-    this.categoryHandleChange = this.categoryHandleChange.bind(this);
+    this.getProducts = this.getProducts.bind(this);
     this.renderSideBar = this.renderSideBar.bind(this);
+    this.renderSearchContent = this.renderSearchContent.bind(this);
+    this.renderSearchForm = this.renderSearchForm.bind(this);
+    this.categoryHandleChange = this.categoryHandleChange.bind(this);
     this.searchHandleChange = this.searchHandleChange.bind(this);
     this.searchHandleClick = this.searchHandleClick.bind(this);
 
     this.state = {
       categories: [],
-      selectedCategory: '',
-      products: [],
       search: '',
       searchSend: '',
+      selectedCategory: '',
+      products: [],
     };
   }
 
   componentDidMount() {
     this.getCategories();
-    this.getProduct('', '');
+    this.getProducts('', '');
   }
 
   componentDidUpdate(prevProps, prevStates) {
     const { selectedCategory, searchSend } = this.state;
     if ((prevStates.selectedCategory !== selectedCategory)
        || (prevStates.searchSend !== searchSend)) {
-      this.getProduct(selectedCategory, searchSend);
+      this.getProducts(selectedCategory, searchSend);
     }
   }
 
@@ -43,7 +44,7 @@ class Home extends Component {
     });
   }
 
-  async getProduct(category, query) {
+  async getProducts(category, query) {
     const productsRequest = await api.getProductsFromCategoryAndQuery(category, query);
     if (productsRequest === undefined) {
       this.setState({
@@ -95,44 +96,58 @@ class Home extends Component {
     );
   }
 
-  render() {
-    const { products } = this.state;
+  renderProductCards() {
 
+  }
+
+  renderSearchContent() {
+    const { products, searchSend } = this.state;
+
+    if (products.length === 0 && searchSend.length === 0) {
+      return (
+        <h1 className="search-title" data-testid="home-initial-message">
+          Digite algum termo de pesquisa ou escolha uma categoria.
+        </h1>
+      );
+    }
+
+    if (products.length === 0 && searchSend.length > 0) {
+      return (
+        <h1 className="search-title" id="not-found-message">
+          Nenhum produto foi encontrado
+        </h1>
+      );
+    }
+
+    return (
+      <div className="products-list">
+        { products.map((product) => (
+          <ProductCard
+            key={ product.id }
+            product={ product }
+          />
+        ))}
+      </div>
+    );
+  }
+
+  renderSearchForm() {
+    return (
+      <div className="search-form">
+        <SearchBar
+          onChange={ this.searchHandleChange }
+          onClick={ this.searchHandleClick }
+        />
+        { this.renderSearchContent() }
+      </div>
+    );
+  }
+
+  render() {
     return (
       <div className="home-container">
         { this.renderSideBar() }
-        <div className="search-form">
-          <label htmlFor="search-input">
-            <input
-              type="text"
-              id="search-input"
-              onChange={ this.searchHandleChange }
-              data-testid="query-input"
-            />
-          </label>
-          <button
-            onClick={ this.searchHandleClick }
-            type="button"
-            data-testid="query-button"
-          >
-            Search
-          </button>
-          <h1 data-testid="home-initial-message">
-            Digite algum termo de pesquisa ou escolha uma categoria.
-          </h1>
-          <Link
-            className="material-icons carrinho"
-            to="/carrinho"
-            data-testid="shopping-cart-button"
-          >
-            shopping_cart
-          </Link>
-          <div className="cards-container">
-            { products.map((product, index) => (
-              <Card key={ index } product={ product } />
-            ))}
-          </div>
-        </div>
+        { this.renderSearchForm() }
       </div>
     );
   }
