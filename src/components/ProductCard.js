@@ -37,6 +37,7 @@ class ProductCard extends Component {
         title,
         thumbnail,
         price,
+        shipping,
       },
     } = this.props;
 
@@ -54,6 +55,7 @@ class ProductCard extends Component {
           <p>
             {`Preço R$ ${price}`}
           </p>
+          {shipping.free_shipping && <p data-testid="free-shipping">Frete grátis</p>}
         </Link>
         <button
           type="button"
