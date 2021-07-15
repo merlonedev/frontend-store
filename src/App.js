@@ -5,7 +5,6 @@ import ShoppingCart from './components/ShoppingCart';
 import CategoriesBar from './components/CategoriesBar';
 import ProductsList from './components/ProductsList';
 import ProductDetails from './components/ProductDetails';
-// import Quantities from './components/Quantities';
 import Checkout from './components/Checkout';
 import Header from './components/Header';
 import * as API from './services/api';
@@ -31,7 +30,6 @@ export default class App extends Component {
     this.removeItem = this.removeItem.bind(this);
     this.increaseQty = this.increaseQty.bind(this);
     this.decreaseQty = this.decreaseQty.bind(this);
-    // this.loadQuantity = this.loadQuantity.bind(this);
     this.loadCart = this.loadCart.bind(this);
     this.sortProducts = this.sortProducts.bind(this);
     this.callbackSort = this.callbackSort.bind(this);
@@ -53,7 +51,6 @@ export default class App extends Component {
     localStorage.quantity = JSON.stringify(quantity);
   }
 
-  // prettier-ignore
   async setProducts() {
     const { queryInput, category, sorting } = this.state;
     const results = await API.getProductsFromCategoryAndQuery(
@@ -135,8 +132,6 @@ export default class App extends Component {
       cartItems: items,
       quantity,
     }, this.handleLocalStorage);
-    localStorage.setItem('cartItems', JSON.stringify(items));
-    localStorage.setItem('quantity', JSON.stringify(quantity));
   }
 
   callbackCategory({ target }) {
@@ -202,17 +197,15 @@ export default class App extends Component {
                   <div className="home">
                     <SearchBar quantity={ quantity } callback={ this.callback } />
                     <SortSelect callback={ this.callbackSort } sorting={ sorting } />
-                    {/* <button type="button">
-                      <Link to="/cart" data-testid="shopping-cart-button">
-                        Carrinho
-                      </Link>
-                      <Quantities quantity={ quantity } />
-                    </button> */}
                     <CategoriesBar
                       categories={ categories }
                       callback={ this.callbackCategory }
                     />
-                    <ProductsList products={ products } callback={ this.addToCart } />
+                    <ProductsList
+                      products={ products }
+                      callback={ this.addToCart }
+                      cart={ cartItems }
+                    />
                   </div>
                 ) }
               />
