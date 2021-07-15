@@ -17,6 +17,7 @@ class AddToCartFromDetails extends React.Component {
   render() {
     return (
       <button
+        className="btn btn-outline-primary"
         type="button"
         data-testid="product-detail-add-to-cart"
         onClick={ this.addItem }

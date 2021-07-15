@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 class ButtonCart extends Component {
   render() {
     return (
-      <Link to="/Cart" data-testid="shopping-cart-button">Carrinho</Link>
+      <Link className="link" to="/Cart" data-testid="shopping-cart-button">Carrinho</Link>
     );
   }
 }

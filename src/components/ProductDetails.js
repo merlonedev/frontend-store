@@ -31,23 +31,34 @@ class ProductDetails extends React.Component {
 
     if (loading) return <p>Carregando...</p>;
     return (
-      <div>
-        <Link to="/">Voltar Para Pagina Principal</Link>
-        <Link data-testid="shopping-cart-button" to="/Cart"> Ir para Carrinho</Link>
-        <h1 data-testid="product-detail-name">{ title }</h1>
+      <div className="details-page">
+        <Link className="link" to="/">Voltar Para Pagina Principal</Link>
+        <Link
+          className="link"
+          data-testid="shopping-cart-button"
+          to="/Cart"
+        >
+          Ir para Carrinho
+        </Link>
+        <h3 data-testid="product-detail-name">{ title }</h3>
         <p>
-          {`Price ${price}`}
+          {`Price $ ${price}`}
         </p>
-        <div>
+        <div className="details" style={ { width: '20rem' } }>
           <img src={ thumbnail } alt={ title } />
-          <h2>Especificações Técnicas Do Produto</h2>
-          <ul>
-            { attributes.map((att) => (
-              <li key={ att.id }>
-                { `${att.name}: ${att.value_name} ` }
-              </li>
-            )) }
-          </ul>
+          <h3 className="h3-title">Especificações técnicas do produto</h3>
+          <div className="list-group">
+            <ul>
+              { attributes.map((att) => (
+                <li
+                  className="list-group-item"
+                  key={ att.id }
+                >
+                  { `${att.name} : ${att.value_name} ` }
+                </li>
+              )) }
+            </ul>
+          </div>
         </div>
         <AddToCartFromDetails productObj={ product } />
       </div>

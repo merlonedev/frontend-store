@@ -20,17 +20,19 @@ class SearchBar extends React.Component {
     const { change } = this.props;
     const { value } = this.state;
     return (
-      <div>
-        <label data-testid="home-initial-message" htmlFor="search-bar">
+      <div className="search-bar">
+        <label data-testid="home-initial-message" htmlFor="exampleInputEmail1">
           <input
             type="text"
-            id="search-bar"
+            className="form-control"
+            id="exampleInputEmail1"
             onChange={ this.handleChangle }
             data-testid="query-input"
           />
           Digite algum termo de pesquisa ou escolha uma categoria.
         </label>
         <button
+          className="btn btn-outline-dark"
           data-testid="query-button"
           onClick={ () => change(value) }
           type="button"
