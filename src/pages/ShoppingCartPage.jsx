@@ -13,7 +13,7 @@ class ShoppingCartPage extends React.Component {
         <h1>Carrinho de Compras</h1>
         {localStorageProducts.length > 0
           ? <CartProduct products={ localStorageProducts } /> : <EmpetyCart />}
-        <Link to="/checkout">Finalizar Compra</Link>
+        <Link to="/checkout" data-testid="checkout-products">Finalizar Compra</Link>
       </div>
     );
   }
