@@ -64,7 +64,7 @@ class SubmitPage extends Component {
           </ul>
           { `R$: ${carrinho.reduce((acc, curr) => (acc + curr.price), 0)}` }
         </section>
-        <Link to="/">Página Principal</Link>
+        <Link className="link" to="/">Página Principal</Link>
       </div>
     );
   }

@@ -27,11 +27,26 @@ class Cart extends Component {
   render() {
     const { carrinho } = this.state;
     if (carrinho.length === 0) {
-      return <div data-testid="shopping-cart-empty-message">Seu carrinho está vazio</div>;
+      return (
+        <div className="cart">
+          <Link
+            className="link"
+            to="/"
+          >
+            Página Principal
+          </Link>
+          <div data-testid="shopping-cart-empty-message">Seu carrinho está vazio</div>
+        </div>
+      );
     }
     return (
-      <div>
-        <Link to="/">Página Principal</Link>
+      <div className="cart">
+        <Link
+          className="link"
+          to="/"
+        >
+          Página Principal
+        </Link>
         {(carrinho && <ShoppingCart carrinho={ carrinho } />)}
       </div>
     );

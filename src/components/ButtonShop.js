@@ -5,7 +5,13 @@ class ButtonShop extends Component {
   render() {
     return (
       <div>
-        <Link data-testid="checkout-products" to="/submit-page">Finalizar Compra</Link>
+        <Link
+          className="link"
+          data-testid="checkout-products"
+          to="/submit-page"
+        >
+          Finalizar Compra
+        </Link>
       </div>
     );
   }

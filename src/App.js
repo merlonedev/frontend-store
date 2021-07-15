@@ -4,6 +4,7 @@ import HomePage from './pages/HomePage';
 import Cart from './pages/Cart';
 import ProductDetails from './components/ProductDetails';
 import SubmitPage from './pages/SubmitPage';
+import './App.css';
 
 class App extends React.Component {
   render() {

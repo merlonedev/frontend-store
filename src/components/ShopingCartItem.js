@@ -11,17 +11,33 @@ class ShopingCartItem extends React.Component {
       thumbnail,
       price } = item;
     return (
-      <div data-testid="product">
-        <h1 data-testid="shopping-cart-product-name">{title}</h1>
-        <img src={ thumbnail } alt={ title } />
-        <p>{price}</p>
-        <p data-testid="shopping-cart-product-quantity">1</p>
-        <Link
-          data-testid="product-detail-link"
-          to={ `/item/${category}/${id}` }
-        >
-          Mais Detalhes:
-        </Link>
+      <div className="cart-item">
+        <div data-testid="product" className="card" style={ { width: '20rem' } }>
+          <img src={ thumbnail } alt={ title } className="card-img-top" />
+          <div
+            className="card-body"
+          >
+            <h4
+              className="card-title"
+              data-testid="shopping-cart-product-name"
+            >
+              {title}
+            </h4>
+            <p className="card-text">
+              $
+              {' '}
+              {price.toFixed(2)}
+            </p>
+            <p data-testid="shopping-cart-product-quantity">1</p>
+            <Link
+              className="link"
+              data-testid="product-detail-link"
+              to={ `/item/${category}/${id}` }
+            >
+              Mais Detalhes
+            </Link>
+          </div>
+        </div>
       </div>
     );
   }

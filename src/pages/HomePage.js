@@ -24,13 +24,15 @@ class HomePage extends Component {
   render() {
     const { querySearch, categorieSearch } = this.state;
     return (
-      <div>
+      <div className="home-page">
         <SearchBar change={ this.stateSearch } />
         <ButtonCart />
-        <CategorieList onClick={ this.categorieState } />
-        {(querySearch === '' && categorieSearch === '')
-          ? <p>Nenhum produto foi encontrado</p>
-          : <ItemList input={ querySearch } input2={ categorieSearch } />}
+        <div className="welcome-page">
+          <CategorieList onClick={ this.categorieState } />
+          {(querySearch === '' && categorieSearch === '')
+            ? <p className="text">Nenhum produto foi encontrado</p>
+            : <ItemList input={ querySearch } input2={ categorieSearch } />}
+        </div>
       </div>
     );
   }

@@ -19,23 +19,32 @@ class CategorieList extends Component {
     const { categorias } = this.state;
     const { onClick } = this.props;
     return (
-      <div>
-        {/* <label data-testid="category" htmlFor="none">
-          <input id="none" type="radio" name="t" onClick={ () => onClick('') } />
-          Sem Categoria
-        </label> */}
-        {categorias.map((i) => (
-          <label key={ i.name } data-testid="category" htmlFor={ i.id }>
-            <input
-              id={ i.id }
+      <div
+        className="input-group"
+        style={ { width: '280px' } }
+      >
+        <div className="category-list">
+          <h4 className="h4-title">Categorias</h4>
+          {categorias.map((i) => (
+            <label
+              className="list-unstyled ps-0"
               key={ i.name }
-              onClick={ () => onClick(i.id) }
-              type="radio"
-              name="t"
-            />
-            {i.name}
-          </label>
-        ))}
+              data-testid="category"
+              htmlFor={ i.id }
+            >
+              <input
+                className="form-check-input mt-0"
+                id={ i.id }
+                key={ i.name }
+                onClick={ () => onClick(i.id) }
+                type="radio"
+                name="t"
+              />
+              {i.name}
+            </label>
+          ))}
+
+        </div>
       </div>
     );
   }

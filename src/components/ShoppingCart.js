@@ -7,13 +7,15 @@ class ShoppingCart extends Component {
   render() {
     const { carrinho } = this.props;
     return (
-      <div>
+      <div className="cart-page">
         <ButtonShop />
-        { carrinho.map((item) => (
-          <ShoppingCartItem
-            key={ item.id }
-            item={ item }
-          />)) }
+        <div className="cart-items">
+          { carrinho.map((item) => (
+            <ShoppingCartItem
+              key={ item.id }
+              item={ item }
+            />)) }
+        </div>
       </div>
     );
   }

@@ -47,12 +47,10 @@ class ItemList extends Component {
       return <p>Nenhum produto foi encontrado</p>;
     }
     return (
-      <div>
-        <div>
-          {itens.results.map((item) => (
-            <ItemCard item={ item } key={ item.id } />
-          ))}
-        </div>
+      <div className="card-list">
+        {itens.results.map((item) => (
+          <ItemCard item={ item } key={ item.id } />
+        ))}
       </div>
     );
   }
