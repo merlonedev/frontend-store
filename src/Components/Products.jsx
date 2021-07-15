@@ -23,6 +23,8 @@ class Products extends Component {
           to={ `/product-detail/${id}` }
           data-testid="product-detail-link"
           className="link"
+          addCart={ addCart }
+          product={ product }
         >
           Ver Detalhes
         </Link>
@@ -38,13 +40,21 @@ class Products extends Component {
   }
 }
 
+Products.defaultProps = {
+  img: undefined,
+};
+
 Products.propTypes = {
   title: PropTypes.string.isRequired,
-  img: PropTypes.string.isRequired,
+  img: PropTypes.string,
   price: PropTypes.number.isRequired,
   id: PropTypes.string.isRequired,
   addCart: PropTypes.func.isRequired,
   product: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    img: PropTypes.string,
+    price: PropTypes.number.isRequired,
+    categoryId: PropTypes.string,
     shipping: PropTypes.shape({
       free_shipping: PropTypes.bool,
     }),
