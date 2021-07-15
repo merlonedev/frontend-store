@@ -51,7 +51,6 @@ html, * {
 
 .body {
   position: relative;
-  /* top: 140px; */
   z-index: 0;
 }
 
@@ -282,18 +281,18 @@ html, * {
 }
 
 .product-details {
-  top: 50px;
   align-items: center;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   padding: 25px;
   position: relative;
+  top: 50px;
 }
 
 .home, .cart, .checkout {
-  top: 80px;
   position: relative;
+  top: 80px;
 }
 
 .complete {
@@ -474,6 +473,6 @@ html, * {
 
 .logo {
   height: 70px;
-  position: absolute;
   left: 5%;
+  position: absolute;
 }
