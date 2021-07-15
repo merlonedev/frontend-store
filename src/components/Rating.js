@@ -1,9 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default class Rating extends React.Component {
   render() {
+    const { handleRating } = this.props;
     return (
-      <div>
+      <div onChange={ handleRating }>
         <input type="radio" name="nota" value="1" />
         <input type="radio" name="nota" value="2" />
         <input type="radio" name="nota" value="3" />
@@ -13,3 +15,7 @@ export default class Rating extends React.Component {
     );
   }
 }
+
+Rating.propTypes = {
+  handleRating: PropTypes.func.isRequired,
+};

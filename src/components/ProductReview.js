@@ -7,11 +7,13 @@ export default class ProductReview extends React.Component {
 
     this.state = {
       email: '',
+      nota: '1',
       review: '',
     };
 
     this.handleReviewOnChange = this.handleReviewOnChange.bind(this);
     this.handleEmailOnChange = this.handleEmailOnChange.bind(this);
+    this.handleRating = this.handleRating.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -27,10 +29,16 @@ export default class ProductReview extends React.Component {
     });
   }
 
+  handleRating(event) {
+    this.setState({
+      nota: event.target.value,
+    });
+  }
+
   handleSubmit(event) {
     event.preventDefault();
-    const { email } = this.state;
-    console.log(email);
+    const { email, review, nota } = this.state;
+    console.log(email, nota, review);
   }
 
   render() {
@@ -45,15 +53,20 @@ export default class ProductReview extends React.Component {
             value={ email }
             onChange={ this.handleEmailOnChange }
           />
-          <Rating />
+          <Rating handleRating={ this.handleRating } />
           <textarea
             data-testid="product-detail-evaluation"
             placeholder="Mensagem (opcional)"
             value={ review }
             onChange={ this.handleReviewOnChange }
           />
-          <input type="submit" value="Enviar" />
+          <button type="submit">
+            Enviar
+          </button>
         </form>
+        <div>
+          { console.log() }
+        </div>
       </div>
     );
   }
