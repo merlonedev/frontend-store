@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 class SearchBar extends Component {
   render() {
-    const { onChange, onClick } = this.props;
+    const { onChange, onClick, totalCartItems } = this.props;
 
     return (
       <div className="search-input-container">
@@ -28,13 +28,16 @@ class SearchBar extends Component {
             Pesquisar
           </button>
         </div>
-        <Link
-          className="material-icons cart search-cart"
-          data-testid="shopping-cart-button"
-          to="/cart"
-        >
-          shopping_cart
-        </Link>
+        <div className="cart-container">
+          <span className="total-cart-items">{ totalCartItems }</span>
+          <Link
+            className="material-icons cart search-cart"
+            data-testid="shopping-cart-button"
+            to="/cart"
+          >
+            shopping_cart
+          </Link>
+        </div>
       </div>
     );
   }
@@ -43,6 +46,7 @@ class SearchBar extends Component {
 SearchBar.propTypes = {
   onChange: PropTypes.func.isRequired,
   onClick: PropTypes.func.isRequired,
+  totalCartItems: PropTypes.number.isRequired,
 };
 
 export default SearchBar;
