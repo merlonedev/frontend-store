@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import ShoppingCardIcon from './ShoppingCardIcon';
 
 class ShoppingCard extends Component {
@@ -77,13 +78,12 @@ class ShoppingCard extends Component {
             >
               +
             </button>
-            {/* <button
-              type="button"
-              data-testid="product-increase-quantity"
-              onClick={ () => this.addItemFromCart(product.id) }
+            <Link
+              to="/checkout"
+              data-testid="checkout-products"
             >
-              Remover item
-            </button> */}
+              <ShoppingCardIcon />
+            </Link>
           </div>))}
         <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
       </div>

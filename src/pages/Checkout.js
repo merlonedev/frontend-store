@@ -4,7 +4,7 @@ import CheckoutInput from '../components/CheckoutInput';
 const array = [
   {
     placeholder: 'Nome completo',
-    name: 'fullname',
+    name: 'fullName',
     type: 'text',
   },
 
