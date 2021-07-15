@@ -201,6 +201,10 @@ html, * {
   color: var(--magnolia);
 }
 
+.review * {
+  margin: 10px;
+}
+
 .add-button *:hover, .search-btn *:hover, .cart-btn a:hover, .submit-btn *:hover {
   background-color: rgba(255, 255, 255, 0.5);
   color: var(--dark-liver);
@@ -232,7 +236,8 @@ html, * {
   padding: 0;
 }
 
-.search-input {
+.search-input, .eval-input, .evaluation {
+  background-color: var(--magnolia);
   border-bottom: 1px solid var(--dark-liver);
   border-left: 1px solid rgba(255, 255, 255, 0);
   border-radius: 2px;
@@ -242,7 +247,23 @@ html, * {
   transition: 0.2s;
 }
 
-.search-input:focus {
+.evaluation {
+  height: 75px;
+  resize: none;
+}
+
+.rating-label {
+  font-weight: 600;
+  margin: 10px auto;
+}
+
+.rating-label p {
+  font-weight: 500;
+  margin: 0;
+}
+
+.search-input:focus, .eval-input:focus, .evaluation:focus {
+  background-color: var(--thistle);
   border: 1px solid var(--dark-liver);
   outline: none;
   transition: 0.2s;
@@ -254,34 +275,39 @@ html, * {
 }
 
 .product-details {
-  padding: 50px;
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 30px;
 }
 
 .details {
   border: 1px solid var(--dark-liver);
   display: flex;
   flex-direction: column;
-  float: right;
   padding: 20px;
-  width: 50%;
+  width: 60%;
 }
 
 .rating {
   align-items: center;
-  align-self: center;
   display: flex;
   flex-direction: column;
-  width: 30%;
-}
-
-.evaluation {
-  height: 100px;
-  resize: none;
+  margin: auto;
+  width: fit-content;
 }
 
 .details-img {
-  float: left;
+  max-height: 500px;
   max-width: 50%;
+}
+
+.column {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
 }
 
 .cart-item {
@@ -382,4 +408,32 @@ html, * {
   display: flex;
   justify-content: space-around;
   padding: 50px;
+}
+
+.reviews {
+  left: 0;
+  margin-left: auto;
+  margin-right: auto;
+  position: absolute;
+  right: 0;
+  top: 90vh;
+  width: 60%;
+}
+
+.review {
+  align-items: center;
+  border: 1px solid var(--dark-liver);
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  padding: 10px;
+}
+
+.review span {
+  font-weight: 300;
+}
+
+.review-comment {
+  font-weight: 500;
+  text-align: justify;
 }
