@@ -20,8 +20,9 @@ class Home extends Component {
     this.mountCategorieList = this.mountCategorieList.bind(this);
   }
 
-  componentDidMount() {
-    this.mountCategorieList();
+  async componentDidMount() {
+    const result = await getCategories();
+    this.mountCategorieList(result);
   }
 
   handleChange(e) {
@@ -34,42 +35,29 @@ class Home extends Component {
     const { target: { id, name } } = e;
     console.log('func', id);
     const { value } = this.state;
-    this.setState({ loading: true },
-      async () => {
-        const byCategorie = name === 'categorie' ? id : '';
-        const bySearch = name === 'searchButton' ? value : '';
+    const byCategorie = name === 'categorie' ? id : '';
+    const bySearch = name === 'searchButton' ? value : '';
 
-        const products = await getProductsFromCategoryAndQuery(byCategorie, bySearch);
+    const products = await getProductsFromCategoryAndQuery(byCategorie, bySearch);
 
-        this.setState({
-          loading: false,
-          products: products.results,
-        });
-      });
-    // this.setState({
-    //   loading: false,
-    //   products: products.results,
-    // });
+    this.setState({
+      products: products.results,
+    });
   }
 
-  async mountCategorieList() {
-    this.setState({ loading: true },
-      async () => {
-        const response = await getCategories();
-        this.setState({
-          categories: response,
-          loading: false,
-        });
-      });
+  mountCategorieList(categories) {
+    this.setState({
+      categories,
+    });
   }
 
   render() {
-    const { loading, products, value, categories } = this.state;
+    const { products, value, categories } = this.state;
     return (
+
       <section>
         <div>
           <SearchBar
-            loading={ loading }
             products={ products }
             value={ value }
             change={ this.handleChange }
@@ -77,7 +65,6 @@ class Home extends Component {
           />
           <ButtonCart />
           <NavBar
-            loading={ loading }
             categories={ categories }
             click={ this.handleClick }
           />

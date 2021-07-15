@@ -6,8 +6,7 @@ import Loading from './Loading';
 
 class SearchBar extends Component {
   render() {
-    const { value, products, loading, change, click } = this.props;
-    if (loading) return <Loading />;
+    const { value, products, change, click } = this.props;
 
     return (
       <section>
@@ -40,7 +39,6 @@ class SearchBar extends Component {
 SearchBar.propTypes = {
   value: PropTypes.string.isRequired,
   products: PropTypes.arrayOf(Object).isRequired,
-  loading: PropTypes.bool.isRequired,
   change: PropTypes.func.isRequired,
   click: PropTypes.func.isRequired,
 };
