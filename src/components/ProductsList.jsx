@@ -10,7 +10,7 @@ export default class ProductsList extends Component {
 
   addedToCart({ target }, product) {
     const { callback } = this.props;
-    const productCard = target.parentElement;
+    const productCard = target.parentElement.parentElement;
     productCard.classList.add('added');
     callback(product);
   }
