@@ -15,9 +15,10 @@ class Home extends Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
     this.getProductByIdAndQuery = this.getProductByIdAndQuery.bind(this);
     this.getCategories = this.getCategories.bind(this);
-    this.getProductByQuery = this.getProductByQuery.bind(this);
+    // this.getProductByQuery = this.getProductByQuery.bind(this);
   }
 
   componentDidMount() {
@@ -25,11 +26,20 @@ class Home extends Component {
     this.getProductByIdAndQuery();
   }
 
-  componentDidUpdate(state, prevState) {
+  // componentDidUpdate(state, prevState) {
+  //   const { inputText } = this.state;
+  //   if (state !== prevState) {
+  //     this.getProductByQuery(inputText);
+  //   }
+  // }
+
+  async handleClick() {
     const { inputText } = this.state;
-    if (state !== prevState) {
-      this.getProductByQuery(inputText);
-    }
+    const searchProductByQuery = await api.getProductsFromQuery(inputText);
+    this.setState({
+      data: searchProductByQuery.results,
+      inputText: '',
+    });
   }
 
   handleChange({ target }) {
@@ -37,12 +47,9 @@ class Home extends Component {
     this.setState({ [name]: value });
   }
 
-  async getProductByQuery(query) {
-    const searchProductByQuery = await api.getProductsFromQuery(query);
-    this.setState({
-      data: searchProductByQuery.results,
-    });
-  }
+  // async getProductByQuery(query) {
+
+  // }
 
   async getProductByIdAndQuery(id, query) {
     const searchProduct = await api.getProductsFromCategoryAndQuery(id, query);
@@ -66,6 +73,13 @@ class Home extends Component {
           inputText={ inputText }
           onChange={ this.handleChange }
         />
+        <button
+          data-testid="query-button"
+          type="button"
+          onClick={ this.handleClick }
+        >
+          Pesquisar
+        </button>
         <div>
           {
             categories.map((category) => (<Categories
