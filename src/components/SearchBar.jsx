@@ -5,8 +5,8 @@ class SearchBar extends Component {
   render() {
     return (
       <div>
-        <label htmlFor="label-imput-search">
-          <input data-testid="imput-search" />
+        <label htmlFor="label-input-search">
+          <input data-testid="input-search" />
         </label>
         <CartIcon />
         <div>
