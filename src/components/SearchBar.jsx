@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import CartIcon from '../Icons/CartIcon';
 
 class SearchBar extends Component {
@@ -16,6 +17,7 @@ class SearchBar extends Component {
             Digite algum termo de pesquisa ou escolha uma categoria.
           </h4>
         </div>
+        <Link data-testid="shopping-cart-button" to="/ShoppingCart">VER CARRINHO</Link>
       </div>
     );
   }
