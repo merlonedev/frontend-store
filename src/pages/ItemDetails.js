@@ -40,6 +40,7 @@ class ItemDetails extends Component {
   render() {
     const { item, loading } = this.state;
     const { title, price, thumbnail, condition } = item;
+    item.quantidade = 1;
     return (
       <div>
         { loading && <Loading />}
