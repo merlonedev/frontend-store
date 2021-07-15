@@ -13,7 +13,7 @@ class Products extends Component {
     return (
       <div>
         { productList.map((product) => (
-          <div key={ product.id }>
+          <div className="product-list" key={ product.id }>
             <Cardproduct
               shipping={ product.shipping }
               title={ product.title }
@@ -21,14 +21,8 @@ class Products extends Component {
               price={ product.price }
               id={ product.id }
               categoryId={ product.category_id }
+              addToCart={ () => addToCart(product) }
             />
-            <button
-              type="button"
-              onClick={ () => addToCart(product) }
-              data-testid="product-add-to-cart"
-            >
-              Adicionar ao Carrinho
-            </button>
           </div>
         ))}
       </div>

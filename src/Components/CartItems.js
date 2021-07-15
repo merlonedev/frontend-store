@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import ManipularCarrinho from './ManipularCarrinho';
+import CartManipulation from './CartManipulation';
 
 class CartItems extends Component {
   render() {
     const { cartList, removeItem } = this.props;
-    console.log(cartList);
     return (
       <div>
         {cartList.map((item) => (
-          <ManipularCarrinho item={ item } key={ item.id } removeItem={ removeItem } />
+          <CartManipulation item={ item } key={ item.id } removeItem={ removeItem } />
         ))}
       </div>
     );

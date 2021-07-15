@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import * as api from '../services/api';
 import Products from './Products';
 import CartButton from '../Components/CartButton';
-import Category from '../Components/Categorias';
+import Category from '../Components/Category';
+import SearchInput from '../Components/SearchInput';
+import '../styles/home.css';
 
 class Home extends React.Component {
   constructor() {
@@ -46,37 +48,31 @@ class Home extends React.Component {
     const { addToCart, quantity } = this.props;
     const { productList, categories } = this.state;
     return (
-      <form>
-        <p
-          data-testid="home-initial-message"
-        >
-          Digite algum termo de pesquisa ou escolha uma categoria.
-        </p>
-        <input
-          type="text"
-          data-testid="query-input"
-          onChange={ this.inputList }
-        />
-        <button
-          type="button"
-          data-testid="query-button"
-          onClick={ this.categorieAndQuery }
-        >
-          Clique Aqui
-        </button>
-        <CartButton
-          quantity={ quantity }
-        />
-        <Products
-          productList={ productList }
-          addToCart={ addToCart }
-          quantity={ quantity }
-        />
+      <section>
+        <header>
+          <div className="header-content">
+            <h2 className="market">Undefined Shop</h2>
+            <SearchInput
+              inputList={ this.inputList }
+              categorieAndQuery={ this.categorieAndQuery }
+            />
+            <CartButton
+              quantity={ quantity }
+            />
+          </div>
+        </header>
+        <div className="product-list-home">
+          <Products
+            productList={ productList }
+            addToCart={ addToCart }
+            quantity={ quantity }
+          />
+        </div>
         <Category
           category={ categories }
           categoryAndQuery={ this.categorieAndQuery }
         />
-      </form>
+      </section>
     );
   }
 }
