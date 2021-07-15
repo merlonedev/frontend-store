@@ -34,7 +34,6 @@ class ManipularCarrinho extends React.Component {
   render() {
     const { item, removeItem, item: { price } } = this.props;
     const { quantidade } = this.state;
-    console.log(item);
     return (
       <section>
         <h3>
