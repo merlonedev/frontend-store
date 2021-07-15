@@ -21,7 +21,10 @@ export default class ProductCard extends Component {
     return (
       <div className="product-container" data-testid="product" id={ product.id }>
         <Link
-          to={ `/product/${product.id}` }
+          to={ {
+            pathname: `/product/${product.id}`,
+            state: { product },
+          } }
           onClick={ () => this.handleCardClick(product) }
           className="product-card"
         >

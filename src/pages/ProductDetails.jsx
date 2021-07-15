@@ -7,28 +7,18 @@ export default class ProductDetails extends Component {
   constructor() {
     super();
     this.state = {
-      loading: true,
-      product: {
-        title: '',
-        price: 0,
-        thumbnail: '',
-      },
+      loading: false,
       cartQTD: 0,
     };
-    this.setItem = this.setItem.bind(this);
   }
 
   componentDidMount() {
-    const item = JSON.parse(localStorage.getItem('product'));
     const cart = JSON.parse(localStorage.getItem('cart'));
-    // localStorage.removeItem('product');
-    this.setItem(item);
     this.getCartQTD(cart);
-    console.log(item);
   }
 
-  handleAddToCart(product) {
-    const { title, price, id, available_quantity: avQtd } = product;
+  handleAddToCart(item) {
+    const { title, price, id, available_quantity: avQtd } = item;
     console.log(avQtd);
     let cart = JSON.parse(localStorage.getItem('cart'));
     if (cart && cart[id]) {
@@ -41,10 +31,6 @@ export default class ProductDetails extends Component {
     if (cart) {
       this.getCartQTD(cart);
     }
-  }
-
-  setItem(item) {
-    this.setState({ product: item, loading: false });
   }
 
   getCartQTD(cart) {
@@ -63,16 +49,10 @@ export default class ProductDetails extends Component {
     localStorage.removeItem('product');
   }
 
-  // async getProduct() {
-  //   const { id } = this.state;
-  //   const product = await api.getItemDetails(id);
-  //   console.log(product);
-  //   this.setState(() => ({ product, loading: false }));
-  //   console.log(this.state);
-  // }
-
   render() {
-    const { product, loading, cartQTD } = this.state;
+    const { loading, cartQTD } = this.state;
+    const { location: { state: { product } } } = this.props;
+    const { title, price, thumbnail, attributes } = product;
     if (loading) { return <p>Loading...</p>; }
     return (
       <main>
@@ -81,15 +61,15 @@ export default class ProductDetails extends Component {
           <Link data-testid="shopping-cart-button" to="/shoppingcart">CARRINHO</Link>
           <p data-testid="shopping-cart-size">{ cartQTD }</p>
         </div>
-        <h1 data-testid="product-detail-name">{product.title}</h1>
-        <h1>{product.price}</h1>
-        <img src={ product.thumbnail } alt={ product.title } />
+        <h1 data-testid="product-detail-name">{title}</h1>
+        <h1>{price}</h1>
+        <img src={ thumbnail } alt={ title } />
         <section className="details">
           <h3>Especificações Técnicas</h3>
           <ul>
             {/* Precisei colocar 'attr' ao invés de 'attribute' por não conseguir
             corrigir lint */}
-            { product.attributes.map((attr) => (
+            { attributes.map((attr) => (
               attr.value_name
                 ? <li key={ attr.id }>{`${attr.name}: ${attr.value_name}`}</li>
                 : false
@@ -115,15 +95,17 @@ ProductDetails.propTypes = {
       id: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
-  product: PropTypes.shape({
-    title: PropTypes.string,
-    price: PropTypes.number,
-  }),
-};
-
-ProductDetails.defaultProps = {
-  product: {
-    title: '',
-    price: 0,
-  },
+  location: PropTypes.shape({
+    state: PropTypes.shape({
+      product: PropTypes.shape({
+        title: PropTypes.string,
+        price: PropTypes.number,
+        thumbnail: PropTypes.string,
+        attributes: PropTypes.arrayOf(PropTypes.shape({
+          name: PropTypes.string,
+          value_name: PropTypes.string,
+        })),
+      }),
+    }),
+  }).isRequired,
 };
