@@ -50,7 +50,7 @@ CardItem.propTypes = {
     title: PropTypes.string.isRequired,
     thumbnail: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
-    quantidade: PropTypes.number.isRequired,
+    quantidade: PropTypes.number,
   }).isRequired,
   shipping: PropTypes.bool.isRequired,
 };
