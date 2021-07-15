@@ -17,7 +17,10 @@ class Search extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.renderForm = this.renderForm.bind(this);
     this.renderList = this.renderList.bind(this);
+    this.renderSortSelector = this.renderSortSelector.bind(this);
     this.handleCategoryText = this.handleCategoryText.bind(this);
+    this.handleSort = this.handleSort.bind(this);
+    this.checkListInCart = this.checkListInCart.bind(this);
   }
 
   async handleSubmit() {
@@ -27,6 +30,21 @@ class Search extends Component {
     this.setState({
       loading: 'done',
       productList: results,
+    }, (() => {
+      this.handleSort('increasingPrice');
+      this.checkListInCart();
+    }));
+  }
+
+  handleSort(event) {
+    this.setState((prevState) => {
+      if (event === 'decreasingPrice') {
+        prevState.productList.results.sort((a, b) => b.price - a.price);
+      }
+      if (event === 'increasingPrice') {
+        prevState.productList.results.sort((b, a) => b.price - a.price);
+      }
+      return prevState;
     });
   }
 
@@ -36,6 +54,18 @@ class Search extends Component {
       categoryText: id,
       queryText: '',
     }, () => this.handleSubmit());
+  }
+
+  checkListInCart() {
+    const { cartList } = this.props;
+    this.setState((prevState) => {
+      prevState.productList.results.forEach((element, index) => {
+        prevState.productList.results[index].inCart = false;
+        const exists = cartList.find((item) => item.id === element.id);
+        if (exists !== undefined) prevState.productList.results[index].inCart = true;
+      });
+      return prevState;
+    });
   }
 
   renderForm() {
@@ -61,6 +91,22 @@ class Search extends Component {
     );
   }
 
+  renderSortSelector() {
+    return (
+      <form>
+        <label htmlFor="sort_select">
+          <select
+            id="sort_select"
+            onChange={ (event) => this.handleSort(event.target.value) }
+          >
+            <option value="increasingPrice">Ordenação por preço crescente</option>
+            <option value="decreasingPrice">Ordenação por preço decrescente</option>
+          </select>
+        </label>
+      </form>
+    );
+  }
+
   renderList() {
     const { addItemToCart } = this.props;
     const { loading } = this.state;
@@ -70,12 +116,14 @@ class Search extends Component {
     if (results.length === 0) return <p>Nenhum produto foi encontrado</p>;
     return (
       <div>
+        { this.renderSortSelector() }
         <ul>
           { results.map(
             (prod) => (<ProductCard
               key={ prod.id }
               product={ prod }
               addItemToCart={ addItemToCart }
+              checkListInCart={ this.checkListInCart }
             />),
           )}
         </ul>

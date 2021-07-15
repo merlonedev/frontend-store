@@ -4,12 +4,13 @@ import PropTypes from 'prop-types';
 
 class ProductCard extends React.Component {
   render() {
-    const { product, addItemToCart } = this.props;
+    const { product, addItemToCart, checkListInCart } = this.props;
     const {
       title,
       price,
       thumbnail,
       id,
+      inCart,
       category_id: categoryID,
       shipping: { free_shipping: freeShipping },
     } = product;
@@ -31,10 +32,12 @@ class ProductCard extends React.Component {
         </Link>
         <button
           type="button"
-          onClick={ () => addItemToCart(product) }
+          onClick={ () => {
+            addItemToCart(product, checkListInCart);
+          } }
           data-testid="product-add-to-cart"
         >
-          ADICIONAR ITEM AO CARRINHO
+          { inCart ? <div>Item já no carrinho</div> : 'Adicionar ao carrinho' }
         </button>
       </div>
     );
@@ -45,6 +48,7 @@ ProductCard.propTypes = {
   product: PropTypes.shape({
     category_id: PropTypes.string,
     title: PropTypes.string,
+    inCart: PropTypes.bool,
     price: PropTypes.number,
     thumbnail: PropTypes.string,
     id: PropTypes.string,
@@ -53,6 +57,7 @@ ProductCard.propTypes = {
     }),
   }).isRequired,
   addItemToCart: PropTypes.func.isRequired,
+  checkListInCart: PropTypes.func.isRequired,
 };
 
 export default ProductCard;
