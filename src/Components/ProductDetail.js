@@ -33,6 +33,25 @@ export default class ProductDetail extends React.Component {
           <p className="card-title" data-testid="product-detail-name">{ title }</p>
           <p>{`R$: ${price}`}</p>
         </div>
+        <form>
+          <input type="email" placeholder="Email" />
+          <label htmlFor="rating">
+            Nota
+            <input
+              placeholder="Dê a avaliação do filme"
+              id="rating"
+              type="number"
+              step={ 0.5 }
+              min={ 0 }
+              max={ 5 }
+            />
+          </label>
+          <textarea
+            data-testid="product-detail-evaluation"
+            placeholder="Mensagem (Opcional)"
+          />
+          <button type="button"> Avaliar </button>
+        </form>
       </div>
     );
   }
