@@ -4,7 +4,7 @@ import CheckoutInput from '../components/CheckoutInput';
 const array = [
   {
     placeholder: 'Nome completo',
-    name: 'fullName',
+    name: 'fullname',
     type: 'text',
   },
 
@@ -17,19 +17,19 @@ const array = [
   {
     placeholder: 'CPF',
     name: 'cpf',
-    type: 'number',
+    type: 'text',
   },
 
   {
     placeholder: 'Telefone',
     name: 'phone',
-    type: 'number',
+    type: 'text',
   },
 
   {
     placeholder: 'CEP',
     name: 'cep',
-    type: 'number',
+    type: 'text',
   },
   {
     placeholder: 'Endereço',

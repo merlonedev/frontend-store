@@ -7,6 +7,7 @@ class CheckoutInput extends Component {
     return (
       <label htmlFor={ name }>
         <input
+          name={ name }
           data-testid={ `checkout-${name}` }
           placeholder={ placeholder }
           type={ type }
