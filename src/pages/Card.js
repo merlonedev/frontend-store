@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ShoppingCartLink from '../Components/ShoppingCartLink';
 import { getProductsFromCategoryAndQuery } from '../services/api';
+import Avaliation from '../Components/Avaliation';
 
 class Card extends React.Component {
   constructor(props) {
@@ -40,7 +41,6 @@ class Card extends React.Component {
   render() {
     const { product } = this.state;
     const { title, thumbnail, price, condition } = product;
-    // const { state_name: stateName } = address;
 
     // console.log(this.props);
     return (
@@ -58,7 +58,6 @@ class Card extends React.Component {
                     Preço: R$
                     { price }
                   </li>
-                  {/* <li>{ stateName }</li> */}
                   <li>
                     Condição:
                     { condition }
@@ -74,6 +73,7 @@ class Card extends React.Component {
               </button>
             </div>)}
         <ShoppingCartLink />
+        <Avaliation />
       </div>
     );
   }

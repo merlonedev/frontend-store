@@ -40,6 +40,14 @@ button {
   width: auto;
 }
 
+input {
+  margin: 5px;
+}
+
+textarea {
+  margin: 5px;
+}
+
 .remove-item {
   background-color: #f36b16;
   width: 1.5rem;
@@ -60,3 +68,11 @@ button {
   width: 1.5rem;
 }
 
+.avaliate {
+  border: 2px solid black;
+  text-align: start;
+}
+
+.avaliate-div {
+  display: flex;
+}
