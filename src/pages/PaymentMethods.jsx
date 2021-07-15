@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PaymentRadioButton from './PaymentRadioButton';
 
-export class PaymentMethods extends Component {
+class PaymentMethods extends Component {
   constructor(props) {
     super(props);
     this.state = {
