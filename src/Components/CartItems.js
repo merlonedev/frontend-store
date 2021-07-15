@@ -7,6 +7,9 @@ class CartItems extends Component {
     const { cartList, removeItem } = this.props;
     return (
       <div>
+        <h3>
+          Carrinho De Compras
+        </h3>
         {cartList.map((item) => (
           <CartManipulation item={ item } key={ item.id } removeItem={ removeItem } />
         ))}

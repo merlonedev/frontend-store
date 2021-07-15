@@ -19,26 +19,24 @@ class CartManipulation extends React.Component {
     return false;
   }
 
-  addQuantity() {
-    this.setState((prev) => ({
-      productQuantity: prev.productQuantity + 1,
-    }));
+  addQuantity(quantity) {
+    this.setState({
+      productQuantity: quantity + 1,
+    });
   }
 
-  retireQuantity() {
-    this.setState((prev) => ({
-      productQuantity: prev.productQuantity - 1,
-    }));
+  retireQuantity(quantity) {
+    this.setState({
+      productQuantity: quantity - 1,
+    });
   }
 
   render() {
     const { item, removeItem, item: { price } } = this.props;
+    console.log(item);
     const { productQuantity } = this.state;
     return (
       <section>
-        <h3>
-          Carrinho De Compras
-        </h3>
         <div key={ item.id }>
           <h1 data-testid="shopping-cart-product-name">{ item.title }</h1>
           <p data-testid="shopping-cart-product-quantity">{ productQuantity }</p>
@@ -48,14 +46,14 @@ class CartManipulation extends React.Component {
           <button
             type="button"
             data-testid="product-increase-quantity"
-            onClick={ this.addQuantity }
+            onClick={ () => this.addQuantity(productQuantity) }
           >
             +
           </button>
           <button
             type="button"
             data-testid="product-decrease-quantity"
-            onClick={ this.retireQuantity }
+            onClick={ () => this.retireQuantity(productQuantity) }
           >
             -
           </button>
