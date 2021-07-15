@@ -9,6 +9,7 @@ class CartBasket extends Component {
     if (cartList.length === 0) {
       return (
         <main>
+          <Link to="/">Página Inicial</Link>
           <span data-testid="shopping-cart-empty-message">Seu carrinho está vazio</span>
         </main>
       );
