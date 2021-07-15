@@ -17,10 +17,12 @@ class App extends React.Component {
     this.removeItem = this.removeItem.bind(this);
     this.addToCart = this.addToCart.bind(this);
     this.loadCartQuantity = this.loadCartQuantity.bind(this);
+    this.loadCartProducts = this.loadCartProducts.bind(this);
   }
 
   componentDidMount() {
     this.loadCartQuantity();
+    this.loadCartProducts();
   }
 
   addToCart(item) {
@@ -28,8 +30,9 @@ class App extends React.Component {
       cartList: [...prevState.cartList, item],
       quantity: [...prevState.quantity, item],
     }), () => {
-      const { quantity } = this.state;
+      const { quantity, cartList } = this.state;
       localStorage.setItem('quantity', JSON.stringify(quantity));
+      localStorage.setItem('cartProducts', JSON.stringify(cartList));
     });
   }
 
@@ -41,11 +44,21 @@ class App extends React.Component {
     this.setState({ quantity });
   }
 
+  loadCartProducts() {
+    if (!localStorage.cartProducts) {
+      return;
+    }
+
+    const cartList = JSON.parse(localStorage.getItem('cartProducts'));
+    this.setState({ cartList });
+  }
+
   removeItem(item) {
     const { id } = item;
     this.setState((prev) => {
       const { cartList } = prev;
       const filtro = cartList.filter((cartItem) => cartItem.id !== id);
+      localStorage.removeItem('cartProducts', id[0]);
       return { cartList: filtro };
     });
   }
