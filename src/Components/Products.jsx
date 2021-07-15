@@ -24,6 +24,8 @@ class Products extends Component {
           to={ `/product-detail/${id}` }
           data-testid="product-detail-link"
           className="link"
+          addCart={ addCart }
+          product={ product }
         >
           Ver Detalhes
         </Link>
