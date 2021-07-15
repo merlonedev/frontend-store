@@ -40,6 +40,10 @@ class ShoppingCart extends React.Component {
     const { items, tracker } = this.state;
     const value = items[0].find((item) => item.id === id);
     value.quantity -= 1;
+    if (value.quantity === 0) {
+      const indexToRemove = items[0].indexOf(value);
+      items[0].splice(indexToRemove, 1);
+    }
     this.setState({
       tracker: !tracker,
     });
