@@ -7,8 +7,9 @@ export default class ProductReview extends React.Component {
 
     this.state = {
       email: '',
-      nota: '1',
+      nota: '5',
       review: '',
+      allReviews: [],
     };
 
     this.handleReviewOnChange = this.handleReviewOnChange.bind(this);
@@ -37,12 +38,19 @@ export default class ProductReview extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const { email, review, nota } = this.state;
-    console.log(email, nota, review);
+    const { email, review, nota, allReviews } = this.state;
+    const commentary = {
+      email,
+      review,
+      nota,
+    };
+    this.setState({
+      allReviews: [...allReviews, commentary],
+    });
   }
 
   render() {
-    const { email, review } = this.state;
+    const { email, review, allReviews } = this.state;
     return (
       <div className="CustomerReview-container">
         <h2>Avaliações</h2>
@@ -52,6 +60,7 @@ export default class ProductReview extends React.Component {
             placeholder="Email"
             value={ email }
             onChange={ this.handleEmailOnChange }
+            required
           />
           <Rating handleRating={ this.handleRating } />
           <textarea
@@ -60,12 +69,22 @@ export default class ProductReview extends React.Component {
             value={ review }
             onChange={ this.handleReviewOnChange }
           />
-          <button type="submit">
-            Enviar
-          </button>
+          <button type="submit">Enviar</button>
         </form>
         <div>
-          { console.log() }
+          { allReviews.length > 0 && allReviews.map((item, index) => (
+            <div key={ index }>
+              <h3>
+                E-mail:
+                { item.email }
+              </h3>
+              <h3>
+                Nota:
+                { item.nota }
+              </h3>
+              { item.review }
+            </div>
+          )) }
         </div>
       </div>
     );

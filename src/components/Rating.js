@@ -10,7 +10,7 @@ export default class Rating extends React.Component {
         <input type="radio" name="nota" value="2" />
         <input type="radio" name="nota" value="3" />
         <input type="radio" name="nota" value="4" />
-        <input type="radio" name="nota" value="5" />
+        <input type="radio" name="nota" value="5" defaultChecked />
       </div>
     );
   }
