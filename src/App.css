@@ -167,7 +167,7 @@ html, * {
   padding: 0;
 }
 
-.return-button a {
+.return-button a, .complete-btn a {
   padding: 0;
 }
 
@@ -180,12 +180,12 @@ html, * {
   transform: translate3d(1px, 1px, 0);
 }
 
-.add-button, .search-btn, .cart-btn, .submit-btn, .checkout-btn {
+.add-button, .search-btn, .cart-btn, .submit-btn, .checkout-btn, .complete-btn {
   background-color: var(--persian-green);
   margin: 5px;
 }
 
-.submit-btn {
+.submit-btn, .complete-btn {
   align-self: center;
   width: fit-content;
 }
@@ -203,6 +203,7 @@ html, * {
   color: var(--magnolia);
 }
 
+
 .remove-btn * {
   color: var(--highland);
 }
@@ -217,15 +218,9 @@ html, * {
   transition: 0.3s;
 }
 
-.checkout-btn *:hover {
+.checkout-btn *:hover, .complete-btn *:hover, .return-button *:hover {
   background-color: rgba(255, 255, 255, 0.5);
   color: var(--tanawera);
-  transition: 0.3s;
-}
-
-.return-button *:hover {
-  background-color: rgba(0, 0, 0, 0.2);
-  color: var(--highland);
   transition: 0.3s;
 }
 
@@ -446,6 +441,10 @@ html, * {
 .review-comment {
   font-weight: 500;
   text-align: justify;
+}
+
+.gif-faustao {
+  border-radius: 50%;
 }
 
 .logo {

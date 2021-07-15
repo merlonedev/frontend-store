@@ -5,6 +5,7 @@ import ShoppingCart from './components/ShoppingCart';
 import CategoriesBar from './components/CategoriesBar';
 import ProductsList from './components/ProductsList';
 import ProductDetails from './components/ProductDetails';
+import CompletePurchase from './components/CompletePurchase';
 import Checkout from './components/Checkout';
 import Header from './components/Header';
 import * as API from './services/api';
@@ -34,6 +35,7 @@ export default class App extends Component {
     this.sortProducts = this.sortProducts.bind(this);
     this.callbackSort = this.callbackSort.bind(this);
     this.handleLocalStorage = this.handleLocalStorage.bind(this);
+    this.emptyCart = this.emptyCart.bind(this);
   }
 
   componentDidMount() {
@@ -63,6 +65,13 @@ export default class App extends Component {
     if (sorting !== '') {
       this.sortProducts();
     }
+  }
+
+  emptyCart() {
+    this.setState({
+      cartItems: [],
+      quantity: 0,
+    });
   }
 
   loadCart() {
@@ -199,10 +208,18 @@ export default class App extends Component {
                       remove: this.removeItem,
                       increase: this.increaseQty,
                       decrease: this.decreaseQty,
+                      emptyCart: this.emptyCart,
                     } }
                     cartItems={ cartItems }
                     showButtons="false"
                   />) }
+              />
+              <Route
+                exact
+                path="/complete"
+                render={ () => (
+                  <CompletePurchase />
+                ) }
               />
               <Route
                 exact
