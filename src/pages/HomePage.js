@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import SearchInput from '../components/SearchInput';
 import ProductList from '../components/ProductList';
 import Category from '../components/Category';
@@ -79,6 +80,9 @@ class HomePage extends React.Component {
           <Category categories={ categories } handleLiClick={ this.handleLiClick } />
         </aside>
         <ProductList products={ products } />
+        <Link to="/cart" data-testid="shopping-cart-button">
+          <i className="fas fa-shopping-cart" />
+        </Link>
         {
           products.length === 0 && <p>Nenhum produto foi encontrado</p>
         }

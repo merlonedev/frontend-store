@@ -5,9 +5,11 @@ import { Link } from 'react-router-dom';
 class ProductDetails extends Component {
   constructor() {
     super();
+
     this.state = {
       product: {},
     };
+
     this.fetchProducts = this.fetchProducts.bind(this);
   }
 
@@ -34,9 +36,12 @@ class ProductDetails extends Component {
       warranty,
       attributes,
     } } = this.state;
+
     return (
       <div>
-        <Link to="/">Voltar</Link>
+        <Link to="/">
+          <i className="fas fa-undo-alt" />
+        </Link>
         <h1 data-testid="product-detail-name">{title }</h1>
         <img
           style={ { width: '200px' } }

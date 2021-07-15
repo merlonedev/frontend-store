@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import Button from './Button';
 
 class ProductCard extends Component {
   constructor() {
@@ -26,6 +27,7 @@ class ProductCard extends Component {
       price,
       id,
     } } = this.props;
+
     return (
       <div
         data-testid="product"
@@ -40,13 +42,11 @@ class ProductCard extends Component {
         >
           Ver Detalhes
         </Link>
-        <button
-          type="button"
-          data-testid="product-add-to-cart"
+        <Button
+          testId="product-add-to-cart"
           onClick={ this.handleClick }
-        >
-          Adicionar ao Carrinho
-        </button>
+          value="Adicionar ao Carrinho"
+        />
       </div>
     );
   }

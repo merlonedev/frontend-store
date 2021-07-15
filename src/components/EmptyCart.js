@@ -6,7 +6,6 @@ export default class EmptyCart extends Component {
     return (
       <div>
         <span data-testid="shopping-cart-empty-message">Seu carrinho está vazio</span>
-        <Link to="/">Back</Link>
       </div>
     );
   }
