@@ -5,11 +5,11 @@ import { Link } from 'react-router-dom';
 class ShoppingCart extends React.Component {
   render() {
     const { cartAdd, removeItem, quantitySub, quantitySum } = this.props;
-    const totalPrice = cartAdd.reduce((acc, item) => {
+    const totalPrice = (cartAdd.reduce((acc, item) => {
       const { estado: { [item.id]: quant } } = this.props;
       const quantidade = quant || 1;
       return (quantidade * item.price + acc);
-    }, 0);
+    }, 0));
     const carrinhoVazio = (
       <div data-testid="shopping-cart-empty-message">
         <p>Seu carrinho está vazio</p>
@@ -66,7 +66,8 @@ class ShoppingCart extends React.Component {
           {totalPrice}
         </p>
         <Link
-          to="/finalizarcompra"
+          to={ { pathname: '/finalizarcompra', state: totalPrice } }
+          data-testid="checkout-products"
         >
           Finalizar Compra
         </Link>

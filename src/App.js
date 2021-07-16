@@ -90,7 +90,10 @@ class App extends Component {
           <Route
             exact
             path="/finalizarcompra"
-            component={ FinishPage }
+            render={ (props) => (<FinishPage
+              { ...props }
+              cartItens={ cartItens }
+            />) }
           />
         </Switch>
       </BrowserRouter>
