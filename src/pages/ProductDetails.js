@@ -7,6 +7,9 @@ class ProductDetails extends Component {
     super(props);
 
     this.addToCart = this.addToCart.bind(this);
+    this.cartHandleCounter = this.cartHandleCounter.bind(this);
+    this.loadCart = this.loadCart.bind(this);
+    this.saveCart = this.saveCart.bind(this);
 
     this.state = {
       totalCartItems: 0,
@@ -19,21 +22,40 @@ class ProductDetails extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { selectedCategory, searchSend, cartItems, totalCartItems } = this.state;
-    if ((prevState.selectedCategory !== selectedCategory)
-      || (prevState.searchSend !== searchSend)) {
-      this.getProducts(selectedCategory, searchSend);
-    }
+    const { cartItems, totalCartItems } = this.state;
     if ((prevState.cartItems !== cartItems)
-      || (prevState.totalCartItems !== totalCartItems)) {
+    || (prevState.totalCartItems !== totalCartItems)) {
       this.saveCart();
     }
   }
+  
+  cartHandleCounter() {
+    this.setState((prevState) => ({
+      totalCartItems: prevState.totalCartItems + 1,
+    }));
+  }
+
+  addToCart() {
+    const { location: { state: { product } } } = this.props;
+    const { cartItems } = this.state;
+    if (cartItems.some((item) => item.id === product.id)) {
+      cartItems.find((item) => item.id === product.id).quantity += 1;
+      this.setState({ cartItems });
+    } else {
+      this.setState((prevState) => ({
+        cartItems: [...prevState.cartItems, {
+          quantity: 1,
+          id: product.id,
+          product: [product],
+        }],
+      }));
+    }
+    this.cartHandleCounter();
+  }
 
   loadCart() {
-    let getCartItems = JSON.parse(sessionStorage.getItem('cartItems'));
-    if (getCartItems === null) getCartItems = [];
-    if (getCartItems.length > 0) {
+    const getCartItems = JSON.parse(sessionStorage.getItem('cartItems'));
+    if (getCartItems) {
       this.setState({ cartItems: getCartItems });
       const quantity = getCartItems.map((cartItem) => cartItem.quantity)
         .reduce((currentValue, nextValue) => currentValue + nextValue);
@@ -46,31 +68,8 @@ class ProductDetails extends Component {
 
   saveCart() {
     const { cartItems } = this.state;
-    if (cartItems) {
-      sessionStorage.clear();
-      sessionStorage.setItem('cartItems', JSON.stringify(cartItems));
-    }
-  }
-
-  addToCart(product) {
-    const { cartItems } = this.state;
-    const getCartItems = JSON.parse(sessionStorage.getItem('cartItems'));
-    const index = cartItems.findIndex((item) => item.id === product.id);
-    if (index >= 0) {
-      if (cartItems[index].quantity === product.available_quantity) return;
-      cartItems[index].quantity += 1;
-      getCartItems[index].quantity += 1;
-      this.setState({ cartItems });
-      this.saveCart();
-    } else {
-      this.setState((prevState) => ({
-        cartItems: [...prevState.cartItems, {
-          quantity: 1,
-          id: product.id,
-          product: [product],
-        }],
-      }));
-    }
+    sessionStorage.clear();
+    sessionStorage.setItem('cartItems', JSON.stringify(cartItems));
   }
 
   render() {
@@ -94,11 +93,12 @@ class ProductDetails extends Component {
           </div>
           <TechSpecs attributes={ attributes } />
           <button
-            data-testid="product-detail-add-to-cart"
             type="button"
-            onClick={ () => this.addToCart(product) }
+            className="material-icons add-cart"
+            data-testid="product-detail-add-to-cart"
+            onClick={ () => this.addToCart() }
           >
-            Adicionar ao Carrinho
+            add_shopping_cart
           </button>
         </div>
       </div>
@@ -110,6 +110,7 @@ ProductDetails.propTypes = {
   location: PropTypes.shape({
     state: PropTypes.shape({
       product: PropTypes.shape({
+        id: PropTypes.string,
         title: PropTypes.string,
         price: PropTypes.number,
         thumbnail: PropTypes.string,
