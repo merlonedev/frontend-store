@@ -96,8 +96,12 @@ class Home extends Component {
 
   addToCart(product) {
     const { cartItems } = this.state;
-    if (cartItems.some((item) => item.id === product.id)) {
-      cartItems.find((item) => item.id === product.id).quantity += 1;
+    const getCartItems = JSON.parse(sessionStorage.getItem('cartItems'));
+    const index = cartItems.findIndex((item) => item.id === product.id);
+    if (index >= 0) {
+      if (cartItems[index].quantity === product.available_quantity) return;
+      cartItems[index].quantity += 1;
+      getCartItems[index].quantity += 1;
       this.setState({ cartItems });
     } else {
       this.setState((prevState) => ({
@@ -108,14 +112,16 @@ class Home extends Component {
         }],
       }));
     }
+
     this.cartHandleCounter();
   }
 
   loadCart() {
-    const getCartItems = JSON.parse(sessionStorage.getItem('cartItems'));
+    let getCartItems = JSON.parse(sessionStorage.getItem('cartItems'));
+    if (getCartItems === null) getCartItems = [];
     // Acesso Direto, só funcionará se a chave 'cartItems' existir no localStorage/sessionStorage
     // const getCartItems = JSON.parse(localStorage.cartItems);
-    if (getCartItems) {
+    if (getCartItems.length > 0) {
       this.setState({ cartItems: getCartItems });
       const quantity = getCartItems.map((cartItem) => cartItem.quantity)
         .reduce((currentValue, nextValue) => currentValue + nextValue);
