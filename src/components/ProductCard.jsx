@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 class ProductCard extends React.Component {
   render() {
-    const { product } = this.props;
+    const { product, setShoppingCart } = this.props;
     const { title, thumbnail, price, id, category_id: categoryId } = product;
     return (
       <div
@@ -12,10 +12,19 @@ class ProductCard extends React.Component {
         className="product-card"
       >
         <Link data-testid="product-detail-link" to={ `/details/${categoryId}-${id}` }>
-          <h1>{ title }</h1>
+          <h6>{ title }</h6>
           <img src={ thumbnail } alt={ title } />
           <p>{`R$ ${price}`}</p>
         </Link>
+        <button
+          type="button"
+          value={ id }
+          id={ categoryId }
+          onClick={ () => setShoppingCart(product) }
+          data-testid="product-add-to-cart"
+        >
+          Adicionar
+        </button>
       </div>
     );
   }
@@ -27,6 +36,7 @@ ProductCard.propTypes = {
     thumbnail: PropTypes.string.isRequired,
     price: PropTypes.string.isRequired,
   }).isRequired,
+  setShoppingCart: PropTypes.func.isRequired,
 };
 
 export default ProductCard;

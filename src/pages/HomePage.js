@@ -11,12 +11,15 @@ class HomePage extends React.Component {
 
     this.state = {
       search: '',
+      products: [],
+      shoppingCart: [],
       results: '',
       category: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.queryProducts = this.queryProducts.bind(this);
+    this.setShoppingCart = this.setShoppingCart.bind(this);
     this.handleClick = this.handleClick.bind(this);
   }
 
@@ -25,6 +28,12 @@ class HomePage extends React.Component {
     this.setState({
       [name]: value,
     });
+  }
+
+  async setShoppingCart(product) {
+    this.setState((state) => ({
+      shoppingCart: [...state.shoppingCart, product],
+    }));
   }
 
   handleClick({ target }) {
@@ -39,17 +48,17 @@ class HomePage extends React.Component {
     if (search.length > 0 || category.length > 0) {
       getProductsFromCategoryAndQuery(category, search)
         .then((response) => this.setState({
-          results: response.results,
+          products: response.results,
         }));
     } else {
       this.setState({
-        results: '',
+        products: [],
       });
     }
   }
 
   render() {
-    const { search, results } = this.state;
+    const { search, products, shoppingCart } = this.state;
     return (
       <div>
         <input
@@ -66,8 +75,11 @@ class HomePage extends React.Component {
         >
           Pesquisar
         </button>
-        <CartButton />
-        { results.length > 0 ? <ProductList products={ results } /> : <InicialMessage /> }
+        <CartButton shoppingCart={ shoppingCart } />
+        { products.length > 0
+          ? <ProductList products={ products } setShoppingCart={ this.setShoppingCart } />
+          : <InicialMessage /> }
+        
         <CategoryList clickFunction={ this.handleClick } />
       </div>
     );
