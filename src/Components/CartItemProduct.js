@@ -2,17 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 export default class CartItemProduct extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      clicks: 1,
-    };
-  }
-
   render() {
-    const { clicks } = this.state;
-    const { product, handlePlusButton, handleMinusButton } = this.props;
+    const { product, handlePlusButton, handleMinusButton, clicks } = this.props;
     const { title, thumbnail, price } = product;
     return (
       <li key={ title }>
@@ -53,4 +44,5 @@ CartItemProduct.propTypes = {
   }).isRequired,
   handlePlusButton: PropTypes.func.isRequired,
   handleMinusButton: PropTypes.func.isRequired,
+  clicks: PropTypes.number.isRequired,
 };

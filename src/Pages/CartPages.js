@@ -67,6 +67,7 @@ class CartPages extends Component {
                 product={ product }
                 handlePlusButton={ this.plusClickState }
                 handleMinusButton={ this.minusClickState }
+                clicks={ clicks }
               />
             </div>
           )) }
