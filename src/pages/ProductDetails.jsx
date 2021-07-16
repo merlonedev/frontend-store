@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import * as api from '../services/api';
+import CartIcon from '../Icons/CartIcon';
 
 class ProductDetails extends Component {
   constructor() {
@@ -23,12 +24,26 @@ class ProductDetails extends Component {
   }
 
   render() {
-    const { productDetail: { title, price, thumbnail } } = this.state;
+    const { productDetail: { title, price, thumbnail, id } } = this.state;
+    let todosElementos = [];
+    const InfoONclick = { title, price, id };
     return (
       <div>
+        <CartIcon />
         <h1 data-testid="product-detail-name">{title}</h1>
         <h1>{price}</h1>
         <img src={ thumbnail } alt={ title } />
+        <button
+          type="button"
+          data-testid="product-detail-add-to-cart"
+          onClick={ () => {
+            todosElementos = [...todosElementos, InfoONclick];
+            return sessionStorage
+              .setItem('shopItens', JSON.stringify(todosElementos));
+          } }
+        >
+          Add to Cart
+        </button>
       </div>
     );
   }
