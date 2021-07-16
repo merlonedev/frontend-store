@@ -9,7 +9,10 @@ class DetailsPage extends React.Component {
     super();
     this.state = {
       rightProduct: {},
+      shoppingCart: [],
     };
+
+    this.setShoppingCart = this.setShoppingCart.bind(this);
   }
 
   componentDidMount() {
@@ -25,13 +28,26 @@ class DetailsPage extends React.Component {
       }));
   }
 
+  setShoppingCart(product) {
+    this.setState((state) => ({
+      shoppingCart: [...state.shoppingCart, product],
+    }));
+  }
+
   render() {
-    const { rightProduct } = this.state;
+    const { rightProduct, shoppingCart } = this.state;
     return (
       <div>
+        <CartButton shoppingCart={ shoppingCart } />
         {(Object.entries(rightProduct).length > 0)
           ? <ShowDetails product={ rightProduct } /> : null}
-        <CartButton />
+        <button
+          type="button"
+          onClick={ () => this.setShoppingCart(rightProduct) }
+          data-testid="product-detail-add-to-cart"
+        >
+          Adicionar ao Carrinho
+        </button>
       </div>
     );
   }

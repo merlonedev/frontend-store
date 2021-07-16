@@ -13,7 +13,6 @@ class HomePage extends React.Component {
       search: '',
       products: [],
       shoppingCart: [],
-      results: '',
       category: '',
     };
 
@@ -30,17 +29,17 @@ class HomePage extends React.Component {
     });
   }
 
-  async setShoppingCart(product) {
-    this.setState((state) => ({
-      shoppingCart: [...state.shoppingCart, product],
-    }));
-  }
-
   handleClick({ target }) {
     const { value } = target;
     this.setState({
       category: value,
     }, () => this.queryProducts());
+  }
+
+  setShoppingCart(product) {
+    this.setState((state) => ({
+      shoppingCart: [...state.shoppingCart, product],
+    }));
   }
 
   queryProducts() {
@@ -79,7 +78,6 @@ class HomePage extends React.Component {
         { products.length > 0
           ? <ProductList products={ products } setShoppingCart={ this.setShoppingCart } />
           : <InicialMessage /> }
-        
         <CategoryList clickFunction={ this.handleClick } />
       </div>
     );
