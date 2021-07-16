@@ -30,10 +30,7 @@ class HomePage extends React.Component {
     });
   }
 
-  async setShoppingCart({ target: { id: idCategoria, value: idProduct } }) {
-    const { results } = await getProductsFromCategoryAndQuery(idCategoria, '');
-    const product = results.find((e) => e.id === idProduct);
-
+  async setShoppingCart(product) {
     this.setState((state) => ({
       shoppingCart: [...state.shoppingCart, product],
     }));

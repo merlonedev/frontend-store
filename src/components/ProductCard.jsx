@@ -20,7 +20,7 @@ class ProductCard extends React.Component {
           type="button"
           value={ id }
           id={ categoryId }
-          onClick={ setShoppingCart }
+          onClick={ () => setShoppingCart(product) }
           data-testid="product-add-to-cart"
         >
           Adicionar

@@ -5,7 +5,6 @@ class CartProductItem extends React.Component {
   constructor({ product }) {
     super();
 
-    console.log('teste');
     this.state = {
       count: 1,
       quantity: product.available_quantity,
