@@ -33,6 +33,15 @@ class Details extends Component {
   render() {
     const { props: { location: { state } } } = this;
     const { title, price, thumbnail } = state;
+    let totalItems = 0;
+    if (localStorage.getItem('carrinho')) {
+      const currentCart = JSON.parse(localStorage.getItem('carrinho'));
+      totalItems = currentCart.reduce((acc, cur) => {
+        acc += cur.quantity;
+        return acc;
+      }, 0);
+    }
+
     return (
       <section>
         <div>
@@ -42,6 +51,7 @@ class Details extends Component {
           >
             Carrinho
           </Link>
+          <span data-testid="shopping-cart-size">{ totalItems }</span>
           <img alt="imagem do produto" src={ thumbnail } />
           <h3 data-testid="product-detail-name">{ title }</h3>
           <p>{`R$ ${price}`}</p>

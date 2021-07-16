@@ -9,8 +9,7 @@ class ShoppingCard extends Component {
 
     if (localStorage.getItem('carrinho')) {
       const cart = JSON.parse(localStorage.getItem('carrinho'));
-      const currentCart = JSON.parse(localStorage.getItem('carrinho'));
-      const totalItems = currentCart.reduce((acc, cur) => {
+      const totalItems = cart.reduce((acc, cur) => {
         acc += cur.quantity;
         return acc;
       }, 0);
