@@ -60,13 +60,16 @@ html, * {
   backdrop-filter: blur(10px);
   background-color: var(--transparent-highland);
   height: 100vh;
-  margin: auto;
   padding: 5px;
   position: fixed;
   top: 0;
   transition: all 0.5s;
   width: 400px;
   z-index: 2;
+}
+
+.empty-cart-icon {
+  font-size: 100pt;
 }
 
 .visible-slider-false {

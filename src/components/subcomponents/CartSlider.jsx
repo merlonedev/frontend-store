@@ -53,43 +53,60 @@ export default class CartSlider extends Component {
           <i className={ `fas ${btnclass}` } />
         </button>
         <h3>Carrinho</h3>
-        <div className="slider-items">
-          {cartItems.map((item) => (
-            <div key={ item.id } className="row slider-item">
-              <h4 className="slider-item-title">{item.title}</h4>
-              <div id={ item.id } className="cart-btns-container">
-                <button
-                  type="button"
-                  onClick={ this.increaseQty }
-                  className="button add-button"
-                >
-                  <i className="fas fa-plus" data-testid="product-increase-quantity" />
-                </button>
-                <p
-                  data-testid="shopping-cart-product-quantity"
-                  className="product-qty"
-                >
-                  {item.qty}
-                </p>
-                <button
-                  type="button"
-                  onClick={ this.decreaseQty }
-                  className="button add-button"
-                >
-                  <i className="fas fa-minus" data-testid="product-decrease-quantity" />
-                </button>
-                <button
-                  type="button"
-                  onClick={ this.removeItem }
-                  className="button remove-btn"
-                >
-                  <i className="fas fa-times" />
-                </button>
-              </div>
+        {!cartItems.length
+          ? (
+            <div>
+              <h4>Seu carrinho está vazio</h4>
+              <p>Que tal adicionar alguns itens do catálogo? :)</p>
+              <i className="fas fa-box-open empty-cart-icon" />
             </div>
-          ))}
-        </div>
-        <CheckoutButton />
+          )
+
+          : (
+            <div className="slider-items">
+              {cartItems.map((item) => (
+                <div key={ item.id } className="row slider-item">
+                  <h4 className="slider-item-title">{item.title}</h4>
+                  <div id={ item.id } className="cart-btns-container">
+                    <button
+                      type="button"
+                      onClick={ this.increaseQty }
+                      className="button add-button"
+                    >
+                      <i
+                        className="fas fa-plus"
+                        data-testid="product-increase-quantity"
+                      />
+                    </button>
+                    <p
+                      data-testid="shopping-cart-product-quantity"
+                      className="product-qty"
+                    >
+                      {item.qty}
+                    </p>
+                    <button
+                      type="button"
+                      onClick={ this.decreaseQty }
+                      className="button add-button"
+                    >
+                      <i
+                        className="fas fa-minus"
+                        data-testid="product-decrease-quantity"
+                      />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={ this.removeItem }
+                      className="button remove-btn"
+                    >
+                      <i className="fas fa-times" />
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        {cartItems.length ? <CheckoutButton /> : null}
       </div>
     );
   }
