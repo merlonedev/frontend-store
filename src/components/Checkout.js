@@ -84,8 +84,36 @@ class Checkout extends React.Component {
 
   render() {
     const { boleto } = this.state;
+    const products = JSON.parse(localStorage.getItem('item'));
+    let total = 0;
     return (
       <main>
+        <section>
+          <div>
+            <h3>Revise seus Produtos</h3>
+            {
+              products.map((item) => (
+                <div key={ item.id }>
+                  <span>
+                    { item.title }
+                  </span>
+                  <span data-testid="shopping-cart-product-quantity">
+                    { item.quantity }
+                  </span>
+                  <span>{ item.price }</span>
+                </div>
+              ))
+            }
+            { products.forEach((item) => {
+              total += item.price * item.quantity;
+              return total;
+            }) }
+            <h3>
+              Total:
+              <span>{ total.toFixed(2) }</span>
+            </h3>
+          </div>
+        </section>
         <section>
           <div>
             <h3>Informações do Comprador</h3>
