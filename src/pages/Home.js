@@ -6,6 +6,7 @@ import CartButton from '../Components/CartButton';
 import Category from '../Components/Category';
 import SearchInput from '../Components/SearchInput';
 import '../styles/home.css';
+import HomeProducts from '../Components/HomeProducts';
 
 class Home extends React.Component {
   constructor() {
@@ -14,19 +15,28 @@ class Home extends React.Component {
       search: '',
       productList: [],
       categories: [],
+      homeProducts: [],
     };
     this.inputList = this.inputList.bind(this);
     this.categorieAndQuery = this.categorieAndQuery.bind(this);
     this.getCategory = this.getCategory.bind(this);
+    this.getHomeProducts = this.getHomeProducts.bind(this);
   }
 
   componentDidMount() {
+    this.getHomeProducts();
     this.getCategory();
   }
 
   async getCategory() {
     const category = await api.getCategories();
     this.setState({ categories: category });
+  }
+
+  async getHomeProducts(id = 'MLB1648') {
+    const { search } = this.state;
+    const { results } = await api.getProductsFromCategoryAndQuery(id, search);
+    this.setState({ homeProducts: results });
   }
 
   inputList({ target }) {
@@ -46,7 +56,8 @@ class Home extends React.Component {
 
   render() {
     const { addToCart, quantity } = this.props;
-    const { productList, categories } = this.state;
+    const { productList, categories, homeProducts } = this.state;
+    console.log(homeProducts);
     return (
       <section>
         <header>
@@ -66,8 +77,12 @@ class Home extends React.Component {
             productList={ productList }
             addToCart={ addToCart }
             quantity={ quantity }
+            homeProducts={ homeProducts }
           />
         </div>
+        <HomeProducts
+          homeProducts={ homeProducts }
+        />
         <Category
           category={ categories }
           categoryAndQuery={ this.categorieAndQuery }

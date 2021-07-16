@@ -47,18 +47,22 @@ class Cardproduct extends Component {
 }
 
 Cardproduct.propTypes = {
-  product: PropTypes.oneOfType(
+  product: PropTypes.arrayOf(
     PropTypes.object,
-  ).isRequired,
+  ),
   title: PropTypes.string.isRequired,
   img: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
   id: PropTypes.string.isRequired,
   categoryId: PropTypes.string.isRequired,
   addToCart: PropTypes.func.isRequired,
-  shipping: PropTypes.objectOf({
-    free_shipping: PropTypes.bool.isRequired,
+  shipping: PropTypes.shape({
+    free_shipping: PropTypes.bool,
   }).isRequired,
+};
+
+Cardproduct.defaultProps = {
+  product: [{}],
 };
 
 export default Cardproduct;

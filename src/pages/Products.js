@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import NotFound from './NotFound';
-import Cardproduct from '../Components/ProductCard';
+import Cardproduct from '../Components/CardProduct';
 
 class Products extends Component {
   render() {
-    const { productList, addToCart } = this.props;
-    if (productList.length === 0) {
-      return <NotFound />;
-    }
+    const { productList, addToCart, homeProducts } = this.props;
+    const time = 1000;
+    setTimeout(() => {
+      if (productList.length || homeProducts.length === 0) {
+        return <NotFound />;
+      }
+    }, time);
 
     return (
       <div>
@@ -32,9 +35,12 @@ class Products extends Component {
 
 Products.propTypes = {
   productList: PropTypes.arrayOf(
-    PropTypes.object,
+    PropTypes.array,
   ).isRequired,
   addToCart: PropTypes.func.isRequired,
+  homeProducts: PropTypes.arrayOf(
+    PropTypes.object,
+  ).isRequired,
 };
 
 export default Products;
