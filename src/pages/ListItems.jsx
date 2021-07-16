@@ -105,7 +105,7 @@ class ListItems extends React.Component {
     const { addToCartItems, amountCart } = this.props;
 
     return (
-      <div>
+      <div className="home">
         <nav className="navbar">
           <span className="nav-title">Mufasa Commerce</span>
           <form className="nav-form">
@@ -129,20 +129,20 @@ class ListItems extends React.Component {
                 Pesquisar
               </button>
             </label>
+            <div data-testid="home-initial-message" className="info">
+              Digite algum termo de pesquisa ou escolha uma categoria.
+            </div>
           </form>
-          <Link to="/cart" data-testid="shopping-cart-button">
-            <CartIcon amount={ amountCart } />
+          <Link to="/cart" className="link-cart-home" data-testid="shopping-cart-button">
+            <CartIcon className="cart-main" amount={ amountCart } />
           </Link>
         </nav>
-        <div data-testid="home-initial-message" className="info">
-          Digite algum termo de pesquisa ou escolha uma categoria.
-        </div>
         <section className="main">
           <CategoriesFilter
             categories={ categories }
             onChange={ this.handleChangeCategory }
           />
-          <div className="movie-list">
+          <div className="product-list">
             {
               checkList
                 ? products

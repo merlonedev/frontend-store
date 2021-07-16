@@ -29,13 +29,15 @@ class ProductCard extends React.Component {
     const { addToCartItems, product } = this.props;
     return (
       <div data-testid="product" className="product-card">
-        { freeShipping
-          ? (
-            <div>
-              <FaTruckMoving data-testid="free-shipping" id="shipping-free" />
-              <span>Frete Grátis</span>
-            </div>)
-          : '' }
+        <div className="shipping-free">
+          { freeShipping
+            ? (
+              <div className="logo-shipping">
+                <FaTruckMoving data-testid="free-shipping" id="shipping-free" />
+                <span>{' Frete Grátis'}</span>
+              </div>)
+            : '' }
+        </div>
         {/* Icone retirado de https://react-icons.github.io/react-icons/ */}
         <div className="product-each">
           <div className="product-spec">
