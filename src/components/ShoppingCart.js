@@ -31,7 +31,7 @@ class ShoppingCart extends React.Component {
     });
   }
 
-  // Função para incrementar a quantidade
+  // Função para incrementar a quantidade.
   increaseQtt(id) {
     const allProducts = JSON.parse(localStorage.getItem('item'));
     const { tracker } = this.state;
