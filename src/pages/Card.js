@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ShoppingCartLink from '../Components/ShoppingCartLink';
 import { getProductsFromCategoryAndQuery } from '../services/api';
+import BackHome from '../Components/BackHome';
 
 class Card extends React.Component {
   constructor(props) {
@@ -74,6 +75,7 @@ class Card extends React.Component {
               </button>
             </div>)}
         <ShoppingCartLink />
+        <BackHome />
       </div>
     );
   }

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import ShoppingCartIcon from './ShoppingCartIcon';
 
 class ShoppingCartLink extends React.Component {
   render() {
@@ -10,7 +9,7 @@ class ShoppingCartLink extends React.Component {
           to="/shopping-cart"
           data-testid="shopping-cart-button"
         >
-          <ShoppingCartIcon />
+          <img src="https://image.flaticon.com/icons/png/512/263/263142.png" alt="ícone de carrinho de compras" className="icon-size" />
 
         </Link>
       </div>

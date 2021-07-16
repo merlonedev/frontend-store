@@ -1,6 +1,9 @@
 import React from 'react';
+// import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import ShoppingCartIcon from '../Components/ShoppingCartIcon';
+import ShoppingCartLink from '../Components/ShoppingCartLink';
+import CheckoutLink from '../Components/CheckoutLink';
+import BackHome from '../Components/BackHome';
 
 class ShoppingCart extends React.Component {
   render() {
@@ -9,7 +12,8 @@ class ShoppingCart extends React.Component {
     return (
       <div>
         <header className="row">
-          <ShoppingCartIcon />
+          <BackHome />
+          <ShoppingCartLink />
           <h2>Carrinho de compras</h2>
         </header>
         <main>
@@ -71,7 +75,7 @@ class ShoppingCart extends React.Component {
             }
 
             {
-              products.length !== 0 && <button type="button">Finalizar Compra</button>
+              products.length !== 0 && <CheckoutLink />
             }
           </div>
         </main>

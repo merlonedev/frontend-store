@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import Card from './pages/Card';
 // import Categories from './Components/Categories';
 import ShoppingCart from './pages/ShoppingCart';
+import Checkout from './pages/Checkout';
 
 class App extends React.Component {
   constructor() {
@@ -98,6 +99,19 @@ class App extends React.Component {
                   { ...props }
                   addProductsInCart={ this.addAllProductsToCart }
                 />) }
+            />
+            <Route
+              exact
+              path="/checkout"
+              render={ (props) => (
+                <Checkout
+                  { ...props }
+                  products={ productsToAddInCart }
+                  increaseQuantity={ this.addAllProductsToCart }
+                  decreaseQuantity={ this.decreaseItem }
+                  removeThisItem={ this.removeItem }
+                />
+              ) }
             />
           </Switch>
         </BrowserRouter>
