@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { DetailsHeader, TechSpecs } from '../components';
+import Review from '../components/Review';
 
 class ProductDetails extends Component {
   constructor(props) {
@@ -101,6 +102,7 @@ class ProductDetails extends Component {
             add_shopping_cart
           </button>
         </div>
+        <Review />
       </div>
     );
   }
