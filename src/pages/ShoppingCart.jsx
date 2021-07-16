@@ -35,12 +35,11 @@ class ShoppingCart extends Component {
     );
 
     return (
-
       <div>
         <div>
           <Link to="/">Voltar para a Home</Link>
         </div>
-        {products.length === 0
+        {products === null
           ? mensage : (
             products.map((product) => (
               <li key={ product.id }>
