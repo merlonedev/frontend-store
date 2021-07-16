@@ -10,14 +10,14 @@ class App extends React.Component {
     super(props); // usado como referencia lógica do código do Grupo 10 (source: https://github.com/tryber/sd-12-project-frontend-online-store/blob/main-group-10/src/App.js)
     this.state = {
       cartItems: [],
-      checkoutItems: [],
+      total: 0,
     };
     this.addToCartItems = this.addToCartItems.bind(this);
     this.removeItem = this.removeItem.bind(this);
-    this.checkoutInfos = this.checkoutInfos.bind(this);
     this.loadCartItemStorage = this.loadCartItemStorage.bind(this);
     this.saveCartItemStorage = this.saveCartItemStorage.bind(this);
     this.updateItem = this.updateItem.bind(this);
+    this.getTotal = this.getTotal.bind(this);
   }
 
   componentDidMount() {
@@ -29,9 +29,15 @@ class App extends React.Component {
     this.saveCartItemStorage(cartItems);
   }
 
+  getTotal(total) {
+    this.setState({
+      total,
+    });
+  }
+
   loadCartItemStorage() {
     const storage = JSON.parse(localStorage.getItem('cartItems'));
-    if (Array.isArray(storage) && storage.length) {
+    if (Array.isArray(storage)) {
       this.setState({
         cartItems: [...storage],
       });
@@ -40,12 +46,6 @@ class App extends React.Component {
 
   saveCartItemStorage(state) {
     localStorage.setItem('cartItems', JSON.stringify(state));
-  }
-
-  checkoutInfos(cartInfo) {
-    this.setState({
-      checkoutItems: [...cartInfo],
-    });
   }
 
   addToCartItems(newItem) {
@@ -88,8 +88,9 @@ class App extends React.Component {
   }
 
   render() {
-    const { cartItems, checkoutItems } = this.state;
-    const totalItems = cartItems.reduce((acc, curr) => (curr.count + acc), 0);
+    const { cartItems, total } = this.state;
+    const totalItems = cartItems
+      .reduce((acc, curr) => (curr.count + acc), 0);
     return (
       <Router>
         <Switch>
@@ -112,8 +113,8 @@ class App extends React.Component {
                 { ...props }
                 setItemCart={ cartItems }
                 removeItem={ this.removeItem }
-                checkoutInfos={ this.checkoutInfos }
                 updateItem={ this.updateItem }
+                sendTotal={ this.getTotal }
               />)
             }
           />
@@ -127,7 +128,13 @@ class App extends React.Component {
           />
           <Route
             path="/checkout"
-            render={ (props) => (<Checkout { ...props } cartItems={ checkoutItems } />) }
+            render={
+              (props) => (<Checkout
+                { ...props }
+                cartItems={ { cartItems, total } }
+                qtd={ totalItems }
+              />)
+            }
           />
         </Switch>
       </Router>

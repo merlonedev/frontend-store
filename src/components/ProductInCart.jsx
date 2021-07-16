@@ -18,8 +18,6 @@ class ProductInCart extends React.Component {
 
     this.plusItemCount = this.plusItemCount.bind(this);
     this.minusItemCount = this.minusItemCount.bind(this);
-    this.getInfoItem = this.getInfoItem.bind(this);
-
     this.mounted = false;
   }
 

@@ -17,7 +17,6 @@ class CartItems extends React.Component {
     this.loadStates = this.loadStates.bind(this);
     this.itemCartRemove = this.itemCartRemove.bind(this);
     this.totalCartCalculator = this.totalCartCalculator.bind(this);
-    this.getCheckoutInfos = this.getCheckoutInfos.bind(this);
     this.sumOfItens = this.sumOfItens.bind(this);
     this.subOfItens = this.subOfItens.bind(this);
     this.cartInfos = [];
@@ -28,16 +27,13 @@ class CartItems extends React.Component {
   }
 
   componentDidUpdate() {
-    const { cartItems } = this.state;
-    this.saveCartItemStorage(cartItems);
+    const { cartItems, total } = this.state;
+    this.saveCartItemStorage(cartItems, total);
   }
 
-  getCheckoutInfos(infoItem) {
-    this.cartInfos = [...this.cartInfos, infoItem];
-  }
-
-  saveCartItemStorage(state) {
-    localStorage.setItem('cartItems', JSON.stringify(state));
+  saveCartItemStorage(cartItems, total) {
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    if (total) localStorage.setItem('total', JSON.stringify(total));
   }
 
   loadStates() {
@@ -95,7 +91,6 @@ class CartItems extends React.Component {
       const { updateItem } = this.props;
       const { cartItems } = this.state;
       updateItem(cartItems);
-      console.log(cartItems);
     });
   }
 
@@ -118,8 +113,8 @@ class CartItems extends React.Component {
 
   render() {
     const { cartItems, total, totalItems } = this.state;
+    const { sendTotal } = this.props;
     const qtd = totalItems;
-    const { checkoutInfos } = this.props;
     return (
       <div className="cart">
         <div className="cart-header">
@@ -164,8 +159,8 @@ class CartItems extends React.Component {
           <Link
             to="/checkout"
             data-testid="checkout-products"
-            onClick={ () => checkoutInfos({ total }) }
             className="checkout-btn"
+            onClick={ () => sendTotal(total) }
           >
             Finalizar Compra
           </Link>
@@ -178,8 +173,8 @@ class CartItems extends React.Component {
 CartItems.propTypes = {
   setItemCart: PropTypes.arrayOf(PropTypes.object).isRequired,
   removeItem: PropTypes.func.isRequired,
-  checkoutInfos: PropTypes.func.isRequired,
   updateItem: PropTypes.func.isRequired,
+  sendTotal: PropTypes.func.isRequired,
 };
 
 export default CartItems;
