@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import NotFound from './NotFound';
 import Cardproduct from '../Components/CardProduct';
+import '../styles/productList.css';
 
 class Products extends Component {
   render() {
@@ -14,9 +15,9 @@ class Products extends Component {
     }, time);
 
     return (
-      <div>
+      <div className="product-list">
         { productList.map((product) => (
-          <div className="product-list" key={ product.id }>
+          <div className="product-list-content" key={ product.id }>
             <Cardproduct
               shipping={ product.shipping }
               title={ product.title }
@@ -35,7 +36,7 @@ class Products extends Component {
 
 Products.propTypes = {
   productList: PropTypes.arrayOf(
-    PropTypes.array,
+    PropTypes.object,
   ).isRequired,
   addToCart: PropTypes.func.isRequired,
   homeProducts: PropTypes.arrayOf(

@@ -72,14 +72,12 @@ class Home extends React.Component {
             />
           </div>
         </header>
-        <div className="product-list-home">
-          <Products
-            productList={ productList }
-            addToCart={ addToCart }
-            quantity={ quantity }
-            homeProducts={ homeProducts }
-          />
-        </div>
+        <Products
+          productList={ productList }
+          addToCart={ addToCart }
+          quantity={ quantity }
+          homeProducts={ homeProducts }
+        />
         <HomeProducts
           homeProducts={ homeProducts }
         />
