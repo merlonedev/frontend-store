@@ -57,19 +57,19 @@ class ShoppingCart extends React.Component {
               <img src={ item.thumbnail } alt={ item.title } />
               <button
                 type="button"
-                onClick={ () => this.quantitySum(item.id) }
-                name={ item.id }
-                data-testid="product-increase-quantity"
-              >
-                +
-              </button>
-              <button
-                type="button"
                 onClick={ () => this.quantitySub(item.id, quantidade) }
                 name={ item.id }
                 data-testid="product-decrease-quantity"
               >
                 -
+              </button>
+              <button
+                type="button"
+                onClick={ () => this.quantitySum(item.id) }
+                name={ item.id }
+                data-testid="product-increase-quantity"
+              >
+                +
               </button>
               <button
                 type="button"
