@@ -7,24 +7,28 @@ class ShoppingCart extends Component {
     this.state = {
       value: 1,
     };
+
+    this.empyCart = this.empyCart.bind(this);
+  }
+
+  empyCart() {
+    return (
+      <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
+    );
   }
 
   render() {
     const { location: { state: shoppingCart } } = this.props;
     const { value } = this.state;
+    if (shoppingCart.length === 0) return this.empyCart();
+
     return (
-      <>
-        {shoppingCart.map((
-          e,
-        ) => (
-          <section key={ e.id }>
-            <div data-testeid="shopping-cart-product-name">
-              {e.title}
-            </div>
-            <img src={ e.thumbnail } alt={ e.title } />
-            <div>
-              {e.price}
-            </div>
+      <main>
+        { shoppingCart.map((product) => (
+          <section key={ product.id }>
+            <h3>{ product.title }</h3>
+            <img src={ product.thumbnail } alt={ product.title } />
+            <h6>{ `Preço: R$ ${product.price} ` }</h6>
             <label htmlFor="quantidade" data-testid="shopping-cart-product-quantity">
               Quantidade
               <input
@@ -33,8 +37,8 @@ class ShoppingCart extends Component {
               />
             </label>
           </section>
-        ))}
-      </>
+        )) }
+      </main>
     );
   }
 }
