@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import CartEmptyMessage from '../components/CartEmptyMessage';
 import CartProductItem from '../components/CartProductItem';
 import cartIcon from '../icon/cart3.svg';
@@ -28,7 +29,6 @@ class CartPage extends React.Component {
   }
 
   render() {
-
     const { history } = this.props;
     const { shoppingCart } = history.location;
     const { totalPrice } = this.state;
@@ -39,14 +39,24 @@ class CartPage extends React.Component {
           <img src={ cartIcon } alt="cart icon" className="cart-icon" />
           <h1>Carrinho de Compras</h1>
         </header>
-        { shoppingCart && shoppingCart.length > 0 
-        ? shoppingCart.map((product) => <CartProductItem key={ product.id } plusPrice={ this.plusPrice } minusPrice={ this.minusPrice } product={ product } />)
-        : <CartEmptyMessage />}
+        { shoppingCart && shoppingCart.length > 0
+          ? shoppingCart.map((product) => (
+            <CartProductItem
+              key={ product.id }
+              plusPrice={ this.plusPrice }
+              minusPrice={ this.minusPrice }
+              product={ product }
+            />))
+          : <CartEmptyMessage />}
         <p>{`Preço Total: R$ ${totalPrice}`}</p>
 
       </div>
     );
   }
 }
+
+CartPage.propTypes = {
+  history: PropTypes.func.isRequired,
+};
 
 export default CartPage;
