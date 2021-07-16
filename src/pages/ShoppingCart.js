@@ -1,19 +1,52 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 class ShoppingCart extends Component {
+  constructor() {
+    super();
+    this.state = {
+      value: 1,
+    };
+  }
+
   render() {
+    const { location: { state: shoppingCart } } = this.props;
+    const { value } = this.state;
     return (
-      <section>
-        <div>
-          <p data-testid="shopping-cart-empty-message">
-            Seu carrinho está vazio
-          </p>
-          <Link to="/">Home</Link>
-        </div>
-      </section>
+      <>
+        {shoppingCart.map((
+          e,
+        ) => (
+          <section key={ e.id }>
+            <div data-testeid="shopping-cart-product-name">
+              {e.title}
+            </div>
+            <img src={ e.thumbnail } alt={ e.title } />
+            <div>
+              {e.price}
+            </div>
+            <label htmlFor="quantidade" data-testid="shopping-cart-product-quantity">
+              Quantidade
+              <input
+                type="number"
+                value={ value }
+              />
+            </label>
+          </section>
+        ))}
+      </>
     );
   }
 }
+
+ShoppingCart.propTypes = {
+  location: PropTypes.shape({
+    state: PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      thumbnail: PropTypes.string,
+      price: PropTypes.number,
+    }).isRequired,
+  }).isRequired,
+};
 
 export default ShoppingCart;
