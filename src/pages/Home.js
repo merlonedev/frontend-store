@@ -35,7 +35,7 @@ class Home extends React.Component {
 
   async getHomeProducts(id = 'MLB1648') {
     const { search } = this.state;
-    const { results } = await api.getProductsFromCategoryAndQuery(id, search);
+    const { results } = await api.getProductsHome(id, search);
     this.setState({ homeProducts: results });
   }
 

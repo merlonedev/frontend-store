@@ -1,10 +1,9 @@
 .card-product {
-  padding: 20px 80px;
+  margin: 20px 80px;
   transition: all 0.2s ease-in-out;
 }
 
 .card-product:hover {
-  cursor: pointer;
   transform: scale(1.05);
 }
 
@@ -14,6 +13,7 @@
   border-top-right-radius: 10px;
   padding: 20px;
   width: 200px;
+  min-height: 350px;
 }
 
 .card-product-img {
@@ -24,6 +24,12 @@
   font-size: 14px;
   font-weight: 500;
   text-align: center;
+  /* https://stackoverflow.com/questions/36652580/how-to-add-three-dots-to-text-when-overflow-in-html/36653821 */
+  overflow: hidden;
+  width: 200px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 }
 
 .card-product-price {
@@ -33,9 +39,16 @@
   text-align: center;
 }
 
+.card-product-shipping {
+  text-align: center;
+  font-weight: 500;
+  margin-top: 10px;
+}
+
 .card-product-details {
   display: flex;
   justify-content: center;
   padding-top: 20px;
-  text-decoration: none;
+  font-weight: 600;
+  color: #ff9000;
 }

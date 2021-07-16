@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { MdLocalShipping } from 'react-icons/md';
 import '../styles/productCard.css';
 
 class Cardproduct extends Component {
@@ -25,7 +26,20 @@ class Cardproduct extends Component {
             {' '}
             { price }
           </p>
-          { shipping.free_shipping && <p data-testid="free-shipping">Frete Grátis</p> }
+          { shipping.free_shipping
+            && (
+              <p
+                className="card-product-shipping"
+                data-testid="free-shipping"
+              >
+                <MdLocalShipping
+                  style={ { marginBottom: -2, marginRight: 5 } }
+                  size={ 14 }
+                  color="#ff9000"
+                />
+                Frete Grátis
+              </p>
+            )}
           <Link
             to={ `/product-details/${categoryId}/${id}` }
             data-testid="product-detail-link"

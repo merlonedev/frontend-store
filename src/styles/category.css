@@ -1,5 +1,7 @@
 .category-content {
   padding: 10px 20px;
+  position: absolute;
+  top: 100px;
 }
 
 .category-content h4 {

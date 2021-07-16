@@ -16,8 +16,8 @@ export async function getProductsFromCategoryAndQuery(categoryId, query) {
   return data;
 }
 
-export async function getProducts() {
-  const data = await fetch('https://api.mercadolibre.com/categories/MLB1051')
+export async function getProductsHome(categoryId, query) {
+  const data = await fetch(`${url}/search?category=${categoryId}&q=${query}&limit=8`)
     .then((response) => response.json())
     .catch((err) => console.log(err));
 
