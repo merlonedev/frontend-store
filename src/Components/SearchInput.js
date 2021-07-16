@@ -7,7 +7,7 @@ class SearchInput extends Component {
     const { handleChange, handleClick, value } = this.props;
     return (
       <form>
-        <fieldset>
+        <fieldset className="search-input">
           <input
             value={ value }
             onChange={ handleChange }
@@ -22,9 +22,9 @@ class SearchInput extends Component {
           >
             Procurar
           </button>
-          <h2 data-testid="home-initial-message">
+          <h3 data-testid="home-initial-message">
             Digite algum termo de pesquisa ou escolha uma categoria.
-          </h2>
+          </h3>
           <ButtonCart />
         </fieldset>
       </form>

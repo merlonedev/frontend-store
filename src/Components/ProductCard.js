@@ -21,25 +21,28 @@ export default class ProductCard extends Component {
     const { product } = this.props;
     const { title, thumbnail, price, id } = product;
     return (
-      <div>
-        <Link
-          to={ { pathname: `/product/${id}`, state: { product } } }
-          data-testid="product-detail-link"
-        >
-          <section data-testid="product">
-            <h4>{ title }</h4>
-            <img src={ thumbnail } alt={ title } />
-            <p>{ price }</p>
-          </section>
-        </Link>
+      <fieldset className="product-card">
+        <div className="product-card-info-container">
+          <Link
+            to={ { pathname: `/product/${id}`, state: { product } } }
+            data-testid="product-detail-link"
+          >
+            <section data-testid="product">
+              <h4>{ title }</h4>
+              <img className="product-card-image" src={ thumbnail } alt={ title } />
+              <p>{ `Preço: R$ ${price}` }</p>
+            </section>
+          </Link>
+        </div>
         <button
+          className="product-card-button"
           type="button"
           data-testid="product-add-to-cart"
           onClick={ this.handleClick }
         >
-          Adcionar ao Carrinho
+          Adicionar ao Carrinho
         </button>
-      </div>
+      </fieldset>
     );
   }
 }
