@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Badge from '@material-ui/core/Badge';
+import div from '@material-ui/core/Badge';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 
 class CartIcon extends Component {
@@ -8,14 +8,13 @@ class CartIcon extends Component {
   render() {
     const { qtd } = this.props;
     return (
-      <div style={ { display: 'block' } }>
-        <Badge
+      <div>
+        <div
           data-testid="shopping-cart-size"
-          color="secondary"
-          badgeContent={ qtd }
         >
-          <ShoppingCartIcon />
-        </Badge>
+          { qtd }
+        </div>
+        <ShoppingCartIcon />
       </div>
     );
   }

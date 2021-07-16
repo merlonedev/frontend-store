@@ -8,14 +8,14 @@ import '../css/productInCart.css';
 import PropTypes from 'prop-types';
 
 class ProductInCart extends React.Component {
-  constructor({ product: { price } }) {
+  constructor({ product: { price }, count }) {
     super();
     this.state = {
-      price: Number(price || 0),
-      totalPrice: 0,
-      count: 1,
+      price: price || 0,
+      totalPrice: price * count,
+      count,
     };
-    this.totalPriceCalculator = this.totalPriceCalculator.bind(this);
+
     this.plusItemCount = this.plusItemCount.bind(this);
     this.minusItemCount = this.minusItemCount.bind(this);
     this.getInfoItem = this.getInfoItem.bind(this);
@@ -27,7 +27,6 @@ class ProductInCart extends React.Component {
     this.mounted = true;
     const { onChange } = this.props;
     const { price } = this.state;
-    this.totalPriceCalculator();
     onChange(price);
   }
 
@@ -38,56 +37,42 @@ class ProductInCart extends React.Component {
     this.mounted = false;
   }
 
-  getInfoItem() {
-    const { getInfoItem, product } = this.props;
-    const { totalPrice } = this.state;
-    const info = {
-      id: product.id,
-      title: product.title,
-      thumbnail: product.thumbnail,
-      totalPrice,
-    };
-    console.log('info', info);
-    getInfoItem(info);
-  }
-
-  totalPriceCalculator() {
-    const { price, count } = this.state;
-    if (this.mounted) {
-      this.setState({
-        totalPrice: (price * count),
-      });
-    }
-  }
-
   plusItemCount() {
-    const { price, count } = this.state;
-    const { product: { available_quantity: availableQuantity }, sumCountProduct } = this.props;
+    const { count } = this.state;
+    const {
+      product: {
+        available_quantity: availableQuantity,
+        id,
+      },
+      sumCountProduct,
+      onChange: totalCartCalculator,
+    } = this.props;
     if (count < availableQuantity) {
-      const { onChange: totalCartCalculator } = this.props;
-      this.setState({
-        count: count + 1,
-      }, () => {
-        this.totalPriceCalculator();
+      this.setState((state) => ({
+        count: state.count + 1,
+        totalPrice: (state.count + 1) * state.price,
+      }), () => {
+        const { price } = this.state;
         totalCartCalculator(price);
-        sumCountProduct();
+        sumCountProduct(id);
       });
     }
   }
 
   minusItemCount() {
-    const { price } = this.state;
     const { onChange, onChangeExclude, product: { id }, subCountProduct } = this.props;
     this.setState((state) => ({
       count: state.count ? (state.count - 1) : 0,
+      totalPrice: (state.count
+        ? (state.count - 1)
+        : 0) * state.price,
     }), () => {
-      this.totalPriceCalculator();
-      const { count } = this.state;
+      const { count, price } = this.state;
       if (count) {
-        subCountProduct();
+        subCountProduct(id);
         return onChange(-price);
       }
-      subCountProduct();
+      subCountProduct(id, false);
       onChangeExclude(id);
     });
   }
@@ -142,7 +127,9 @@ ProductInCart.propTypes = {
   onClick: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
   onChangeExclude: PropTypes.func.isRequired,
-  getInfoItem: PropTypes.func.isRequired,
+  count: PropTypes.number.isRequired,
+  sumCountProduct: PropTypes.func.isRequired,
+  subCountProduct: PropTypes.func.isRequired,
 };
 
 export default ProductInCart;

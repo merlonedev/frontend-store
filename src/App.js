@@ -17,6 +17,7 @@ class App extends React.Component {
     this.checkoutInfos = this.checkoutInfos.bind(this);
     this.loadCartItemStorage = this.loadCartItemStorage.bind(this);
     this.saveCartItemStorage = this.saveCartItemStorage.bind(this);
+    this.updateItem = this.updateItem.bind(this);
   }
 
   componentDidMount() {
@@ -26,11 +27,6 @@ class App extends React.Component {
   componentDidUpdate() {
     const { cartItems } = this.state;
     this.saveCartItemStorage(cartItems);
-    return true;
-  }
-
-  saveCartItemStorage(state) {
-    localStorage.setItem('cartItems', JSON.stringify(state));
   }
 
   loadCartItemStorage() {
@@ -40,6 +36,10 @@ class App extends React.Component {
         cartItems: [...storage],
       });
     }
+  }
+
+  saveCartItemStorage(state) {
+    localStorage.setItem('cartItems', JSON.stringify(state));
   }
 
   checkoutInfos(cartInfo) {
@@ -75,6 +75,12 @@ class App extends React.Component {
     });
   }
 
+  updateItem(items) {
+    this.setState({
+      cartItems: [...items],
+    });
+  }
+
   removeItem(updateCart) {
     this.setState({
       cartItems: [...updateCart],
@@ -83,6 +89,7 @@ class App extends React.Component {
 
   render() {
     const { cartItems, checkoutItems } = this.state;
+    const totalItems = cartItems.reduce((acc, curr) => (curr.count + acc), 0);
     return (
       <Router>
         <Switch>
@@ -93,7 +100,7 @@ class App extends React.Component {
               (props) => (<ListItems
                 { ...props }
                 addToCartItems={ this.addToCartItems }
-                cartQtd={ cartItems.length }
+                cartQtd={ totalItems }
               />)
             }
           />
@@ -106,6 +113,7 @@ class App extends React.Component {
                 setItemCart={ cartItems }
                 removeItem={ this.removeItem }
                 checkoutInfos={ this.checkoutInfos }
+                updateItem={ this.updateItem }
               />)
             }
           />
@@ -113,7 +121,7 @@ class App extends React.Component {
             path="/item/:categoryId/:productId"
             render={ (props) => (<ProductDetails
               { ...props }
-              cartQtd={ cartItems.length }
+              cartQtd={ totalItems }
               addToCartItems={ this.addToCartItems }
             />) }
           />

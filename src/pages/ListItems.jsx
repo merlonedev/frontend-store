@@ -163,7 +163,7 @@ class ListItems extends React.Component {
 
 ListItems.propTypes = {
   addToCartItems: PropTypes.func.isRequired,
-  cartQtd: PropTypes.func.isRequired,
+  cartQtd: PropTypes.number.isRequired,
 };
 
 export default ListItems;

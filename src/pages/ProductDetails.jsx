@@ -60,7 +60,7 @@ class ProductDetails extends React.Component {
               { attributes.map(({ id, name, value_name: value }) => (
                 <li key={ id }>
                   <strong>{ `${name}: ` }</strong>
-                  { `${value}` }
+                  { `${value || ''}` }
                 </li>
               )) }
             </ul>
@@ -89,7 +89,7 @@ ProductDetails.propTypes = {
       categoryId: PropTypes.string,
     }),
   }).isRequired,
-  cartQtd: PropTypes.func.isRequired,
+  cartQtd: PropTypes.number.isRequired,
   addToCartItems: PropTypes.func.isRequired,
 };
 
