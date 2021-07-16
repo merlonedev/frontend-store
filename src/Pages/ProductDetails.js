@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import StarRatingComponent from 'react-star-rating-component';
 import ButtonCart from '../Components/ButtonCart';
 import PrevEvaluation from '../Components/PrevEvaluation';
+import image from '../Images/ReturnToHomeIcon.png';
 
 class ProductDetails extends Component {
   constructor(props) {
@@ -76,21 +78,38 @@ class ProductDetails extends Component {
 
     return (
       <div>
-        <header>
+        <header className="productDetails-header">
+          <Link to="/">
+            <img alt="icone retornar pagina principal" width="50px" src={ image } />
+          </Link>
           <ButtonCart />
         </header>
+
         <main>
-          <h1 data-testid="product-detail-name">{ product.title }</h1>
-          <p>{ `Preço: R$${product.price}` }</p>
-          <img src={ product.thumbnail } alt="product" />
+          <div className="basic-product-infos-container">
+            <div className="title-and-price-container">
+              <h4
+                className="product-detail-name"
+                data-testid="product-detail-name"
+              >
+                { product.title }
+              </h4>
+              <p>{ `Preço: R$${product.price}` }</p>
+            </div>
+            <img className="product-image" src={ product.thumbnail } alt="product" />
+          </div>
+        </main>
+
+        <div className="button-and-quantity-container">
           <button
             type="button"
+            className="button-add-to-cart"
             data-testid="product-detail-add-to-cart"
             onClick={ this.handleClick }
           >
-            Adicoinar ao Carrinho
+            Adicionar ao Carrinho
           </button>
-        </main>
+        </div>
 
         <fieldset className="rating-fieldset">
           <legend>Avaliação</legend>

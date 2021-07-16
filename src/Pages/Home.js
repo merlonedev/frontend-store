@@ -59,8 +59,13 @@ class Home extends Component {
           handleChange={ this.handleChange }
           handleClick={ this.handleClick }
         />
-        <Categories categorieSelect={ this.categorieSelect } categories={ categories } />
-        <SearchList products={ products } />
+        <div className="categories-and-searchlist-container">
+          <Categories
+            categorieSelect={ this.categorieSelect }
+            categories={ categories }
+          />
+          <SearchList products={ products } />
+        </div>
       </div>
     );
   }

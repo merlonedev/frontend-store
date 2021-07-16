@@ -8,13 +8,19 @@ class SearchList extends Component {
     const { products } = this.props;
 
     if (products.length === 0) {
-      return (<NotFound />);
+      return (
+        <div className="not-found-message">
+          <NotFound />
+        </div>
+      );
     }
 
     return (
-      products.map((product) => (
-        <ProductCard key={ product.title } product={ product } />
-      ))
+      <fieldset className="searchlist-container">
+        { products.map((product) => (
+          <ProductCard key={ product.title } product={ product } />
+        ))}
+      </fieldset>
     );
   }
 }
