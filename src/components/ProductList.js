@@ -4,27 +4,16 @@ import ProductItem from './ProductItem';
 
 class ProductList extends React.Component {
   render() {
-    // const { products, productDetails, getProductDetails } = this.props;
-    const {
-      products,
-      productDetails,
-      getProductDetails,
-      handleCart,
-      cart,
-      shouldUpdateCart,
-    } = this.props;
+    const { products, handleCartQuantity } = this.props;
+    const { results } = products;
     return (
       <div className="productList">
-        { products.results
+        { results
           .map((product) => (
             <ProductItem
               key={ product.id }
-              cart={ cart }
               product={ product }
-              productDetails={ productDetails }
-              getProductDetails={ getProductDetails }
-              handleCart={ handleCart }
-              shouldUpdateCart={ shouldUpdateCart }
+              handleCartQuantity={ handleCartQuantity }
             />))}
       </div>
     );
@@ -32,12 +21,10 @@ class ProductList extends React.Component {
 }
 
 ProductList.propTypes = {
-  products: PropTypes.arrayOf(Object).isRequired,
-  productDetails: PropTypes.arrayOf(Object).isRequired,
-  getProductDetails: PropTypes.func.isRequired,
-  handleCart: PropTypes.func.isRequired,
-  cart: PropTypes.arrayOf(PropTypes.string).isRequired,
-  shouldUpdateCart: PropTypes.func.isRequired,
+  products: PropTypes.shape({
+    results: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  }).isRequired,
+  handleCartQuantity: PropTypes.func.isRequired,
 };
 
 export default ProductList;

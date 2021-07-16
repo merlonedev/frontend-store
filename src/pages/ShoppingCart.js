@@ -1,34 +1,49 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import CartList from '../components/CartList';
+import { getCartItems } from '../services/localStorage';
 
 export default class ShoppingCart extends Component {
   constructor(props) {
     super(props);
 
-    const { location: { state } } = props;
-    console.log(props.location);
-
     this.state = {
-      cart: state,
+      cart: [],
     };
 
-    // console.log(this.state.cart);
-
-    this.emptyCart = this.emptyCart.bind(this);
-    this.callCart = this.callCart.bind(this);
+    this.renderEmptyCart = this.renderEmptyCart.bind(this);
+    this.renderCart = this.renderCart.bind(this);
+    this.loadCartItems = this.loadCartItems.bind(this);
+    this.deleteItem = this.deleteItem.bind(this);
   }
 
-  callCart() {
+  componentDidMount() {
+    this.loadCartItems();
+  }
+
+  loadCartItems() {
+    const cartItems = getCartItems();
+    this.setState((prevState) => ({
+      cart: [...prevState.cart, ...cartItems],
+    }));
+  }
+
+  deleteItem(itemId) {
+    const cartItems = JSON.parse(localStorage.getItem('cart'));
+    const newCart = cartItems.filter((item) => item.id !== itemId);
+    localStorage.setItem('cart', JSON.stringify([...newCart]));
+    this.setState({
+      cart: newCart,
+    });
+  }
+
+  renderCart() {
     const { cart } = this.state;
     return (
-      <CartList
-        cart={ cart }
-      />
+      <CartList cart={ cart } deleteItem={ this.deleteItem } />
     );
   }
 
-  emptyCart() {
+  renderEmptyCart() {
     return (
       <div data-testid="shopping-cart-empty-message">
         Seu carrinho está vazio
@@ -40,20 +55,8 @@ export default class ShoppingCart extends Component {
     const { cart } = this.state;
     return (
       <div>
-        { cart.length === 0 ? this.emptyCart() : this.callCart() }
+        { cart.length === 0 ? this.renderEmptyCart() : this.renderCart() }
       </div>
     );
   }
 }
-
-ShoppingCart.propTypes = {
-  location: PropTypes.objectOf(PropTypes.string),
-};
-
-ShoppingCart.defaultProps = {
-  location: {
-    hash: '',
-    key: '',
-    pathname: '',
-  },
-};

@@ -4,23 +4,28 @@ import { Link } from 'react-router-dom';
 
 class ProductDetails extends Component {
   render() {
-    console.log(this.props);
     const { location: { state } } = this.props;
     const { title, price, thumbnail } = state;
     return (
       <div>
-        <Link to="/">Ínicio</Link>
+        <Link to="/">Início</Link>
         <h1 data-testid="product-detail-name">{ title }</h1>
         <h3 data-testid="product-detail-price">{ price }</h3>
-        <img src={ thumbnail } alt={ title } />
-        <Link to="/ShoppingCart" data-testid="shopping-cart-button">Carrinho</Link>
+        <img src={ thumbnail } alt={ title } width="200px" />
+        <Link to="/shopping-cart" data-testid="shopping-cart-button">Carrinho</Link>
       </div>
     );
   }
 }
 
 ProductDetails.propTypes = {
-  location: PropTypes.arrayOf(Object).isRequired,
+  location: PropTypes.shape({
+    state: PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      price: PropTypes.number.isRequired,
+      thumbnail: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
 };
 
 export default ProductDetails;

@@ -1,64 +1,73 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { saveCart, getCartItems } from '../services/localStorage';
 
 class ProductItem extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
-    this.handleAddCart = this.handleAddCart.bind(this);
+    this.addProductToCart = this.addProductToCart.bind(this);
+    this.checkItemQuantity = this.checkItemQuantity.bind(this);
   }
 
-  handleAddCart() {
-    const {
-      product,
-      handleCart,
-      cart,
-    } = this.props;
-    const { title, thumbnail, price } = product;
-    let isItemFound;
-    if (cart.length > 0) {
-      isItemFound = cart.find((item) => item.title === title);
+  checkItemQuantity(item) {
+    if (item && item.quantity === item.available_quantity) {
+      item.disableAddItemButton = true;
     }
-    // console.log(isItemFound);
-    const item = {
-      quantity: 1,
-      title,
-      thumbnail,
-      price,
-    };
-    if (isItemFound) {
-      isItemFound.quantity += 1;
-      return;
+  }
+
+  addProductToCart(item) {
+    const { handleCartQuantity } = this.props;
+    handleCartQuantity();
+
+    const { id } = item;
+    const cartItems = getCartItems();
+
+    const hasItem = cartItems.some((cartItem) => cartItem.id === id);
+
+    if (hasItem) {
+      const updateProduct = cartItems.map((cartItem) => {
+        if (cartItem.id === id) {
+          cartItem.quantity += 1;
+          return cartItem;
+        }
+        return cartItem;
+      });
+      localStorage.setItem('cart', JSON.stringify([...updateProduct]));
+    } else {
+      const productQuantity = { quantity: 1, disableAddItemButton: false };
+      const finalProduct = Object.assign(productQuantity, item);
+      this.checkItemQuantity(finalProduct);
+      saveCart(finalProduct);
     }
-    // console.log(item.quantity);
-    handleCart(item);
   }
 
   render() {
     const { product } = this.props;
+    const { id, title, thumbnail, price } = product;
     return (
       <div
-        className={ `productItem ${product.id}` }
+        className={ `productItem ${id}` }
         data-testid="product"
       >
-        <h3>{ `${product.title}` }</h3>
+        <h3>{ `${title}` }</h3>
         <img
           className="thumbnail"
-          src={ product.thumbnail }
-          alt={ product.title }
+          src={ thumbnail }
+          alt={ title }
         />
-        <p>{ product.price }</p>
+        <p>{ price }</p>
         <Link
           data-testid="product-detail-link"
-          to={ { pathname: `/product-details/${product.id}`, state: product } }
+          to={ { pathname: `/product-details/${id}`, state: product } }
         >
           Detalhes
         </Link>
         <button
           type="button"
           data-testid="product-add-to-cart"
-          onClick={ () => this.handleAddCart() }
+          onClick={ () => this.addProductToCart(product) }
         >
           Adicionar ao Carrinho
         </button>
@@ -68,14 +77,14 @@ class ProductItem extends React.Component {
 }
 
 ProductItem.propTypes = {
-  product: PropTypes.objectOf(Object).isRequired,
-  // getProductDetails: PropTypes.func.isRequired,
-  handleCart: PropTypes.func.isRequired,
-  cart: PropTypes.arrayOf(PropTypes.string),
-};
-
-ProductItem.defaultProps = {
-  cart: [{ title: 'undefined' }],
+  product: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    thumbnail: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    available_quantity: PropTypes.number.isRequired,
+  }).isRequired,
+  handleCartQuantity: PropTypes.func.isRequired,
 };
 
 export default ProductItem;
