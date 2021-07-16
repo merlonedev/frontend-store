@@ -1,19 +1,18 @@
 .card-product {
   margin: 20px 80px;
-  transition: all 0.2s ease-in-out;
-}
-
-.card-product:hover {
-  transform: scale(1.05);
 }
 
 .card-product-content {
   background-color: white;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  border-radius: 10px;
   padding: 20px;
   width: 200px;
-  min-height: 350px;
+  min-height: 360px;
+  transition: all 0.2s ease-in-out
+}
+
+.card-product-content:hover {
+  transform: scale(1.05);
 }
 
 .card-product-img {
@@ -51,4 +50,19 @@
   padding-top: 20px;
   font-weight: 600;
   color: #ff9000;
+}
+
+.product-card-btn {
+  border: none;
+  font-weight: 500;
+  width: 240px;
+  padding: 10px 20px;
+  background-color: #ff9000;
+  margin-top: 10px;
+  border-radius: 10px;
+}
+
+.product-card-btn:hover {
+  cursor: pointer;
+  background-color: #ffa733;
 }
