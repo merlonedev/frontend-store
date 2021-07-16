@@ -3,6 +3,11 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 class ProductCard extends Component {
+  constructor(props) {
+    super(props);
+    this.addItemToCart = this.addItemToCart.bind(this);
+  }
+
   addItemToCart(product) {
     if (localStorage.getItem('carrinho')) {
       const currentCart = JSON.parse(localStorage.getItem('carrinho'));
@@ -27,6 +32,13 @@ class ProductCard extends Component {
       const cart = [product];
       localStorage.setItem('carrinho', JSON.stringify(cart));
     }
+    const currentCart = JSON.parse(localStorage.getItem('carrinho'));
+    const totalItems = currentCart.reduce((acc, cur) => {
+      acc += cur.quantity;
+      return acc;
+    }, 0);
+    const { updateTotal } = this.props;
+    updateTotal(totalItems);
   }
 
   render() {
