@@ -1,13 +1,16 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import CartItem from './CartItem';
+import Checkout from './Checkout';
 
 export default class ShoppingCart extends React.Component {
   constructor() {
     super();
+    this.changeCheckoutState = this.changeCheckoutState.bind(this);
+    this.renderCheckout = this.renderCheckout.bind(this);
     this.state = {
       total: 0,
+      checkout: false,
     };
   }
 
@@ -26,6 +29,15 @@ export default class ShoppingCart extends React.Component {
       .map(({ price, quantity }) => price * quantity)
       .reduce((totalPrice, price) => totalPrice + price, 0);
     if (total !== sumTotal) this.setState({ total: sumTotal });
+  }
+
+  changeCheckoutState() {
+    this.setState({ checkout: true });
+  }
+
+  renderCheckout() {
+    const { checkout } = this.state;
+    return checkout === true && <Checkout />;
   }
 
   render() {
@@ -54,13 +66,11 @@ export default class ShoppingCart extends React.Component {
         <button
           type="button"
           data-testid="checkout-products"
+          onClick={ this.changeCheckoutState }
         >
-          <Link
-            to="/checkout"
-          >
-            Finalizar compra
-          </Link>
+          Finalizar compra
         </button>
+        { this.renderCheckout() }
       </div>
     );
   }

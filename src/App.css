@@ -49,3 +49,45 @@
 .erro {
   color: red;
 }
+
+header {
+  align-items: center;
+  border: red solid 1px;
+  display: flex;
+  height: 100px;
+  justify-content: center;
+}
+
+main {
+  display: flex;
+}
+
+.card-detail {
+  border: 1px solid black;
+  display: flex;
+  margin: 5px;
+  text-align: center;
+  width: 85%;
+}
+
+.product-detail {
+  display: flex;
+  flex-direction: column;
+  width: 85%;
+}
+
+.card-image-detail {
+  width: 50%;
+}
+
+.rating {
+  border: red 1px solid;
+  display: flex;
+  margin-left: 5px;
+  width: 85%;
+}
+
+.rating-form {
+  display: flex;
+  flex-direction: column;
+}

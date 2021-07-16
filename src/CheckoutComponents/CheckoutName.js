@@ -5,8 +5,9 @@ export default class CheckoutName extends React.Component {
   render() {
     const { name, handleChange } = this.props;
     return (
-      <label htmlFor="input" data-testid="checkout-fullname">
+      <label htmlFor="checkout-fullname">
         <input
+          data-testid="checkout-fullname"
           type="text"
           name="name"
           placeholder="Nome completo"
