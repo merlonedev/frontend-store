@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { MdLocalShipping } from 'react-icons/md';
+import { AiOutlineArrowLeft } from 'react-icons/ai';
 import * as api from '../services/api';
 import CartButton from '../Components/CartButton';
 import '../styles/productDetails.css';
@@ -45,6 +46,9 @@ class ProductDetails extends React.Component {
             />
           </header>
         </div>
+        <Link className="back-link" to="/">
+          <AiOutlineArrowLeft style={ { marginTop: 10 } } size={ 26 } color="#ff9000" />
+        </Link>
         <div className="product-detail-card">
           <h3
             className="product-detail-title"

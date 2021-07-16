@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 class Checkout extends Component {
   render() {
     const { cartList } = this.props;
+    console.log(cartList);
 
     return (
       <div>
@@ -21,7 +22,7 @@ class Checkout extends Component {
                 >
                   <p>{ cartList[item].title }</p>
                   <p>{cartList[item].price }</p>
-                  <p>{ cartList[item].qty }</p>
+                  <p>{ cartList.length }</p>
                   <img src={ cartList[item].thumbnail } alt="foto do produto" />
                 </div>
               ))}
@@ -31,7 +32,7 @@ class Checkout extends Component {
             Total: R$
             <span>
               { Object.keys(cartList)
-                .reduce((acc, crr) => cartList[crr].qty * cartList[crr].price + acc, 0) }
+                .reduce((acc, crr) => cartList.length * cartList[crr].price + acc, 0) }
             </span>
           </p>
         </div>
@@ -42,34 +43,34 @@ class Checkout extends Component {
               <input
                 type="text"
                 data-testid="checkout-fullname"
-                placeHolder="Nome completo"
+                placeholder="Nome completo"
               />
               <input
                 type="email"
                 data-testid="checkout-email"
-                placeHolder="E-mail"
+                placeholder="E-mail"
               />
               <input
                 type="text"
                 data-testid="checkout-cpf"
-                placeHolder="CPF"
+                placeholder="CPF"
               />
               <input
                 type="text"
                 data-testid="checkout-phone"
-                placeHolder="Telefone"
+                placeholder="Telefone"
               />
             </div>
             <div>
               <input
                 type="text"
                 data-testid="checkout-cep"
-                placeHolder="CEP"
+                placeholder="CEP"
               />
               <input
                 type="text"
                 data-testid="checkout-address"
-                placeHolder="Endereço"
+                placeholder="Endereço"
               />
             </div>
           </fieldset>
@@ -96,7 +97,14 @@ class Checkout extends Component {
 }
 
 Checkout.propTypes = {
-  cartList: PropTypes.shape({}).isRequired,
+  cartList: PropTypes.arrayOf(
+    PropTypes.object,
+  ).isRequired,
+  length: PropTypes.number,
+};
+
+Checkout.defaultProps = {
+  length: 0,
 };
 
 export default Checkout;
