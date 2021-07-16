@@ -16,7 +16,7 @@
 
 .loading-logo {
   animation: is-rotating 0.5s infinite;
-  border: 10px solid #4d5053;
+  border: 10px solid whitesmoke;
   border-radius: 50%;
   border-top-color: rgb(240, 160, 11);
   height: 80px;
