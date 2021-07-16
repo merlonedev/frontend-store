@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 class FormInput extends React.Component {
   render() {
     const { id, value, onChange, text } = this.props;
+    console.log(value);
     return (
       <section>
         <label htmlFor={ id } data-testid={ `checkout-${id}` }>
