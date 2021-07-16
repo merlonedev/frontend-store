@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import CartList from '../components/CartList';
 import { getCartItems } from '../services/localStorage';
 
@@ -39,7 +40,15 @@ export default class ShoppingCart extends Component {
   renderCart() {
     const { cart } = this.state;
     return (
-      <CartList cart={ cart } deleteItem={ this.deleteItem } />
+      <div>
+        <CartList cart={ cart } deleteItem={ this.deleteItem } />
+        <Link
+          data-testid="checkout-products"
+          to={ { pathname: '/checkout', state: cart } }
+        >
+          Checkout Products
+        </Link>
+      </div>
     );
   }
 
