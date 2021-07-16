@@ -7,7 +7,6 @@ import Header from './Components/Header';
 import './App.css';
 
 class App extends Component {
-  // MLB1370656442 id test
   render() {
     return (
       <BrowserRouter>
