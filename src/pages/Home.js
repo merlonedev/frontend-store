@@ -79,6 +79,8 @@ class Home extends React.Component {
           homeProducts={ homeProducts }
         />
         <HomeProducts
+          addToCart={ addToCart }
+          quantity={ quantity }
           homeProducts={ homeProducts }
         />
         <Category
