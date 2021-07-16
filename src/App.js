@@ -50,12 +50,29 @@ class App extends React.Component {
 
   addToCartItems(newItem) {
     const { cartItems } = this.state;
-    const isRepeated = cartItems.some((item) => item === newItem);
+    const notRepeated = {
+      product: newItem,
+      count: 1,
+    };
+    const yesRepeated = cartItems.map((item) => {
+      if (item.product === newItem) {
+        return {
+          product: item.product,
+          count: item.count + 1,
+        };
+      }
+      return item;
+    });
+    const isRepeated = cartItems.some((item) => item.product === newItem);
     if (!isRepeated) {
-      this.setState((prevState) => ({
-        cartItems: [...prevState.cartItems, newItem],
+      return this.setState((prevState) => ({
+        cartItems: [...prevState.cartItems, notRepeated],
       }));
     }
+
+    this.setState({
+      cartItems: [...yesRepeated],
+    });
   }
 
   removeItem(updateCart) {

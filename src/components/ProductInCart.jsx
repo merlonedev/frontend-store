@@ -61,15 +61,18 @@ class ProductInCart extends React.Component {
   }
 
   plusItemCount() {
-    const { price } = this.state;
-    const { onChange, sumCountProduct } = this.props;
-    this.setState((state) => ({
-      count: state.count + 1,
-    }), () => {
-      this.totalPriceCalculator();
-      onChange(price);
-      sumCountProduct();
-    });
+    const { price, count } = this.state;
+    const { product: { available_quantity: availableQuantity }, sumCountProduct } = this.props;
+    if (count < availableQuantity) {
+      const { onChange: totalCartCalculator } = this.props;
+      this.setState({
+        count: count + 1,
+      }, () => {
+        this.totalPriceCalculator();
+        totalCartCalculator(price);
+        sumCountProduct();
+      });
+    }
   }
 
   minusItemCount() {
@@ -134,6 +137,7 @@ ProductInCart.propTypes = {
     title: PropTypes.string.isRequired,
     thumbnail: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
+    available_quantity: PropTypes.number.isRequired,
   }).isRequired,
   onClick: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,

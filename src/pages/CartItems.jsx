@@ -10,7 +10,7 @@ class CartItems extends React.Component {
   constructor(props) {
     super();
     this.state = {
-      cartItens: [...props.setItemCart],
+      cartItems: [...props.setItemCart],
       total: 0,
       itemsQtd: props.setItemCart.length,
     };
@@ -32,12 +32,12 @@ class CartItems extends React.Component {
   }
 
   itemCartRemove(itemId) {
-    const { cartItens } = this.state;
+    const { cartItems } = this.state;
     const { removeItem } = this.props;
-    const cartUpdated = cartItens.filter((item) => item.id !== itemId);
+    const cartUpdated = cartItems.filter((item) => item.id !== itemId);
     removeItem(cartUpdated);
     this.setState({
-      cartItens: [...cartUpdated],
+      cartItems: [...cartUpdated],
       itemsQtd: cartUpdated.length,
     });
   }
@@ -64,13 +64,14 @@ class CartItems extends React.Component {
     const storage = JSON.parse(localStorage.getItem('cartItems'));
     if (Array.isArray(storage) && storage.length) {
       this.setState({
-        cartItens: [...storage],
+        cartItems: [...storage],
+        itemsQtd: storage.length,
       });
     }
   }
 
   render() {
-    const { cartItens, total, itemsQtd } = this.state;
+    const { cartItems, total, itemsQtd } = this.state;
     const qtd = itemsQtd;
     const { checkoutInfos } = this.props;
     return (
@@ -84,10 +85,10 @@ class CartItems extends React.Component {
         </div>
 
         {
-          cartItens.length > 0
+          cartItems.length > 0
             ? (
               <div className="cart-items">
-                {cartItens.map((cartItem) => (
+                {cartItems.map((cartItem) => (
                   <ProductInCart
                     key={ cartItem.id }
                     product={ cartItem }
