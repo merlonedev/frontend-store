@@ -4,11 +4,9 @@ import PropTypes from 'prop-types';
 class NavBar extends Component {
   render() {
     const { categories, click } = this.props;
-    // console.log('NavBar', categories);
     return (
       <nav data-testid="nav-containe">
         { categories && categories.map((categorie) => (
-          // {/*  */}<label htmlFor="nav-categorie" key={ categorie.id }>
           <button
             type="button"
             key={ categorie.id }
@@ -19,14 +17,9 @@ class NavBar extends Component {
           >
             { categorie.name }
           </button>
-
-          // </label>
         )) }
       </nav>
     );
-    // Como levar o categorie.id para a func que esta em Home (pai)
-
-    // Como fazer para o radio button ficar selecionado
   }
 }
 
