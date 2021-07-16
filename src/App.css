@@ -28,6 +28,8 @@
 
   --highland: rgb(211, 237, 202);
 
+  --transparent-highland: rgba(211, 237, 202, 0.5);
+
   --oxley: rgb(110, 155, 120);
 
   --tanawera: rgb(8, 42, 69);
@@ -52,6 +54,89 @@ html, * {
 .body {
   position: relative;
   z-index: 0;
+}
+
+.slider {
+  backdrop-filter: blur(10px);
+  background-color: var(--transparent-highland);
+  height: 100vh;
+  padding: 5px;
+  position: fixed;
+  top: 0;
+  transition: all 0.5s;
+  width: 400px;
+  z-index: 2;
+}
+
+.empty-cart-icon {
+  font-size: 100pt;
+}
+
+.visible-slider-false {
+  right: -400px;
+}
+
+.visible-slider-true {
+  right: 0;
+}
+
+.slider-items {
+  border: 1px solid var(--tanawera);
+  direction: rtl;
+  max-height: 80vh;
+  overflow-y: scroll;
+  padding: 10px;
+}
+
+.slider-btn {
+  background-color: var(--transparent-highland);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  position: absolute;
+  top: 10px;
+  transition: 0.3s;
+  z-index: 3;
+}
+
+.visible-button-true {
+  border-radius: 2px 0 0 2px;
+  left: -45px;
+}
+
+.visible-button-false {
+  background-color: var(--highland);
+  border-radius: 2px;
+  left: -60px;
+}
+
+.slider-btn i {
+  align-items: center;
+  color: var(--tanawera);
+  display: flex;
+  font-size: 15pt;
+  height: 45px;
+  justify-content: center;
+  padding: 0;
+  width: 45px;
+}
+
+.cart-btn i {
+  font-size: 1.5em;
+  padding: 0;
+}
+
+.slider-btn i:hover {
+  color: var(--persian-green);
+}
+
+.slider-item {
+  justify-content: space-between;
+  width: 100%;
+}
+
+.slider-item-title {
+  width: 50%;
 }
 
 .search-bar p {
@@ -237,11 +322,6 @@ html, * {
   position: absolute;
 }
 
-.cart-btn i {
-  font-size: 1.5em;
-  padding: 0;
-}
-
 .search-input, .eval-input, .evaluation {
   background-color: var(--highland);
   border-bottom: 1px solid var(--tanawera);
@@ -400,7 +480,6 @@ html, * {
 
 .row {
   display: flex;
-  justify-content: center;
 }
 
 .data-input {
