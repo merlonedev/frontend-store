@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import CheckoutButton from './CheckoutButton';
+import TotalCart from './TotalCart';
 
 export default class CartSlider extends Component {
   constructor(props) {
@@ -106,7 +107,13 @@ export default class CartSlider extends Component {
               ))}
             </div>
           )}
-        {cartItems.length ? <CheckoutButton /> : null}
+        {cartItems.length ? (
+          <div>
+            <TotalCart cartItems={ cartItems } />
+            <br />
+            <CheckoutButton />
+          </div>
+        ) : null}
       </div>
     );
   }
