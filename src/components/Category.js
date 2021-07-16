@@ -63,13 +63,6 @@ class Category extends Component {
 }
 
 Category.propTypes = {
-  product: PropTypes.shape({
-    title: PropTypes.string,
-    thumbnail: PropTypes.string,
-    price: PropTypes.number,
-    id: PropTypes.string,
-    category_id: PropTypes.string,
-  }).isRequired,
   callBack: PropTypes.func.isRequired,
 };
 

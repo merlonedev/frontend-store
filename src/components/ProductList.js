@@ -63,9 +63,23 @@ class ProductList extends Component {
   }
 
   render() {
-    const { products, searchText, toggleDetails, productId, productsCart, toggleShoppingCart } = this.state;
+    const {
+      products,
+      searchText,
+      toggleDetails,
+      productId,
+      productsCart,
+      toggleShoppingCart,
+    } = this.state;
     if (toggleShoppingCart) {
-      return (<ShoppingCart list={ productsCart } />);
+      return (
+        <ShoppingCart
+          list={ productsCart }
+          callBack2={ () => this.setState({
+            toggleShoppingCart: false,
+          }) }
+        />
+      );
     }
     if (toggleDetails) {
       return (<ProductDetails
@@ -85,6 +99,7 @@ class ProductList extends Component {
               toggleShoppingCart: true,
             });
           } }
+          data-testid="shopping-cart-button"
         >
           carrinho
         </button>
