@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import ProductCard from './ProductsCard';
 import { getProductsFromCategoryAndQuery } from '../services/api';
+import Loading from './Imagens/loading.gif';
 
 class CategoryPage extends Component {
   constructor() {
@@ -31,7 +32,7 @@ class CategoryPage extends Component {
   }
 
   renderLoading() {
-    return <img src="./loading.gif" alt="Loading" />;
+    return <img src={ Loading } alt="Loading" />;
   }
 
   render() {
