@@ -51,7 +51,8 @@ export default class RatingArea extends React.Component {
     const { email, message, rateValue } = this.state;
     const { handleChange } = this;
     return (
-      <form>
+      <form className="rating-form">
+        <h3>Avaliação</h3>
         <input
           type="email"
           placeholder="Email"
