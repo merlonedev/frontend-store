@@ -7,6 +7,7 @@ import ProductDetails from './pages/ProductDetails';
 
 function App() {
   return (
+
     <BrowserRouter>
       <Switch>
         <Route exact path="/" component={ Home } />

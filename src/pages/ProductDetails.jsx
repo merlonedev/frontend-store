@@ -1,30 +1,19 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Evaluation from '../components/Evaluation';
-import Coments from '../components/Coments';
 import * as api from '../services/api';
+import CartIcon from '../Icons/CartIcon';
 
 class ProductDetails extends Component {
   constructor() {
     super();
-
     this.state = {
-      email: '',
-      ratting: '',
-      message: '',
       productDetail: {},
     };
-    this.handleChange = this.handleChange.bind(this);
     this.searchProduct = this.searchProduct.bind(this);
   }
 
   componentDidMount() {
     this.searchProduct();
-  }
-
-  handleChange({ target }) {
-    const { name, value } = target;
-    this.setState({ [name]: value });
   }
 
   async searchProduct() {
@@ -35,19 +24,27 @@ class ProductDetails extends Component {
   }
 
   render() {
-    const { productDetail, email, ratting, message } = this.state;
-    const { title, thumbnail, price } = productDetail;
+    const { productDetail: { title, price, thumbnail, id } } = this.state;
+    let todosElementos = [];
+    const InfoONclick = { title, price, id };
     return (
-      <section>
-        <div>
-          <h1 data-testid="product-detail-name">{ title }</h1>
-          <h1>{price}</h1>
-          <img src={ thumbnail } alt={ title } />
-        </div>
-        <Evaluation handleChange={ this.handleChange } />
-        <Coments email={ email } ratting={ ratting } message={ message } />
-      </section>
-
+      <div>
+        <CartIcon />
+        <h1 data-testid="product-detail-name">{title}</h1>
+        <h1>{price}</h1>
+        <img src={ thumbnail } alt={ title } />
+        <button
+          type="button"
+          data-testid="product-detail-add-to-cart"
+          onClick={ () => {
+            todosElementos = [...todosElementos, InfoONclick];
+            return sessionStorage
+              .setItem('shopItens', JSON.stringify(todosElementos));
+          } }
+        >
+          Add to Cart
+        </button>
+      </div>
     );
   }
 }
