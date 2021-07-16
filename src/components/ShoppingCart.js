@@ -63,7 +63,7 @@ class ShoppingCart extends React.Component {
         })}
         <p>
           Valor Total da Compra: R$
-          {totalPrice}
+          {totalPrice.toFixed(2)}
         </p>
         <Link
           to={ { pathname: '/finalizarcompra', state: totalPrice } }
