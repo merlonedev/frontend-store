@@ -6,7 +6,6 @@ class Cart extends Component {
     super(props);
 
     this.renderCartDetail = this.renderCartDetail.bind(this);
-    this.addToCart = this.addToCart.bind(this);
     this.loadCart = this.loadCart.bind(this);
     this.saveCart = this.saveCart.bind(this);
 
@@ -23,7 +22,7 @@ class Cart extends Component {
   componentDidUpdate(prevProps, prevState) {
     const { selectedCategory, searchSend, cartItems, totalCartItems } = this.state;
     if ((prevState.selectedCategory !== selectedCategory)
-       || (prevState.searchSend !== searchSend)) {
+      || (prevState.searchSend !== searchSend)) {
       this.getProducts(selectedCategory, searchSend);
     }
     if ((prevState.cartItems !== cartItems)
@@ -32,26 +31,9 @@ class Cart extends Component {
     }
   }
 
-  addToCart(product) {
-    const { cartItems } = this.state;
-    if (cartItems.some((item) => item.id === product.id)) {
-      cartItems.find((item) => item.id === product.id).quantity += 1;
-      this.setState({ cartItems });
-    } else {
-      this.setState((prevState) => ({
-        cartItems: [...prevState.cartItems, {
-          quantity: 1,
-          id: product.id,
-          product: [product],
-        }],
-      }));
-    }
-    this.cartHandleCounter();
-  }
-
   loadCart() {
     const getCartItems = JSON.parse(sessionStorage.getItem('cartItems'));
-    if (getCartItems) {
+    if (getCartItems.length > 0) {
       this.setState({ cartItems: getCartItems });
       const quantity = getCartItems.map((cartItem) => cartItem.quantity)
         .reduce((currentValue, nextValue) => currentValue + nextValue);
@@ -70,21 +52,109 @@ class Cart extends Component {
     }
   }
 
+  increase(item) {
+    if (item.product[0].available_quantity === item.quantity) return;
+    item.quantity += 1;
+
+    const { cartItems } = this.state;
+
+    const index = cartItems.findIndex(({ id }) => id === item.id);
+    cartItems[index] = item;
+    this.setState({ cartItems });
+
+    const getCartItems = JSON.parse(sessionStorage.getItem('cartItems'));
+    getCartItems[index] = item;
+    this.saveCart();
+  }
+
+  decrease(item) {
+    if (item.quantity === 1) return;
+    item.quantity -= 1;
+
+    const { cartItems } = this.state;
+
+    const index = cartItems.findIndex(({ id }) => id === item.id);
+    cartItems[index] = item;
+    this.setState({ cartItems });
+
+    const getCartItems = JSON.parse(sessionStorage.getItem('cartItems'));
+    getCartItems[index] = item;
+    this.saveCart();
+  }
+
+  remove(item) {
+    const { cartItems } = this.state;
+
+    const index = cartItems.findIndex(({ id }) => id === item.id);
+    cartItems.splice(index, 1);
+    this.setState({ cartItems });
+
+    const getCartItems = JSON.parse(sessionStorage.getItem('cartItems'));
+    getCartItems.splice(index, 1);
+    this.saveCart();
+  }
+
   renderCartDetail() {
     const { cartItems } = this.state;
+    let valorTotal = 0;
+    cartItems.forEach((item) => { valorTotal += item.product[0].price * item.quantity; });
+
     return (
-      <ul className="cart-list">
-        { cartItems.map((item, index) => (
-          <li className="cart-item" key={ index }>
-            <span className="item-title" data-testid="shopping-cart-product-name">
-              { item.product[0].title }
-            </span>
-            <span className="item-quantity" data-testid="shopping-cart-product-quantity">
-              { item.quantity }
-            </span>
-          </li>
-        ))}
-      </ul>
+      <div>
+        <ul className="cart-list">
+          {cartItems.map((item, index) => (
+            <li className="cart-item" key={ index }>
+              <button
+                className="cart-button"
+                type="button"
+                onClick={ () => this.remove(item) }
+              >
+                X
+              </button>
+              <img
+                className="cart-product-image"
+                src={ item.product[0].thumbnail }
+                alt={ `${item.product[0].title} sprite` }
+              />
+              <p className="cart-item-title" data-testid="shopping-cart-product-name">
+                {item.product[0].title}
+              </p>
+              <button
+                className="cart-button"
+                data-testid="product-decrease-quantity"
+                type="button"
+                onClick={ () => this.decrease(item) }
+              >
+                -
+              </button>
+              <p
+                className="cart-item-quantity"
+                data-testid="shopping-cart-product-quantity"
+              >
+                {item.quantity}
+              </p>
+              <button
+                className="cart-button"
+                data-testid="product-increase-quantity"
+                type="button"
+                onClick={ () => this.increase(item) }
+              >
+                +
+              </button>
+              <span
+                className="cart-item-price"
+              >
+                {`R$ ${(item.product[0].price).toFixed(2)}`}
+              </span>
+            </li>
+          ))}
+        </ul>
+        <h2
+          className="cart-total-price"
+        >
+          {`Valor Total da Compra: R$ ${valorTotal.toFixed(2)}`}
+        </h2>
+      </div>
     );
   }
 
