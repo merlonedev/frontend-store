@@ -12,6 +12,7 @@ class DetailsHeader extends Component {
           <Link className="material-icons previous" to="/"> arrow_back </Link>
           <Link
             className="material-icons cart details-cart"
+            data-testid="shopping-cart-button"
             to="/cart"
           >
             shopping_cart

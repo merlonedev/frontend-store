@@ -5,10 +5,6 @@ class Cart extends Component {
   constructor(props) {
     super(props);
 
-    this.renderCartDetail = this.renderCartDetail.bind(this);
-    this.loadCart = this.loadCart.bind(this);
-    this.saveCart = this.saveCart.bind(this);
-
     this.state = {
       totalCartItems: 0,
       cartItems: [],
@@ -32,7 +28,8 @@ class Cart extends Component {
   }
 
   loadCart() {
-    const getCartItems = JSON.parse(sessionStorage.getItem('cartItems'));
+    let getCartItems = JSON.parse(sessionStorage.getItem('cartItems'));
+    if (getCartItems === null) getCartItems = [];
     if (getCartItems.length > 0) {
       this.setState({ cartItems: getCartItems });
       const quantity = getCartItems.map((cartItem) => cartItem.quantity)
