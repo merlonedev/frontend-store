@@ -7,9 +7,10 @@ class FormInput extends React.Component {
     console.log(value);
     return (
       <section>
-        <label htmlFor={ id } data-testid={ `checkout-${id}` }>
+        <label htmlFor={ id }>
           { text }
           <input
+            data-testid={ `checkout-${id}` }
             type="text"
             id={ id }
             value={ value }
