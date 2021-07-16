@@ -59,28 +59,19 @@ img {
   background: #25bcff;
 }
 
-
-#button-div{
-  width: auto;
-  height: auto;
-}
 button img {
   height: 50px;
 }
 
 .form {
-  display: flex;
   align-content: center;
+  display: flex;
   align-items: center;
 }
 
 .alignDiv {
   display: flex;
   width: 100%;
-}
-
-.cart{
-  width: fit-content;
 }
 
 .search-bar {
