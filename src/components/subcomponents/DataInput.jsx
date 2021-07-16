@@ -14,7 +14,7 @@ class DataInput extends React.Component {
       <label
         htmlFor={ `${inputID}` }
         data-testid={ `checkout-${inputID}` }
-        className="data-input"
+        className="data-input-label"
       >
         { label }
         <input
