@@ -12,7 +12,17 @@ class ProductDetails extends Component {
         <h1 data-testid="product-detail-name">{ title }</h1>
         <h3 data-testid="product-detail-price">{ price }</h3>
         <img src={ thumbnail } alt={ title } width="200px" />
-        <Link to="/shopping-cart" data-testid="shopping-cart-button">Carrinho</Link>
+        <Link to="/shopping-cart" data-testid="shopping-cart-button">Carrinho</Link
+        <form>
+          <input type="email" />
+          <textarea
+            data-testid="product-detail-evaluation"
+            name="avaliation"
+            placeholder="Faça sua avaliação aqui"
+            cols="40"
+            rows="15"
+          />
+        </form>
       </div>
     );
   }
