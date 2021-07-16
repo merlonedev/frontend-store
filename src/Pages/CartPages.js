@@ -9,10 +9,14 @@ class CartPages extends Component {
       products: [
         ...this.getItens(),
       ],
+      clicks: 1,
     };
 
     this.getItens = this.getItens.bind(this);
     this.renderCartItens = this.renderCartItens.bind(this);
+    this.removeFromCart = this.removeFromCart.bind(this);
+    this.plusClickState = this.plusClickState.bind(this);
+    this.minusClickState = this.minusClickState.bind(this);
   }
 
   getItens() {
@@ -21,18 +25,56 @@ class CartPages extends Component {
     return array.map((key) => JSON.parse(localStorage.getItem(key)));
   }
 
+  removeFromCart() {
+    localStorage.clear();
+    this.setState({ products: [] });
+  }
+
+  plusClickState() {
+    this.setState((state) => ({
+      clicks: state.clicks + 1,
+    }));
+  }
+
+  minusClickState() {
+    const { clicks } = this.state;
+    if (clicks === 0 || clicks > 1) {
+      this.setState({ clicks: clicks - 1 });
+    }
+  }
+
   renderCartItens() {
-    const { products } = this.state;
-    return (
-      products.length > 0
-        ? products.map((product) => (
-          <CartItemProduct
-            key={ product.id }
-            product={ product }
-          />
-        ))
-        : <div data-testid="shopping-cart-empty-message">Seu carrinho está vazio</div>
-    );
+    const { products, clicks } = this.state;
+    if (products.length > 0) {
+      const teste = products.reduce(
+        (accumulator, curentValue) => accumulator + (curentValue.price * clicks), 0,
+      );
+      console.log(teste);
+      return (
+        <div>
+          <div>
+            <button
+              type="button"
+              onClick={ this.removeFromCart }
+            >
+              X
+            </button>
+          </div>
+          { products.map((product) => (
+            <div key={ product.id }>
+              <CartItemProduct
+                key={ product.id }
+                product={ product }
+                handlePlusButton={ this.plusClickState }
+                handleMinusButton={ this.minusClickState }
+                clicks={ clicks }
+              />
+            </div>
+          )) }
+        </div>
+      );
+    } return (
+      <div data-testid="shopping-cart-empty-message">Seu carrinho está vazio</div>);
   }
 
   render() {
