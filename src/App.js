@@ -5,6 +5,7 @@ import Home from './pages/home/Home';
 import Cart from './pages/cart/Cart';
 import Details from './pages/details/Details';
 import MarketButton from './components/marketButton/MarketButton';
+import Checkout from './pages/checkout/Checkout';
 
 class App extends React.Component {
   render() {
@@ -18,6 +19,7 @@ class App extends React.Component {
             path="/details/:id"
             render={ (props) => <Details { ...props } /> }
           />
+          <Route exact path="/checkout" component={ Checkout } />
         </Switch>
       </BrowserRouter>
     );

@@ -4,15 +4,30 @@ import PropTypes from 'prop-types';
 class CartCard extends React.Component {
   constructor(props) {
     super(props);
-    const { product: { price } } = this.props;
+    const { product: { price, numberProducts } } = this.props;
     this.state = {
       valor: price,
-      numberProducts: 1,
-      soma: price,
+      numberProducts: numberProducts || 1,
+      soma: price * (numberProducts || 1),
     };
 
     this.sumValueProduct = this.sumValueProduct.bind(this);
     this.subtractionValueProduct = this.subtractionValueProduct.bind(this);
+  }
+
+  componentDidMount() {
+    this.priceStore();
+  }
+
+  priceStore = () => {
+    const { numberProducts, soma } = this.state;
+    const { product } = this.props;
+    let produtos = JSON.parse(localStorage.getItem('Cart'));
+    let atual = produtos.find((e) => e.id === product.id);
+    produtos = produtos.filter((e) => e.id !== product.id);
+    atual = { ...atual, numberProducts, soma };
+    produtos = [...produtos, atual];
+    localStorage.setItem('Cart', JSON.stringify(produtos));
   }
 
   sumValueProduct() {
@@ -21,7 +36,8 @@ class CartCard extends React.Component {
     this.setState({
       numberProducts: numberProducts + 1,
       soma: sum,
-    });
+
+    }, () => this.priceStore());
   }
 
   subtractionValueProduct() {
@@ -35,7 +51,7 @@ class CartCard extends React.Component {
       this.setState({
         numberProducts: 1,
         soma: valor,
-      });
+      }, () => this.priceStore());
     }
   }
 
@@ -80,6 +96,8 @@ CartCard.propTypes = {
     title: PropTypes.string,
     thumbnail: PropTypes.string,
     price: PropTypes.number,
+    numberProducts: PropTypes.number,
+    id: PropTypes.string,
   }).isRequired,
 };
 
