@@ -6,6 +6,15 @@ import ProductCard from '../components/ProductCard';
 
 class Main extends Component {
   constructor(props) {
+    let totalItems = 0;
+    if (localStorage.getItem('carrinho')) {
+      const currentCart = JSON.parse(localStorage.getItem('carrinho'));
+      totalItems = currentCart.reduce((acc, cur) => {
+        acc += cur.quantity;
+        return acc;
+      }, 0);
+    }
+
     super(props);
     this.state = {
       query: '',
@@ -13,11 +22,13 @@ class Main extends Component {
       prodList: [],
       render: false,
       isEmpty: true,
+      total: totalItems,
     };
 
     this.handleChangeCategory = this.handleChangeCategory.bind(this);
     this.handleChangeInput = this.handleChangeInput.bind(this);
     this.buttonLogic = this.buttonLogic.bind(this);
+    this.updateTotal = this.updateTotal.bind(this);
   }
 
   handleChangeCategory({ target }) {
@@ -64,6 +75,10 @@ class Main extends Component {
     }
   }
 
+  updateTotal(number) {
+    this.setState({ total: number });
+  }
+
   renderParag() {
     return (
       <p data-testid="home-initial-message">
@@ -76,13 +91,18 @@ class Main extends Component {
     const { prodList } = this.state;
     return (
       prodList.map(
-        (prod) => <ProductCard key={ prod.id } product={ prod } />,
+        (prod) => (
+          <ProductCard
+            key={ prod.id }
+            product={ prod }
+            updateTotal={ this.updateTotal }
+          />),
       )
     );
   }
 
   render() {
-    const { render, query, isEmpty } = this.state;
+    const { render, query, isEmpty, total } = this.state;
 
     return (
       <main>
@@ -103,6 +123,7 @@ class Main extends Component {
         <Link data-testid="shopping-cart-button" to="/shopping-cart">
           Retorna
         </Link>
+        <span data-testid="shopping-cart-size">{ total }</span>
         { isEmpty && this.renderParag() }
         <Categories onClick={ this.handleChangeCategory } />
         { render && this.renderList() }

@@ -78,13 +78,13 @@ class ShoppingCard extends Component {
             >
               +
             </button>
-            <Link
-              to="/checkout"
-              data-testid="checkout-products"
-            >
-              <ShoppingCardIcon />
-            </Link>
           </div>))}
+        <Link
+          to="/checkout"
+          data-testid="checkout-products"
+        >
+          <ShoppingCardIcon />
+        </Link>
         <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
       </div>
     );
