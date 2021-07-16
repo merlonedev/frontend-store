@@ -5,6 +5,7 @@ import ShoppingCart from './components/ShoppingCart';
 import CategoriesBar from './components/CategoriesBar';
 import ProductsList from './components/ProductsList';
 import ProductDetails from './components/ProductDetails';
+import CartSlider from './components/subcomponents/CartSlider';
 import CompletePurchase from './components/CompletePurchase';
 import Checkout from './components/Checkout';
 import Header from './components/Header';
@@ -41,9 +42,7 @@ export default class App extends Component {
 
   componentDidMount() {
     API.getCategories().then((results) => {
-      this.setState({
-        categories: results,
-      });
+      this.setState({ categories: results });
     });
     if (localStorage.cartItems) this.loadCart();
   }
@@ -57,8 +56,7 @@ export default class App extends Component {
   async setProducts() {
     const { queryInput, category, sorting } = this.state;
     const results = await API.getProductsFromCategoryAndQuery(
-      category,
-      queryInput,
+      category, queryInput,
     );
     this.setState({
       products: results.results,
@@ -69,10 +67,7 @@ export default class App extends Component {
   }
 
   emptyCart() {
-    this.setState({
-      cartItems: [],
-      quantity: 0,
-    });
+    this.setState({ cartItems: [], quantity: 0 });
   }
 
   loadCart() {
@@ -134,8 +129,7 @@ export default class App extends Component {
     let { quantity } = this.state;
     quantity += 1;
     const items = [...cartItems];
-    const currItem = Object.values(cartItems)
-      .find((item) => item.id === itemObj.id);
+    const currItem = Object.values(cartItems).find((item) => item.id === itemObj.id);
     if (!currItem) items.push(itemObj);
     else currItem.qty += 1;
     this.setState({
@@ -190,7 +184,6 @@ export default class App extends Component {
                 render={ () => (
                   <ShoppingCart
                     cartItems={ cartItems }
-                    updateAppCart={ this.updateCartItems }
                     handlers={ {
                       remove: this.removeItem,
                       increase: this.increaseQty,
@@ -214,17 +207,21 @@ export default class App extends Component {
                     showButtons="false"
                   />) }
               />
-              <Route
-                exact
-                path="/complete"
-                render={ () => (<CompletePurchase />) }
-              />
+              <Route exact path="/complete" component={ CompletePurchase } />
               <Route
                 exact
                 path="/"
                 render={ () => (
                   <div className="home">
-                    <Header title="Mercadão Se Vira nos 30" />
+                    <Header slider="true" title="Mercadão Se Vira nos 30" />
+                    <CartSlider
+                      cartItems={ cartItems }
+                      handlers={ {
+                        remove: this.removeItem,
+                        increase: this.increaseQty,
+                        decrease: this.decreaseQty,
+                      } }
+                    />
                     <SearchBar quantity={ quantity } callback={ this.callback } />
                     <SortSelect callback={ this.callbackSort } sorting={ sorting } />
                     <CategoriesBar
