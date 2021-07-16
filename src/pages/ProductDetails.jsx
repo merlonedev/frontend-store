@@ -39,14 +39,14 @@ class ProductDetails extends React.Component {
       product,
       loading,
     } = this.state;
-    const { cartQtd } = this.props;
+    const { amountCart } = this.props;
     const { addToCartItems } = this.props;
     if (loading) return <Loading />;
     return (
       <div>
         <Link to="/"><TiArrowBack /></Link>
         <Link to="/cart" data-testid="shopping-cart-button">
-          <CartIcon qtd={ cartQtd } />
+          <CartIcon amount={ amountCart } />
         </Link>
         <h2 data-testid="product-detail-name">
           { `${title} - ${(price || 0).toLocaleString('pt-BR', {
@@ -89,8 +89,12 @@ ProductDetails.propTypes = {
       categoryId: PropTypes.string,
     }),
   }).isRequired,
-  cartQtd: PropTypes.number.isRequired,
+  amountCart: PropTypes.number,
   addToCartItems: PropTypes.func.isRequired,
+};
+
+ProductDetails.defaultProps = {
+  amountCart: 0,
 };
 
 export default ProductDetails;

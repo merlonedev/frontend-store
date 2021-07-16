@@ -1,0 +1,29 @@
+.categories-bar {
+  background-color: rgb(240, 160, 11);
+  border-radius: 10px;
+  height: 90%;
+  min-width: 400px;
+  padding: 10px;
+}
+
+.categories-bar div {
+  display: flex;
+  flex-direction: column;
+}
+
+.rad-label {
+  cursor: pointer;
+  font-size: 25px;
+  padding: 15px 0;
+  transition: 0.3s;
+}
+
+.rad-label:hover, .rad-label:focus-within {
+  background: hsla(39, 97%, 26%, 0.513);
+  border-radius: 5px;
+  transform: scale(1.05);
+}
+
+.radio-input {
+  cursor: pointer;
+}

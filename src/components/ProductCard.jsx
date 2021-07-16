@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import '../css/ProductCard.css';
+import '../css/productCard.css';
 import { FaTruckMoving } from 'react-icons/fa';
 
 class ProductCard extends React.Component {
@@ -29,16 +29,16 @@ class ProductCard extends React.Component {
     const { addToCartItems, product } = this.props;
     return (
       <div data-testid="product" className="product-card">
+        { freeShipping
+          ? (
+            <div>
+              <FaTruckMoving data-testid="free-shipping" id="shipping-free" />
+              <span>Frete Grátis</span>
+            </div>)
+          : '' }
+        {/* Icone retirado de https://react-icons.github.io/react-icons/ */}
         <div className="product-each">
           <div className="product-spec">
-            { freeShipping
-              ? (
-                <div>
-                  <FaTruckMoving data-testid="free-shipping" id="shipping-free" />
-                  <span>Frete Grátis</span>
-                </div>)
-              : '' }
-            {/* Icone retirado de https://react-icons.github.io/react-icons/ */}
             <p className="product-title">{title}</p>
             <img
               className="product-img"
@@ -65,7 +65,7 @@ class ProductCard extends React.Component {
               <Link
                 className="product-link"
                 data-testid="product-detail-link"
-                to={ `/item/${category || categoryId}/${id}` }
+                to={ `/product/${category || categoryId}/${id}` }
               >
                 Mais Detalhes
               </Link>

@@ -6,13 +6,13 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 class CartIcon extends Component {
   // AJUDA EM: https://www.geeksforgeeks.org/how-to-create-shopping-cart-button-in-reactjs/
   render() {
-    const { qtd } = this.props;
+    const { amount } = this.props;
     return (
       <div style={ { display: 'block' } }>
         <Badge
           data-testid="shopping-cart-size"
           color="secondary"
-          badgeContent={ qtd }
+          badgeContent={ amount }
         >
           <ShoppingCartIcon />
         </Badge>
@@ -22,7 +22,11 @@ class CartIcon extends Component {
 }
 
 CartIcon.propTypes = {
-  qtd: PropTypes.number.isRequired,
+  amount: PropTypes.number,
+};
+
+CartIcon.defaultProps = {
+  amount: 0,
 };
 
 export default CartIcon;

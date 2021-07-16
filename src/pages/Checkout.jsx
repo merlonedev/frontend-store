@@ -8,13 +8,13 @@ import CartIcon from '../components/CartIcon';
 
 class Checkout extends Component {
   render() {
-    const { cartItems, qtd } = this.props;
+    const { cartItems, amountCart } = this.props;
     return (
       <div>
         <h1>Checkout</h1>
         <Link className="goBack-checkout" to="/cart"><TiArrowBack /></Link>
         <Link to="/cart" data-testid="shopping-cart-button">
-          <CartIcon qtd={ qtd } />
+          <CartIcon amount={ amountCart } />
         </Link>
         <InfoCartCheckout cartItems={ cartItems } />
         <CheckoutForm />
@@ -28,7 +28,11 @@ Checkout.propTypes = {
     cartItems: PropTypes.arrayOf(PropTypes.object).isRequired,
     total: PropTypes.number.isRequired,
   }).isRequired,
-  qtd: PropTypes.number.isRequired,
+  amountCart: PropTypes.number,
+};
+
+Checkout.defaultProps = {
+  amountCart: 0,
 };
 
 export default Checkout;

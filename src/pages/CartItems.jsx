@@ -114,13 +114,13 @@ class CartItems extends React.Component {
   render() {
     const { cartItems, total, totalItems } = this.state;
     const { sendTotal } = this.props;
-    const qtd = totalItems;
+    const amountCart = totalItems;
     return (
       <div className="cart">
         <div className="cart-header">
           <Link className="goBack-cart" to="/"><TiArrowBack /></Link>
           <div className="cart-title">
-            <CartIcon qtd={ qtd } />
+            <CartIcon amount={ amountCart } />
             Carrinho de Compras
           </div>
         </div>

@@ -5,7 +5,7 @@ import CartIcon from '../components/CartIcon';
 import ProductCard from '../components/ProductCard';
 import CategoriesFilter from '../components/CategoriesFilter';
 import * as api from '../services/api';
-import '../css/ListItens.css';
+import '../css/listItens.css';
 
 class ListItems extends React.Component {
   constructor(props) {
@@ -102,7 +102,7 @@ class ListItems extends React.Component {
       categoryId,
     } = this.state;
 
-    const { addToCartItems, cartQtd } = this.props;
+    const { addToCartItems, amountCart } = this.props;
 
     return (
       <div>
@@ -131,31 +131,33 @@ class ListItems extends React.Component {
             </label>
           </form>
           <Link to="/cart" data-testid="shopping-cart-button">
-            <CartIcon qtd={ cartQtd } />
+            <CartIcon amount={ amountCart } />
           </Link>
         </nav>
         <div data-testid="home-initial-message" className="info">
           Digite algum termo de pesquisa ou escolha uma categoria.
         </div>
-        <CategoriesFilter
-          categories={ categories }
-          onChange={ this.handleChangeCategory }
-        />
-        <div className="movie-list">
-          {
-            checkList
-              ? products
-                .map((product) => (
-                  <ProductCard
-                    key={ product.id }
-                    product={ product }
-                    category={ categoryId }
-                    addToCartItems={ addToCartItems }
-                  />
-                ))
-              : <span>Nenhum produto foi encontrado</span>
-          }
-        </div>
+        <section className="main">
+          <CategoriesFilter
+            categories={ categories }
+            onChange={ this.handleChangeCategory }
+          />
+          <div className="movie-list">
+            {
+              checkList
+                ? products
+                  .map((product) => (
+                    <ProductCard
+                      key={ product.id }
+                      product={ product }
+                      category={ categoryId }
+                      addToCartItems={ addToCartItems }
+                    />
+                  ))
+                : <span>Nenhum produto foi encontrado</span>
+            }
+          </div>
+        </section>
       </div>
     );
   }
@@ -163,7 +165,11 @@ class ListItems extends React.Component {
 
 ListItems.propTypes = {
   addToCartItems: PropTypes.func.isRequired,
-  cartQtd: PropTypes.number.isRequired,
+  amountCart: PropTypes.number,
+};
+
+ListItems.defaultProps = {
+  amountCart: 0,
 };
 
 export default ListItems;

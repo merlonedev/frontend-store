@@ -55,7 +55,7 @@ class App extends React.Component {
       count: 1,
     };
     const yesRepeated = cartItems.map((item) => {
-      if (item.product === newItem) {
+      if (item.product.id === newItem.id) {
         return {
           product: item.product,
           count: item.count + 1,
@@ -63,13 +63,12 @@ class App extends React.Component {
       }
       return item;
     });
-    const isRepeated = cartItems.some((item) => item.product === newItem);
+    const isRepeated = cartItems.some((item) => item.product.id === newItem.id);
     if (!isRepeated) {
       return this.setState((prevState) => ({
         cartItems: [...prevState.cartItems, notRepeated],
       }));
     }
-
     this.setState({
       cartItems: [...yesRepeated],
     });
@@ -101,7 +100,7 @@ class App extends React.Component {
               (props) => (<ListItems
                 { ...props }
                 addToCartItems={ this.addToCartItems }
-                cartQtd={ totalItems }
+                amountCart={ totalItems }
               />)
             }
           />
@@ -119,10 +118,10 @@ class App extends React.Component {
             }
           />
           <Route
-            path="/item/:categoryId/:productId"
+            path="/product/:categoryId/:productId"
             render={ (props) => (<ProductDetails
               { ...props }
-              cartQtd={ totalItems }
+              amountCart={ totalItems }
               addToCartItems={ this.addToCartItems }
             />) }
           />
@@ -132,7 +131,7 @@ class App extends React.Component {
               (props) => (<Checkout
                 { ...props }
                 cartItems={ { cartItems, total } }
-                qtd={ totalItems }
+                amountCart={ totalItems }
               />)
             }
           />
