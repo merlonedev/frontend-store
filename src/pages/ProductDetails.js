@@ -28,7 +28,7 @@ class ProductDetails extends Component {
       this.saveCart();
     }
   }
-  
+
   cartHandleCounter() {
     this.setState((prevState) => ({
       totalCartItems: prevState.totalCartItems + 1,
