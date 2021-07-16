@@ -48,28 +48,32 @@ export default class ShoppingCart extends React.Component {
     }
     return (
       <div>
-        <p>{`Total: ${total.toFixed(2)}`}</p>
-        {
-          cartList.map((
-            { id, price, quantity, thumbnail, title }, index,
-          ) => (<CartItem
-            key={ index }
-            id={ id }
-            price={ price }
-            quantity={ quantity }
-            thumbnail={ thumbnail }
-            title={ title }
-            removeItem={ removeItem }
-            setQuantity={ setQuantity }
-          />))
-        }
-        <button
-          type="button"
-          data-testid="checkout-products"
-          onClick={ this.changeCheckoutState }
-        >
-          Finalizar compra
-        </button>
+        <div className="shopping-cart">
+          <div className="cards-div">
+            <p>{`Total: ${total.toFixed(2)}`}</p>
+            {
+              cartList.map((
+                { id, price, quantity, thumbnail, title }, index,
+              ) => (<CartItem
+                key={ index }
+                id={ id }
+                price={ price }
+                quantity={ quantity }
+                thumbnail={ thumbnail }
+                title={ title }
+                removeItem={ removeItem }
+                setQuantity={ setQuantity }
+              />))
+            }
+          </div>
+          <button
+            type="button"
+            data-testid="checkout-products"
+            onClick={ this.changeCheckoutState }
+          >
+            Finalizar compra
+          </button>
+        </div>
         { this.renderCheckout() }
       </div>
     );
