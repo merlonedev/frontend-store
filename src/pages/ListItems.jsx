@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import CartIcon from '../components/CartIcon';
 import ProductCard from '../components/ProductCard';
 import CategoriesFilter from '../components/CategoriesFilter';
+import Loading from '../components/Loading';
 import * as api from '../services/api';
 import '../css/listItens.css';
 
@@ -16,6 +17,7 @@ class ListItems extends React.Component {
       checkList: true,
       categories: [],
       categoryId: '',
+      loading: false,
     };
 
     this.handleChangeSearch = this.handleChangeSearch.bind(this);
@@ -54,10 +56,14 @@ class ListItems extends React.Component {
 
   async filterProductsForCategory() {
     try {
+      this.setState({
+        loading: true,
+      });
       const { categoryId } = this.state;
       const { results } = await api.getProductsFromCategoryAndQuery(categoryId, '');
       this.setState({
         products: [...results],
+        loading: false,
       });
     } catch (err) {
       console.log(err);
@@ -66,15 +72,20 @@ class ListItems extends React.Component {
 
   async searchProducts() {
     try {
+      this.setState({
+        loading: true,
+      });
       const { search, categoryId } = this.state;
       const { results } = await api.getProductsFromCategoryAndQuery(categoryId, search);
       if (results.length) {
         return this.setState({
           products: [...results],
           checkList: true,
+          loading: false,
         });
       }
       this.setState({
+        loading: false,
         checkList: false,
       });
     } catch (err) {
@@ -93,16 +104,30 @@ class ListItems extends React.Component {
     }
   }
 
+  renderItems() {
+    const { products, checkList, categoryId } = this.state;
+    const { addToCartItems } = this.props;
+    return checkList
+      ? products
+        .map((product) => (
+          <ProductCard
+            key={ product.id }
+            product={ product }
+            category={ categoryId }
+            addToCartItems={ addToCartItems }
+          />
+        ))
+      : <span>Nenhum produto foi encontrado</span>;
+  }
+
   render() {
     const {
       search,
-      products,
-      checkList,
       categories,
-      categoryId,
+      loading,
     } = this.state;
 
-    const { addToCartItems, amountCart } = this.props;
+    const { amountCart } = this.props;
 
     return (
       <div className="home">
@@ -144,17 +169,9 @@ class ListItems extends React.Component {
           />
           <div className="product-list">
             {
-              checkList
-                ? products
-                  .map((product) => (
-                    <ProductCard
-                      key={ product.id }
-                      product={ product }
-                      category={ categoryId }
-                      addToCartItems={ addToCartItems }
-                    />
-                  ))
-                : <span>Nenhum produto foi encontrado</span>
+              loading
+                ? <Loading />
+                : this.renderItems()
             }
           </div>
         </section>
