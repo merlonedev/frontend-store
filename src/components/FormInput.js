@@ -6,9 +6,10 @@ class FormInput extends React.Component {
     const { id, value, onChange, text } = this.props;
     return (
       <section>
-        <label htmlFor={ id } data-testid={ `checkout-${id}` }>
+        <label htmlFor={ id }>
           { text }
           <input
+            data-testid={ `checkout-${id}` }
             type="text"
             id={ id }
             value={ value }
