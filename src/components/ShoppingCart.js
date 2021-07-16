@@ -31,16 +31,18 @@ class ShoppingCart extends React.Component {
     });
   }
 
-  // Função para incrementar a quantidade
+  // Função para incrementar a quantidade.
   increaseQtt(id) {
     const allProducts = JSON.parse(localStorage.getItem('item'));
     const { tracker } = this.state;
     const value = allProducts.find((item) => item.id === id);
-    value.quantity += 1;
+    let itemCount = parseInt(localStorage.getItem('count'), 10);
+    if (value.quantity < value.available_quantity) {
+      value.quantity += 1;
+      itemCount += 1;
+    }
     const productUpdate = JSON.stringify(allProducts);
     localStorage.setItem('item', productUpdate);
-    let itemCount = parseInt(localStorage.getItem('count'), 10);
-    itemCount += 1;
     localStorage.setItem('count', itemCount);
     this.setState({
       tracker: !tracker,
