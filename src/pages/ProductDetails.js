@@ -20,6 +20,13 @@ class ProductDetails extends Component {
         <div data-testid="product-detail-container-description">
           <p>Descrição</p>
           <p>{ price }</p>
+          <button
+            type="button"
+            data-testid="product-detail-add-to-cart"
+            onClick=""
+          >
+            Adicionar ao carrinho
+          </button>
         </div>
       </section>
     );
