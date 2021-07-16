@@ -1,43 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 class ShoppingCart extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      totalQuantity: props.cartAdd.length,
-      cartAdd: props.cartAdd,
-    };
-
-    this.quantitySum = this.quantitySum.bind(this);
-    this.quantitySub = this.quantitySub.bind(this);
-  }
-
-  quantitySum(id) {
-    this.setState((prevState) => ({
-      [id]: prevState[id] ? prevState[id] + 1 : 2,
-      totalQuantity: prevState.totalQuantity + 1,
-    }));
-  }
-
-  quantitySub(id, quantidade) {
-    if (quantidade === 1) {
-      return;
-    }
-    this.setState((prevState) => ({
-      [id]: prevState[id] ? prevState[id] - 1 : 1,
-      totalQuantity: prevState.totalQuantity === 1 ? 1 : prevState.totalQuantity - 1,
-    }));
-  }
-
   render() {
-    const { totalQuantity } = this.state;
-    const { cartAdd, removeItem } = this.props;
-    const totalPrice = cartAdd.reduce((acc, item) => {
-      const { [item.id]: quant } = this.state;
+    const { cartAdd, removeItem, quantitySub, quantitySum } = this.props;
+    const totalPrice = (cartAdd.reduce((acc, item) => {
+      const { estado: { [item.id]: quant } } = this.props;
       const quantidade = quant || 1;
       return (quantidade * item.price + acc);
-    }, 0);
+    }, 0));
     const carrinhoVazio = (
       <div data-testid="shopping-cart-empty-message">
         <p>Seu carrinho está vazio</p>
@@ -46,7 +18,7 @@ class ShoppingCart extends React.Component {
     const carrinhoCheio = (
       <div>
         {cartAdd.map((item) => {
-          const { [item.id]: quantidade = 1 } = this.state;
+          const { estado: { [item.id]: quantidade = 1 } } = this.props;
           return (
             <div key={ item.id }>
               <p data-testid="shopping-cart-product-name">{item.title}</p>
@@ -57,7 +29,7 @@ class ShoppingCart extends React.Component {
               <img src={ item.thumbnail } alt={ item.title } />
               <button
                 type="button"
-                onClick={ () => this.quantitySub(item.id, quantidade) }
+                onClick={ () => quantitySub(item.id, quantidade) }
                 name={ item.id }
                 data-testid="product-decrease-quantity"
               >
@@ -65,7 +37,7 @@ class ShoppingCart extends React.Component {
               </button>
               <button
                 type="button"
-                onClick={ () => this.quantitySum(item.id) }
+                onClick={ () => quantitySum(item.id) }
                 name={ item.id }
                 data-testid="product-increase-quantity"
               >
@@ -90,12 +62,15 @@ class ShoppingCart extends React.Component {
           );
         })}
         <p>
-          {`Total de itens: ${totalQuantity}`}
-        </p>
-        <p>
           Valor Total da Compra: R$
           {totalPrice}
         </p>
+        <Link
+          to={ { pathname: '/finalizarcompra', state: totalPrice } }
+          data-testid="checkout-products"
+        >
+          Finalizar Compra
+        </Link>
       </div>
     );
 
