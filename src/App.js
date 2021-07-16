@@ -7,7 +7,6 @@ import Header from './Components/Header';
 import './App.css';
 
 class App extends Component {
-  // MLB1370656442 id test
   render() {
     return (
       <BrowserRouter>
@@ -18,7 +17,11 @@ class App extends Component {
             path="/productDetail/:id"
             render={ (props) => <ProductDetails { ...props } /> }
           />
-          <Route exact path="/cart" component={ ShoppingCart } />
+          <Route
+            exact
+            path="/shoppingCart"
+            render={ (props) => <ShoppingCart { ...props } /> }
+          />
           <Route exact path="/" component={ Home } />
         </Switch>
       </BrowserRouter>

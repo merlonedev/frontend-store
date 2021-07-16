@@ -10,35 +10,34 @@ class Home extends Component {
     super(props);
 
     this.state = {
-      products: [],
-      categories: [],
-      value: '',
-      productList: [],
+      products: [], // são os produtos da página home, por categoria e por pesquisa
+      categories: [], // o que é usado para fazer os bostões de pequisa de categoria
+      search: '', // é o valor  é usado para o fetch por pesquisa por nome
+      shoppingCart: [], // lista dos produtos comprados
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
-    this.mountCategorieList = this.mountCategorieList.bind(this);
-    this.addToCart = this.addToCart.bind(this);
+    this.setOptionsCategories = this.setOptionsCategories.bind(this);
+    this.addToShoppingCart = this.addToShoppingCart.bind(this);
   }
 
   async componentDidMount() {
     const result = await getCategories();
-    this.mountCategorieList(result);
+    this.setOptionsCategories(result);
   }
 
   handleChange(e) {
     this.setState({
-      value: e.target.value,
+      search: e.target.value,
     });
   }
 
   async handleClick(e) {
     const { target: { id, name } } = e;
-    console.log('func', id);
-    const { value } = this.state;
+    const { search } = this.state;
     const byCategorie = name === 'categorie' ? id : '';
-    const bySearch = name === 'searchButton' ? value : '';
+    const bySearch = name === 'searchButton' ? search : '';
 
     const products = await getProductsFromCategoryAndQuery(byCategorie, bySearch);
 
@@ -47,39 +46,41 @@ class Home extends Component {
     });
   }
 
-  mountCategorieList(categories) {
+  setOptionsCategories(categories) {
     this.setState({
       categories,
     });
   }
 
-  addToCart(product) {
-    console.log(product);
+  addToShoppingCart({ target: { id } }) {
+    const { products } = this.state;
+    console.log('Clicou');
+    const product = products.find((e) => e.id === id);
     this.setState((prevState) => ({
-      productList: [...prevState.productList, product],
+      shoppingCart: [...prevState.shoppingCart, product],
     }));
   }
 
   render() {
-    const { products, value, categories, productList } = this.state;
+    const { products, search, categories, shoppingCart } = this.state;
     return (
 
       <section>
         <div>
+          <ProductList
+            products={ products }
+            addToShoppingCart={ this.addToShoppingCart }
+          />
           <SearchBar
             products={ products }
-            value={ value }
+            value={ search }
             change={ this.handleChange }
             click={ this.handleClick }
           />
-          <ButtonCart />
+          <ButtonCart shoppingCart={ shoppingCart } />
           <NavBar
             categories={ categories }
             click={ this.handleClick }
-          />
-          <ProductList
-            products={ productList }
-            addToCart={ this.addToCart }
           />
         </div>
       </section>
