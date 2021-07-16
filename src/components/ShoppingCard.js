@@ -9,12 +9,19 @@ class ShoppingCard extends Component {
 
     if (localStorage.getItem('carrinho')) {
       const cart = JSON.parse(localStorage.getItem('carrinho'));
+      const currentCart = JSON.parse(localStorage.getItem('carrinho'));
+      const totalItems = currentCart.reduce((acc, cur) => {
+        acc += cur.quantity;
+        return acc;
+      }, 0);
       this.state = {
         items: [...cart],
+        total: totalItems,
       };
     } else {
       this.state = {
         items: [],
+        total: 0,
       };
     }
 
@@ -32,7 +39,13 @@ class ShoppingCard extends Component {
       return item;
     });
     localStorage.setItem('carrinho', JSON.stringify(currentCart));
-    this.setState({ items: [...currentCart] });
+    const totalItems = currentCart.reduce((acc, cur) => {
+      acc += cur.quantity;
+      return acc;
+    }, 0);
+    this.setState({
+      items: [...currentCart],
+      total: totalItems });
   }
 
   addItemFromCart(id) {
@@ -48,14 +61,21 @@ class ShoppingCard extends Component {
       return item;
     });
     localStorage.setItem('carrinho', JSON.stringify(currentCart));
-    this.setState({ items: [...currentCart] });
+    const totalItems = currentCart.reduce((acc, cur) => {
+      acc += cur.quantity;
+      return acc;
+    }, 0);
+    this.setState({
+      items: [...currentCart],
+      total: totalItems });
   }
 
   render() {
-    const { items } = this.state;
+    const { items, total } = this.state;
     return (
       <div>
         <ShoppingCardIcon />
+        <span data-testid="shopping-cart-size">{ total }</span>
         { items.map((product) => (
           <div key={ product.id }>
             <span
