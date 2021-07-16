@@ -3,6 +3,7 @@ import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
 import Index from './components/Index';
 import Cart from './components/ShoppingCart';
 import Infos from './components/Infos';
+import Checkout from './components/Checkout';
 import './App.css';
 
 // Renderiza pagina de acordo com o que possuir após o / .
@@ -84,6 +85,7 @@ class App extends React.Component {
                 addCartItem={ this.addToCartItem }
               />) }
           />
+          <Route path="/Checkout" component={ Checkout } />
           <Route
             path="/"
             render={ () => (<Index

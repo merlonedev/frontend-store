@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 class ShoppingCart extends React.Component {
   constructor(props) {
@@ -60,34 +61,44 @@ class ShoppingCart extends React.Component {
       renderConditional = false;
     }
     return (
-      <div>
-        {renderConditional ? (allProducts.map(({ title, id, thumbnail, quantity }) => (
-          <div key={ id }>
-            <h3 data-testid="shopping-cart-product-name">{title}</h3>
-            <img src={ thumbnail } alt="Imagem do produto" />
-            {/* Adicionando o botão de decrementação */}
-            <button
-              type="button"
-              onClick={ () => this.decreaseQtt(id) }
-              data-testid="product-decrease-quantity"
-            >
-              -
-            </button>
-            <p data-testid="shopping-cart-product-quantity">{quantity}</p>
-            {/* Adicionando o botão de incrementação */}
-            <button
-              type="button"
-              value={ id }
-              onClick={ () => this.increaseQtt(id) }
-              data-testid="product-increase-quantity"
-            >
-              +
-            </button>
-          </div>
-        ))) : (
-          <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
-        )}
-      </div>
+      <main>
+        <div>
+          {renderConditional ? (allProducts.map(({ title, id, thumbnail, quantity }) => (
+            <div key={ id }>
+              <h3 data-testid="shopping-cart-product-name">{title}</h3>
+              <img src={ thumbnail } alt="Imagem do produto" />
+              {/* Adicionando o botão de decrementação */}
+              <button
+                type="button"
+                onClick={ () => this.decreaseQtt(id) }
+                data-testid="product-decrease-quantity"
+              >
+                -
+              </button>
+              <p data-testid="shopping-cart-product-quantity">{quantity}</p>
+              {/* Adicionando o botão de incrementação */}
+              <button
+                type="button"
+                value={ id }
+                onClick={ () => this.increaseQtt(id) }
+                data-testid="product-increase-quantity"
+              >
+                +
+              </button>
+            </div>
+          ))) : (
+            <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
+          )}
+        </div>
+        <div>
+          <Link
+            to="/Checkout"
+            data-testid="checkout-products"
+          >
+            Finalizar Compra
+          </Link>
+        </div>
+      </main>
     );
   }
 }
