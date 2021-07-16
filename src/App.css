@@ -91,3 +91,8 @@ main {
   display: flex;
   flex-direction: column;
 }
+
+.shopping-cart {
+  align-items: flex-start;
+  display: flex;
+}

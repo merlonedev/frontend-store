@@ -26,7 +26,7 @@ class CartItem extends React.Component {
     const { title, thumbnail, price, removeItem, id } = this.props;
     const { quantity } = this.state;
     return (
-      <div>
+      <div className="card">
         <button type="button" onClick={ () => removeItem(id) }>
           Remove
         </button>
