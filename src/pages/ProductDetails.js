@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { MdLocalShipping } from 'react-icons/md';
 import * as api from '../services/api';
 import CartButton from '../Components/CartButton';
+import '../styles/productDetails.css';
 
 class ProductDetails extends React.Component {
   constructor() {
@@ -32,26 +34,58 @@ class ProductDetails extends React.Component {
     const freeShipping = shipping ? shipping.free_shipping : undefined;
     const { addToCart, quantity } = this.props;
     return (
-      <div>
-        <Link to="/">
-          Página Inicial
-        </Link>
-        <CartButton
-          quantity={ quantity }
-        />
-        <h3 data-testid="product-detail-name">{ title }</h3>
-        <div>
-          <img src={ thumbnail } alt="product" />
-          <p>
-            Preço: R$
-            {' '}
-            { price }
-          </p>
-          { freeShipping && <p data-testid="free-shipping">Frete Grátis</p> }
+      <section className="product-detail">
+        <div className="product-detail-header">
+          <header>
+            <Link className="home-link" to="/">
+              <h2 className="market">Undefined Shop</h2>
+            </Link>
+            <CartButton
+              quantity={ quantity }
+            />
+          </header>
         </div>
+        <div className="product-detail-card">
+          <h3
+            className="product-detail-title"
+            data-testid="product-detail-name"
+          >
+            { title }
+          </h3>
+          <div>
+            <img className="product-detail-img" src={ thumbnail } alt="product" />
+            <p className="product-detail-price">
+              Preço: R$
+              {' '}
+              { price }
+            </p>
+            { freeShipping
+            && (
+              <p
+                className="product-detail-shipping"
+                data-testid="free-shipping"
+              >
+                <MdLocalShipping
+                  style={ { marginBottom: -2, marginRight: 5 } }
+                  size={ 14 }
+                  color="#ff9000"
+                />
+                Frete Grátis
+              </p>
+            )}
+          </div>
+        </div>
+        <button
+          type="button"
+          onClick={ () => addToCart(product) }
+          data-testid="product-detail-add-to-cart"
+          className="product-detail-btn"
+        >
+          Adiciona ao Carrinho
+        </button>
         <form>
-          <input type="email" />
           <textarea
+            className="product-detail-textarea"
             data-testid="product-detail-evaluation"
             name="avaliation"
             placeholder="Faça uma avaliação"
@@ -59,14 +93,7 @@ class ProductDetails extends React.Component {
             rows="10"
           />
         </form>
-        <button
-          type="button"
-          onClick={ () => addToCart(product) }
-          data-testid="product-detail-add-to-cart"
-        >
-          Adiciona ao Carrinho
-        </button>
-      </div>
+      </section>
     );
   }
 }
