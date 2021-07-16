@@ -5,7 +5,7 @@ import SearchMsg from './SearchMsg';
 
 class SearchBar extends Component {
   render() {
-    const { value, products, change, click } = this.props;
+    const { value, products, change, click, addToCart } = this.props;
 
     return (
       <section>
@@ -27,7 +27,7 @@ class SearchBar extends Component {
         {
           (products.length === 0)
             ? <SearchMsg />
-            : <ProductList value={ value } products={ products } />
+            : <ProductList addToCart={ addToCart } products={ products } />
         }
 
       </section>
@@ -40,6 +40,7 @@ SearchBar.propTypes = {
   products: PropTypes.arrayOf(Object).isRequired,
   change: PropTypes.func.isRequired,
   click: PropTypes.func.isRequired,
+  addToCart: PropTypes.func.isRequired,
 };
 
 export default SearchBar;

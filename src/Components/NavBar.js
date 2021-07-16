@@ -10,7 +10,7 @@ class NavBar extends Component {
           <button
             type="button"
             key={ categorie.id }
-            onClick={ click }
+            onClick={ (e) => click(e) }
             data-testid="category"
             id={ categorie.id }
             name="categorie"

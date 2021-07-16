@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import NavBar from '../Components/NavBar';
 import SearchBar from '../Components/SearchBar';
 import ButtonCart from '../Components/ButtonCart';
@@ -12,6 +13,7 @@ class Home extends Component {
       products: [],
       categories: [],
       value: '',
+
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -32,13 +34,10 @@ class Home extends Component {
 
   async handleClick(e) {
     const { target: { id, name } } = e;
-    console.log('func', id);
     const { value } = this.state;
     const byCategorie = name === 'categorie' ? id : '';
     const bySearch = name === 'searchButton' ? value : '';
-
     const products = await getProductsFromCategoryAndQuery(byCategorie, bySearch);
-
     this.setState({
       products: products.results,
     });
@@ -51,6 +50,7 @@ class Home extends Component {
   }
 
   render() {
+    const { addToCart } = this.props;
     const { products, value, categories } = this.state;
     return (
 
@@ -61,6 +61,7 @@ class Home extends Component {
             value={ value }
             change={ this.handleChange }
             click={ this.handleClick }
+            addToCart={ addToCart }
           />
           <ButtonCart />
           <NavBar
@@ -72,5 +73,9 @@ class Home extends Component {
     );
   }
 }
+
+Home.propTypes = {
+  addToCart: PropTypes.func.isRequired,
+};
 
 export default Home;
