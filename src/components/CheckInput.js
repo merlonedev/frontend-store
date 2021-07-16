@@ -23,7 +23,7 @@ class CheckInput extends React.Component {
 CheckInput.propTypes = {
   id: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.bool.isRequired,
   onChange: PropTypes.func.isRequired,
 };
 
