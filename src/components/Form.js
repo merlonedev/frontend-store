@@ -46,8 +46,6 @@ class Form extends Component {
       legacyText: prevState.legacyText
         ? [...prevState.legacyText, textString] : textString,
     }));
-
-    console.log(email, rating, text);
   }
 
   render() {
