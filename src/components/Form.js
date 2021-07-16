@@ -111,12 +111,19 @@ class Form extends Component {
             />
           </div>
           <div>
-            <button type="button" onClick={ this.submitClick }>
+            <button
+              type="button"
+              onClick={ this.submitClick }
+            >
               Avaliar
             </button>
           </div>
         </form>
-        <Avaliations email={ legacyEmail } rating={ legacyRating } text={ legacyText } />
+        <Avaliations
+          email={ legacyEmail }
+          rating={ legacyRating }
+          text={ legacyText }
+        />
       </div>
     );
   }
