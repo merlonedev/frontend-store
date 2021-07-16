@@ -213,7 +213,7 @@ export default class App extends Component {
                 path="/"
                 render={ () => (
                   <div className="home">
-                    <Header slider="true" title="Mercadão Se Vira nos 30" />
+                    <Header slider="true" title="Mercado Se Vira nos 30" />
                     <CartSlider
                       cartItems={ cartItems }
                       handlers={ {
