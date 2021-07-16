@@ -12,6 +12,7 @@ export default class CategoriesBar extends Component {
         {
           categories.map(({ id, name }) => (
             <label key={ id } htmlFor={ id }>
+              { name }
               <input
                 type="radio"
                 value={ id }
@@ -19,7 +20,6 @@ export default class CategoriesBar extends Component {
                 id={ id }
                 data-testid="category"
               />
-              { name }
             </label>
           ))
         }

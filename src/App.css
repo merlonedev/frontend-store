@@ -45,9 +45,15 @@ html, * {
   scroll-behavior: smooth;
 }
 
+@font-face {
+  font-family: LandaSans;
+  src: url('./fonts/LandasansMedium-ALJ6m.otf');
+}
 
 .App {
   color: var(--tanawera);
+  font-family: LandaSans , sans-serif;
+  font-size: 20px;
   text-align: center;
 }
 
@@ -155,9 +161,12 @@ html, * {
   background-color: var(--highland);
   border-radius: 0 5px 5px 0;
   box-shadow: 0 1px 2px 1px var(--old-lavender);
+  direction: rtl;
   display: flex;
   flex-direction: column;
   left: 0;
+  max-height: 85vh;
+  overflow: scroll;
   padding: 1%;
   position: absolute;
   text-align: left;
@@ -183,9 +192,16 @@ html, * {
   z-index: 1;
 }
 
+@font-face {
+  font-family: TipoPress;
+  src: url('./fonts/TipoPress-DgaW.ttf');
+}
+
 .page-title {
+  font-family: TipoPress , sans-serif;
   font-size: 25pt;
-  margin: 15px;
+  font-weight: 500;
+  margin: 10px;
 }
 
 .product-list {
@@ -322,15 +338,34 @@ html, * {
   position: absolute;
 }
 
-.search-input, .eval-input, .evaluation {
+.data-input-label {
+  width: 150px;
+}
+
+.data-input-label input {
+  width: 90%;
+}
+
+.search-input, .eval-input, .evaluation, .data-input-label input {
   background-color: var(--highland);
   border-bottom: 1px solid var(--tanawera);
   border-left: 1px solid rgba(255, 255, 255, 0);
   border-radius: 2px;
   border-right: 1px solid rgba(255, 255, 255, 0);
   border-top: 1px solid rgba(255, 255, 255, 0);
+  color: var(--tanawera);
   padding: 8px;
   transition: 0.2s;
+}
+
+input:focus, textarea:focus {
+  background-color: var(--magnolia);
+  color: var(--tanawera);
+}
+
+option {
+  font-family: LandaSans , sans-serif;
+  font-size: 1rem;
 }
 
 .evaluation {
@@ -348,15 +383,15 @@ html, * {
   margin: 0;
 }
 
-.search-input:focus, .eval-input:focus, .evaluation:focus {
-  background-color: var(--oxley);
+.search-input:focus, .eval-input:focus, .evaluation:focus, .data-input-label input:focus {
   border: 1px solid var(--tanawera);
   outline: none;
   transition: 0.2s;
 }
 
 ::placeholder {
-  font-size: 0.9em;
+  font-family: LandaSans , sans-serif;
+  font-size: 1rem;
   font-style: italic;
 }
 
@@ -372,7 +407,7 @@ html, * {
 
 .home, .cart, .checkout {
   position: relative;
-  top: 80px;
+  top: 70px;
 }
 
 .complete {
@@ -482,8 +517,8 @@ html, * {
   display: flex;
 }
 
-.data-input {
-  width: 200px;
+.form .row {
+  justify-content: space-around;
 }
 
 .payment-label {
@@ -551,7 +586,7 @@ html, * {
 }
 
 .logo {
-  height: 70px;
+  height: 60px;
   left: 5%;
   position: absolute;
 }
