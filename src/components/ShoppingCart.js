@@ -29,7 +29,7 @@ class ShoppingCart extends Component {
 
   render() {
     const { empty } = this.state;
-    const { filteredProducts, addToCart, rmvFromCart } = this.props;
+    const { filteredProducts, addToCart, rmvFromCart, cartProducts } = this.props;
     if (empty) {
       return (
         <div className="main-container">
@@ -46,6 +46,7 @@ class ShoppingCart extends Component {
           amount={ item.amount }
           addToCart={ addToCart }
           rmvFromCart={ rmvFromCart }
+          cartProducts={ cartProducts }
         />)) }
         <Link data-testid="checkout-products" to="/checkout">
           Finalizar Compra!
