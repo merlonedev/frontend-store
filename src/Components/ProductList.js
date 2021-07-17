@@ -15,8 +15,10 @@ class ProductList extends Component {
             <p>{ price }</p>
             <Link
               data-testid="product-detail-link"
+              // addToShoppingCart={ this.addToShoppingCart }
               to={
                 { pathname: `/productDetail/${id}`, state: { title, thumbnail, price } }
+
               }
             >
               + Detalhes
