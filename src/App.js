@@ -52,9 +52,8 @@ class App extends Component {
   handleQuantity() {
     this.setState((prevState) => {
       const { cartProducts } = prevState;
-      const totalQuantity = cartProducts.reduce((acc, { qtdInCart }) => (
-        acc + qtdInCart
-      ), 0);
+      const totalQuantity = cartProducts
+        .reduce((acc, { qtdInCart }) => (acc + qtdInCart), 0);
 
       return ({
         ...prevState,
@@ -66,9 +65,8 @@ class App extends Component {
   handleTotalPrice() {
     this.setState((prevState) => {
       const { cartProducts } = prevState;
-      const totalPrice = cartProducts.reduce((acc, { price, qtdInCart }) => (
-        acc + (price * qtdInCart)
-      ), 0);
+      const totalPrice = cartProducts
+        .reduce((acc, { price, qtdInCart }) => (acc + (price * qtdInCart)), 0);
 
       return ({
         ...prevState,
@@ -80,15 +78,16 @@ class App extends Component {
   handleRepeatProduct(products, product, qtd) {
     const findRepeatProduct = products.find(({ id }) => id === product.id);
     const { qtdInCart, available_quantity: availableQuantity } = findRepeatProduct;
-    if (qtdInCart >= availableQuantity) {
+    if (qtdInCart >= availableQuantity && qtd > 0) {
       findRepeatProduct.qtdInCart = availableQuantity;
     } else {
       findRepeatProduct.qtdInCart += (qtdInCart === 1 && qtd < 0) ? 0 : qtd;
     }
-    const updatedCartList = products.reduce((acc, curr) => {
-      if (curr.id === findRepeatProduct.id) return [...acc, findRepeatProduct];
-      return [...acc, curr];
-    }, []);
+    const updatedCartList = products
+      .reduce((acc, curr) => (
+        (curr.id === findRepeatProduct.id) ? [...acc, findRepeatProduct] : [...acc, curr]
+      ), []);
+
     this.setState((prevState) => ({
       ...prevState,
       cartProducts: [

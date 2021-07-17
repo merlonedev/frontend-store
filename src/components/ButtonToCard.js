@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-class AddToCard extends Component {
+class ButtonToCard extends Component {
   render() {
     const { addToCart } = this.props;
 
@@ -20,8 +20,8 @@ class AddToCard extends Component {
   }
 }
 
-AddToCard.propTypes = PropTypes.shape({
+ButtonToCard.propTypes = PropTypes.shape({
   addToCart: PropTypes.func.isRequired,
 }).isRequired;
 
-export default AddToCard;
+export default ButtonToCard;
