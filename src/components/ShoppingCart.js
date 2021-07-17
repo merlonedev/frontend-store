@@ -19,8 +19,8 @@ class ShoppingCart extends Component {
   }
 
   getProductsCount() {
-    const { list } = this.props;
-    const productsCount = list
+    const { shoppingCartList } = this.props;
+    const productsCount = shoppingCartList
       .reduce((acc, curr) => {
         (acc[curr.id] = acc[curr.id] || []).push(curr);
         return acc;
@@ -48,14 +48,14 @@ class ShoppingCart extends Component {
   }
 
   render() {
-    const { list, callBack2 } = this.props;
+    const { shoppingCartList, goBackCallBack } = this.props;
     if (this.isEmpty()) {
       return (
         <div>
           <span data-testid="shopping-cart-empty-message">Seu carrinho está vazio</span>
           <button
             type="button"
-            onClick={ () => callBack2() }
+            onClick={ () => goBackCallBack() }
           >
             Voltar
           </button>
@@ -65,7 +65,7 @@ class ShoppingCart extends Component {
     return (
       <div data-testid="product">
         <h1>shopping cart</h1>
-        {list
+        {shoppingCartList
           .map((product) => {
             const productCount = this.getProductCount(product.id);
             return (
@@ -100,7 +100,7 @@ class ShoppingCart extends Component {
           })}
         <button
           type="button"
-          onClick={ () => callBack2() }
+          onClick={ () => goBackCallBack() }
         >
           Voltar
         </button>
@@ -110,8 +110,8 @@ class ShoppingCart extends Component {
 }
 
 ShoppingCart.propTypes = {
-  list: PropTypes.arrayOf(PropTypes.object).isRequired,
-  callBack2: PropTypes.func.isRequired,
+  shoppingCartList: PropTypes.arrayOf(PropTypes.object).isRequired,
+  goBackCallBack: PropTypes.func.isRequired,
 };
 
 export default ShoppingCart;
