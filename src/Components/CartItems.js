@@ -11,7 +11,7 @@ class CartItems extends Component {
         <h2 className="cart-items-text">
           Carrinho De Compras
         </h2>
-        <div className="cart-items-card">
+        <div className="cart-items-content">
           {cartList.map((item) => (
             <CartManipulation item={ item } key={ item.id } removeItem={ removeItem } />
           ))}

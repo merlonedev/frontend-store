@@ -37,8 +37,9 @@ class CartManipulation extends React.Component {
     const { item, removeItem, item: { price } } = this.props;
     const { productQuantity } = this.state;
     return (
-      <section>
-        <div key={ item.id }>
+      <section className="cart-manipulation">
+        <hr />
+        <div key={ item.id } className="cart-manipulation-content">
           <img
             src={ item.thumbnail }
             alt="Foto do produto"
@@ -52,44 +53,46 @@ class CartManipulation extends React.Component {
             {' '}
             { item.title }
           </h1>
-          <p
-            data-testid="shopping-cart-product-quantity"
-            className="cart-manipulation-quantity"
-          >
-            Quantidade:
-            {' '}
-            { productQuantity }
-          </p>
-          <button
-            type="button"
-            onClick={ () => removeItem(item) }
-            className="cart-manipulation-remove-btn"
-          >
-            <MdDelete size={ 20 } />
-          </button>
-          <button
-            type="button"
-            data-testid="product-increase-quantity"
-            onClick={ () => this.addQuantity(productQuantity) }
-            className="cart-manipulation-add-btn"
-          >
-            <MdAdd size={ 20 } />
-          </button>
-          <button
-            type="button"
-            data-testid="product-decrease-quantity"
-            onClick={ () => this.decreaseQuantity(productQuantity) }
-            className="cart-manipulation-decrease-btn"
-          >
-            <MdRemove size={ 20 } />
-          </button>
-          <p className="cart-manipulation-price">
-            Preço total:
-            {' '}
-            {
-              (`R$ ${productQuantity * price}`)
-            }
-          </p>
+          <div className="cart-manipulation-div02">
+            <p
+              data-testid="shopping-cart-product-quantity"
+              className="cart-manipulation-quantity"
+            >
+              Quantidade:
+              {' '}
+              { productQuantity }
+            </p>
+            <button
+              type="button"
+              onClick={ () => removeItem(item) }
+              className="cart-manipulation-remove-btn"
+            >
+              <MdDelete size={ 20 } />
+            </button>
+            <button
+              type="button"
+              data-testid="product-increase-quantity"
+              onClick={ () => this.addQuantity(productQuantity) }
+              className="cart-manipulation-add-btn"
+            >
+              <MdAdd size={ 20 } />
+            </button>
+            <button
+              type="button"
+              data-testid="product-decrease-quantity"
+              onClick={ () => this.decreaseQuantity(productQuantity) }
+              className="cart-manipulation-decrease-btn"
+            >
+              <MdRemove size={ 20 } />
+            </button>
+            <p className="cart-manipulation-price">
+              Preço total:
+              {' '}
+              {
+                (`R$ ${productQuantity * price}`)
+              }
+            </p>
+          </div>
         </div>
       </section>
     );

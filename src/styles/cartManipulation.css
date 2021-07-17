@@ -1,7 +1,18 @@
+.cart-manipulation-content {
+  display: flex;
+  margin: 0 auto;
+  align-items: center;
+}
+
+.cart-manipulation-div02 {
+  margin: 20px;
+  text-align: center;
+}
+
 .cart-manipulation-title {
   /* https://stackoverflow.com/questions/36652580/how-to-add-three-dots-to-text-when-overflow-in-html/36653821 */
   overflow: hidden;
-  width: 300px;
+  width: 250px;
   display: -webkit-box;
   margin-bottom: 20px;
   -webkit-line-clamp: 3;
