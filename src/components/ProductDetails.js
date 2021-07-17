@@ -1,12 +1,13 @@
 /* eslint-disable camelcase */
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import Form from './Form';
 
 class ProductDetails extends Component {
   render() {
-    const { product, goBackCallBack } = this.props;
+    const { product,
+      goBackCallBack,
+      renderShoppingCartCallBack } = this.props;
     const { title } = product;
     return (
       <>
@@ -21,11 +22,16 @@ class ProductDetails extends Component {
         </div>
         <button
           type="button"
-          onClick={() => goBackCallBack() }
+          onClick={ () => goBackCallBack() }
         >
           VOLTAR
         </button>
-        <Link to="/ShoppingCart">CARRINHO DE COMPRAS</Link>
+        <button
+          type="button"
+          onClick={ () => renderShoppingCartCallBack() }
+        >
+          CARRINHO DE COMPRAS
+        </button>
         <div>
           <Form title={ title } />
         </div>
@@ -35,7 +41,8 @@ class ProductDetails extends Component {
 }
 
 ProductDetails.propTypes = {
-  callBack2: PropTypes.func.isRequired,
+  goBackCallBack: PropTypes.func.isRequired,
+  renderShoppingCartCallBack: PropTypes.func.isRequired,
   product: PropTypes.shape({
     title: PropTypes.string,
     thumbnail: PropTypes.string,
