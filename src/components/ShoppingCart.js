@@ -6,7 +6,6 @@ class ShoppingCart extends Component {
     super(props);
     this.state = {
       shoppingCartProductList: [],
-      // shoppingCartProductListChangeName: [],
     };
     this.getShoppingCartProductList = this.getShoppingCartProductList.bind(this);
     this.getProductQuantity = this.getProductQuantity.bind(this);
@@ -17,12 +16,6 @@ class ShoppingCart extends Component {
   componentDidMount() {
     this.getShoppingCartProductList();
   }
-
-  // componentDidUpdate() {
-  //   const { shoppingCartUpdaterCallback } = this.props;
-  //   const { shoppingCartProductList } = this.state;
-  //   shoppingCartUpdaterCallback(shoppingCartProductList);
-  // }
 
   getShoppingCartProductList() {
     const { shoppingCartProductList } = this.props;
@@ -38,18 +31,14 @@ class ShoppingCart extends Component {
     return product.quantity;
   }
 
-  isEmpty() {
-    const { shoppingCartProductList } = this.state;
-    return (shoppingCartProductList.length === 0);
-  }
+  getIndexById(id, array) { return array.map((elem) => elem.id).indexOf(id); }
 
   updateQuantity(target, operation) {
     const { shoppingCartUpdaterCallback } = this.props;
     const { shoppingCartProductList } = this.state;
     const productId = target.getAttribute('productid');
-    const getIndexById = (id, array) => array.map((elem) => elem.id).indexOf(id);
     const tempState = [...shoppingCartProductList];
-    const index = getIndexById(productId, tempState);
+    const index = this.getIndexById(productId, tempState);
     const tempElement = { ...tempState[index] };
     if (operation === '+') tempElement.quantity += 1;
     if (operation === '-') tempElement.quantity -= 1;
@@ -61,6 +50,11 @@ class ShoppingCart extends Component {
     this.setState({
       shoppingCartProductList: tempState,
     });
+  }
+
+  isEmpty() {
+    const { shoppingCartProductList } = this.state;
+    return (shoppingCartProductList.length === 0);
   }
 
   render() {

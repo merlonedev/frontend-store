@@ -61,12 +61,16 @@ class Home extends Component {
     });
   }
 
-  updateCheckoutProduct(productToBeUpdated) {
+  updateCheckoutProduct(productToBeUpdated, operation) {
     const { shoppingCartProductList } = this.state;
     const tempState = [...shoppingCartProductList];
     const index = this.getIndexById(productToBeUpdated.id, tempState);
     const tempElement = { ...tempState[index] };
-    tempElement.quantity += 1;
+    if (operation === '+') tempElement.quantity += 1;
+    if (operation === '-') tempElement.quantity -= 1;
+    if (tempElement.quantity < 0) {
+      tempElement.quantity = 0;
+    }
     tempState[index] = tempElement;
     this.setState({
       shoppingCartProductList: tempState,
@@ -76,7 +80,7 @@ class Home extends Component {
   addToCart(product) {
     const { shoppingCartProductList } = this.state;
     if (shoppingCartProductList.some((prod) => prod.id === product.id)) {
-      this.updateCheckoutProduct(product);
+      this.updateCheckoutProduct(product, '+');
     } else {
       this.setState((prev) => ({
         shoppingCartProductList: [
