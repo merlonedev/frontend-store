@@ -5,10 +5,10 @@ import './Main.css';
 
 class Main extends Component {
   render() {
-    const { value } = this.props;
+    const { value, callback } = this.props;
     return (
       <div className="main">
-        <CardList value={ value } />
+        <CardList value={ value } callback={ callback } />
         <span className="main-message" data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
         </span>
@@ -19,6 +19,7 @@ class Main extends Component {
 
 Main.propTypes = {
   value: PropTypes.string.isRequired,
+  callback: PropTypes.func.isRequired,
 };
 
 export default Main;
