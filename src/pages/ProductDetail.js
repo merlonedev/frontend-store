@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import * as api from '../services/api';
 import Assessment from '../components/ Assessments';
 
-class ProductDetail extends React.Component {
+class ProductDetail extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       product: {
         title: '',
@@ -15,6 +16,8 @@ class ProductDetail extends React.Component {
         atributtes: [],
       },
     };
+
+    this.fetchById = this.fetchById.bind(this);
     this.fetchDataFromProduct = this.fetchDataFromProduct.bind(this);
     this.addToCart = this.addToCart.bind(this);
   }
@@ -23,44 +26,47 @@ class ProductDetail extends React.Component {
     this.fetchDataFromProduct();
   }
 
-  async fetchDataFromProduct() {
-    const { location: { data }, match: { params: { id } } } = this.props;
-    const productDetails = await api.getProductsFromCategoryAndQuery('', data);
-    const productResult = productDetails.results.find((value) => value.id === id);
-    this.setState({
-      product: {
-        title: productResult.title,
-        thumbnail: productResult.thumbnail,
-        price: productResult.price,
-        atributtes: productResult.atributtes,
-      },
-    });
+  async fetchById(id) {
+    const END_POINT = `https://api.mercadolibre.com/items?ids=${id}`;
+    const response = await fetch(END_POINT);
+    const data = await response.json();
+    const { body: result } = data[0];
+    return result;
   }
 
-  addToCart(id) {
+  async fetchDataFromProduct() {
+    const { location: { data, state }, match: { params: { id } } } = this.props;
+    const { results } = await api.getProductsFromCategoryAndQuery('', data);
+    const productResult = results.find((product) => product.id === id);
+    if (productResult) {
+      this.setState({
+        product: productResult,
+      });
+    } else if (state) {
+      this.setState({
+        product: state,
+      });
+    } else {
+      this.setState({
+        product: await this.fetchById(id),
+      });
+    }
+  }
+
+  addToCart() {
     const { product } = this.state;
-    let getItem = JSON.parse(localStorage.getItem('productList'));
-    if (!getItem) {
-      localStorage.setItem('productList', JSON.stringify([product]));
+    const { cartProducts, handleShoppingCart } = this.props;
+    if (cartProducts.length === 0) {
+      handleShoppingCart(cartProducts, product);
       return;
     }
-    const repeatProduct = getItem.some((item) => item.id === id);
-    if (!repeatProduct) {
-      getItem = [...getItem, product];
-      localStorage.setItem('productList', JSON.stringify(getItem));
-    }
+    handleShoppingCart(cartProducts, product);
   }
 
-  // addToCart() {
-  //   const { product } = this.state;
-  //   let getItem = JSON.parse(localStorage.getItem('productList'));
-  //   getItem = [...getItem, product];
-  //   localStorage.setItem('productList', JSON.stringify(getItem));
-  // }
-
   render() {
-    const { product } = this.state;
-    const { title, thumbnail, price, atributtes } = product;
+    const { product: { title, thumbnail, price, atributtes } } = this.state;
+    const { totalQuantity } = this.props;
+
     return (
       <div>
         Detalhes do Produto
@@ -69,7 +75,12 @@ class ProductDetail extends React.Component {
         <p>{ price }</p>
         <p>{ atributtes }</p>
         <Link data-testid="shopping-cart-button" to="/CartPage">
-          <button type="button">Retorne ao carrinho de compras</button>
+          <button type="button">Ir para o carrinho</button>
+          <span
+            data-testid="shopping-cart-size"
+          >
+            { totalQuantity }
+          </span>
         </Link>
         <button
           data-testid="product-detail-add-to-cart"
@@ -84,17 +95,48 @@ class ProductDetail extends React.Component {
   }
 }
 
+ProductDetail.defaultProps = {
+  location: {
+    data: {
+      title: '',
+    },
+    state: {
+      title: '',
+      thumbnail: '',
+      price: '',
+      atributtes: [],
+    },
+  },
+};
+
 ProductDetail.propTypes = {
   location: PropTypes.shape({
     data: PropTypes.shape({
-      title: PropTypes.string,
+      title: PropTypes.string.isRequired,
     }),
-  }).isRequired,
+    state: PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      thumbnail: PropTypes.string.isRequired,
+      price: PropTypes.number.isRequired,
+      id: PropTypes.string.isRequired,
+      shipping: PropTypes.shape({
+        free_shipping: PropTypes.bool.isRequired,
+      }).isRequired,
+    }),
+  }),
   match: PropTypes.shape({
     params: PropTypes.shape({
-      id: PropTypes.string,
-    }),
+      id: PropTypes.string.isRequired,
+    }).isRequired,
   }).isRequired,
+  cartProducts: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    thumbnail: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+  })).isRequired,
+  totalQuantity: PropTypes.number.isRequired,
+  handleShoppingCart: PropTypes.func.isRequired,
 };
 
 export default ProductDetail;

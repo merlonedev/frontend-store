@@ -1,17 +1,11 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import CartItems from '../components/CartItems';
 
 class CartPage extends Component {
-  totalValue() {
-    const productFromDetail = JSON.parse(localStorage.getItem('productList'));
-    if (!productFromDetail) return 0;
-    const total = productFromDetail.reduce((acc, { price }) => acc + price, 0);
-    return total;
-  }
-
   render() {
-    const productList = JSON.parse(localStorage.getItem('productList'));
+    const { cartProducts, totalPrice, handleShoppingCart } = this.props;
     return (
       <div>
         <Link to="/">
@@ -19,10 +13,16 @@ class CartPage extends Component {
         </Link>
         <h1>SHOPPING CART</h1>
         {
-          (!productList)
+          (cartProducts.length === 0)
             ? <h3 data-testid="shopping-cart-empty-message">Seu carrinho está vazio</h3>
-            : <CartItems totalPrice={ this.totalValue() } productList={ productList } />
+            : (
+              <CartItems
+                cartProducts={ cartProducts }
+                handleShoppingCart={ handleShoppingCart }
+              />
+            )
         }
+        <p>{`Valor Total da Compra: R$${totalPrice.toFixed(2)}`}</p>
         <Link
           to="/checkout"
           data-testid="checkout-products"
@@ -33,5 +33,16 @@ class CartPage extends Component {
     );
   }
 }
+
+CartPage.propTypes = PropTypes.shape({
+  cartProducts: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    thumbnail: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+  })).isRequired,
+  totalPrice: PropTypes.number.isRequired,
+  handleShoppingCart: PropTypes.func.isRequired,
+}).isRequired;
 
 export default CartPage;

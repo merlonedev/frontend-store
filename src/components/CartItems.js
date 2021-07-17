@@ -8,142 +8,80 @@ class CartItems extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      quantityEachItem: {},
-      productList: props.productList,
-      totalPrice: props.totalPrice,
-    };
-
-    this.setInitialQuantity = this.setInitialQuantity.bind(this);
     this.increaseQuantity = this.increaseQuantity.bind(this);
     this.decreaseQuantity = this.decreaseQuantity.bind(this);
     this.removeItem = this.removeItem.bind(this);
-    this.sumTotalPrice = this.sumTotalPrice.bind(this);
-    this.subtractTotalPrice = this.subtractTotalPrice.bind(this);
-    this.subtractPriceOfRemovedItem = this.subtractPriceOfRemovedItem.bind(this);
   }
 
-  componentDidMount() {
-    const { productList } = this.state;
-    productList.forEach(({ id }) => this.setInitialQuantity(id));
+  increaseQuantity(product) {
+    const { cartProducts, handleShoppingCart } = this.props;
+    handleShoppingCart(cartProducts, product);
   }
 
-  setInitialQuantity(id) {
-    this.setState(({ quantityEachItem }) => ({
-      quantityEachItem: {
-        ...quantityEachItem,
-        [id]: 1,
-      },
-    }));
-  }
-
-  increaseQuantity(id) {
-    this.setState(({ quantityEachItem }) => ({
-      quantityEachItem: {
-        ...quantityEachItem,
-        [id]: quantityEachItem[id] + 1,
-      },
-    }));
-  }
-
-  decreaseQuantity(id) {
-    this.setState(({ quantityEachItem }) => ({
-      quantityEachItem: {
-        ...quantityEachItem,
-        [id]: (quantityEachItem[id] <= 1) ? 1 : quantityEachItem[id] - 1,
-      },
-    }));
+  decreaseQuantity(product) {
+    const { cartProducts, handleShoppingCart } = this.props;
+    const MINUS_ONE = -1;
+    handleShoppingCart(cartProducts, product, MINUS_ONE);
   }
 
   removeItem(id) {
-    this.setState((prevState) => ({
-      ...prevState,
-      productList: prevState.productList.filter((product) => product.id !== id),
-    }), () => {
-      const { productList } = this.state;
-      localStorage.setItem('productList', JSON.stringify(productList));
-    });
-  }
-
-  sumTotalPrice(price) {
-    this.setState(({ totalPrice }) => ({
-      totalPrice: totalPrice + price,
-    }));
-  }
-
-  subtractTotalPrice(price, quantity) {
-    if (quantity === 1) return;
-    this.setState(({ totalPrice }) => ({
-      totalPrice: totalPrice - price,
-    }));
-  }
-
-  subtractPriceOfRemovedItem(price, quantity) {
-    const updatedPrice = price * quantity;
-    this.setState(({ totalPrice }) => ({
-      totalPrice: totalPrice - updatedPrice,
-    }));
+    const { cartProducts, handleShoppingCart } = this.props;
+    const newProductList = cartProducts.filter((product) => id !== product.id);
+    handleShoppingCart(newProductList);
   }
 
   render() {
-    const { productList, totalPrice } = this.state;
-
+    const { cartProducts } = this.props;
     return (
       <ul>
-        {productList.map(({
-          price,
-          title,
-          thumbnail,
-          id,
-          available_quantity: availableQuantity }) => {
-          const { quantityEachItem: { [id]: quantity } } = this.state;
-          return (
-            <li key={ id }>
-              <RemoveButton
-                id={ id }
-                price={ price }
-                quantity={ quantity }
-                removeItem={ this.removeItem }
-                subtractPriceOfRemovedItem={ this.subtractPriceOfRemovedItem }
-              />
-              <img src={ thumbnail } alt={ title } />
-              <p data-testid="shopping-cart-product-name">{ title }</p>
-              <SubtractButton
-                id={ id }
-                price={ price }
-                quantity={ quantity }
-                decreaseQuantity={ this.decreaseQuantity }
-                subtractTotalPrice={ this.subtractTotalPrice }
-              />
-              <div data-testid="shopping-cart-product-quantity">{ quantity }</div>
-              <AddButton
-                id={ id }
-                price={ price }
-                quantity={ quantity }
-                increaseQuantity={ this.increaseQuantity }
-                sumTotalPrice={ this.sumTotalPrice }
-                availableQuantity={ availableQuantity }
-              />
-              <p>
-                { `R$${(price * quantity).toFixed(2)}` }
-              </p>
-            </li>
-          );
-        })}
-        <p>{`Valor Total da Compra: R$${totalPrice.toFixed(2)}`}</p>
+        {
+          cartProducts.map((product) => {
+            const {
+              price,
+              title,
+              thumbnail,
+              id,
+              available_quantity: availableQuantity,
+              qtdInCart } = product;
+            return (
+              <li key={ id }>
+                <RemoveButton
+                  id={ id }
+                  removeItem={ this.removeItem }
+                />
+                <img src={ thumbnail } alt={ title } />
+                <p data-testid="shopping-cart-product-name">{ title }</p>
+                <SubtractButton
+                  product={ product }
+                  decreaseQuantity={ this.decreaseQuantity }
+                />
+                <div data-testid="shopping-cart-product-quantity">{ qtdInCart }</div>
+                <AddButton
+                  product={ product }
+                  qtdInCart={ qtdInCart }
+                  availableQuantity={ availableQuantity }
+                  increaseQuantity={ this.increaseQuantity }
+                />
+                <p>
+                  { `R$${(price * qtdInCart).toFixed(2)}` }
+                </p>
+              </li>
+            );
+          })
+        }
       </ul>
     );
   }
 }
 
 CartItems.propTypes = {
-  productList: PropTypes.arrayOf(PropTypes.shape({
+  cartProducts: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     thumbnail: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
-    id: PropTypes.string.isRequired,
   })).isRequired,
-  totalPrice: PropTypes.number.isRequired,
+  handleShoppingCart: PropTypes.func.isRequired,
 };
 
 export default CartItems;
