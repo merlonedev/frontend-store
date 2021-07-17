@@ -6,6 +6,7 @@ import InputPhone from './components_form/InputPhone';
 import InputCEP from './components_form/InputCEP';
 import InputAddress from './components_form/InputAddress';
 import InputComplement from './components_form/InputComplement';
+import InputNumber from './components_form/InputNumber';
 
 class CheckoutForm extends Component {
   constructor(props) {
@@ -18,6 +19,7 @@ class CheckoutForm extends Component {
       cep: '',
       address: '',
       complement: '',
+      number: '',
     };
     this.handleChange = this.handleChange.bind(this);
   }
@@ -29,7 +31,7 @@ class CheckoutForm extends Component {
   }
 
   render() {
-    const { name, cpf, email, phone, cep, address, complement } = this.state;
+    const { name, cpf, email, phone, cep, address, complement, number } = this.state;
     return (
       <form className="checkout-form">
         <fieldset>
@@ -67,6 +69,11 @@ class CheckoutForm extends Component {
           <InputComplement
             name="complement"
             value={ complement }
+            onChange={ this.handleChange }
+          />
+          <InputNumber
+            name="number"
+            value={ number }
             onChange={ this.handleChange }
           />
         </fieldset>

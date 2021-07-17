@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-class InputComplement extends Component {
+class InputNumber extends Component {
   constructor() {
     super();
     this.limitLength = this.limitLength.bind(this);
@@ -9,7 +9,7 @@ class InputComplement extends Component {
 
   limitLength({ target }) {
     const { onChange } = this.props;
-    const length = 50;
+    const length = 5;
     if (target.value.length <= length) {
       onChange(target);
     }
@@ -18,14 +18,14 @@ class InputComplement extends Component {
   render() {
     const { value, name } = this.props;
     return (
-      <label htmlFor="input-complement">
+      <label htmlFor="input-number">
         <input
           name={ name }
-          className="input-complement"
-          id="input-complement"
+          className="input-number"
+          id="input-number"
           value={ value }
           type="text"
-          placeholder="Complemento"
+          placeholder="Número"
           onChange={ this.limitLength }
         />
       </label>
@@ -33,14 +33,14 @@ class InputComplement extends Component {
   }
 }
 
-InputComplement.propTypes = {
+InputNumber.propTypes = {
   name: PropTypes.string.isRequired,
   value: PropTypes.string,
   onChange: PropTypes.func.isRequired,
 };
 
-InputComplement.defaultProps = {
+InputNumber.defaultProps = {
   value: '',
 };
 
-export default InputComplement;
+export default InputNumber;
