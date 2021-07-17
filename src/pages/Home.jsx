@@ -5,6 +5,7 @@ import Categories from '../Components/Categories';
 import ProductList from '../Components/ProductList';
 import Input from '../Components/Input';
 import * as productsAPI from '../services/api';
+import './Home.css';
 
 class Home extends Component {
   constructor() {
@@ -77,29 +78,33 @@ class Home extends Component {
     const { storeItems } = this.props;
     return (
       <div>
-        <ButtonCart />
-        <h4 data-testid="home-initial-message">
-          Digite algum termo de pesquisa ou escolha uma categoria.
-        </h4>
+        <header>
+          <ButtonCart />
+        </header>
+        <section className="home-search">
+          <h5 data-testid="home-initial-message">
+            Digite algum termo de pesquisa ou escolha uma categoria.
+          </h5>
+          <Input
+            value={ searchText }
+            name="searchText"
+            type="text"
+            id="query-input"
+            datatestid="query-input"
+            onChange={ this.handleChange }
+          />
+          <button
+            type="button"
+            data-testid="query-button"
+            onClick={ this.handleClick }
+          >
+            Buscar
+          </button>
+        </section>
         <Categories
           categories={ categories }
           setProductsCategory={ this.setProductsCategory }
         />
-        <Input
-          value={ searchText }
-          name="searchText"
-          type="text"
-          id="query-input"
-          datatestid="query-input"
-          onChange={ this.handleChange }
-        />
-        <button
-          type="button"
-          data-testid="query-button"
-          onClick={ this.handleClick }
-        >
-          Buscar
-        </button>
         <ProductList
           { ...{ products } }
           storeItems={ storeItems }

@@ -41,9 +41,8 @@ class Cart extends Component {
     if (cartItems !== undefined) {
       return (
         <div>
-          <Link to="/"><AiOutlineHome /></Link>
-          <Link data-testid="checkout-products" to="/checkout">Finalizar compra</Link>
-          <div>
+          <header>
+            <Link to="/"><AiOutlineHome /></Link>
             <button
               type="button"
               onClick={ this.removeItemFromStorage }
@@ -51,6 +50,8 @@ class Cart extends Component {
               Limpar Items
 
             </button>
+          </header>
+          <div>
             {cartItems.map((item) => (<CartItem
               key={ item.id }
               title={ item.title }
@@ -62,6 +63,7 @@ class Cart extends Component {
               getItemsFromStorage={ getItemsFromStorage }
             />))}
           </div>
+          <Link data-testid="checkout-products" to="/checkout">Finalizar compra</Link>
         </div>
       );
     }

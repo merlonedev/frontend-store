@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import './CartItem.css';
 
 export default class CartItem extends Component {
   constructor() {
@@ -30,28 +31,30 @@ export default class CartItem extends Component {
     } = this.props;
 
     return (
-      <div>
+      <div className="cart-item">
         <h3 data-testid="shopping-cart-product-name">{ title }</h3>
         <img src={ image } alt={ title } />
-        <h3>{ `preço: R$ ${price}` }</h3>
-        <button
-          type="button"
-          data-testid="product-decrease-quantity"
-          onClick={ () => this.removeItem(product) }
-        >
-          -
-        </button>
-        <span data-testid="shopping-cart-product-quantity">{ quantity }</span>
-        <button
-          type="button"
-          data-testid="product-increase-quantity"
-          onClick={ () => {
-            storeItems(product);
-            getItemsFromStorage();
-          } }
-        >
-          +
-        </button>
+        <div className="cart-item-price-quantity">
+          <h3>{ `preço: R$ ${price}` }</h3>
+          <button
+            type="button"
+            data-testid="product-decrease-quantity"
+            onClick={ () => this.removeItem(product) }
+          >
+            -
+          </button>
+          <span data-testid="shopping-cart-product-quantity">{ quantity }</span>
+          <button
+            type="button"
+            data-testid="product-increase-quantity"
+            onClick={ () => {
+              storeItems(product);
+              getItemsFromStorage();
+            } }
+          >
+            +
+          </button>
+        </div>
       </div>
     );
   }

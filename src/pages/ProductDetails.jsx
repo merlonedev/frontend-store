@@ -5,6 +5,7 @@ import { AiOutlineHome } from 'react-icons/ai';
 import ImagesScrollButtons from '../Components/ImagesScrollButtons';
 import ButtonCart from '../Components/ButtonCart';
 import FormsAvaliation from '../Components/FormsAvaliation';
+import '../App.css';
 
 export default class ProductDetails extends Component {
   constructor() {
