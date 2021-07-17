@@ -27,9 +27,9 @@ class Home extends Component {
     this.checkoutNewProduct = this.checkoutNewProduct.bind(this);
   }
 
-  componentDidMount() {
-    this.getProductList(undefined, 'motos');
-  }
+  // componentDidMount() {
+  //   this.getProductList(undefined, 'motos');
+  // }
 
   async getProductList(categoryid, query) {
     const productList = await API.getProductsFromCategoryAndQuery(categoryid, query);
