@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import InputName from './InputName';
-import InputCPF from './InputCPF';
-import InputEmail from './InputEmail';
-import InputPhone from './InputPhone';
-import InputCEP from './InputCEP';
-import InputAddress from './InputAddress';
+import InputName from './components_form/InputName';
+import InputCPF from './components_form/InputCPF';
+import InputEmail from './components_form/InputEmail';
+import InputPhone from './components_form/InputPhone';
+import InputCEP from './components_form/InputCEP';
+import InputAddress from './components_form/InputAddress';
+import InputComplement from './components_form/InputComplement';
 
 class CheckoutForm extends Component {
   constructor(props) {
@@ -16,6 +17,7 @@ class CheckoutForm extends Component {
       phone: '',
       cep: '',
       address: '',
+      complement: '',
     };
     this.handleChange = this.handleChange.bind(this);
   }
@@ -27,7 +29,7 @@ class CheckoutForm extends Component {
   }
 
   render() {
-    const { name, cpf, email, phone, cep, address } = this.state;
+    const { name, cpf, email, phone, cep, address, complement } = this.state;
     return (
       <form className="checkout-form">
         <fieldset>
@@ -61,6 +63,11 @@ class CheckoutForm extends Component {
             name="address"
             onChange={ this.handleChange }
             value={ address }
+          />
+          <InputComplement
+            name="complement"
+            value={ complement }
+            onChange={ this.handleChange }
           />
         </fieldset>
 
