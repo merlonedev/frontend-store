@@ -6,7 +6,7 @@ import Form from './Form';
 
 class ProductDetails extends Component {
   render() {
-    const { product, callBack2 } = this.props;
+    const { product, goBackCallBack } = this.props;
     const { title } = product;
     return (
       <>
@@ -19,7 +19,12 @@ class ProductDetails extends Component {
             <li>{product.price}</li>
           </ul>
         </div>
-        <button type="button" onClick={ () => callBack2() }>VOLTAR</button>
+        <button
+          type="button"
+          onClick={() => goBackCallBack() }
+        >
+          VOLTAR
+        </button>
         <Link to="/ShoppingCart">CARRINHO DE COMPRAS</Link>
         <div>
           <Form title={ title } />

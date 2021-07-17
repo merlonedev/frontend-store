@@ -4,16 +4,14 @@ import PropTypes from 'prop-types';
 
 class ProductCard extends Component {
   render() {
-    const { product, callBack, addToCart } = this.props;
+    const { product, renderDetailsCallBack, addToCartCallback } = this.props;
     const { id, title, thumbnail, price } = product;
     return (
       <section>
         <button
           type="button"
           data-testid="product-detail-link"
-          onClick={ () => {
-            callBack(id);
-          } }
+          onClick={ () => { renderDetailsCallBack(id); } }
         >
           <div data-testid="product">
             <h3>{title}</h3>
@@ -24,7 +22,7 @@ class ProductCard extends Component {
         <button
           type="button"
           data-testid="product-add-to-cart"
-          onClick={ () => addToCart(product) }
+          onClick={ () => addToCartCallback(product) }
         >
           Adicionar ao carrinho
         </button>

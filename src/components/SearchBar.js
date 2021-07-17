@@ -20,9 +20,9 @@ class SearchBar extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const { callBack } = this.props;
+    const { getQueryCallBack } = this.props;
     const { searchText } = this.state;
-    callBack(searchText);
+    getQueryCallBack(searchText);
   }
 
   render() {

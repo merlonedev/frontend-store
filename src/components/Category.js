@@ -34,8 +34,8 @@ class Category extends Component {
   handleClick(e) {
     const categoryid = e.target.getAttribute('categoryid');
     const categoryname = e.target.getAttribute('categoryname');
-    const { callBack } = this.props;
-    callBack(categoryid, categoryname);
+    const { getCategoryListCallBack } = this.props;
+    getCategoryListCallBack(categoryid, categoryname);
   }
 
   render() {
