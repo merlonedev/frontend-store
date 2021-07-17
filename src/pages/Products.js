@@ -41,7 +41,11 @@ Products.propTypes = {
   addToCart: PropTypes.func.isRequired,
   homeProducts: PropTypes.arrayOf(
     PropTypes.object,
-  ).isRequired,
+  ),
+};
+
+Products.defaultProps = {
+  homeProducts: [{}],
 };
 
 export default Products;

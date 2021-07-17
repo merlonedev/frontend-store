@@ -15,11 +15,3 @@ export async function getProductsFromCategoryAndQuery(categoryId, query) {
 
   return data;
 }
-
-export async function getProductsHome(categoryId, query) {
-  const data = await fetch(`${url}/search?category=${categoryId}&q=${query}&limit=8`)
-    .then((response) => response.json())
-    .catch((err) => console.log(err));
-
-  return data;
-}

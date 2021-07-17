@@ -24,8 +24,8 @@ class Home extends React.Component {
   }
 
   componentDidMount() {
-    this.getHomeProducts();
     this.getCategory();
+    this.getHomeProducts();
   }
 
   async getCategory() {
@@ -34,9 +34,12 @@ class Home extends React.Component {
   }
 
   async getHomeProducts(id = 'MLB1648') {
-    const { search } = this.state;
-    const { results } = await api.getProductsHome(id, search);
-    this.setState({ homeProducts: results });
+    const data = await
+    fetch(`https://api.mercadolibre.com/sites/MLB/search?category=${id}&limit=8`)
+      .then((response) => response.json())
+      .then((response) => this.setState({ homeProducts: response.results }));
+
+    return data;
   }
 
   inputList({ target }) {
@@ -57,7 +60,6 @@ class Home extends React.Component {
   render() {
     const { addToCart, quantity } = this.props;
     const { productList, categories, homeProducts } = this.state;
-    console.log(homeProducts);
     return (
       <section>
         <header>
@@ -72,20 +74,20 @@ class Home extends React.Component {
             />
           </div>
         </header>
-        <Products
-          productList={ productList }
-          addToCart={ addToCart }
-          quantity={ quantity }
-          homeProducts={ homeProducts }
+        <Category
+          category={ categories }
+          categoryAndQuery={ this.categorieAndQuery }
         />
         <HomeProducts
           addToCart={ addToCart }
           quantity={ quantity }
           homeProducts={ homeProducts }
         />
-        <Category
-          category={ categories }
-          categoryAndQuery={ this.categorieAndQuery }
+        <Products
+          productList={ productList }
+          addToCart={ addToCart }
+          quantity={ quantity }
+          homeProducts={ homeProducts }
         />
       </section>
     );
