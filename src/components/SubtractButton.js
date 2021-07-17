@@ -3,15 +3,12 @@ import PropTypes from 'prop-types';
 
 class SubtractButton extends Component {
   render() {
-    const { decreaseQuantity, subtractTotalPrice, id, price, quantity } = this.props;
+    const { decreaseQuantity, product } = this.props;
     return (
       <button
         data-testid="product-decrease-quantity"
         type="button"
-        onClick={ () => {
-          decreaseQuantity(id);
-          subtractTotalPrice(price, quantity);
-        } }
+        onClick={ () => decreaseQuantity(product) }
       >
         -
       </button>
@@ -21,10 +18,15 @@ class SubtractButton extends Component {
 
 SubtractButton.propTypes = {
   decreaseQuantity: PropTypes.func.isRequired,
-  subtractTotalPrice: PropTypes.func.isRequired,
-  id: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  quantity: PropTypes.number.isRequired,
+  product: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    thumbnail: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
+    shipping: PropTypes.shape({
+      free_shipping: PropTypes.bool.isRequired,
+    }),
+  }).isRequired,
 };
 
 export default SubtractButton;

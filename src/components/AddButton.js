@@ -5,20 +5,15 @@ class AddButton extends Component {
   render() {
     const {
       increaseQuantity,
-      sumTotalPrice,
-      id,
-      price,
+      product,
       availableQuantity,
-      quantity } = this.props;
+      qtdInCart } = this.props;
     return (
       <button
         data-testid="product-increase-quantity"
         type="button"
-        disabled={ quantity >= availableQuantity }
-        onClick={ () => {
-          increaseQuantity(id);
-          sumTotalPrice(price);
-        } }
+        disabled={ qtdInCart >= availableQuantity }
+        onClick={ () => increaseQuantity(product) }
       >
         +
       </button>
@@ -27,12 +22,18 @@ class AddButton extends Component {
 }
 
 AddButton.propTypes = {
-  quantity: PropTypes.number.isRequired,
+  qtdInCart: PropTypes.number.isRequired,
   availableQuantity: PropTypes.number.isRequired,
   increaseQuantity: PropTypes.func.isRequired,
-  sumTotalPrice: PropTypes.func.isRequired,
-  id: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
+  product: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    thumbnail: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
+    shipping: PropTypes.shape({
+      free_shipping: PropTypes.bool.isRequired,
+    }),
+  }).isRequired,
 };
 
 export default AddButton;

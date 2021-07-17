@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import * as api from '../services/api';
 import ProductList from '../components/ProductList';
 import Categories from '../components/Categories';
 import CartButton from '../components/CartButton';
 
-class Home extends React.Component {
+class Home extends Component {
   constructor(props) {
     super(props);
 
@@ -40,17 +41,14 @@ class Home extends React.Component {
   }
 
   render() {
-    const productListArray = JSON.parse(localStorage.getItem('productList'));
-    let totalQuantity;
-    if (productListArray) {
-      totalQuantity = productListArray.length;
-    } else {
-      totalQuantity = 0;
-    }
-    console.log('renderizei');
-    // console.log(productListArray);
-    // console.log(totalQuantity);
     const { buttonClick, productList } = this.state;
+
+    const {
+      cartProducts,
+      totalQuantity,
+      handleShoppingCart,
+    } = this.props;
+
     const initialMsg = (
       <p data-testid="home-initial-message">
         Digite algum termo de pesquisa ou escolha uma categoria.
@@ -79,12 +77,27 @@ class Home extends React.Component {
           <CartButton />
         </header>
         <main className="main-content-container">
-          { (buttonClick) ? <ProductList productList={ productList } /> : initialMsg }
+          {
+            (buttonClick)
+              ? (
+                <ProductList
+                  productList={ productList }
+                  cartProducts={ cartProducts }
+                  handleShoppingCart={ handleShoppingCart }
+                />
+              )
+              : initialMsg
+          }
         </main>
         <Categories handleChange={ this.handleChange } />
       </div>
     );
   }
 }
+
+Home.propTypes = PropTypes.shape({
+  totalQuantity: PropTypes.number.isRequired,
+  handleShoppingCart: PropTypes.func.isRequired,
+}).isRequired;
 
 export default Home;

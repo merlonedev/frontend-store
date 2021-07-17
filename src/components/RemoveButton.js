@@ -3,14 +3,11 @@ import PropTypes from 'prop-types';
 
 class RemoveButton extends Component {
   render() {
-    const { removeItem, subtractPriceOfRemovedItem, id, price, quantity } = this.props;
+    const { removeItem, id } = this.props;
     return (
       <button
         type="button"
-        onClick={ () => {
-          removeItem(id);
-          subtractPriceOfRemovedItem(price, quantity);
-        } }
+        onClick={ () => removeItem(id) }
       >
         X
       </button>
@@ -20,10 +17,7 @@ class RemoveButton extends Component {
 
 RemoveButton.propTypes = {
   removeItem: PropTypes.func.isRequired,
-  subtractPriceOfRemovedItem: PropTypes.func.isRequired,
   id: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  quantity: PropTypes.number.isRequired,
 };
 
 export default RemoveButton;
