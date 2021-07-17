@@ -4,15 +4,14 @@ import PropTypes from 'prop-types';
 class InputNumber extends Component {
   constructor() {
     super();
-    this.limitLength = this.limitLength.bind(this);
+    this.someNumbers = this.someNumbers.bind(this);
   }
 
-  limitLength({ target }) {
+  someNumbers({ target }) {
     const { onChange } = this.props;
-    const length = 5;
-    if (target.value.length <= length) {
-      onChange(target);
-    }
+    const check = target.value.match(/\d{0,5}/)[0];
+    target.value = check;
+    onChange(target);
   }
 
   render() {
@@ -26,7 +25,7 @@ class InputNumber extends Component {
           value={ value }
           type="text"
           placeholder="Número"
-          onChange={ this.limitLength }
+          onChange={ this.someNumbers }
         />
       </label>
     );

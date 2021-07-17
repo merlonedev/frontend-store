@@ -7,6 +7,8 @@ import InputCEP from './components_form/InputCEP';
 import InputAddress from './components_form/InputAddress';
 import InputComplement from './components_form/InputComplement';
 import InputNumber from './components_form/InputNumber';
+import InputCity from './components_form/InputCity';
+import SelectStates from './components_form/SelectStates';
 
 class CheckoutForm extends Component {
   constructor(props) {
@@ -20,6 +22,8 @@ class CheckoutForm extends Component {
       address: '',
       complement: '',
       number: '',
+      city: '',
+      state: 'Estado',
     };
     this.handleChange = this.handleChange.bind(this);
   }
@@ -31,7 +35,18 @@ class CheckoutForm extends Component {
   }
 
   render() {
-    const { name, cpf, email, phone, cep, address, complement, number } = this.state;
+    const {
+      name,
+      cpf,
+      email,
+      phone,
+      cep,
+      address,
+      complement,
+      number,
+      city,
+      state,
+    } = this.state;
     return (
       <form className="checkout-form">
         <fieldset>
@@ -74,6 +89,16 @@ class CheckoutForm extends Component {
           <InputNumber
             name="number"
             value={ number }
+            onChange={ this.handleChange }
+          />
+          <InputCity
+            name="city"
+            value={ city }
+            onChange={ this.handleChange }
+          />
+          <SelectStates
+            name="state"
+            value={ state }
             onChange={ this.handleChange }
           />
         </fieldset>
