@@ -8,7 +8,7 @@ class CartManipulation extends React.Component {
       productQuantity: 1,
     };
     this.addQuantity = this.addQuantity.bind(this);
-    this.retireQuantity = this.retireQuantity.bind(this);
+    this.decreaseQuantity = this.decreaseQuantity.bind(this);
   }
 
   shouldComponentUpdate(_nextProps, nextState) {
@@ -25,7 +25,7 @@ class CartManipulation extends React.Component {
     });
   }
 
-  retireQuantity(quantity) {
+  decreaseQuantity(quantity) {
     this.setState({
       productQuantity: quantity - 1,
     });
@@ -53,7 +53,7 @@ class CartManipulation extends React.Component {
           <button
             type="button"
             data-testid="product-decrease-quantity"
-            onClick={ () => this.retireQuantity(productQuantity) }
+            onClick={ () => this.decreaseQuantity(productQuantity) }
           >
             -
           </button>

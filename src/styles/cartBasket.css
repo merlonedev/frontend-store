@@ -1,0 +1,12 @@
+.cart-basket-header {
+  align-items: center;
+  background-color: #22272e;
+  display: flex;
+  height: 60px;
+  padding: 10px 60px;
+}
+
+.cart-basket-content {
+  display: grid;
+  justify-content: center;
+}

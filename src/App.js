@@ -87,6 +87,7 @@ class App extends React.Component {
               { ...props }
               cartList={ cartList }
               removeItem={ this.removeItem }
+              quantity={ quantity }
             />) }
           />
           <Route

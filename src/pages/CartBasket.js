@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import CartItems from '../Components/CartItems';
+import CartButton from '../Components/CartButton';
+import '../styles/cartBasket.css';
 
 class CartBasket extends Component {
   render() {
-    const { cartList, removeItem } = this.props;
+    const { cartList, removeItem, quantity } = this.props;
     if (cartList.length === 0) {
       return (
         <main>
@@ -16,12 +18,24 @@ class CartBasket extends Component {
     }
 
     return (
-      <main>
+      <main className="cart-basket">
+        <div className="cart-basket-header">
+          <header>
+            <Link className="home-link" to="/">
+              <h2 className="market">Undefined Shop</h2>
+            </Link>
+            <CartButton
+              quantity={ quantity }
+            />
+          </header>
+        </div>
         <Link to="/">Página Inicial</Link>
-        <CartItems cartList={ cartList } removeItem={ removeItem } />
-        <Link to="/checkout" data-testid="checkout-products">
-          <button type="button">Finalizar Compra</button>
-        </Link>
+        <div className="cart-basket-content">
+          <CartItems cartList={ cartList } removeItem={ removeItem } />
+          <Link to="/checkout" data-testid="checkout-products">
+            <button type="button">Finalizar Compra</button>
+          </Link>
+        </div>
       </main>
     );
   }
@@ -32,6 +46,9 @@ CartBasket.propTypes = {
     PropTypes.object,
   ).isRequired,
   removeItem: PropTypes.func.isRequired,
+  quantity: PropTypes.arrayOf(
+    PropTypes.object,
+  ).isRequired,
 };
 
 export default CartBasket;
