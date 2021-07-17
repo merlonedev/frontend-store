@@ -32,7 +32,8 @@ export default class ShoppingCart extends React.Component {
   }
 
   changeCheckoutState() {
-    this.setState({ checkout: true });
+    const { checkout } = this.state;
+    this.setState({ checkout: !checkout });
   }
 
   renderCheckout() {
