@@ -38,7 +38,6 @@ class CartManipulation extends React.Component {
     const { productQuantity } = this.state;
     return (
       <section className="cart-manipulation">
-        <hr />
         <div key={ item.id } className="cart-manipulation-content">
           <img
             src={ item.thumbnail }

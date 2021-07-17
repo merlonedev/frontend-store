@@ -9,7 +9,7 @@ class HomeProducts extends Component {
     return (
       <div className="product-home-content">
         { homeProducts.map((product) => (
-          <div className="product-home-list" key={ product.id }>
+          <div key={ product.id }>
             <Cardproduct
               shipping={ product.shipping }
               title={ product.title }

@@ -22,11 +22,11 @@
 
 .product-detail-card {
   background-color: white;
-  margin: 10px auto;
   border-radius: 10px;
+  margin: 10px auto;
+  min-height: 300px;
   padding: 20px;
   width: 200px;
-  min-height: 300px;
 }
 
 .product-detail-img {
@@ -46,32 +46,32 @@
 }
 
 .product-detail-shipping {
-  text-align: center;
   font-weight: 500;
   margin-top: 10px;
+  text-align: center;
 }
 
 .product-detail-btn {
-  display: flex;
-  margin: 0 auto;
-  justify-content: center;
-  border: none;
-  font-weight: 500;
-  width: 240px;
-  padding: 10px 20px;
   background-color: #ff9000;
+  border: none;
   border-radius: 10px;
+  display: flex;
+  font-weight: 500;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 10px 20px;
+  width: 240px;
 }
 
 .product-detail-btn:hover {
-  cursor: pointer;
   background-color: #ffa733;
+  cursor: pointer;
 }
 
 .product-detail-textarea {
   border-radius: 5px;
-  outline-color: #ff9000;
   display: flex;
   margin: 20px auto;
+  outline-color: #ff9000;
   resize: none;
 }
