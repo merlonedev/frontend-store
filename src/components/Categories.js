@@ -14,7 +14,23 @@ class Categories extends Component {
 
   componentDidMount() {
     this.handleState();
+    // console.log('component did mount');
   }
+
+  /*   componentDidUpdate() {
+    console.log('component did update');
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    const { categories } = this.state;
+    console.log('should component update');
+    console.log(`Categories Component:
+      NextProps: ${JSON.stringify(nextProps)}
+      NextState: ${JSON.stringify(nextState)}
+      PrevProps: ${JSON.stringify(this.props)}
+      PrevState: ${JSON.stringify(categories)}`);
+    if (nextState[0].id === categories[0].id) return false;
+  } */
 
   handleState() {
     getCategories().then((category) => this.setState({
