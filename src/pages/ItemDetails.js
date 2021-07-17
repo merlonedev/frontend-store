@@ -45,6 +45,7 @@ class ItemDetails extends Component {
       return productsCart.push(item);
     }
     productsCart[i].quantidade += 1;
+    callback();
   }
 
   render() {

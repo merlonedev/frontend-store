@@ -12,7 +12,7 @@ class App extends Component {
     super();
     this.state = {
       valueInput: '',
-      quantity: 0,
+      quantity: parseInt(localStorage.getItem('count'), 10) + 1 || 0,
     };
     this.callback = this.callback.bind(this);
     this.getValue = this.getValue.bind(this);
@@ -30,6 +30,7 @@ class App extends Component {
     this.setState({
       quantity: quantity + 1,
     });
+    localStorage.setItem('count', quantity);
   }
 
   render() {
@@ -49,7 +50,7 @@ class App extends Component {
           path="/details/:id"
           render={ (props) => <ItemDetails { ...props } callback={ this.callback } /> }
         />
-        <Route exact path="/Cart" component={ Cart } />
+        <Route exact path="/Cart" render={ () => <Cart callback={ this.callback } /> } />
         <Route exact path="/Payment" component={ Payment } />
       </BrowserRouter>
     );

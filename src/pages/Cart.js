@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import CardItemCart from '../components/CardItemCart';
 import productsCart from '../services/data';
 import BackSVG from '../SVGs/BackSVG';
@@ -7,10 +8,12 @@ import './Cart.css';
 
 class Cart extends React.Component {
   handleClick = (itemid, { target }) => {
+    const { callback } = this.props;
     const i = productsCart.findIndex((p) => p.id === itemid);
     const value = target.name === '+' ? productsCart[i].quantidade += 1
       : productsCart[i].quantidade -= 1;
     if (value < 1) productsCart[i].quantidade = 1;
+    callback();
     this.forceUpdate();
   }
 
@@ -62,4 +65,7 @@ class Cart extends React.Component {
   }
 }
 
+Cart.propTypes = {
+  callback: PropTypes.func.isRequired,
+};
 export default Cart;
