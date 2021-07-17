@@ -5,9 +5,11 @@ import Form from './Form';
 
 class ProductDetails extends Component {
   render() {
-    const { product,
+    const {
+      product,
       goBackCallBack,
-      renderShoppingCartCallBack } = this.props;
+      renderShoppingCartCallBack,
+    } = this.props;
     const { title } = product;
     return (
       <>
@@ -46,7 +48,7 @@ ProductDetails.propTypes = {
   product: PropTypes.shape({
     title: PropTypes.string,
     thumbnail: PropTypes.string,
-    price: PropTypes.string,
+    price: PropTypes.number,
   }).isRequired,
 };
 
