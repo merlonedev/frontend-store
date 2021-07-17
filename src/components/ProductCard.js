@@ -39,8 +39,8 @@ ProductCard.propTypes = {
     id: PropTypes.string,
     category_id: PropTypes.string,
   }).isRequired,
-  callBack: PropTypes.func.isRequired,
-  addToCart: PropTypes.func.isRequired,
+  renderDetailsCallBack: PropTypes.func.isRequired,
+  addToCartCallback: PropTypes.func.isRequired,
 };
 
 export default ProductCard;
