@@ -39,6 +39,11 @@ class CartManipulation extends React.Component {
     return (
       <section>
         <div key={ item.id }>
+          <img
+            src={ item.thumbnail }
+            alt="Foto do produto"
+            className="cart-manipulation-img"
+          />
           <h1
             data-testid="shopping-cart-product-name"
             className="cart-manipulation-title"
@@ -92,8 +97,12 @@ class CartManipulation extends React.Component {
 }
 
 CartManipulation.propTypes = {
-  item: PropTypes.objectOf({
-    price: PropTypes.number.isRequired,
+  item: PropTypes.shape({
+    id: PropTypes.string,
+    thumbnail: PropTypes.string,
+    title: PropTypes.string,
+    price: PropTypes.number,
+    available_quantity: PropTypes.number,
   }).isRequired,
   removeItem: PropTypes.func.isRequired,
 };

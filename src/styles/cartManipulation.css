@@ -8,6 +8,12 @@
   -webkit-box-orient: vertical;
 }
 
+.cart-manipulation-img {
+  display: flex;
+  width: 200px;
+  margin: 0 auto;
+}
+
 .cart-manipulation-quantity {
   font-size: 18px;
   margin: 10px 0;
