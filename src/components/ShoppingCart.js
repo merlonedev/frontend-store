@@ -5,50 +5,46 @@ class ShoppingCart extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      productsCount: {},
+      shoppingCartProductList: [],
+      // shoppingCartProductListChangeName: [],
     };
-    this.getProductsCount = this.getProductsCount.bind(this);
-    this.resetProductsCount = this.resetProductsCount.bind(this);
-    this.getProductCount = this.getProductCount.bind(this);
+    this.getShoppingCartProductList = this.getShoppingCartProductList.bind(this);
+    this.getProductQuantity = this.getProductQuantity.bind(this);
     this.isEmpty = this.isEmpty.bind(this);
   }
 
   componentDidMount() {
-    this.resetProductsCount();
-    this.getProductsCount();
+    this.getShoppingCartProductList();
   }
 
-  getProductsCount() {
-    const { shoppingCartList } = this.props;
-    const productsCount = shoppingCartList
-      .reduce((acc, curr) => {
-        (acc[curr.id] = acc[curr.id] || []).push(curr);
-        return acc;
-      }, {});
+  // componentDidUpdate() {
+  //   const { shoppingCartUpdaterCallback } = this.props;
+  //   const { shoppingCartProductList } = this.state;
+  //   shoppingCartUpdaterCallback(shoppingCartProductList);
+  // }
+
+  getShoppingCartProductList() {
+    const { shoppingCartProductList } = this.props;
     this.setState({
-      productsCount,
+      shoppingCartProductList,
     });
   }
 
-  getProductCount(productId) {
-    const { productsCount } = this.state;
-    const itemCount = productsCount[productId].length;
-    return itemCount;
-  }
-
-  resetProductsCount() {
-    this.setState({
-      productsCount: {},
-    });
+  getProductQuantity(productId) {
+    const { shoppingCartProductList } = this.state;
+    const product = shoppingCartProductList
+      .find((cartProduct) => cartProduct.id === productId);
+    return product.quantity;
   }
 
   isEmpty() {
-    const { productsCount } = this.state;
-    return (Object.keys(productsCount).length === 0);
+    const { shoppingCartProductList } = this.state;
+    return (shoppingCartProductList.length === 0);
   }
 
   render() {
-    const { shoppingCartList, goBackCallBack } = this.props;
+    const { goBackCallBack } = this.props;
+    const { shoppingCartProductList } = this.state;
     if (this.isEmpty()) {
       return (
         <div>
@@ -65,9 +61,9 @@ class ShoppingCart extends Component {
     return (
       <div data-testid="product">
         <h1>shopping cart</h1>
-        {shoppingCartList
-          .map((product) => {
-            const productCount = this.getProductCount(product.id);
+        {shoppingCartProductList
+          .map(({ product }) => {
+            const productQuantity = this.getProductQuantity(product.id);
             return (
               <section
                 key={ product.id }
@@ -83,7 +79,7 @@ class ShoppingCart extends Component {
                   data-testid="shopping-cart-product-quantity"
                 >
                   Quantity:
-                  {productCount}
+                  {productQuantity}
                 </h3>
                 <h2>
                   Endereço do Vendedor:
@@ -110,7 +106,7 @@ class ShoppingCart extends Component {
 }
 
 ShoppingCart.propTypes = {
-  shoppingCartList: PropTypes.arrayOf(PropTypes.object).isRequired,
+  shoppingCartProductList: PropTypes.arrayOf(PropTypes.object).isRequired,
   goBackCallBack: PropTypes.func.isRequired,
 };
 
