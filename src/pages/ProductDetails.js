@@ -21,7 +21,6 @@ class ProductDetails extends Component {
 
   async fetchDetail() {
     const results = await getProductsFromCategoryAndQuery();
-    console.log('results', results);
     this.setState({
       product: results,
     });
@@ -30,7 +29,7 @@ class ProductDetails extends Component {
   render() {
     const { location: { state: { title, thumbnail, price } } } = this.props;
     const { product } = this.state;
-    console.log('prod', product);
+    console.log(product);
     return (
       <section data-testid="product-datail-container">
         <Link to="/">Home</Link>

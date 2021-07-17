@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 class ProductList extends Component {
   render() {
     const { products, addToShoppingCart } = this.props;
+
     return (
       <main>
         { products.map(({ title, thumbnail, price, id }) => (

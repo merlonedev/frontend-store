@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import ProductList from './ProductList';
 import SearchMsg from './SearchMsg';
 
 class SearchBar extends Component {
   render() {
-    const { value, products, change, click } = this.props;
-
+    const { value, change, products, click } = this.props;
+    if (products.length === 0) return <SearchMsg />;
     return (
       <section>
         <input
@@ -23,13 +22,6 @@ class SearchBar extends Component {
         >
           Search
         </button>
-
-        {
-          (products.length === 0)
-            ? <SearchMsg />
-            : <ProductList value={ value } products={ products } />
-        }
-
       </section>
     );
   }

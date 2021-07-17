@@ -54,7 +54,6 @@ class Home extends Component {
 
   addToShoppingCart({ target: { id } }) {
     const { products } = this.state;
-    console.log('Clicou');
     const product = products.find((e) => e.id === id);
     this.setState((prevState) => ({
       shoppingCart: [...prevState.shoppingCart, product],
