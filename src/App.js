@@ -11,6 +11,7 @@ class App extends React.Component {
     this.state = {
       cartItems: [],
       total: 0,
+      cartQty: 0,
     };
     this.addToCartItems = this.addToCartItems.bind(this);
     this.removeItem = this.removeItem.bind(this);
@@ -40,6 +41,7 @@ class App extends React.Component {
     if (Array.isArray(storage)) {
       this.setState({
         cartItems: [...storage],
+        cartQty: storage.reduce((acc, curr) => (curr.count + acc), 0),
       });
     }
   }
@@ -65,31 +67,33 @@ class App extends React.Component {
     });
     const isRepeated = cartItems.some((item) => item.product.id === newItem.id);
     if (!isRepeated) {
-      return this.setState((prevState) => ({
-        cartItems: [...prevState.cartItems, notRepeated],
+      return this.setState((state) => ({
+        cartItems: [...state.cartItems, notRepeated],
+        cartQty: state.cartItems.reduce((acc, curr) => (curr.count + acc), 0) + 1,
       }));
     }
     this.setState({
       cartItems: [...yesRepeated],
+      cartQty: yesRepeated.reduce((acc, curr) => (curr.count + acc), 0),
     });
   }
 
   updateItem(items) {
     this.setState({
       cartItems: [...items],
+      cartQty: items.reduce((acc, curr) => (curr.count + acc), 0),
     });
   }
 
   removeItem(updateCart) {
     this.setState({
       cartItems: [...updateCart],
+      cartQty: updateCart.reduce((acc, curr) => (curr.count + acc), 0),
     });
   }
 
   render() {
-    const { cartItems, total } = this.state;
-    const totalItems = cartItems
-      .reduce((acc, curr) => (curr.count + acc), 0);
+    const { cartItems, total, cartQty } = this.state;
     return (
       <Router>
         <Switch>
@@ -100,7 +104,7 @@ class App extends React.Component {
               (props) => (<ListItems
                 { ...props }
                 addToCartItems={ this.addToCartItems }
-                amountCart={ totalItems }
+                amountCart={ cartQty }
               />)
             }
           />
@@ -121,7 +125,7 @@ class App extends React.Component {
             path="/product/:categoryId/:productId"
             render={ (props) => (<ProductDetails
               { ...props }
-              amountCart={ totalItems }
+              amountCart={ cartQty }
               addToCartItems={ this.addToCartItems }
             />) }
           />
@@ -131,7 +135,7 @@ class App extends React.Component {
               (props) => (<Checkout
                 { ...props }
                 cartItems={ { cartItems, total } }
-                amountCart={ totalItems }
+                amountCart={ cartQty }
               />)
             }
           />

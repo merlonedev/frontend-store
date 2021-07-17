@@ -1,20 +1,19 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Badge from '@material-ui/core/Badge';
+import '../css/cartIcon.css';
 
 class CartIcon extends Component {
-  // AJUDA EM: https://www.geeksforgeeks.org/how-to-create-shopping-cart-button-in-reactjs/
   render() {
     const { amount, className } = this.props;
     return (
-      <div>
-        <Badge
+      <div className={ `icon-cart ${className}` }>
+        <i className="bi bi-cart4 ico-cart" />
+        <span
+          className="count-cart"
           data-testid="shopping-cart-size"
-          color="secondary"
-          badgeContent={ amount }
         >
-          <i className={ `bi bi-cart4 ${className}` } />
-        </Badge>
+          { amount }
+        </span>
       </div>
     );
   }

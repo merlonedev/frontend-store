@@ -9,8 +9,8 @@ import * as api from '../services/api';
 import '../css/listItens.css';
 
 class ListItems extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       search: '',
       products: [],
@@ -32,11 +32,7 @@ class ListItems extends React.Component {
     this.fetchCategories();
   }
 
-  handleChangeSearch(event) {
-    const { name } = event.target;
-    const value = event.target.type === 'checkbox'
-      ? event.target.checked
-      : event.target.value;
+  handleChangeSearch({ target: { name, value } }) {
     this.setState({
       [name]: value,
     });
@@ -158,8 +154,8 @@ class ListItems extends React.Component {
               Digite algum termo de pesquisa ou escolha uma categoria.
             </div>
           </form>
-          <Link to="/cart" className="link-cart-home" data-testid="shopping-cart-button">
-            <CartIcon className="cart-main" amount={ amountCart } />
+          <Link to="/cart" className="link-cart" data-testid="shopping-cart-button">
+            <CartIcon amount={ amountCart } />
           </Link>
         </nav>
         <section className="main">
