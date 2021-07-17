@@ -11,6 +11,7 @@ class ShoppingCart extends Component {
     this.getShoppingCartProductList = this.getShoppingCartProductList.bind(this);
     this.getProductQuantity = this.getProductQuantity.bind(this);
     this.isEmpty = this.isEmpty.bind(this);
+    this.updateQuantity = this.updateQuantity.bind(this);
   }
 
   componentDidMount() {
@@ -40,6 +41,26 @@ class ShoppingCart extends Component {
   isEmpty() {
     const { shoppingCartProductList } = this.state;
     return (shoppingCartProductList.length === 0);
+  }
+
+  updateQuantity(target, operation) {
+    const { shoppingCartUpdaterCallback } = this.props;
+    const { shoppingCartProductList } = this.state;
+    const productId = target.getAttribute('productid');
+    const getIndexById = (id, array) => array.map((elem) => elem.id).indexOf(id);
+    const tempState = [...shoppingCartProductList];
+    const index = getIndexById(productId, tempState);
+    const tempElement = { ...tempState[index] };
+    if (operation === '+') tempElement.quantity += 1;
+    if (operation === '-') tempElement.quantity -= 1;
+    if (tempElement.quantity < 0) {
+      tempElement.quantity = 0;
+    }
+    tempState[index] = tempElement;
+    shoppingCartUpdaterCallback(shoppingCartProductList);
+    this.setState({
+      shoppingCartProductList: tempState,
+    });
   }
 
   render() {
@@ -75,12 +96,28 @@ class ShoppingCart extends Component {
                 </h4>
                 <h4>{product.price}</h4>
                 <img src={ product.thumbnail } alt={ product.title } />
+                <button
+                  type="button"
+                  onClick={ (e) => this.updateQuantity(e.target, '+') }
+                  productid={ product.id }
+                  data-testid="product-increase-quantity"
+                >
+                  +
+                </button>
                 <h3
                   data-testid="shopping-cart-product-quantity"
                 >
                   Quantity:
                   {productQuantity}
                 </h3>
+                <button
+                  type="button"
+                  onClick={ (e) => this.updateQuantity(e.target, '-') }
+                  productid={ product.id }
+                  data-testid="product-decrease-quantity"
+                >
+                  -
+                </button>
                 <h2>
                   Endereço do Vendedor:
                 </h2>
@@ -108,6 +145,7 @@ class ShoppingCart extends Component {
 ShoppingCart.propTypes = {
   shoppingCartProductList: PropTypes.arrayOf(PropTypes.object).isRequired,
   goBackCallBack: PropTypes.func.isRequired,
+  shoppingCartUpdaterCallback: PropTypes.func.isRequired,
 };
 
 export default ShoppingCart;

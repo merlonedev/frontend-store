@@ -23,6 +23,8 @@ class Home extends Component {
     this.getProductListByQuery = this.getProductListByQuery.bind(this);
     this.renderDetails = this.renderDetails.bind(this);
     this.addToCart = this.addToCart.bind(this);
+    this.updateCheckoutProduct = this.updateCheckoutProduct.bind(this);
+    this.checkoutNewProduct = this.checkoutNewProduct.bind(this);
   }
 
   componentDidMount() {
@@ -48,34 +50,37 @@ class Home extends Component {
     this.getProductList(undefined, query);
   }
 
-  addToCart(product) {
-    const checkoutNewProduct = (newCheckoutProduct) => (
-      {
-        id: newCheckoutProduct.id,
-        quantity: 1,
-        price: newCheckoutProduct.price,
-        product: newCheckoutProduct,
-      });
-    const getIndexById = (id, array) => array.map((x) => x.id).indexOf(id);
-    const updateCheckoutProduct = (productToBeUpdated) => {
-      const { shoppingCartProductList } = this.state;
-      const tempState = [...shoppingCartProductList];
-      const index = getIndexById(productToBeUpdated.id, tempState);
-      const tempElement = { ...tempState[index] };
-      tempElement.quantity += 1;
-      tempState[index] = tempElement;
-      this.setState({
-        shoppingCartProductList: tempState,
-      });
-    };
+  getIndexById(id, array) { return array.map((elem) => elem.id).indexOf(id); }
 
+  checkoutNewProduct(newCheckoutProduct) {
+    return ({
+      id: newCheckoutProduct.id,
+      quantity: 1,
+      price: newCheckoutProduct.price,
+      product: newCheckoutProduct,
+    });
+  }
+
+  updateCheckoutProduct(productToBeUpdated) {
+    const { shoppingCartProductList } = this.state;
+    const tempState = [...shoppingCartProductList];
+    const index = this.getIndexById(productToBeUpdated.id, tempState);
+    const tempElement = { ...tempState[index] };
+    tempElement.quantity += 1;
+    tempState[index] = tempElement;
+    this.setState({
+      shoppingCartProductList: tempState,
+    });
+  }
+
+  addToCart(product) {
     const { shoppingCartProductList } = this.state;
     if (shoppingCartProductList.some((prod) => prod.id === product.id)) {
-      updateCheckoutProduct(product);
+      this.updateCheckoutProduct(product);
     } else {
       this.setState((prev) => ({
         shoppingCartProductList: [
-          ...prev.shoppingCartProductList, checkoutNewProduct(product)],
+          ...prev.shoppingCartProductList, this.checkoutNewProduct(product)],
       }));
     }
   }
