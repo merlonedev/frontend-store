@@ -4,16 +4,16 @@ import CartItem from './CartItem';
 
 class CartList extends React.Component {
   render() {
-    const { cart } = this.props;
-    // console.log(cart);
+    const { cart, deleteItem } = this.props;
     return (
       <section id="shopping-cart">
         {
           cart
             .map((item) => (
               <CartItem
-                key={ item.title }
+                key={ item.id }
                 item={ item }
+                deleteItem={ deleteItem }
               />
             ))
         }
@@ -23,7 +23,8 @@ class CartList extends React.Component {
 }
 
 CartList.propTypes = {
-  cart: PropTypes.arrayOf(Object).isRequired,
+  cart: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  deleteItem: PropTypes.func.isRequired,
 };
 
 export default CartList;

@@ -1,0 +1,17 @@
+.cart-item-container {
+  align-items: center;
+  display: flex;
+  margin: 2px;
+}
+
+.delete-button {
+  border-radius: 50px;
+}
+
+.minus-button {
+  border-radius: 50px;
+}
+
+.plus-button {
+  border-radius: 50px;
+}

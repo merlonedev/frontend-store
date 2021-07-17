@@ -4,6 +4,7 @@ import * as api from '../services/api';
 import CategoryList from '../components/CategoryList';
 import ProductList from '../components/ProductList';
 import Loading from '../components/Loading';
+import { getCartItemsQuantity } from '../services/localStorage';
 import '../App.css';
 
 let queryValue = 'QUERY';
@@ -16,19 +17,17 @@ class Home extends React.Component {
       searchBar: '',
       categories: undefined,
       products: undefined,
-      productDetails: [],
-      cart: [],
+      totalQuantityInCart: getCartItemsQuantity(),
     });
 
     this.categories = this.categories.bind(this);
     this.callCategoryList = this.callCategoryList.bind(this);
-    this.callProductList = this.callProductList.bind(this);
+    this.callProductList = this.renderProductsList.bind(this);
     this.filterProduct = this.filterProduct.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleClickCategory = this.handleClickCategory.bind(this);
-    this.handleCart = this.handleCart.bind(this);
-    this.shouldUpdateCart = this.shouldUpdateCart.bind(this);
+    this.handleCartQuantity = this.handleCartQuantity.bind(this);
   }
 
   async componentDidMount() {
@@ -54,7 +53,6 @@ class Home extends React.Component {
 
   handleClickCategory({ target }) {
     const category = target.id;
-    // console.log(category);
     queryValue = category;
     this.setState({
       searchBar: category,
@@ -62,23 +60,10 @@ class Home extends React.Component {
     this.products(category, undefined);
   }
 
-  handleCart(product) {
-    const { cart } = this.state;
-    this.setState({
-      cart: [...cart, product],
-    });
-  }
-
-  callCategoryList() {
-    const { categories } = this.state;
-    if (categories !== undefined) {
-      return (
-        <CategoryList
-          categories={ categories }
-          handleClickCategory={ this.handleClickCategory }
-        />
-      );
-    }
+  handleCartQuantity() {
+    this.setState((prevState) => ({
+      totalQuantityInCart: prevState.totalQuantityInCart + 1,
+    }));
   }
 
   filterProduct(products) {
@@ -93,7 +78,6 @@ class Home extends React.Component {
 
   async products(categoryId, query) {
     const products = await api.getProductsFromCategoryAndQuery(categoryId, query);
-    // console.log(products);
     this.setState({
       products,
     });
@@ -115,40 +99,32 @@ class Home extends React.Component {
     );
   }
 
-  callProductList() {
-    const { products, productDetails, cart } = this.state;
-    // console.log(products);
-    if (products !== undefined) {
+  callCategoryList() {
+    const { categories } = this.state;
+    if (categories !== undefined) {
       return (
-        <ProductList
-          cart={ cart }
-          products={ products }
-          productDetails={ productDetails }
-          getProductDetails={ this.getProductDetails }
-          handleCart={ this.handleCart }
-          shouldUpdateCart={ this.shouldUpdateCart }
+        <CategoryList
+          categories={ categories }
+          handleClickCategory={ this.handleClickCategory }
         />
       );
     }
   }
 
-  shouldUpdateCart() {
-    this.forceUpdate();
-  }
-
-  emptyCart() {
-    const { cart } = this.state;
-    if (cart.length === 0) {
+  renderProductsList() {
+    const { products } = this.state;
+    if (products !== undefined) {
       return (
-        <section>
-          Seu carrinho está vazio
-        </section>
+        <ProductList
+          products={ products }
+          handleCartQuantity={ this.handleCartQuantity }
+        />
       );
     }
   }
 
   render() {
-    const { categories, products, cart } = this.state;
+    const { categories, products, totalQuantityInCart } = this.state;
     const { searchBar } = this.state;
     return (
       <section>
@@ -174,13 +150,14 @@ class Home extends React.Component {
         </h2>
         <Link
           data-testid="shopping-cart-button"
-          to={ { pathname: '/shopping-cart', state: cart } }
+          to="/shopping-cart"
         >
           Carrinho
         </Link>
+        <span>{ totalQuantityInCart }</span>
         <section className="main">
           { categories === undefined ? <Loading /> : this.callCategoryList() }
-          { products === undefined ? <Loading /> : this.callProductList() }
+          { products === undefined ? <Loading /> : this.renderProductsList() }
         </section>
       </section>
     );
