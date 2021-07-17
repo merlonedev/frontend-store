@@ -32,8 +32,17 @@ class CartBasket extends Component {
         <Link to="/">Página Inicial</Link>
         <div className="cart-basket-content">
           <CartItems cartList={ cartList } removeItem={ removeItem } />
-          <Link to="/checkout" data-testid="checkout-products">
-            <button type="button">Finalizar Compra</button>
+          <Link
+            className="cart-basket-link"
+            to="/checkout"
+            data-testid="checkout-products"
+          >
+            <button
+              className="cart-basket-btn"
+              type="button"
+            >
+              Finalizar Compra
+            </button>
           </Link>
         </div>
       </main>

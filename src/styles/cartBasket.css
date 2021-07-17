@@ -10,3 +10,24 @@
   display: grid;
   justify-content: center;
 }
+
+.cart-basket-link {
+  text-decoration: none;
+}
+
+.cart-basket-btn {
+  display: flex;
+  width: 100%;
+  margin-top: 5px;
+  justify-content: center;
+  padding: 10px 0;
+  cursor: pointer;
+  font-weight: 600;
+  border: none;
+  border-radius: 10px;
+  background-color: #ff9000;
+}
+
+.cart-basket-btn:hover {
+  background-color: #ffa733;
+}

@@ -1,18 +1,21 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import CartManipulation from './CartManipulation';
+import '../styles/cartItems.css';
 
 class CartItems extends Component {
   render() {
     const { cartList, removeItem } = this.props;
     return (
       <div>
-        <h3>
+        <h2 className="cart-items-text">
           Carrinho De Compras
-        </h3>
-        {cartList.map((item) => (
-          <CartManipulation item={ item } key={ item.id } removeItem={ removeItem } />
-        ))}
+        </h2>
+        <div className="cart-items-card">
+          {cartList.map((item) => (
+            <CartManipulation item={ item } key={ item.id } removeItem={ removeItem } />
+          ))}
+        </div>
       </div>
     );
   }
