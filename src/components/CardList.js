@@ -46,6 +46,7 @@ class CardList extends Component {
 
   render() {
     const { categories, loading } = this.state;
+    const { callback } = this.props;
     return (
       <>
         <SideBar searchByCategorie={ this.searchByCategorie } />
@@ -54,6 +55,7 @@ class CardList extends Component {
         >
           { loading && <Loading /> }
           { categories.map((item) => (<CardItem
+            callback={ callback }
             item={ item }
             key={ item.id }
             itemId={ item.id }
@@ -70,6 +72,7 @@ class CardList extends Component {
 
 CardList.propTypes = {
   value: PropTypes.string.isRequired,
+  callback: PropTypes.func.isRequired,
 };
 
 export default CardList;

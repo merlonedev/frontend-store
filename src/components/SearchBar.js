@@ -28,6 +28,7 @@ class SearchBar extends Component {
   }
 
   render() {
+    const { quantity } = this.props;
     return (
       <div className="search-bar">
         <label className="search-bar-label" htmlFor="search-bar">
@@ -50,6 +51,7 @@ class SearchBar extends Component {
           </button>
           <Link to="/Cart" data-testid="shopping-cart-button">
             <img src={ cartImage } alt="Carrinho de compra" className="cart-img" />
+            <span data-testid="shopping-cart-size">{ quantity }</span>
           </Link>
         </label>
       </div>
@@ -59,6 +61,7 @@ class SearchBar extends Component {
 
 SearchBar.propTypes = {
   getValue: PropTypes.func.isRequired,
+  quantity: PropTypes.number.isRequired,
 };
 
 export default SearchBar;

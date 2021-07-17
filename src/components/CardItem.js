@@ -7,8 +7,10 @@ import './CardItem.css';
 
 class CardItem extends Component {
   addToData = (item) => {
+    const { callback } = this.props;
     const i = productsCart.findIndex(({ id }) => id === item.id);
     if (i < 0) {
+      callback();
       return productsCart.push(item);
     }
     productsCart[i].quantidade += 1;
@@ -61,6 +63,7 @@ CardItem.propTypes = {
     quantidade: PropTypes.number,
   }).isRequired,
   shipping: PropTypes.bool.isRequired,
+  callback: PropTypes.func.isRequired,
 };
 
 export default CardItem;

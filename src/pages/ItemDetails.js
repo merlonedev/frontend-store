@@ -5,7 +5,7 @@ import Loading from '../components/Loading';
 import Form from '../components/Form';
 import BackSVG from '../SVGs/BackSVG';
 import './ItemDetails.css';
-import products from '../services/data';
+import productsCart from '../services/data';
 
 class ItemDetails extends Component {
   constructor() {
@@ -37,6 +37,16 @@ class ItemDetails extends Component {
         }));
   }
 
+  addToData = (item) => {
+    const { callback } = this.props;
+    const i = productsCart.findIndex(({ id }) => id === item.id);
+    if (i < 0) {
+      callback();
+      return productsCart.push(item);
+    }
+    productsCart[i].quantidade += 1;
+  }
+
   render() {
     const { item, loading } = this.state;
     const { title, price, thumbnail, condition } = item;
@@ -64,7 +74,7 @@ class ItemDetails extends Component {
             <button
               type="button"
               data-testid="product-detail-add-to-cart"
-              onClick={ () => products.push(item) }
+              onClick={ () => this.addToData(item) }
             >
               Adicionar ao carrinho
             </button>
@@ -93,6 +103,7 @@ ItemDetails.propTypes = {
       id: PropTypes.string,
     }),
   }).isRequired,
+  callback: PropTypes.func.isRequired,
 };
 
 export default ItemDetails;

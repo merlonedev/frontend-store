@@ -12,7 +12,9 @@ class App extends Component {
     super();
     this.state = {
       valueInput: '',
+      quantity: 0,
     };
+    this.callback = this.callback.bind(this);
     this.getValue = this.getValue.bind(this);
   }
 
@@ -23,21 +25,29 @@ class App extends Component {
     return value;
   }
 
+  callback() {
+    const { quantity } = this.state;
+    this.setState({
+      quantity: quantity + 1,
+    });
+  }
+
   render() {
-    const { valueInput } = this.state;
+    const { valueInput, quantity } = this.state;
     return (
       <BrowserRouter>
         <SearchBar
           getValue={ this.getValue }
+          quantity={ quantity }
         />
         <Route
           exact
           path="/"
-          render={ () => <Main value={ valueInput } /> }
+          render={ () => <Main value={ valueInput } callback={ this.callback } /> }
         />
         <Route
           path="/details/:id"
-          render={ (props) => <ItemDetails { ...props } /> }
+          render={ (props) => <ItemDetails { ...props } callback={ this.callback } /> }
         />
         <Route exact path="/Cart" component={ Cart } />
         <Route exact path="/Payment" component={ Payment } />
