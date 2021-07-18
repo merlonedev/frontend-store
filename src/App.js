@@ -8,8 +8,9 @@ import Checkout from './pages/Checkout';
 class App extends React.Component {
   constructor(props) {
     super(props); // usado como referencia lógica do código do Grupo 10 (source: https://github.com/tryber/sd-12-project-frontend-online-store/blob/main-group-10/src/App.js)
+    const storage = JSON.parse(localStorage.getItem('cartItems'));
     this.state = {
-      cartItems: [],
+      cartItems: storage || [],
       total: 0,
       cartQty: 0,
     };
