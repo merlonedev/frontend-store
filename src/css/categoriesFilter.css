@@ -39,9 +39,5 @@
 .radio-input {
   cursor: pointer;
   list-style: none;
-}
-
-.radio-input {
-  cursor: pointer;
   display: none;
 }

@@ -6,9 +6,9 @@
   border-radius: 8px;
   box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.125);
   display: flex;
-  justify-content: space-between;
   flex-direction: column;
   height: 420px;
+  justify-content: space-between;
   margin: 20px;
   width: 300px;
 }
@@ -47,7 +47,7 @@
 
 .product-title {
   text-align: center;
-  margin: 0px 8px 16px 8px;
+  margin: 0px 8px 16px;
 }
 
 .product-img {
@@ -75,8 +75,8 @@
   padding: 5px;
   text-align: center;
   width: 100px;
-  transition: background-color 0.2s;
   margin-right: 8px;
+  transition: background-color 0.2s;
 }
 
 .product-btn:hover {
@@ -89,7 +89,6 @@
 }
 
 .product-price span {
-  background-color: rgba(240, 160, 11, );
   border-radius: 30px;
   color: rgb(18, 153, 18);
   padding: 4px;
@@ -97,13 +96,13 @@
 }
 
 .product-link {
+  color: rgb(4, 41, 255);
   cursor: pointer;
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding: 0 2%;
   text-decoration: none;
-  color: rgb(4, 41, 255);
   transition: transform 0.2s
 }
 
@@ -116,8 +115,8 @@
   display: flex;
   flex-direction: row-reverse;
   height: 50px;
-  padding: 10px 0;
   justify-content: space-between;
+  padding: 10px 0;
   text-align: center;
 }
 

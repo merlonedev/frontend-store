@@ -11,9 +11,9 @@
 }
 
 .cart-header {
+  align-items: center;
   display: flex;
   justify-content: center;
-  align-items: center;
 }
 
 .cart-header svg {
@@ -23,13 +23,13 @@
   transition: transform 0.2s;
 }
 
-.cart-header svg:hover{
+.cart-header svg:hover {
   transform: translateX(-6px);
-} 
+}
 
 .cart-title {
-  margin: 0 auto;
   font-size: 18px;
+  margin: 0 auto;
 }
 
 .cart-title i {
@@ -50,7 +50,7 @@
 }
 
 .checkout-cart {
-  display: flex;
   align-items: center;
+  display: flex;
   flex-direction: column;
 }
