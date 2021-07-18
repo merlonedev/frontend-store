@@ -50,6 +50,7 @@ class ProductCard extends Component {
         <Link
           data-testid="product-detail-link"
           to={ `/productDetails/${id}` }
+          onChange={ this.handleClick }
         >
           Ver Detalhes
         </Link>
