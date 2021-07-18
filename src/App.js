@@ -94,6 +94,7 @@ class App extends React.Component {
 
   render() {
     const { cartItems, total, cartQty } = this.state;
+    console.log(cartItems);
     return (
       <Router>
         <Switch>
