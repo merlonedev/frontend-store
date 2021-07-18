@@ -24,7 +24,8 @@ class Checkout extends Component {
     });
   };
 
-  handleSubmit() {
+  handleSubmit(e) {
+    e.preventDefault();
     return null;
   }
 
