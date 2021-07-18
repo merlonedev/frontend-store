@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 class Product extends React.Component {
   render() {
-    const { title, thumbnail, price, id, productId, addToCart } = this.props;
+    const { title, thumbnail, price, id, productId, addToCart, shipping } = this.props;
     return (
       <div data-testid="product" className="product">
         <h4>{ title }</h4>
@@ -15,6 +15,7 @@ class Product extends React.Component {
           <img src={ thumbnail } alt={ title } />
         </Link>
         <p>{ `R$ ${price.toFixed(2)}` }</p>
+        {shipping && <h4 data-testid="free-shipping">Frete Grátis</h4>}
         <button
           data-testid="product-add-to-cart"
           type="button"

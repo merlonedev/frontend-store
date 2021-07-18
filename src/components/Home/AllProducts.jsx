@@ -17,6 +17,7 @@ class AllProducts extends Component {
               price={ product.price }
               thumbnail={ product.thumbnail }
               addToCart={ () => addToCart(product) }
+              shipping={ product.shipping.free_shipping }
             />))
           }
         </section>
