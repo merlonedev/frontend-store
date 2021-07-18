@@ -1,3 +1,35 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #cacdc8;
+  font-family: Verdana , sans-serif;
+  height: 100%;
+  margin: 0;
+  width: 100%;
+}
+
 li {
   list-style-type: none;
+}
+
+.shopping-cart {
+  background: white;
+  border-radius: 6px;
+  box-shadow: 1px 2px 3px 0 rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  height: 423px;
+  margin: 80px auto;
+  width: 750px;
+}
+
+.title {
+  border-bottom: 1px solid #e1e8ee;
+  color: #5e6977;
+  font-size: 18px;
+  font-weight: 400;
+  height: 60px;
+  padding: 20px 30px;
 }

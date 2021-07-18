@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './CartItem.css';
+import { IoIosAddCircle, IoIosRemoveCircle } from 'react-icons/io';
 
 export default class CartItem extends Component {
   constructor() {
@@ -41,7 +42,7 @@ export default class CartItem extends Component {
             data-testid="product-decrease-quantity"
             onClick={ () => this.removeItem(product) }
           >
-            -
+            <IoIosRemoveCircle />
           </button>
           <span data-testid="shopping-cart-product-quantity">{ quantity }</span>
           <button
@@ -52,7 +53,7 @@ export default class CartItem extends Component {
               getItemsFromStorage();
             } }
           >
-            +
+            <IoIosAddCircle />
           </button>
         </div>
       </div>

@@ -27,7 +27,8 @@ class Cart extends Component {
 
     if (cartItems.length) {
       return (
-        <div>
+        <div className="shopping-cart">
+          <div className="title">Shopping Bag</div>
           <header>
             <Link to="/"><AiOutlineHome /></Link>
             <button
