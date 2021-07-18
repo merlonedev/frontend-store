@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import Cart from './pages/Cart';
 import ProductDetails from './pages/ProductDetails';
 import NotFound from './pages/NotFound';
+import CheckOutProducts from './pages/CheckOutProducts';
 
 class App extends Component {
   constructor() {
@@ -13,81 +14,17 @@ class App extends Component {
       totalValue: 0,
     };
     this.addToCart = this.addToCart.bind(this);
-    this.saveToCart = this.saveCart.bind(this);
-    this.loadCartItems = this.loadCartItems.bind(this);
-    this.handleDeleteItem = this.handleDeleteItem.bind(this);
     this.handleClickSub = this.handleClickSub.bind(this);
     this.handleClickSum = this.handleClickSum.bind(this);
-    this.loadTotalValue = this.loadTotalValue.bind(this);
+    this.handleDeleteItem = this.handleDeleteItem.bind(this);
+    this.loadCartItems = this.loadCartItems.bind(this);
     this.loadProductValue = this.loadProductValue.bind(this);
+    this.loadTotalValue = this.loadTotalValue.bind(this);
+    this.saveToCart = this.saveCart.bind(this);
   }
 
   componentDidMount() {
     this.loadCartItems();
-  }
-
-  async handleDeleteItem(id) {
-    const storageItems = JSON.parse(localStorage.getItem('CartItems'));
-    const itemFound = storageItems.find((item) => item.id === id);
-    const index = storageItems.indexOf(itemFound);
-
-    storageItems.splice(index, 1);
-    localStorage.setItem('CartItems', JSON.stringify(storageItems));
-
-    await this.loadCartItems();
-    this.loadTotalValue();
-  }
-
-  async handleClickSum(id) {
-    const { cartItems } = this.state;
-
-    const currentItem = cartItems
-      .find((product) => product.id === id);
-    currentItem.quantity += 1;
-
-    this.saveCart();
-    this.loadCartItems();
-    this.loadTotalValue();
-  }
-
-  async handleClickSub(id) {
-    const { cartItems } = this.state;
-
-    const currentItem = cartItems
-      .find((product) => product.id === id);
-    if (currentItem.quantity === 1) {
-      await this.handleDeleteItem(id);
-    } else {
-      currentItem.quantity -= 1;
-    }
-
-    this.saveCart();
-    this.loadCartItems();
-    this.loadTotalValue();
-  }
-
-  loadTotalValue() {
-    const { cartItems } = this.state;
-    let totalValue = 0;
-
-    cartItems.forEach((item) => {
-      totalValue += item.price * item.quantity;
-    });
-    totalValue = totalValue.toFixed(2);
-
-    this.setState({
-      totalValue,
-    });
-  }
-
-  loadProductValue(id) {
-    const { cartItems } = this.state;
-
-    let totalPrice = 0;
-    const currentItem = cartItems
-      .find((product) => product.id === id);
-    totalPrice = (currentItem.price * currentItem.quantity).toFixed(2);
-    return totalPrice;
   }
 
   addToCart(data) {
@@ -118,10 +55,47 @@ class App extends Component {
     this.loadTotalValue();
   }
 
-  saveCart() {
+  async handleClickSub(id) {
     const { cartItems } = this.state;
-    localStorage.setItem('CartItems', JSON.stringify(cartItems));
+    
+    const currentItem = cartItems
+    .find((product) => product.id === id);
+    if (currentItem.quantity === 1) {
+      await this.handleDeleteItem(id);
+    } else {
+      currentItem.quantity -= 1;
+    }
+    
+    this.saveCart();
+    this.loadCartItems();
+    this.loadTotalValue();
   }
+  
+  async handleClickSum(id) {
+    const { cartItems } = this.state;
+
+    const currentItem = cartItems
+      .find((product) => product.id === id);
+    currentItem.quantity += 1;
+
+    this.saveCart();
+    this.loadCartItems();
+    this.loadTotalValue();
+  }
+
+  async handleDeleteItem(id) {
+    const storageItems = JSON.parse(localStorage.getItem('CartItems'));
+    const itemFound = storageItems.find((item) => item.id === id);
+    const index = storageItems.indexOf(itemFound);
+
+    storageItems.splice(index, 1);
+    localStorage.setItem('CartItems', JSON.stringify(storageItems));
+
+    await this.loadCartItems();
+    this.loadTotalValue();
+  }
+
+  
 
   async loadCartItems() {
     let loadedCartItems = localStorage.getItem('CartItems');
@@ -133,6 +107,35 @@ class App extends Component {
       });
     }
     this.loadTotalValue();
+  }
+  
+  loadProductValue(id) {
+    const { cartItems } = this.state;
+    
+    let totalPrice = 0;
+    const currentItem = cartItems
+    .find((product) => product.id === id);
+    totalPrice = (currentItem.price * currentItem.quantity).toFixed(2);
+    return totalPrice;
+  }
+  
+  loadTotalValue() {
+      const { cartItems } = this.state;
+      let totalValue = 0;
+  
+      cartItems.forEach((item) => {
+        totalValue += item.price * item.quantity;
+      });
+      totalValue = totalValue.toFixed(2);
+  
+      this.setState({
+        totalValue,
+      });
+    }
+
+  saveCart() {
+    const { cartItems } = this.state;
+    localStorage.setItem('CartItems', JSON.stringify(cartItems));
   }
 
   render() {
@@ -167,6 +170,13 @@ class App extends Component {
               { ...routerProps }
               addToCart={ this.addToCart }
             />) }
+          />
+          <Route
+            path="/checkout"
+            render={ (routerProps) => (<CheckOutProducts
+              { ...routerProps }
+              loadTotalValue={this.loadTotalValue}
+              />) }
           />
           <Route path="*" component={ NotFound } />
         </Switch>

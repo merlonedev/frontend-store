@@ -45,6 +45,7 @@ class Cart extends Component {
           {' '}
           { totalValue }
         </span>
+        <button type="button"><Link to="/checkout">COMPRAR</Link></button>
       </section>
     );
   }
