@@ -5,7 +5,6 @@ import SearchMsg from './SearchMsg';
 class SearchBar extends Component {
   render() {
     const { value, change, products, click } = this.props;
-    if (products.length === 0) return <SearchMsg />;
     return (
       <section>
         <input
@@ -22,6 +21,8 @@ class SearchBar extends Component {
         >
           Search
         </button>
+        {products.length === 0 ? <SearchMsg /> : null}
+
       </section>
     );
   }
