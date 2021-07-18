@@ -7,7 +7,7 @@ class Form extends Component {
     super();
 
     this.state = {
-      allAvaliations: [],
+      allEvaluations: [],
       user: '',
       comment: '',
       stars: 0,
@@ -33,10 +33,10 @@ class Form extends Component {
 
   getLocalStorage = () => {
     const { title } = this.props;
-    const storage = JSON.parse(localStorage.getItem(`Avaliation ${title}`));
+    const storage = JSON.parse(localStorage.getItem(`Evaluation ${title}`));
     if (storage) {
       this.setState({
-        allAvaliations: storage,
+        allEvaluations: storage,
       });
     }
   }
@@ -44,18 +44,18 @@ class Form extends Component {
   setLocalStorage = () => {
     const { user, comment, stars } = this.state;
     const { title } = this.props;
-    const avaliation = { user, comment, stars };
-    const storage = JSON.parse(localStorage.getItem(`Avaliation ${title}`));
+    const evaluation = { user, comment, stars };
+    const storage = JSON.parse(localStorage.getItem(`Evaluation ${title}`));
     if (storage) {
-      localStorage.setItem(`Avaliation ${title}`,
-        JSON.stringify([...storage, avaliation]));
+      localStorage.setItem(`Evaluation ${title}`,
+        JSON.stringify([...storage, evaluation]));
       this.setState({
-        allAvaliations: [...storage, avaliation],
+        allEvaluations: [...storage, evaluation],
       });
     } else {
-      localStorage.setItem(`Avaliation ${title}`, JSON.stringify([avaliation]));
+      localStorage.setItem(`Evaluation ${title}`, JSON.stringify([evaluation]));
       this.setState({
-        allAvaliations: [avaliation],
+        allEvaluations: [evaluation],
       });
     }
     this.setState({
@@ -66,7 +66,7 @@ class Form extends Component {
   }
 
   render() {
-    const { user, comment, stars, allAvaliations } = this.state;
+    const { user, comment, stars, allEvaluations } = this.state;
     return (
       <div>
         <form>
@@ -103,15 +103,15 @@ class Form extends Component {
           </button>
         </form>
         <div>
-          {allAvaliations && allAvaliations.map((avaliation, index) => (
+          {allEvaluations && allEvaluations.map((evaluation, index) => (
             <div key={ index }>
-              <h3>{ avaliation.user }</h3>
-              <span>{ avaliation.comment }</span>
+              <h3>{ evaluation.user }</h3>
+              <span>{ evaluation.comment }</span>
               <br />
               <span>Avaliação: </span>
               <ReactStars
                 size={ 20 }
-                value={ avaliation.stars }
+                value={ evaluation.stars }
                 isHalf="true"
                 edit={ false }
               />
