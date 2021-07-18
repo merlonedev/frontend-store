@@ -31,7 +31,7 @@ class ShoppingCart extends Component {
     return product.quantity;
   }
 
-  getIndexById(id, array) { return array.map((elem) => elem.id).indexOf(id); }
+  getIndexById(id, array) { return array.map((elem) => elem.id).indexOf(id); } // Comentários sobre as linhas seguintes em Home.js
 
   updateQuantity(target, operation) {
     const { shoppingCartUpdaterCallback } = this.props;
