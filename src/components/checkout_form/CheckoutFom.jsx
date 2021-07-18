@@ -9,6 +9,7 @@ import InputComplement from './components_form/InputComplement';
 import InputNumber from './components_form/InputNumber';
 import InputCity from './components_form/InputCity';
 import SelectStates from './components_form/SelectStates';
+import PaymentMethod from './components_form/PaymentMethod';
 
 class CheckoutForm extends Component {
   constructor(props) {
@@ -24,6 +25,7 @@ class CheckoutForm extends Component {
       number: '',
       city: '',
       state: 'Estado',
+      payMethod: 'Boleto',
     };
     this.handleChange = this.handleChange.bind(this);
   }
@@ -46,6 +48,7 @@ class CheckoutForm extends Component {
       number,
       city,
       state,
+      payMethod,
     } = this.state;
     return (
       <form className="checkout-form">
@@ -102,7 +105,16 @@ class CheckoutForm extends Component {
             onChange={ this.handleChange }
           />
         </fieldset>
-
+        <fieldset>
+          <legend><h3>Método de Pagamento</h3></legend>
+          <PaymentMethod
+            onChange={ this.handleChange }
+          />
+          { payMethod }
+          {/* Estado foi adicionado aqui somente para passar no lint,
+          pois o estado servira para emplementação futura  */}
+        </fieldset>
+        <button type="submit" className="btn-checkout">Comprar</button>
       </form>
     );
   }
