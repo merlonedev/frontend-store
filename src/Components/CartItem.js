@@ -8,6 +8,7 @@ class CartItem extends React.Component {
       quantity: props.quantity,
     };
     this.handlerQty = this.handlerQty.bind(this);
+    this.renderButtonAddQuantity = this.renderButtonAddQuantity.bind(this);
   }
 
   handlerQty({ target }, id) {
@@ -20,6 +21,32 @@ class CartItem extends React.Component {
       const { state } = this;
       setQuantity(state.quantity, id);
     });
+  }
+
+  renderButtonAddQuantity() {
+    const { availableQuantity, id } = this.props;
+    const { quantity } = this.state;
+    if (quantity === availableQuantity) {
+      return (
+        <button
+          type="button"
+          onClick={ (event) => this.handlerQty(event, id) }
+          name="add"
+          data-testid="product-increase-quantity"
+          disabled
+        >
+          +
+        </button>);
+    }
+    return (
+      <button
+        type="button"
+        onClick={ (event) => this.handlerQty(event, id) }
+        name="add"
+        data-testid="product-increase-quantity"
+      >
+        +
+      </button>);
   }
 
   render() {
@@ -48,14 +75,7 @@ class CartItem extends React.Component {
         >
           { quantity }
         </span>
-        <button
-          type="button"
-          onClick={ (event) => this.handlerQty(event, id) }
-          name="add"
-          data-testid="product-increase-quantity"
-        >
-          +
-        </button>
+        { this.renderButtonAddQuantity() }
       </div>
     );
   }
@@ -69,6 +89,7 @@ CartItem.propTypes = {
   setQuantity: PropTypes.func.isRequired,
   quantity: PropTypes.number.isRequired,
   removeItem: PropTypes.func.isRequired,
+  availableQuantity: PropTypes.number.isRequired,
 };
 
 export default CartItem;

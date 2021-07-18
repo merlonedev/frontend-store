@@ -60,42 +60,46 @@ class App extends React.Component {
     return (
       <div>
         <BrowserRouter>
-          <ShoppingCartButton />
-          <SearchBar getState={ this.getState } />
-          <Switch>
-            <Route exact path="/" component={ InicialMessage } />
-            <Route
-              exact
-              path="/shopping-cart"
-              render={ () => (<ShoppingCart
-                cartList={ cartList }
-                removeItem={ this.removeItem }
-                setQuantity={ this.setQuantity }
-              />) }
-            />
-            <Route
-              exact
-              path="/search"
-              render={ (props) => (
-                <SearchResults
-                  { ...props }
-                  category={ category }
-                  search={ search }
-                  setCartStorage={ this.setCartStorage }
+          <header>
+            <SearchBar getState={ this.getState } />
+            <ShoppingCartButton />
+          </header>
+          <main>
+            <FilterCategories getState={ this.getState } />
+            <Switch>
+              <Route exact path="/" component={ InicialMessage } />
+              <Route
+                exact
+                path="/shopping-cart"
+                render={ () => (<ShoppingCart
+                  cartList={ cartList }
+                  removeItem={ this.removeItem }
+                  setQuantity={ this.setQuantity }
                 />) }
-            />
-            <Route
-              exact
-              path="/details/:id"
-              render={ (props) => (
-                <ProductDetail
-                  { ...props }
-                  search={ search }
-                  setCartStorage={ this.setCartStorage }
-                />) }
-            />
-          </Switch>
-          <FilterCategories getState={ this.getState } />
+              />
+              <Route
+                exact
+                path="/search"
+                render={ (props) => (
+                  <SearchResults
+                    { ...props }
+                    category={ category }
+                    search={ search }
+                    setCartStorage={ this.setCartStorage }
+                  />) }
+              />
+              <Route
+                exact
+                path="/details/:id"
+                render={ (props) => (
+                  <ProductDetail
+                    { ...props }
+                    search={ search }
+                    setCartStorage={ this.setCartStorage }
+                  />) }
+              />
+            </Switch>
+          </main>
         </BrowserRouter>
       </div>
     );
