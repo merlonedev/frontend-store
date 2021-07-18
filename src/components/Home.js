@@ -23,8 +23,8 @@ class Home extends Component {
     this.getProductListByQuery = this.getProductListByQuery.bind(this);
     this.renderDetails = this.renderDetails.bind(this);
     this.addToCart = this.addToCart.bind(this);
-    this.updateCheckoutProduct = this.updateCheckoutProduct.bind(this);
-    this.checkoutNewProduct = this.checkoutNewProduct.bind(this);
+    this.updateCartProduct = this.updateCartProduct.bind(this);
+    this.addNewProductToCart = this.addNewProductToCart.bind(this);
   }
 
   // componentDidMount() {
@@ -52,16 +52,16 @@ class Home extends Component {
 
   getIndexById(id, array) { return array.map((elem) => elem.id).indexOf(id); } // Uma função que pode ir para um arquivo externo. Retorna o índice do objeto com determinada chave id.
 
-  checkoutNewProduct(newCheckoutProduct) { // Função deve ser chamada toda vez que um novo produto é adicionado ao carrinho de compras.
+  addNewProductToCart(newCartProduct) { // Função deve ser chamada toda vez que um novo produto é adicionado ao carrinho de compras.
     return ({ // retorna um objeto iniciador que nos permite ter acesso a informações úteis do produto, bem como ao objeto do produto do qual foi originado.
-      id: newCheckoutProduct.id, // informações úteis do produto
+      id: newCartProduct.id, // informações úteis do produto
       quantity: 1, // informações úteis do produto
-      price: newCheckoutProduct.price, // informações úteis do produto
-      product: newCheckoutProduct, // objeto do produto do qual foi originado
+      price: newCartProduct.price, // informações úteis do produto
+      product: newCartProduct, // objeto do produto do qual foi originado
     });
   }
 
-  updateCheckoutProduct(productToBeUpdated, operation) { // Função deve ser chamada sempre que se precise adicionar um produto repetido no carrinho, ou de alguma forma alterar o objeto iniciado por checkoutNewProduct(). Um exemplo é para aumentar, diminuir e limitar os valores de uma chave do referido objeto. Leva como parâmetros um objeto (daqueles que vêm da chamada da API) e uma string ("+" ou "-").
+  updateCartProduct(productToBeUpdated, operation) { // Função deve ser chamada sempre que se precise adicionar um produto repetido no carrinho, ou de alguma forma alterar o objeto iniciado por addNewProductToCart(). Um exemplo é para aumentar, diminuir e limitar os valores de uma chave do referido objeto. Leva como parâmetros um objeto (daqueles que vêm da chamada da API) e uma string ("+" ou "-").
     const { shoppingCartProductList } = this.state; // Pegamos a lista de produtos no carrinho do estado.
     const tempState = [...shoppingCartProductList]; // Reparem que criamos um estado temporário espalhando o conteúdo da lista de produtos no carrinho.
     const index = this.getIndexById(productToBeUpdated.id, tempState); // Comentário na definição =)
@@ -78,11 +78,11 @@ class Home extends Component {
   addToCart(product) { // Função que deve ser chamada para adicionar um determinado produto ao carrinho de compras. O produto que ela leva como parâmetro é um objeto (daqueles que vieram da chamada da API e representam os produtos).
     const { shoppingCartProductList } = this.state;
     if (shoppingCartProductList.some((prod) => prod.id === product.id)) { // Esta condição retornará true se o produto fornecido como parâmetro tiver o mesmo id de algum, ou 'some', dos produtos no carrinho de compras.
-      this.updateCheckoutProduct(product, '+'); // Se o produto já constar no carrinho de compras, atualize sua quantidade, no caso, incrementando.
+      this.updateCartProduct(product, '+'); // Se o produto já constar no carrinho de compras, atualize sua quantidade, no caso, incrementando.
     } else {
-      this.setState((prev) => ({ // Senão, espalhe os produtos presentes no estado anterior no carrinho de compras e insira um novo objeto de carrinho de compras --> this.checkoutNewProduct().
+      this.setState((prev) => ({ // Senão, espalhe os produtos presentes no estado anterior no carrinho de compras e insira um novo objeto de carrinho de compras --> this.addNewProductToCart().
         shoppingCartProductList: [
-          ...prev.shoppingCartProductList, this.checkoutNewProduct(product)],
+          ...prev.shoppingCartProductList, this.addNewProductToCart(product)],
       }));
     }
   }
