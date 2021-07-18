@@ -54,7 +54,7 @@ export default class ShoppingCart extends React.Component {
             <p>{`Total: ${total.toFixed(2)}`}</p>
             {
               cartList.map((
-                { id, price, quantity, thumbnail, title }, index,
+                { id, price, quantity, thumbnail, title, availableQuantity }, index,
               ) => (<CartItem
                 key={ index }
                 id={ id }
@@ -64,6 +64,7 @@ export default class ShoppingCart extends React.Component {
                 title={ title }
                 removeItem={ removeItem }
                 setQuantity={ setQuantity }
+                availableQuantity={ availableQuantity }
               />))
             }
           </div>
