@@ -54,7 +54,6 @@ class ProductDetails extends React.Component {
   render() {
     const { product } = this.state;
     const { attributes } = product;
-    console.log(attributes);
     return (
       <div>
         <HomeButton />

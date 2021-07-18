@@ -71,6 +71,11 @@ img {
   width: 125px;
 }
 
+.free {
+  color: green;
+  margin: 10px;
+}
+
 .cart-image, .back-image {
   width: 30px;
 }

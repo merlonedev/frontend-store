@@ -52,6 +52,7 @@ class Home extends Component {
     } else {
       const currentIndex = products.map((product) => product.id).indexOf(stateProduct.id);
       products[currentIndex].quantity += 1;
+      products[currentIndex].available_quantity -= 1;
     }
     localStorage.setItem('products', JSON.stringify(products));
   }
@@ -85,7 +86,10 @@ class Home extends Component {
             categories={ categories }
             onChangeFilterCategory={ this.handleChange }
           />
-          <AllProducts searchProducts={ searchProducts } addToCart={ this.addToCart } />
+          <AllProducts
+            searchProducts={ searchProducts }
+            addToCart={ this.addToCart }
+          />
         </div>
       </>
     );

@@ -4,7 +4,7 @@ import Product from './Product';
 
 class AllProducts extends Component {
   render() {
-    const { searchProducts, addToCart } = this.props;
+    const { searchProducts, addToCart, stack } = this.props;
     return (
       <main className="main">
         <section className="product-container">
@@ -18,6 +18,7 @@ class AllProducts extends Component {
               thumbnail={ product.thumbnail }
               addToCart={ () => addToCart(product) }
               shipping={ product.shipping.free_shipping }
+              stack={ stack }
             />))
           }
         </section>

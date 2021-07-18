@@ -8,6 +8,7 @@ class Buttons extends React.Component {
 
     this.state = {
       quantity: 0,
+      stack: 0,
     };
     this.decreaseQuantity = this.decreaseQuantity.bind(this);
     this.increaseQuantity = this.increaseQuantity.bind(this);
@@ -20,35 +21,42 @@ class Buttons extends React.Component {
 
   changeQuantityText() {
     const { product } = this.props;
-    this.setState({ quantity: product.quantity });
+    this.setState({
+      quantity: product.quantity,
+      stack: product.available_quantity,
+    });
   }
 
   increaseQuantity() {
-    this.setState(({ quantity }) => ({
+    this.setState(({ quantity, stack }) => ({
       quantity: quantity + 1,
+      stack: stack - 1,
     }), () => {
       const { product } = this.props;
       const products = JSON.parse(localStorage.getItem('products'));
       const index = products.map((productvalue) => productvalue.id).indexOf(product.id);
       products[index].quantity += 1;
+      products[index].available_quantity -= 1;
       localStorage.setItem('products', JSON.stringify(products));
     });
   }
 
   decreaseQuantity() {
-    this.setState(({ quantity }) => ({
+    this.setState(({ quantity, stack }) => ({
       quantity: quantity - 1,
+      stack: stack + 1,
     }), () => {
       const { product } = this.props;
       const products = JSON.parse(localStorage.getItem('products'));
       const index = products.map((productvalue) => productvalue.id).indexOf(product.id);
       products[index].quantity -= 1;
+      products[index].available_quantity += 1;
       localStorage.setItem('products', JSON.stringify(products));
     });
   }
 
   render() {
-    const { quantity } = this.state;
+    const { quantity, stack } = this.state;
     return (
       <div>
         <QuantityButton
@@ -61,6 +69,7 @@ class Buttons extends React.Component {
         <QuantityButton
           text="+"
           changeQuant={ this.increaseQuantity }
+          stack={ stack }
           testId="product-increase-quantity"
         />
       </div>

@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 
 class QuantityButton extends React.Component {
   render() {
-    const { text, testId, changeQuant, quantity } = this.props;
+    const { text, testId, changeQuant, quantity, stack } = this.props;
     return (
       <div>
         <button
           type="button"
           onClick={ changeQuant }
           data-testid={ testId }
-          disabled={ quantity < 2 }
+          disabled={ quantity < 2 || stack === 0 }
         >
           { text }
         </button>
