@@ -7,56 +7,31 @@ import ProductInCart from '../components/ProductInCart';
 import '../css/cartItems.css';
 
 class CartItems extends React.Component {
-  constructor() {
+  constructor({ setItemCart }) {
     super();
+    const { cartItems, totalItems, total } = setItemCart.reduce((acc, state) => {
+      acc.cartItems = [...acc.cartItems, state];
+      acc.totalItems += state.count;
+      acc.total += state.product.price * (state.count);
+      return acc;
+    }, { cartItems: [], totalItems: 0, total: 0 });
     this.state = {
-      cartItems: [],
-      total: 0,
-      totalItems: 0,
+      cartItems,
+      totalItems,
+      total,
     };
-    this.loadStates = this.loadStates.bind(this);
-    this.itemCartRemove = this.itemCartRemove.bind(this);
-    this.totalCartCalculator = this.totalCartCalculator.bind(this);
-    this.sumOfItens = this.sumOfItens.bind(this);
-    this.subOfItens = this.subOfItens.bind(this);
-    this.cartInfos = [];
-  }
 
-  componentDidMount() {
-    this.loadStates();
+    this.itemCartRemove = this.itemCartRemove.bind(this);
+    this.countCartItemUpdate = this.countCartItemUpdate.bind(this);
   }
 
   componentDidUpdate() {
-    const { cartItems, total } = this.state;
-    this.saveCartItemStorage(cartItems, total);
+    const { cartItems } = this.state;
+    this.saveCartItemStorage(cartItems);
   }
 
-  saveCartItemStorage(cartItems, total) {
+  saveCartItemStorage(cartItems) {
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
-    if (total) localStorage.setItem('total', JSON.stringify(total));
-  }
-
-  loadStates() {
-    const { setItemCart } = this.props;
-    const storage = JSON.parse(localStorage.getItem('cartItems'));
-    if (Array.isArray(storage) && storage.length) {
-      return this.setState({
-        ...storage.reduce((acc, state) => {
-          acc.cartItems = [...acc.cartItems, state];
-          acc.totalItems += state.count;
-          acc.total += state.product.price * (state.count - 1);
-          return acc;
-        }, { cartItems: [], totalItems: 0, total: 0 }),
-      });
-    }
-    this.setState({
-      ...setItemCart.reduce((newState, state) => {
-        newState.cartItems = [...newState.cartItems, state];
-        newState.totalItems += state.count;
-        newState.total += state.product.price * (state.count - 1);
-        return newState;
-      }, { cartItems: [], totalItems: 0, total: 0 }),
-    });
   }
 
   itemCartRemove(itemId) {
@@ -66,49 +41,40 @@ class CartItems extends React.Component {
     removeItem(cartUpdated);
     this.setState({
       cartItems: [...cartUpdated],
-      totalItems: cartUpdated.reduce((acc, curr) => (curr.count + acc), 0),
+      totalItems: this.totalItemsCalculator(cartUpdated),
+      total: this.totalCartCalculator(cartUpdated),
     });
   }
 
-  totalCartCalculator(totalPriceItem) {
-    this.setState((prevState) => ({
-      total: prevState.total + totalPriceItem,
-    }));
+  totalCartCalculator(cartItems) {
+    return cartItems.reduce((acc, curr) => acc + (curr.product.price * (curr.count)), 0);
   }
 
-  countCartItemUpdate(itemId, num = 1) {
-    this.setState((prevState) => ({
-      cartItems: [...prevState.cartItems.map((item) => {
-        if (item.product.id === itemId) {
-          return {
-            product: item.product,
-            count: item.count + num,
-          };
-        }
-        return item;
-      })],
-    }), () => {
-      const { updateItem } = this.props;
-      const { cartItems } = this.state;
-      updateItem(cartItems);
+  totalItemsCalculator(cartItems) {
+    return cartItems.reduce((acc, curr) => (curr.count + acc), 0);
+  }
+
+  countCartItemUpdate(itemId, plusOrMinusOne = 1) {
+    const { cartItems } = this.state;
+    const { updateItem } = this.props;
+    const cartUpdated = cartItems.map((item) => {
+      if (item.product.id === itemId) {
+        return {
+          product: item.product,
+          count: item.count + plusOrMinusOne,
+        };
+      }
+      return item;
     });
-  }
 
-  sumOfItens(itemId) {
-    this.countCartItemUpdate(itemId);
-    this.setState((prevState) => ({
-      totalItems: prevState.totalItems + 1,
-    }));
-  }
-
-  subOfItens(itemId, bool = true) {
-    if (bool) {
-      const num = -1;
-      this.countCartItemUpdate(itemId, num);
-    }
-    this.setState((prevState) => ({
-      totalItems: prevState.totalItems - 1,
-    }));
+    this.setState({
+      cartItems: [...cartUpdated],
+      totalItems: this.totalItemsCalculator(cartUpdated),
+      total: this.totalCartCalculator(cartUpdated),
+    }, () => {
+      updateItem(cartUpdated);
+      this.saveCartItemStorage(cartUpdated);
+    });
   }
 
   render() {
@@ -133,11 +99,10 @@ class CartItems extends React.Component {
                   <ProductInCart
                     key={ product.id }
                     product={ product }
-                    onClick={ this.itemCartRemove }
-                    onChange={ this.totalCartCalculator }
+                    removeItem={ this.itemCartRemove }
                     onChangeExclude={ this.itemCartRemove }
-                    sumCountProduct={ this.sumOfItens }
-                    subCountProduct={ this.subOfItens }
+                    sumCountProduct={ this.countCartItemUpdate }
+                    subCountProduct={ this.countCartItemUpdate }
                     count={ count }
                   />
                 ))}
