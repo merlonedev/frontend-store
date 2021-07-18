@@ -24,6 +24,6 @@ export default class ProductList extends React.Component {
 }
 
 ProductList.propTypes = {
-  products: PropTypes.arrayOf(Object).isRequired,
+  products: PropTypes.arrayOf(PropTypes.object).isRequired,
   storeItems: PropTypes.func.isRequired,
 };

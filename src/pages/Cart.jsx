@@ -7,10 +7,7 @@ import CartItem from '../Components/CartItem';
 class Cart extends Component {
   constructor(props) {
     super(props);
-    // this.state = {
-    //   cartItems: undefined,
-    // };
-    // this.getItemsFromStorage = this.getItemsFromStorage.bind(this);
+
     this.removeItemFromStorage = this.removeItemFromStorage.bind(this);
   }
 
@@ -18,16 +15,6 @@ class Cart extends Component {
     const { getItemsFromStorage } = this.props;
     getItemsFromStorage();
   }
-
-  // getItemsFromStorage() {
-  //   if (localStorage.getItem('ItemCart')) {
-  //     let actualStorage = localStorage.getItem('ItemCart');
-  //     actualStorage = JSON.parse(actualStorage);
-  //     this.setState({
-  //       cartItems: [...actualStorage],
-  //     });
-  //   }
-  // }
 
   removeItemFromStorage() {
     localStorage.removeItem('ItemCart');
@@ -38,7 +25,7 @@ class Cart extends Component {
   render() {
     const { cartItems, storeItems, getItemsFromStorage } = this.props;
 
-    if (cartItems !== undefined) {
+    if (cartItems.length) {
       return (
         <div>
           <header>
@@ -76,9 +63,13 @@ class Cart extends Component {
   }
 }
 
+Cart.defaultProps = {
+  cartItems: [],
+};
+
 Cart.propTypes = {
   getItemsFromStorage: PropTypes.func.isRequired,
-  cartItems: PropTypes.arrayOf(PropTypes.object).isRequired,
+  cartItems: PropTypes.arrayOf(PropTypes.object),
   storeItems: PropTypes.func.isRequired,
 };
 

@@ -11,13 +11,13 @@ class App extends Component {
     super();
     this.state = {
       cartItems: [],
+      quantityTotal: 0,
     };
     this.renderAddButtonCart = this.renderAddButtonCart.bind(this);
     this.getItemsFromStorage = this.getItemsFromStorage.bind(this);
     this.storeItems = this.storeItems.bind(this);
+    this.getQuantityTotal = this.getQuantityTotal.bind(this);
   }
-
-  // Requisito 8 - funcao q veio do Home
 
   getItemsFromStorage() {
     if (localStorage.getItem('ItemCart')) {
@@ -31,6 +31,18 @@ class App extends Component {
         cartItems: undefined,
       });
     }
+  }
+
+  // Requisito 13
+  getQuantityTotal() {
+    let quantityTotal = 0;
+    const actualStorage = JSON.parse(localStorage.getItem('ItemCart'));
+    if (actualStorage) {
+      quantityTotal = actualStorage.reduce((acc, curr) => acc + curr.quantity, 0);
+    }
+    this.setState({
+      quantityTotal,
+    });
   }
 
   storeItems(product) {
@@ -59,6 +71,7 @@ class App extends Component {
     } else {
       localStorage.setItem('ItemCart', JSON.stringify([myProduct]));
     }
+    this.getQuantityTotal();
   }
 
   renderAddButtonCart(product) {
@@ -74,7 +87,7 @@ class App extends Component {
   }
 
   render() {
-    const { cartItems } = this.state;
+    const { cartItems, quantityTotal } = this.state;
 
     return (
       <BrowserRouter>
@@ -87,6 +100,8 @@ class App extends Component {
               cartItems={ cartItems }
               renderAddButtonCart={ this.renderAddButtonCart }
               storeItems={ this.storeItems }
+              getQuantityTotal={ this.getQuantityTotal }
+              quantityTotal={ quantityTotal }
             />) }
           />
           <Route
@@ -105,6 +120,8 @@ class App extends Component {
             render={ (props) => (<Home
               { ...props }
               storeItems={ this.storeItems }
+              getQuantityTotal={ this.getQuantityTotal }
+              quantityTotal={ quantityTotal }
             />) }
           />
           <Route

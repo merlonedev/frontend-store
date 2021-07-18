@@ -32,10 +32,7 @@ class ProductCard extends React.Component {
             onClick={ () => storeItems(product) }
             data-testid="product-add-to-cart"
           >
-            {' '}
             Adicionar ao Carrinho
-            {' '}
-
           </button>
         </div>
       </div>
@@ -53,7 +50,9 @@ ProductCard.propTypes = {
     thumbnail: PropTypes.string,
     price: PropTypes.number,
     id: PropTypes.string,
-    shipping: PropTypes.shape,
+    shipping: PropTypes.shape({
+      free_shipping: PropTypes.bool,
+    }),
   }).isRequired,
   storeItems: PropTypes.func,
 };
