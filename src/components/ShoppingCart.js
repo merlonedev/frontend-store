@@ -26,6 +26,7 @@ class ShoppingCart extends Component {
       goBackCallBack,
       updateQuantityCallBack,
       shoppingCartProductList,
+      renderCheckoutCallBack,
     } = this.props;
 
     if (this.isEmpty()) {
@@ -95,6 +96,13 @@ class ShoppingCart extends Component {
           })}
         <button
           type="button"
+          data-testid="checkout-products"
+          onClick={ () => renderCheckoutCallBack() }
+        >
+          CHECKOUT
+        </button>
+        <button
+          type="button"
           onClick={ () => goBackCallBack() }
         >
           Voltar
@@ -108,6 +116,7 @@ ShoppingCart.propTypes = {
   shoppingCartProductList: PropTypes.arrayOf(PropTypes.object).isRequired,
   goBackCallBack: PropTypes.func.isRequired,
   updateQuantityCallBack: PropTypes.func.isRequired,
+  renderCheckoutCallBack: PropTypes.func.isRequired,
 };
 
 export default ShoppingCart;
