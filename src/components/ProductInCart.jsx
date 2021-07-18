@@ -18,6 +18,21 @@ class ProductInCart extends React.Component {
 
     this.plusItemCount = this.plusItemCount.bind(this);
     this.minusItemCount = this.minusItemCount.bind(this);
+    this.mounted = false;
+  }
+
+  componentDidMount() {
+    this.mounted = true;
+    const { onChange } = this.props;
+    const { price } = this.state;
+    onChange(price);
+  }
+
+  componentWillUnmount() {
+    const { onChange } = this.props;
+    const { price } = this.state;
+    onChange(-price);
+    this.mounted = false;
   }
 
   plusItemCount() {
@@ -28,19 +43,22 @@ class ProductInCart extends React.Component {
         id,
       },
       sumCountProduct,
+      onChange: totalCartCalculator,
     } = this.props;
     if (count < availableQuantity) {
       this.setState((state) => ({
         count: state.count + 1,
         totalPrice: (state.count + 1) * state.price,
       }), () => {
+        const { price } = this.state;
+        totalCartCalculator(price);
         sumCountProduct(id);
       });
     }
   }
 
   minusItemCount() {
-    const { onChangeExclude, product: { id }, subCountProduct } = this.props;
+    const { onChange, onChangeExclude, product: { id }, subCountProduct } = this.props;
     this.setState((state) => ({
       count: state.count ? (state.count - 1) : 0,
       totalPrice: (state.count
@@ -48,23 +66,21 @@ class ProductInCart extends React.Component {
         : 0) * state.price,
     }), () => {
       const { count, price } = this.state;
-      const num = -1;
       if (count) {
-        return subCountProduct(id, num);
+        subCountProduct(id);
+        return onChange(-price);
       }
-      onChangeExclude(id, price);
+      subCountProduct(id, false);
+      onChangeExclude(id);
     });
   }
 
   render() {
-    const { product: { id, title, thumbnail }, removeItem } = this.props;
+    const { product: { id, title, thumbnail }, onClick } = this.props;
     const { totalPrice, count } = this.state;
     return (
       <div data-testid="product" className="product">
-        <AiFillCloseCircle
-          onClick={ () => removeItem(id) }
-          className="remove-item-cart"
-        />
+        <AiFillCloseCircle onClick={ () => onClick(id) } className="remove-item-cart" />
         <img
           src={ thumbnail
             ? thumbnail.replace('I.jpg', 'O.jpg')
@@ -106,7 +122,8 @@ ProductInCart.propTypes = {
     price: PropTypes.number.isRequired,
     available_quantity: PropTypes.number.isRequired,
   }).isRequired,
-  removeItem: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
   onChangeExclude: PropTypes.func.isRequired,
   count: PropTypes.number.isRequired,
   sumCountProduct: PropTypes.func.isRequired,

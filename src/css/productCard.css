@@ -117,6 +117,7 @@
   justify-content: space-between;
   padding: 10px 0;
   text-align: center;
+  width: 300px;
 }
 
 .product-btn:active {

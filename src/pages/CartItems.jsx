@@ -153,8 +153,11 @@ class CartItems extends React.Component {
         }
         <div className="checkout-cart">
           <span className="total-cart">
-            { `Valor Total da Compra: ${(total).toLocaleString('pt-BR', {
-              minimumFractionDigits: 2, style: 'currency', currency: 'BRL' })}`}
+            Valor Total da Compra:
+            <span className="total-price">
+              {`${(total).toLocaleString('pt-BR', {
+                minimumFractionDigits: 2, style: 'currency', currency: 'BRL' })}`}
+            </span>
           </span>
           <Link
             to="/checkout"
