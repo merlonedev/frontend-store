@@ -70,7 +70,7 @@ class Home extends Component {
     return (
       <div>
         <header>
-          <ButtonCart />
+          <ButtonCart quantityTotal={ quantityTotal } />
         </header>
         <section className="home-search">
           <h5 data-testid="home-initial-message">
@@ -92,10 +92,6 @@ class Home extends Component {
             Buscar
           </button>
         </section>
-        <ButtonCart quantityTotal={ quantityTotal } />
-        <h4 data-testid="home-initial-message">
-          Digite algum termo de pesquisa ou escolha uma categoria.
-        </h4>
         <Categories
           categories={ categories }
           setProductsCategory={ this.setProductsCategory }

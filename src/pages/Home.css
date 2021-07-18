@@ -1,3 +1,7 @@
+body {
+  display: flex;
+}
+
 header {
   align-items: center;
   background-color: #aeb3b8;
@@ -13,6 +17,8 @@ header {
 }
 
 button {
+  border-radius: 10px;
+  cursor: pointer;
   margin: 5px;
+  padding: 6px;
 }
-
