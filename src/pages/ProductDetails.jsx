@@ -2,8 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { TiArrowBack } from 'react-icons/ti';
 import PropTypes from 'prop-types';
-import { FaTruckMoving } from 'react-icons/fa';
-import Loading from '../components/Loading';
+import CartIcon from '../components/CartIcon';
 import Form from '../components/Form';
 import * as api from '../services/api';
 
@@ -12,8 +11,6 @@ class ProductDetails extends React.Component {
     super();
     this.state = {
       product: {},
-      loading: true,
-      shipping: false,
     };
     this.getProduct = this.getProduct.bind(this);
   }
@@ -26,8 +23,7 @@ class ProductDetails extends React.Component {
     const { match: { params: { productId, categoryId } } } = this.props;
     const { results } = await api.getProductsFromCategoryAndQuery(categoryId, '');
     const product = await results.find((item) => item.id === productId);
-    const freeShipping = product.shipping.free_shipping;
-    this.setState({ product: { ...product }, loading: false, shipping: freeShipping });
+    this.setState({ product: { ...product } });
   }
 
   render() {
@@ -39,40 +35,32 @@ class ProductDetails extends React.Component {
         attributes,
       },
       product,
-      loading,
-      shipping,
     } = this.state;
-    console.log(shipping);
-    // const freeShipping = shipping.free_shipping;
+    const { amountCart } = this.props;
     const { addToCartItems } = this.props;
-    if (loading) return <Loading />;
     return (
       <div>
         <Link to="/"><TiArrowBack /></Link>
         <Link to="/cart" data-testid="shopping-cart-button">
-          {/* <FiShoppingCart /> */}
+          <CartIcon amount={ amountCart } />
         </Link>
         <h2 data-testid="product-detail-name">
           { `${title} - ${(price || 0).toLocaleString('pt-BR', {
             minimumFractionDigits: 2, style: 'currency', currency: 'BRL' })}` }
         </h2>
-        { shipping
-          ? (
-            <div>
-              <FaTruckMoving data-testid="free-shipping" id="shipping-free" />
-              <span>Frete Grátis</span>
-            </div>)
-          : '' }
-        {/* Icone retirado de https://react-icons.github.io/react-icons/ */}
         <div>
-          <img src={ thumbnail.replace('I.jpg', 'O.jpg') } alt={ title } />
+          <img
+            src={ thumbnail ? thumbnail.replace('I.jpg', 'O.jpg')
+              : '../images/imagem-indisponivel.jpg' }
+            alt={ title }
+          />
           <div>
             <h3>Especificações Técnicas</h3>
             <ul>
-              { attributes.map(({ id, name, value_name: value }) => (
+              { (attributes || []).map(({ id, name, value_name: value }) => (
                 <li key={ id }>
                   <strong>{ `${name}: ` }</strong>
-                  { `${value}` }
+                  { `${value || ''}` }
                 </li>
               )) }
             </ul>
@@ -99,12 +87,14 @@ ProductDetails.propTypes = {
     params: PropTypes.shape({
       productId: PropTypes.string,
       categoryId: PropTypes.string,
-      shipping: PropTypes.shape({
-        free_shipping: PropTypes.bool.isRequired,
-      }).isRequired,
     }),
   }).isRequired,
+  amountCart: PropTypes.number,
   addToCartItems: PropTypes.func.isRequired,
+};
+
+ProductDetails.defaultProps = {
+  amountCart: 0,
 };
 
 export default ProductDetails;

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import '../css/productCard.css';
 import { FaTruckMoving } from 'react-icons/fa';
 
 class ProductCard extends React.Component {
@@ -27,39 +28,56 @@ class ProductCard extends React.Component {
     } = this.state;
     const { addToCartItems, product } = this.props;
     return (
-      <div data-testid="product">
-        { freeShipping
-          ? (
-            <div>
-              <FaTruckMoving data-testid="free-shipping" id="shipping-free" />
-              <span>Frete Grátis</span>
-            </div>)
-          : '' }
+      <div data-testid="product" className="product-card">
+        <div className="shipping-free">
+          { freeShipping
+            ? (
+              <div className="logo-shipping">
+                <FaTruckMoving data-testid="free-shipping" id="shipping-free" />
+                <span>{' Frete Grátis'}</span>
+              </div>)
+            : '' }
+        </div>
         {/* Icone retirado de https://react-icons.github.io/react-icons/ */}
-        <p>{title}</p>
-        <img src={ thumbnail.replace('I.jpg', 'O.jpg') } alt={ title } />
-        <p>
-          { (price || 0).toLocaleString('pt-BR', {
-            minimumFractionDigits: 2, style: 'currency', currency: 'BRL' }) }
-        </p>
-        <button
-          data-testid="product-add-to-cart"
-          onClick={ () => addToCartItems(product) }
-          type="button"
-        >
-          Adicionar ao carrinho
-        </button>
-        <Link
-          data-testid="product-detail-link"
-          to={ `/item/${category || categoryId}/${id}` }
-        >
-          Mais Detalhes
-        </Link>
+        <div className="product-each">
+          <div className="product-spec">
+            <p className="product-title">{title}</p>
+            <img
+              className="product-img"
+              src={ thumbnail.replace('I.jpg', 'O.jpg') }
+              alt={ title }
+            />
+          </div>
+          <p className="product-price">
+            <span>
+              { (price || 0).toLocaleString('pt-BR', {
+                minimumFractionDigits: 2, style: 'currency', currency: 'BRL' }) }
+            </span>
+          </p>
+          <div className="cart-details">
+            <div className="product-btns">
+              <button
+                data-testid="product-add-to-cart"
+                onClick={ () => addToCartItems(product) }
+                type="button"
+                className="product-btn"
+              >
+                Adicionar ao carrinho
+              </button>
+              <Link
+                className="product-link"
+                data-testid="product-detail-link"
+                to={ `/product/${category || categoryId}/${id}` }
+              >
+                Mais Detalhes
+              </Link>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
 }
-
 ProductCard.propTypes = {
   product: PropTypes.shape({
     id: PropTypes.string.isRequired,

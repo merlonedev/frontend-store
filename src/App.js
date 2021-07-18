@@ -10,13 +10,15 @@ class App extends React.Component {
     super(props); // usado como referencia lógica do código do Grupo 10 (source: https://github.com/tryber/sd-12-project-frontend-online-store/blob/main-group-10/src/App.js)
     this.state = {
       cartItems: [],
-      checkoutItems: [],
+      total: 0,
+      cartQty: 0,
     };
     this.addToCartItems = this.addToCartItems.bind(this);
     this.removeItem = this.removeItem.bind(this);
-    this.checkoutInfos = this.checkoutInfos.bind(this);
     this.loadCartItemStorage = this.loadCartItemStorage.bind(this);
     this.saveCartItemStorage = this.saveCartItemStorage.bind(this);
+    this.updateItem = this.updateItem.bind(this);
+    this.getTotal = this.getTotal.bind(this);
   }
 
   componentDidMount() {
@@ -26,46 +28,72 @@ class App extends React.Component {
   componentDidUpdate() {
     const { cartItems } = this.state;
     this.saveCartItemStorage(cartItems);
-    return true;
+  }
+
+  getTotal(total) {
+    this.setState({
+      total,
+    });
+  }
+
+  loadCartItemStorage() {
+    const storage = JSON.parse(localStorage.getItem('cartItems'));
+    if (Array.isArray(storage)) {
+      this.setState({
+        cartItems: [...storage],
+        cartQty: storage.reduce((acc, curr) => (curr.count + acc), 0),
+      });
+    }
   }
 
   saveCartItemStorage(state) {
     localStorage.setItem('cartItems', JSON.stringify(state));
   }
 
-  loadCartItemStorage() {
-    const storage = JSON.parse(localStorage.getItem('cartItems'));
-    if (Array.isArray(storage) && storage.length) {
-      this.setState({
-        cartItems: [...storage],
-      });
+  addToCartItems(newItem) {
+    const { cartItems } = this.state;
+    const notRepeated = {
+      product: newItem,
+      count: 1,
+    };
+    const yesRepeated = cartItems.map((item) => {
+      if (item.product.id === newItem.id) {
+        return {
+          product: item.product,
+          count: item.count + 1,
+        };
+      }
+      return item;
+    });
+    const isRepeated = cartItems.some((item) => item.product.id === newItem.id);
+    if (!isRepeated) {
+      return this.setState((state) => ({
+        cartItems: [...state.cartItems, notRepeated],
+        cartQty: state.cartItems.reduce((acc, curr) => (curr.count + acc), 0) + 1,
+      }));
     }
-  }
-
-  checkoutInfos(cartInfo) {
     this.setState({
-      checkoutItems: [...cartInfo],
+      cartItems: [...yesRepeated],
+      cartQty: yesRepeated.reduce((acc, curr) => (curr.count + acc), 0),
     });
   }
 
-  addToCartItems(newItem) {
-    const { cartItems } = this.state;
-    const isRepeated = cartItems.some((item) => item === newItem);
-    if (!isRepeated) {
-      this.setState((prevState) => ({
-        cartItems: [...prevState.cartItems, newItem],
-      }));
-    }
+  updateItem(items) {
+    this.setState({
+      cartItems: [...items],
+      cartQty: items.reduce((acc, curr) => (curr.count + acc), 0),
+    });
   }
 
   removeItem(updateCart) {
     this.setState({
       cartItems: [...updateCart],
+      cartQty: updateCart.reduce((acc, curr) => (curr.count + acc), 0),
     });
   }
 
   render() {
-    const { cartItems, checkoutItems } = this.state;
+    const { cartItems, total, cartQty } = this.state;
     return (
       <Router>
         <Switch>
@@ -76,6 +104,7 @@ class App extends React.Component {
               (props) => (<ListItems
                 { ...props }
                 addToCartItems={ this.addToCartItems }
+                amountCart={ cartQty }
               />)
             }
           />
@@ -87,20 +116,28 @@ class App extends React.Component {
                 { ...props }
                 setItemCart={ cartItems }
                 removeItem={ this.removeItem }
-                checkoutInfos={ this.checkoutInfos }
+                updateItem={ this.updateItem }
+                sendTotal={ this.getTotal }
               />)
             }
           />
           <Route
-            path="/item/:categoryId/:productId"
+            path="/product/:categoryId/:productId"
             render={ (props) => (<ProductDetails
               { ...props }
+              amountCart={ cartQty }
               addToCartItems={ this.addToCartItems }
             />) }
           />
           <Route
             path="/checkout"
-            render={ (props) => (<Checkout { ...props } cartItems={ checkoutItems } />) }
+            render={
+              (props) => (<Checkout
+                { ...props }
+                cartItems={ { cartItems, total } }
+                amountCart={ cartQty }
+              />)
+            }
           />
         </Switch>
       </Router>

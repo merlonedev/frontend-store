@@ -1,0 +1,112 @@
+.product-card {
+  align-items: center;
+  background-color: whitesmoke;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 10px;
+  box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.125);
+  display: flex;
+  flex-direction: column;
+  height: 400px;
+  margin: 20px;
+  width: 300px;
+}
+
+.shipping-free {
+  align-items: center;
+  background-color: white;
+  color: green;
+  display: flex;
+  justify-content: center;
+  min-height: 30px;
+  width: 100%;
+}
+
+.logo-shipping {
+  animation: blink 0.7s infinite;
+}
+
+@keyframes blink {
+
+  to {
+    opacity: 0.6;
+  }
+}
+
+.product-spec {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.product-each {
+  display: flex;
+  flex-direction: column;
+}
+
+.product-title {
+  text-align: center;
+}
+
+.product-img {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 200px;
+  justify-content: center;
+  width: 80%;
+}
+
+.movie-list {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+
+.product-btn {
+  background-color: rgb(240, 160, 11);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  padding: 5px;
+  text-align: center;
+  width: 100px;
+}
+
+.product-price {
+  padding: 10px 0;
+}
+
+.product-price span {
+  background-color: rgb(240, 160, 11);
+  border-radius: 30px;
+  color: white;
+  padding: 4px;
+  width: 100%;
+}
+
+.product-link {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 2%;
+  text-decoration: none;
+}
+
+.product-btns {
+  background-color: white;
+  display: flex;
+  flex-direction: row-reverse;
+  height: 100%;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.product-btn:active {
+  transform: scale(0.98);
+}
+
+.product-btn:focus {
+  outline: none;
+}

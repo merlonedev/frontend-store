@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import '../css/form.css';
 import StarRatings from 'react-star-ratings';
 
 class Form extends Component {
@@ -46,6 +47,7 @@ class Form extends Component {
         <label htmlFor="email" className="label-form">
           <div className="email-star">
             <input
+              required
               type="email"
               placeholder="Email"
               className="email-input"
