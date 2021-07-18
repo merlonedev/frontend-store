@@ -4,62 +4,30 @@ import PropTypes from 'prop-types';
 class ShoppingCart extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      shoppingCartProductList: [],
-    };
-    this.getShoppingCartProductList = this.getShoppingCartProductList.bind(this);
+
     this.getProductQuantity = this.getProductQuantity.bind(this);
     this.isEmpty = this.isEmpty.bind(this);
-    this.updateQuantity = this.updateQuantity.bind(this);
-  }
-
-  componentDidMount() {
-    this.getShoppingCartProductList();
-  }
-
-  getShoppingCartProductList() {
-    const { shoppingCartProductList } = this.props;
-    this.setState({
-      shoppingCartProductList,
-    });
   }
 
   getProductQuantity(productId) {
-    const { shoppingCartProductList } = this.state;
+    const { shoppingCartProductList } = this.props;
     const product = shoppingCartProductList
       .find((cartProduct) => cartProduct.id === productId);
     return product.quantity;
   }
 
-  getIndexById(id, array) { return array.map((elem) => elem.id).indexOf(id); }
-
-  updateQuantity(target, operation) {
-    const { shoppingCartUpdaterCallback } = this.props;
-    const { shoppingCartProductList } = this.state;
-    const productId = target.getAttribute('productid');
-    const tempState = [...shoppingCartProductList];
-    const index = this.getIndexById(productId, tempState);
-    const tempElement = { ...tempState[index] };
-    if (operation === '+') tempElement.quantity += 1;
-    if (operation === '-') tempElement.quantity -= 1;
-    if (tempElement.quantity < 0) {
-      tempElement.quantity = 0;
-    }
-    tempState[index] = tempElement;
-    shoppingCartUpdaterCallback(shoppingCartProductList);
-    this.setState({
-      shoppingCartProductList: tempState,
-    });
-  }
-
   isEmpty() {
-    const { shoppingCartProductList } = this.state;
+    const { shoppingCartProductList } = this.props;
     return (shoppingCartProductList.length === 0);
   }
 
   render() {
-    const { goBackCallBack } = this.props;
-    const { shoppingCartProductList } = this.state;
+    const {
+      goBackCallBack,
+      updateQuantityCallBack,
+      shoppingCartProductList,
+    } = this.props;
+
     if (this.isEmpty()) {
       return (
         <div>
@@ -92,7 +60,7 @@ class ShoppingCart extends Component {
                 <img src={ product.thumbnail } alt={ product.title } />
                 <button
                   type="button"
-                  onClick={ (e) => this.updateQuantity(e.target, '+') }
+                  onClick={ (e) => updateQuantityCallBack(e.target, '+') }
                   productid={ product.id }
                   data-testid="product-increase-quantity"
                 >
@@ -106,7 +74,7 @@ class ShoppingCart extends Component {
                 </h3>
                 <button
                   type="button"
-                  onClick={ (e) => this.updateQuantity(e.target, '-') }
+                  onClick={ (e) => updateQuantityCallBack(e.target, '-') }
                   productid={ product.id }
                   data-testid="product-decrease-quantity"
                 >
@@ -139,7 +107,7 @@ class ShoppingCart extends Component {
 ShoppingCart.propTypes = {
   shoppingCartProductList: PropTypes.arrayOf(PropTypes.object).isRequired,
   goBackCallBack: PropTypes.func.isRequired,
-  shoppingCartUpdaterCallback: PropTypes.func.isRequired,
+  updateQuantityCallBack: PropTypes.func.isRequired,
 };
 
 export default ShoppingCart;

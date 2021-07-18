@@ -64,7 +64,10 @@ class Home extends Component {
   updateCartProduct(productToBeUpdated, operation) {
     const { shoppingCartProductList } = this.state;
     const tempState = [...shoppingCartProductList];
-    const index = this.getIndexById(productToBeUpdated.id, tempState);
+    const productId = (productToBeUpdated.site_id === 'MLB'
+      ? productToBeUpdated.id
+      : productToBeUpdated.getAttribute('productid'));
+    const index = this.getIndexById(productId, tempState);
     const tempElement = { ...tempState[index] };
     if (operation === '+') tempElement.quantity += 1;
     if (operation === '-') tempElement.quantity -= 1;
@@ -120,6 +123,10 @@ class Home extends Component {
             renderShoppingCart: false,
             renderDetails: false,
           }) }
+          updateQuantityCallBack={
+            (productToBeUpdated, operation) => this
+              .updateCartProduct(productToBeUpdated, operation)
+          }
         />
       );
     }
