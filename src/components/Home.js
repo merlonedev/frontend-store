@@ -6,6 +6,7 @@ import Categories from './Categories';
 import ProductDetails from './ProductDetails';
 import ShoppingCart from './ShoppingCart';
 import ProductList from './ProductList';
+import Checkout from './Checkout';
 
 class Home extends Component {
   constructor(props) {
@@ -17,6 +18,7 @@ class Home extends Component {
       renderDetailsFor: {},
       renderDetails: false,
       renderShoppingCart: false,
+      renderCheckout: false,
     };
     this.getProductList = this.getProductList.bind(this);
     this.getProductListByCategory = this.getProductListByCategory.bind(this);
@@ -25,6 +27,7 @@ class Home extends Component {
     this.addToCart = this.addToCart.bind(this);
     this.updateCartProduct = this.updateCartProduct.bind(this);
     this.addNewProductToCart = this.addNewProductToCart.bind(this);
+    this.goBackCallBack = this.goBackCallBack.bind(this);
   }
 
   // componentDidMount() {
@@ -94,6 +97,14 @@ class Home extends Component {
     return productList.find((product) => product.id === renderDetailsProductId);
   }
 
+  goBackCallBack() {
+    this.setState({
+      renderShoppingCart: false,
+      renderDetails: false,
+      renderCheckout: false,
+    });
+  }
+
   renderDetails(renderDetailsProductId) {
     const { productList } = this.state;
     const detailedProduct = this.findProduct(productList, renderDetailsProductId);
@@ -110,23 +121,31 @@ class Home extends Component {
       renderDetailsFor,
       shoppingCartProductList,
       renderShoppingCart,
+      renderCheckout,
     } = this.state;
 
     if (renderShoppingCart) {
       return (
         <ShoppingCart
           shoppingCartProductList={ shoppingCartProductList }
-          shoppingCartUpdaterCallback={ (updatedShoppingCart) => this.setState({
-            shoppingCartProductList: updatedShoppingCart,
-          }) }
-          goBackCallBack={ () => this.setState({
-            renderShoppingCart: false,
-            renderDetails: false,
-          }) }
+          goBackCallBack={ this.goBackCallBack }
           updateQuantityCallBack={
             (productToBeUpdated, operation) => this
               .updateCartProduct(productToBeUpdated, operation)
           }
+          renderCheckoutCallBack={ () => this.setState({
+            renderShoppingCart: false,
+            renderDetails: false,
+            renderCheckout: true,
+          }) }
+        />
+      );
+    }
+    if (renderCheckout) {
+      return (
+        <Checkout
+          shoppingCartProductList={ shoppingCartProductList }
+          goBackCallBack={ this.goBackCallBack }
         />
       );
     }
@@ -136,11 +155,9 @@ class Home extends Component {
         renderShoppingCartCallBack={ () => this.setState({
           renderShoppingCart: true,
           renderDetails: false,
+          renderCheckout: false,
         }) }
-        goBackCallBack={ () => this.setState({
-          renderDetails: false,
-          renderShoppingCart: false,
-        }) }
+        goBackCallBack={ this.goBackCallBack }
       />);
     }
     return (
