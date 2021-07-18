@@ -16,11 +16,19 @@ class App extends React.Component {
       category: '',
       search: '',
       cartList: [],
+      cartQuantity: 0,
     };
     this.getState = this.getState.bind(this);
     this.setCartStorage = this.setCartStorage.bind(this);
     this.setQuantity = this.setQuantity.bind(this);
     this.removeItem = this.removeItem.bind(this);
+    this.setCartQuantity = this.setCartQuantity.bind(this);
+    this.getLocalStorage = this.getLocalStorage.bind(this);
+    this.saveLocalStorage = this.saveLocalStorage.bind(this);
+  }
+
+  componentDidMount() {
+    this.getLocalStorage();
   }
 
   setCartStorage(obj) {
@@ -29,7 +37,8 @@ class App extends React.Component {
     const includes = cartList.find((item) => item.id === id);
     if (includes) return this.setQuantity(includes.quantity + 1, id);
     obj.quantity = 1;
-    this.setState((prevState) => ({ cartList: [...prevState.cartList, obj] }));
+    this.setState((prevState) => ({ cartList: [...prevState.cartList, obj] }),
+      () => this.setCartQuantity());
   }
 
   getState(name, value) {
@@ -45,22 +54,43 @@ class App extends React.Component {
         return item;
       });
       return { cartList };
-    });
+    }, () => this.setCartQuantity());
+  }
+
+  setCartQuantity() {
+    const { cartList } = this.state;
+    const totalQuantity = cartList
+      .map(({ quantity }) => quantity)
+      .reduce((total, quantityItem) => total + quantityItem, 0);
+
+    this.setState({ cartQuantity: totalQuantity }, () => this.saveLocalStorage());
+  }
+
+  getLocalStorage() {
+    const stateStorageJson = localStorage.getItem('shopping_time') || '{}';
+    const stateStorage = JSON.parse(stateStorageJson);
+    this.setState({ ...stateStorage });
+  }
+
+  saveLocalStorage() {
+    localStorage.setItem('shopping_time', JSON.stringify(this.state));
   }
 
   removeItem(idItem) {
     this.setState((prev) => {
       const clearList = prev.cartList.filter(({ id }) => id !== idItem);
       return { cartList: clearList };
-    });
+    }, () => this.setCartQuantity());
   }
 
   render() {
-    const { category, search, cartList } = this.state;
+    const { category, search, cartList, cartQuantity } = this.state;
     return (
       <div>
         <BrowserRouter>
-          <ShoppingCartButton />
+          <ShoppingCartButton
+            cartQuantity={ cartQuantity }
+          />
           <SearchBar getState={ this.getState } />
           <Switch>
             <Route exact path="/" component={ InicialMessage } />
