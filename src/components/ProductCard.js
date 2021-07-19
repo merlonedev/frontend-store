@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import AddToCartButton from './AddToCartButton';
 
 class ProductCard extends Component {
   render() {
@@ -19,13 +20,11 @@ class ProductCard extends Component {
             <img src={ thumbnail } alt={ title } />
           </div>
         </button>
-        <button
-          type="button"
-          data-testid="product-add-to-cart"
-          onClick={ () => addToCartCallback(product) }
-        >
-          Adicionar ao carrinho
-        </button>
+        <AddToCartButton
+          product={ product }
+          addToCartCallback={ (prod) => addToCartCallback(prod) }
+          dataTestId="product-add-to-cart"
+        />
       </section>
     );
   }

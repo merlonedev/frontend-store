@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import AddToCartButton from './AddToCartButton';
 import Form from './Form';
 
 class ProductDetails extends Component {
@@ -9,6 +10,7 @@ class ProductDetails extends Component {
       product,
       goBackCallBack,
       renderShoppingCartCallBack,
+      addToCartCallback,
     } = this.props;
     const { title } = product;
     return (
@@ -22,6 +24,11 @@ class ProductDetails extends Component {
             <li>{product.price}</li>
           </ul>
         </div>
+        <AddToCartButton
+          product={ product }
+          addToCartCallback={ (prod) => addToCartCallback(prod) }
+          dataTestId="product-detail-add-to-cart"
+        />
         <button
           type="button"
           onClick={ () => goBackCallBack() }
@@ -45,6 +52,7 @@ class ProductDetails extends Component {
 ProductDetails.propTypes = {
   goBackCallBack: PropTypes.func.isRequired,
   renderShoppingCartCallBack: PropTypes.func.isRequired,
+  addToCartCallback: PropTypes.func.isRequired,
   product: PropTypes.shape({
     title: PropTypes.string,
     thumbnail: PropTypes.string,

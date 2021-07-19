@@ -12,7 +12,7 @@ class ProductList extends Component {
           <ProductCard
             key={ product.id }
             product={ product }
-            renderDetailsCallBack={ renderDetailsCallBack }
+            renderDetailsCallBack={ () => renderDetailsCallBack(product) }
             addToCartCallback={ addToCartCallback }
           />))
     );

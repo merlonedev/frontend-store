@@ -7,13 +7,14 @@ import ProductDetails from './ProductDetails';
 import ShoppingCart from './ShoppingCart';
 import ProductList from './ProductList';
 import Checkout from './Checkout';
+import ShoppingCartButton from './ShoppingCartButton';
 
 class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      productList: [],
       shoppingCartProductList: [],
+      productList: [],
       query: '',
       renderDetailsFor: {},
       renderDetails: false,
@@ -23,16 +24,19 @@ class Home extends Component {
     this.getProductList = this.getProductList.bind(this);
     this.getProductListByCategory = this.getProductListByCategory.bind(this);
     this.getProductListByQuery = this.getProductListByQuery.bind(this);
-    this.renderDetails = this.renderDetails.bind(this);
     this.addToCart = this.addToCart.bind(this);
-    this.updateCartProduct = this.updateCartProduct.bind(this);
     this.addNewProductToCart = this.addNewProductToCart.bind(this);
+    this.updateCartProduct = this.updateCartProduct.bind(this);
+    this.renderDetails = this.renderDetails.bind(this);
+    this.renderShoppingCart = this.renderShoppingCart.bind(this);
+    this.renderCheckoutCallBack = this.renderCheckoutCallBack.bind(this);
     this.goBackCallBack = this.goBackCallBack.bind(this);
+    this.loadShoppingCart = this.loadShoppingCart.bind(this);
   }
 
-  // componentDidMount() {
-  //   this.getProductList(undefined, 'motos');
-  // }
+  componentDidMount() {
+    this.loadShoppingCart();
+  }
 
   async getProductList(categoryid, query) {
     const productList = await API.getProductsFromCategoryAndQuery(categoryid, query);
@@ -55,6 +59,16 @@ class Home extends Component {
 
   getIndexById(id, array) { return array.map((elem) => elem.id).indexOf(id); }
 
+  loadShoppingCart() {
+    const storage = JSON.parse(localStorage
+      .getItem('shoppingCartProductList'));
+    if (storage) {
+      this.setState({
+        shoppingCartProductList: storage,
+      });
+    }
+  }
+
   addNewProductToCart(newCartProduct) {
     return ({
       id: newCartProduct.id,
@@ -73,12 +87,16 @@ class Home extends Component {
     const index = this.getIndexById(productId, tempState);
     const tempElement = { ...tempState[index] };
     if (operation === '+') tempElement.quantity += 1;
+    if (tempElement.quantity > tempElement.product.available_quantity) {
+      tempElement.quantity = tempElement.product.available_quantity;
+    }
     if (operation === '-') tempElement.quantity -= 1;
-    if (tempElement.quantity < 0) tempElement.quantity = 0;
+    if (tempElement.quantity <= 0) tempElement.quantity = 1;
     tempState[index] = tempElement;
     this.setState({
       shoppingCartProductList: tempState,
     });
+    localStorage.setItem('shoppingCartProductList', JSON.stringify([...tempState]));
   }
 
   addToCart(product) {
@@ -86,15 +104,14 @@ class Home extends Component {
     if (shoppingCartProductList.some((prod) => prod.id === product.id)) {
       this.updateCartProduct(product, '+');
     } else {
-      this.setState((prev) => ({
-        shoppingCartProductList: [
-          ...prev.shoppingCartProductList, this.addNewProductToCart(product)],
-      }));
+      this.setState((prev) => {
+        const stateValue = [...prev.shoppingCartProductList,
+          this.addNewProductToCart(product)];
+        localStorage.setItem('shoppingCartProductList', JSON.stringify(stateValue));
+        const stateUpdate = { shoppingCartProductList: stateValue };
+        return stateUpdate;
+      });
     }
-  }
-
-  findProduct(productList, renderDetailsProductId) {
-    return productList.find((product) => product.id === renderDetailsProductId);
   }
 
   goBackCallBack() {
@@ -105,12 +122,24 @@ class Home extends Component {
     });
   }
 
-  renderDetails(renderDetailsProductId) {
-    const { productList } = this.state;
-    const detailedProduct = this.findProduct(productList, renderDetailsProductId);
+  renderDetails(product) {
     this.setState({
-      renderDetailsFor: detailedProduct,
+      renderDetailsFor: product,
       renderDetails: true,
+    });
+  }
+
+  renderShoppingCart() {
+    this.setState({
+      renderShoppingCart: true,
+    });
+  }
+
+  renderCheckoutCallBack() {
+    this.setState({
+      renderShoppingCart: false,
+      renderDetails: false,
+      renderCheckout: true,
     });
   }
 
@@ -133,11 +162,7 @@ class Home extends Component {
             (productToBeUpdated, operation) => this
               .updateCartProduct(productToBeUpdated, operation)
           }
-          renderCheckoutCallBack={ () => this.setState({
-            renderShoppingCart: false,
-            renderDetails: false,
-            renderCheckout: true,
-          }) }
+          renderCheckoutCallBack={ this.renderCheckoutCallBack }
         />
       );
     }
@@ -150,38 +175,43 @@ class Home extends Component {
       );
     }
     if (renderDetails) {
-      return (<ProductDetails
-        product={ renderDetailsFor }
-        renderShoppingCartCallBack={ () => this.setState({
-          renderShoppingCart: true,
-          renderDetails: false,
-          renderCheckout: false,
-        }) }
-        goBackCallBack={ this.goBackCallBack }
-      />);
+      return (
+        <>
+          <ShoppingCartButton
+            shoppingCartProductList={ shoppingCartProductList }
+            onClick={ this.renderShoppingCart }
+            dataTestId="shopping-cart-button"
+          />
+          <ProductDetails
+            product={ renderDetailsFor }
+            renderShoppingCartCallBack={ this.renderShoppingCart }
+            goBackCallBack={ this.goBackCallBack }
+            addToCartCallback={ this.addToCart }
+          />
+        </>);
     }
     return (
       <>
+        <button
+          type="button"
+          onClick={ this.loadShoppingCart }
+        >
+          LOAD
+        </button>
+        <ShoppingCartButton
+          shoppingCartProductList={ shoppingCartProductList }
+          onClick={ this.renderShoppingCart }
+          dataTestId="shopping-cart-button"
+        />
         <SearchBar
           getProductListByQueryCallBack={ this.getProductListByQuery }
         />
-        <button
-          type="button"
-          onClick={ () => {
-            this.setState({
-              renderShoppingCart: true,
-            });
-          } }
-          data-testid="shopping-cart-button"
-        >
-          carrinho
-        </button>
         <Categories
           getProductListByCategoryCallBack={ this.getProductListByCategory }
         />
         <ProductList
           productList={ productList }
-          renderDetailsCallBack={ this.renderDetails }
+          renderDetailsCallBack={ (product) => this.renderDetails(product) }
           addToCartCallback={ this.addToCart }
         />
       </>
