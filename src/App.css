@@ -68,3 +68,13 @@ img {
   font-weight: 500;
   margin: 0 20px 8px;
 }
+
+.image-cart {
+  margin: 0 5px;
+  width: 10%;
+}
+
+.shopping-cart {
+  align-items: center;
+  display: flex;
+}

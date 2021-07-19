@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import CartItems from './CartItems';
+import Button from './Button';
 
 class SearchInput extends Component {
   render() {
@@ -15,16 +15,11 @@ class SearchInput extends Component {
               data-testid="query-input"
               onChange={ onChange }
             />
-            <button
-              type="button"
-              data-testid="query-button"
+            <Button
+              value="BUSCAR"
+              testId="query-button"
               onClick={ onClick }
-            >
-              BUSCAR
-            </button>
-          </div>
-          <div>
-            <CartItems />
+            />
           </div>
         </div>
         <p>

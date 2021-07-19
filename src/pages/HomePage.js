@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import SearchInput from '../components/SearchInput';
 import ProductList from '../components/ProductList';
 import Category from '../components/Category';
@@ -69,6 +70,9 @@ class HomePage extends React.Component {
 
     return (
       <div data-testid="home-initial-message">
+        <Link to="/cart" data-testid="shopping-cart-button">
+          <i className="fas fa-shopping-cart" />
+        </Link>
         <SearchInput
           name="query"
           value={ query }
