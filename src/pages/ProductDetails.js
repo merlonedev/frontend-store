@@ -1,39 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { getProductsFromCategoryAndQuery } from '../services/api';
 import ButtonCart from '../Components/ButtonCart';
 
 class ProductDetails extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      product: [],
-    };
-
-    this.fetchDetail = this.fetchDetail.bind(this);
-  }
-
-  componentDidMount() {
-    this.fetchDetail();
-  }
-
-  async fetchDetail() {
-    const results = await getProductsFromCategoryAndQuery();
-    console.log('results', results);
-    this.setState({
-      product: results,
-    });
-  }
-
   render() {
     const { location: {
       state: { title, thumbnail, price } } } = this.props;
+    const { match: { params: { id } } } = this.props;
     const { addToShoppingCart } = this.props;
-    console.log(addToShoppingCart);
-    const { product } = this.state;
-    console.log('prod', product);
     return (
       <section data-testid="product-datail-container">
         <Link to="/">Home</Link>
@@ -48,11 +23,10 @@ class ProductDetails extends Component {
         <div data-testid="product-detail-container-description">
           <p>Descrição</p>
           <p>{ price }</p>
-          {/* button abaixo criado para requisito 9 */}
           <button
             type="button"
             data-testid="product-detail-add-to-cart"
-            id={ product.id }
+            id={ id }
             onClick={ addToShoppingCart }
           >
             Adicionar ao carrinho
@@ -64,11 +38,17 @@ class ProductDetails extends Component {
 }
 
 ProductDetails.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }),
+  }).isRequired,
   location: PropTypes.shape({
     state: PropTypes.shape({
       title: PropTypes.string.isRequired,
       thumbnail: PropTypes.string,
       price: PropTypes.number,
+      categoryId: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
   addToShoppingCart: PropTypes.func.isRequired,

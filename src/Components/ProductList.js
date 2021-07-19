@@ -7,37 +7,30 @@ class ProductList extends Component {
     const { products, addToShoppingCart } = this.props;
 
     return (
-      <main data-testid="product-list">
-        { products.map(({ title, thumbnail, price, id }) => (
+      <main>
+        { products.map(({ title, thumbnail, price, id, category_id: categoryId }) => (
           <section key={ id } data-testid="product">
-            <div className="title-div">
-              <h3 data-testid="title-product-list">{ title }</h3>
-            </div>
-            <div className="img-div">
-              <img src={ thumbnail } alt={ title } data-testid="img-product-list" />
-            </div>
-            <div className="price-details-button">
-              <p>{`R$ ${price}` }</p>
-              <Link
-                data-testid="product-detail-link"
-                // addToShoppingCart={ this.addToShoppingCart }
-                to={
-                  { pathname: `/productDetail/${id}`, state: { title, thumbnail, price } }
+            <h3>{ title }</h3>
+            <img src={ thumbnail } alt={ title } />
+            <p>{ price }</p>
+            <Link
+              data-testid="product-detail-link"
+              to={
+                { pathname: `/productDetail/${id}`,
+                  state: { title, thumbnail, price, categoryId } }
+              }
+            >
+              + Detalhes
+            </Link>
 
-                }
-              >
-                + Detalhes
-              </Link>
-
-              <button
-                type="button"
-                data-testid="product-add-to-cart"
-                id={ id }
-                onClick={ addToShoppingCart }
-              >
-                Adicionar ao carrinho
-              </button>
-            </div>
+            <button
+              type="button"
+              data-testid="product-add-to-cart"
+              id={ id }
+              onClick={ addToShoppingCart }
+            >
+              Adicionar ao carrinho
+            </button>
           </section>
         ))}
 

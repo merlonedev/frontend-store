@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import NavBar from '../Components/NavBar';
 import SearchBar from '../Components/SearchBar';
 import ButtonCart from '../Components/ButtonCart';
@@ -13,13 +14,11 @@ class Home extends Component {
       products: [], // são os produtos da página home, por categoria e por pesquisa
       categories: [], // o que é usado para fazer os bostões de pequisa de categoria
       search: '', // é o valor  é usado para o fetch por pesquisa por nome
-      shoppingCart: [], // lista dos produtos comprados
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.setOptionsCategories = this.setOptionsCategories.bind(this);
-    this.addToShoppingCart = this.addToShoppingCart.bind(this);
   }
 
   async componentDidMount() {
@@ -36,6 +35,7 @@ class Home extends Component {
   async handleClick(e) {
     const { target: { id, name } } = e;
     const { search } = this.state;
+    const { getProducts } = this.props;
     const byCategorie = name === 'categorie' ? id : '';
     const bySearch = name === 'searchButton' ? search : '';
 
@@ -43,7 +43,7 @@ class Home extends Component {
 
     this.setState({
       products: products.results,
-    });
+    }, () => getProducts(products.results));
   }
 
   setOptionsCategories(categories) {
@@ -52,20 +52,17 @@ class Home extends Component {
     });
   }
 
-  addToShoppingCart({ target: { id } }) {
-    const { products } = this.state;
-    const product = products.find((e) => e.id === id);
-    this.setState((prevState) => ({
-      shoppingCart: [...prevState.shoppingCart, product],
-    }));
-  }
-
   render() {
     const { products, search, categories, shoppingCart } = this.state;
+    const { addToShoppingCart } = this.props;
     return (
 
       <section>
         <div>
+          <ProductList
+            products={ products }
+            addToShoppingCart={ addToShoppingCart }
+          />
           <SearchBar
             products={ products }
             value={ search }
@@ -77,10 +74,6 @@ class Home extends Component {
             categories={ categories }
             click={ this.handleClick }
           />
-          <ProductList
-            products={ products }
-            addToShoppingCart={ this.addToShoppingCart }
-          />
         </div>
       </section>
     );
@@ -88,3 +81,8 @@ class Home extends Component {
 }
 
 export default Home;
+
+Home.propTypes = {
+  getProducts: PropTypes.func.isRequired,
+  addToShoppingCart: PropTypes.func.isRequired,
+};
