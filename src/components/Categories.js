@@ -2,12 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { getCategories } from '../services/api';
 
-class Category extends Component {
-  constructor() {
-    super();
-    this.handleState = this.handleState.bind(this);
-    this.handleButton = this.handleButton.bind(this);
-
+class Categories extends Component {
+  constructor(props) {
+    super(props);
     this.state = {
       categories: [],
     };
@@ -19,12 +16,6 @@ class Category extends Component {
     this.handleState();
   }
 
-  handleButton(e) {
-    const { callBack } = this.props;
-    const atribute = e.target.getAttribute('id');
-    callBack(atribute);
-  }
-
   handleState() {
     getCategories().then((category) => this.setState({
       categories: [...category],
@@ -32,10 +23,9 @@ class Category extends Component {
   }
 
   handleClick(e) {
-    const categoryid = e.target.getAttribute('categoryid');
-    const categoryname = e.target.getAttribute('categoryname');
-    const { callBack } = this.props;
-    callBack(categoryid, categoryname);
+    const categoryId = e.target.getAttribute('categoryid');
+    const { getProductListByCategoryCallBack } = this.props;
+    getProductListByCategoryCallBack(categoryId);
   }
 
   render() {
@@ -43,27 +33,26 @@ class Category extends Component {
     return (
       <ul>
         {categories.map((category) => (
-          <button
-            type="button"
+          <li
             key={ category.id }
-            onClick={ this.handleClick }
           >
-            <li
+            <button
               data-testid="category"
               categoryid={ category.id }
-              categoryname={ category.name }
+              type="button"
+              onClick={ this.handleClick }
             >
               {category.name}
-            </li>
-          </button>
+            </button>
+          </li>
         ))}
       </ul>
     );
   }
 }
 
-Category.propTypes = {
-  callBack: PropTypes.func.isRequired,
+Categories.propTypes = {
+  getProductListByCategoryCallBack: PropTypes.func.isRequired,
 };
 
-export default Category;
+export default Categories;

@@ -1,12 +1,17 @@
 /* eslint-disable camelcase */
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import AddToCartButton from './AddToCartButton';
 import Form from './Form';
 
 class ProductDetails extends Component {
   render() {
-    const { product, callBack2 } = this.props;
+    const {
+      product,
+      goBackCallBack,
+      renderShoppingCartCallBack,
+      addToCartCallback,
+    } = this.props;
     const { title } = product;
     return (
       <>
@@ -19,8 +24,23 @@ class ProductDetails extends Component {
             <li>{product.price}</li>
           </ul>
         </div>
-        <button type="button" onClick={ () => callBack2() }>VOLTAR</button>
-        <Link to="/ShoppingCart">CARRINHO DE COMPRAS</Link>
+        <AddToCartButton
+          product={ product }
+          addToCartCallback={ (prod) => addToCartCallback(prod) }
+          dataTestId="product-detail-add-to-cart"
+        />
+        <button
+          type="button"
+          onClick={ () => goBackCallBack() }
+        >
+          VOLTAR
+        </button>
+        <button
+          type="button"
+          onClick={ () => renderShoppingCartCallBack() }
+        >
+          CARRINHO DE COMPRAS
+        </button>
         <div>
           <Form title={ title } />
         </div>
@@ -30,11 +50,13 @@ class ProductDetails extends Component {
 }
 
 ProductDetails.propTypes = {
-  callBack2: PropTypes.func.isRequired,
+  goBackCallBack: PropTypes.func.isRequired,
+  renderShoppingCartCallBack: PropTypes.func.isRequired,
+  addToCartCallback: PropTypes.func.isRequired,
   product: PropTypes.shape({
     title: PropTypes.string,
     thumbnail: PropTypes.string,
-    price: PropTypes.string,
+    price: PropTypes.number,
   }).isRequired,
 };
 

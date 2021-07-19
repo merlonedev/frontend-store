@@ -1,19 +1,18 @@
 /* eslint-disable camelcase */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import AddToCartButton from './AddToCartButton';
 
 class ProductCard extends Component {
   render() {
-    const { product, callBack, addToCart } = this.props;
+    const { product, renderDetailsCallBack, addToCartCallback } = this.props;
     const { id, title, thumbnail, price } = product;
     return (
       <section>
         <button
           type="button"
           data-testid="product-detail-link"
-          onClick={ () => {
-            callBack(id);
-          } }
+          onClick={ () => { renderDetailsCallBack(id); } }
         >
           <div data-testid="product">
             <h3>{title}</h3>
@@ -21,13 +20,11 @@ class ProductCard extends Component {
             <img src={ thumbnail } alt={ title } />
           </div>
         </button>
-        <button
-          type="button"
-          data-testid="product-add-to-cart"
-          onClick={ () => addToCart(product) }
-        >
-          Adicionar ao carrinho
-        </button>
+        <AddToCartButton
+          product={ product }
+          addToCartCallback={ (prod) => addToCartCallback(prod) }
+          dataTestId="product-add-to-cart"
+        />
       </section>
     );
   }
@@ -41,8 +38,8 @@ ProductCard.propTypes = {
     id: PropTypes.string,
     category_id: PropTypes.string,
   }).isRequired,
-  callBack: PropTypes.func.isRequired,
-  addToCart: PropTypes.func.isRequired,
+  renderDetailsCallBack: PropTypes.func.isRequired,
+  addToCartCallback: PropTypes.func.isRequired,
 };
 
 export default ProductCard;

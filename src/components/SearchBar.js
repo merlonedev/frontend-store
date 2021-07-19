@@ -20,9 +20,9 @@ class SearchBar extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const { callBack } = this.props;
+    const { getProductListByQueryCallBack } = this.props;
     const { searchText } = this.state;
-    callBack(searchText);
+    getProductListByQueryCallBack(searchText);
   }
 
   render() {
@@ -46,7 +46,7 @@ class SearchBar extends Component {
 }
 
 SearchBar.propTypes = {
-  callBack: PropTypes.func.isRequired,
+  getProductListByQueryCallBack: PropTypes.func.isRequired,
 };
 
 export default SearchBar;
