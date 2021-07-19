@@ -87,6 +87,9 @@ class Home extends Component {
     const index = this.getIndexById(productId, tempState);
     const tempElement = { ...tempState[index] };
     if (operation === '+') tempElement.quantity += 1;
+    if (tempElement.quantity > tempElement.product.available_quantity) {
+      tempElement.quantity = tempElement.product.available_quantity;
+    }
     if (operation === '-') tempElement.quantity -= 1;
     if (tempElement.quantity < 0) tempElement.quantity = 0;
     tempState[index] = tempElement;
