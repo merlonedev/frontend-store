@@ -7,32 +7,37 @@ class ProductList extends Component {
     const { products, addToShoppingCart } = this.props;
 
     return (
-      <main>
+      <main data-testid="product-list">
         { products.map(({ title, thumbnail, price, id }) => (
           <section key={ id } data-testid="product">
-            <h3>{ title }</h3>
-            <img src={ thumbnail } alt={ title } />
-            <p>{ price }</p>
-            <Link
-              data-testid="product-detail-link"
-              // addToShoppingCart={ this.addToShoppingCart }
-              to={
-                { pathname: `/productDetail/${id}`, state: { title, thumbnail, price } }
+            <div className="title-div">
+              <h3 data-testid="title-product-list">{ title }</h3>
+            </div>
+            <div className="img-div">
+              <img src={ thumbnail } alt={ title } data-testid="img-product-list" />
+            </div>
+            <div className="price-details-button">
+              <p>{`R$ ${price}` }</p>
+              <Link
+                data-testid="product-detail-link"
+                // addToShoppingCart={ this.addToShoppingCart }
+                to={
+                  { pathname: `/productDetail/${id}`, state: { title, thumbnail, price } }
 
-              }
-            >
-              + Detalhes
-            </Link>
+                }
+              >
+                + Detalhes
+              </Link>
 
-            <button
-              type="button"
-              data-testid="product-add-to-cart"
-              id={ id }
-              onClick={ addToShoppingCart }
-            >
-              Adicionar ao carrinho
-            </button>
-
+              <button
+                type="button"
+                data-testid="product-add-to-cart"
+                id={ id }
+                onClick={ addToShoppingCart }
+              >
+                Adicionar ao carrinho
+              </button>
+            </div>
           </section>
         ))}
 

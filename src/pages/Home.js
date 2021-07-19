@@ -66,10 +66,6 @@ class Home extends Component {
 
       <section>
         <div>
-          <ProductList
-            products={ products }
-            addToShoppingCart={ this.addToShoppingCart }
-          />
           <SearchBar
             products={ products }
             value={ search }
@@ -80,6 +76,10 @@ class Home extends Component {
           <NavBar
             categories={ categories }
             click={ this.handleClick }
+          />
+          <ProductList
+            products={ products }
+            addToShoppingCart={ this.addToShoppingCart }
           />
         </div>
       </section>

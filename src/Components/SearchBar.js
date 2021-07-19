@@ -6,7 +6,7 @@ class SearchBar extends Component {
   render() {
     const { value, change, products, click } = this.props;
     return (
-      <section>
+      <section className="search-bar-section">
         <input
           type="search"
           onChange={ change }
