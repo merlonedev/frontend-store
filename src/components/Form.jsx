@@ -58,11 +58,11 @@ class Form extends Component {
             <StarRatings
               className="stars"
               rating={ rating }
-              starRatedColor="yellow"
+              starRatedColor="rgb(240, 160, 11)"
               changeRating={ this.starRating }
               numberOfStars={ 5 }
               starDimension="35px"
-              starHoverColor="yellow"
+              starHoverColor="rgb(240, 160, 11)"
               name="rating"
             />
           </div>

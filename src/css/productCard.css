@@ -120,6 +120,10 @@
   width: 300px;
 }
 
+.product-btns a {
+  margin-left: 6px;
+}
+
 .product-btn:active {
   transform: scale(0.98);
 }

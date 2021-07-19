@@ -1,3 +1,8 @@
+.star-form {
+  display: flex;
+  justify-content: center;
+}
+
 .label-form {
   display: flex;
   flex-direction: column;
@@ -26,6 +31,7 @@
   margin-bottom: 2%;
   margin-right: 2%;
   padding: 10px 10px 10px 5px;
+  resize: none;
   width: 640px;
 }
 
@@ -33,7 +39,15 @@
   border: none;
   border-radius: 15px;
   box-shadow: 0 0 8px rgb(207, 207, 207);
+  background-color:  rgb(240, 160, 11);
+  color: rgb(253, 253, 253);
+  font-size: 16px;
   cursor: pointer;
   padding: 10px 10px 10px 5px;
+  transition: background-color 0.2s;
   width: 660px;
+}
+
+.btn:hover {
+  background-color: rgb(221, 147, 35);
 }

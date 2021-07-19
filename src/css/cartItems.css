@@ -10,15 +10,10 @@
   width: 60%;
 }
 
-.cart-header {
-  align-items: center;
-  display: flex;
-  justify-content: center;
-}
-
-.cart-header svg {
+.cart-header svg{
   color: rgb(4, 41, 255);
   font-size: 26px;
+  margin-bottom: -16px;
   margin-left: 8px;
   transition: transform 0.2s;
 }
@@ -27,9 +22,18 @@
   transform: translateX(-6px);
 }
 
+.cart-header {
+  background-color: whitesmoke;
+  margin-bottom: 16px;
+  padding: 8px;
+}
+
 .cart-title {
   font-size: 18px;
   margin: 0 auto;
+  text-align: center;
+  margin-top: -16px;
+  margin-bottom: 8px;
 }
 
 .cart-title i {
@@ -67,6 +71,12 @@
 .checkout-btn:hover {
   background-color: rgb(221, 147, 35);
 } 
+
+.empty-cart {
+  font-size: 20px;
+  margin: 32px 0;
+  text-align: center;
+}
 
 .total-price {
   font-weight: bold;

@@ -145,6 +145,7 @@ class CartItems extends React.Component {
             )
             : (
               <div
+                className="empty-cart"
                 data-testid="shopping-cart-empty-message"
               >
                 Seu carrinho está vazio
