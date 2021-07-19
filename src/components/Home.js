@@ -91,7 +91,7 @@ class Home extends Component {
       tempElement.quantity = tempElement.product.available_quantity;
     }
     if (operation === '-') tempElement.quantity -= 1;
-    if (tempElement.quantity < 0) tempElement.quantity = 0;
+    if (tempElement.quantity <= 0) tempElement.quantity = 1;
     tempState[index] = tempElement;
     this.setState({
       shoppingCartProductList: tempState,
