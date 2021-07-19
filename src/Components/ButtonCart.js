@@ -9,12 +9,13 @@ class ButtonCart extends Component {
     return (
       <button
         type="button"
+        className="cart-div"
       >
         <Link
           to={ { pathname: '/shoppingCart', state: shoppingCart } }
           data-testid="shopping-cart-button"
         >
-          <img src={ cart } alt="shopping cart" />
+          <img src={ cart } alt="shopping cart" className="cart-img" />
         </Link>
       </button>
     );
