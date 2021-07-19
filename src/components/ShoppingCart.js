@@ -44,7 +44,7 @@ class ShoppingCart extends Component {
     }
     return (
       <div data-testid="product">
-        <h1>shopping cart</h1>
+        <h1>Shopping Cart</h1>
         {shoppingCartProductList
           .map(({ product }) => {
             const productQuantity = this.getProductQuantity(product.id);
