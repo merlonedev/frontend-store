@@ -37,9 +37,7 @@ class CartList extends Component {
           handleIncrease={ this.handleClickIncrease }
           handleDecrease={ this.handleClickDecrease }
         />))}
-        <p
-          data-testid="shopping-cart-product-quantity"
-        >
+        <p>
           { `Quantidade: ${quantity + products.length}` }
         </p>
       </div>

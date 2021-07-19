@@ -48,7 +48,7 @@ class CartItem extends Component {
         >
           -
         </button>
-        <p>{ `Quantidade: ${quantity}`}</p>
+        <p data-testid="shopping-cart-product-quantity">{ `Quantidade: ${quantity}`}</p>
         <p>{ ` R$ ${quantity * price}`}</p>
         <button
           data-testid="product-increase-quantity"
