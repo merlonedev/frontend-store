@@ -7,6 +7,15 @@ import '../styles/checkout.css';
 class Checkout extends Component {
   render() {
     const { cartList } = this.props;
+    const productQuantity = (productId) => (
+      Object.keys(cartList)
+        .filter((item) => cartList[item].id === productId).length
+    );
+
+    /* https://stackoverflow.com/questions/2218999/
+    how-to-remove-all-duplicates-from-an-array-of-objects */
+    const preventDuplicateProducts = cartList
+      .filter((v, i, a) => a.findIndex((t) => (t.id === v.id)) === i);
 
     return (
       <div className="checkout">
@@ -24,7 +33,7 @@ class Checkout extends Component {
           <h2 className="checkout-text">Revise seus produtos</h2>
           <div>
             <div className="checkout-content-list">
-              {Object.keys(cartList).map((item, index) => (
+              {Object.keys(preventDuplicateProducts).map((item, index) => (
                 <div
                   key={ index }
                   className="checkout-list-products"
@@ -32,22 +41,22 @@ class Checkout extends Component {
                   <p className="checkout-title">
                     Produto:
                     {' '}
-                    { cartList[item].title }
+                    { preventDuplicateProducts[item].title }
                   </p>
                   <img
                     className="checkout-img"
-                    src={ cartList[item].thumbnail }
+                    src={ preventDuplicateProducts[item].thumbnail }
                     alt="foto do produto"
                   />
                   <p className="checkout-price">
                     Preço:
                     {' '}
-                    {cartList[item].price }
+                    {preventDuplicateProducts[item].price }
                   </p>
                   <p className="checkout-quantity">
                     Quantidade:
                     {' '}
-                    { cartList.length }
+                    { productQuantity(preventDuplicateProducts[item].id) }
                   </p>
                 </div>
               ))}

@@ -36,6 +36,7 @@ class CartManipulation extends React.Component {
   render() {
     const { item, removeItem, item: { price } } = this.props;
     const { productQuantity } = this.state;
+
     return (
       <section className="cart-manipulation">
         <div key={ item.id } className="cart-manipulation-content">
