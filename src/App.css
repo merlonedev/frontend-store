@@ -95,7 +95,7 @@ body {
   width: 98%;
 }
 
-button.cart-div {
+.cart-div {
   display: flex;
   margin-left: 1%;
 }
