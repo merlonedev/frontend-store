@@ -62,16 +62,16 @@
 .checkout-btn {
   background-color: rgb(240, 160, 11);
   border: 1px solid rgb(240, 160, 11);
-  padding: 6px;
   border-radius: 4px;
   color: rgb(253, 253, 253);
   margin-bottom: 32px;
+  padding: 6px;
   transition: background-color 0.2s;
 }
 
 .checkout-btn:hover {
   background-color: rgb(221, 147, 35);
-} 
+}
 
 .empty-cart {
   font-size: 20px;

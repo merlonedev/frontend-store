@@ -70,7 +70,7 @@ body {
 
 .product-info button:hover {
   background-color: rgb(221, 147, 35);
-} 
+}
 
 .product-info button:active {
   transform: scale(0.98);
