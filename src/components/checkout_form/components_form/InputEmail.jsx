@@ -39,7 +39,7 @@ class InputEmail extends Component {
         <input
           style={ { border: `2px solid ${color}` } }
           name={ name }
-          className="input-email"
+          className="input-checkout"
           id="input-email"
           value={ value }
           type="text"

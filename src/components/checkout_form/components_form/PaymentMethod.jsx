@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import '../../../css/paymentsMethods.css';
 
 class PaymentMethod extends Component {
   constructor(props) {
@@ -35,9 +36,7 @@ class PaymentMethod extends Component {
     const { ticket, visa, mastercard, elo } = this.state;
     return (
       <div className="methods-container">
-
         <div className="ticket-method">
-          Boleto
           <label htmlFor="ticket">
             <input
               checked={ ticket }
@@ -48,6 +47,7 @@ class PaymentMethod extends Component {
               onChange={ this.handleChangeRadios }
             />
             <i className="bi bi-upc ticket-ico" />
+            Boleto
           </label>
         </div>
 
@@ -90,9 +90,7 @@ class PaymentMethod extends Component {
             Elo
             <i className="bi bi-credit-card-2-back-fill card-ico" />
           </label>
-
         </div>
-
       </div>
     );
   }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import states from './optionsStates';
+import '../../../css/inputCheckout.css';
 
 class SelectStates extends Component {
   constructor(props) {
@@ -42,6 +43,7 @@ class SelectStates extends Component {
           onBlur={ this.isValid }
           name={ name }
           value={ value }
+          className="input-select"
         >
 
           { this.renderStates() }

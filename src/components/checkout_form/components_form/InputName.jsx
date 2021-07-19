@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import '../../../css/inputCheckout.css';
 
 class InputName extends Component {
   constructor(props) {
@@ -38,7 +39,7 @@ class InputName extends Component {
         <input
           style={ { border: `2px solid ${color}` } }
           name={ name }
-          className="input-name"
+          className="input-checkout"
           id="input-name"
           value={ value }
           type="text"

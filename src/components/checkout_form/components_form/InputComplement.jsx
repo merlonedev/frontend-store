@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import '../../../css/inputCheckout.css';
 
 class InputComplement extends Component {
   constructor() {
@@ -21,7 +22,7 @@ class InputComplement extends Component {
       <label htmlFor="input-complement">
         <input
           name={ name }
-          className="input-complement"
+          className="input-checkout"
           id="input-complement"
           value={ value }
           type="text"

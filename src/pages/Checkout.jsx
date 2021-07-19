@@ -12,7 +12,6 @@ class Checkout extends Component {
     return (
       <div className="checkout">
         <header className="header-checkout">
-          <h1>Checkout</h1>
           <Link
             className="goBack-checkout"
             to="/cart"
@@ -20,6 +19,7 @@ class Checkout extends Component {
             <TiArrowBack />
             Voltar ao Carrinho
           </Link>
+          <h1>Checkout</h1>
         </header>
         <InfoCartCheckout
           cartItems={ cartItems }

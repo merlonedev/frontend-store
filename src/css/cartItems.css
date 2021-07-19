@@ -65,6 +65,7 @@
   padding: 6px;
   border-radius: 4px;
   color: rgb(253, 253, 253);
+  margin-bottom: 32px;
   transition: background-color 0.2s;
 }
 
