@@ -8,17 +8,16 @@ class ProductList extends Component {
 
     return (
       <main>
-        { products.map(({ title, thumbnail, price, id }) => (
+        { products.map(({ title, thumbnail, price, id, category_id: categoryId }) => (
           <section key={ id } data-testid="product">
             <h3>{ title }</h3>
             <img src={ thumbnail } alt={ title } />
             <p>{ price }</p>
             <Link
               data-testid="product-detail-link"
-              // addToShoppingCart={ this.addToShoppingCart }
               to={
-                { pathname: `/productDetail/${id}`, state: { title, thumbnail, price } }
-
+                { pathname: `/productDetail/${id}`,
+                  state: { title, thumbnail, price, categoryId } }
               }
             >
               + Detalhes
