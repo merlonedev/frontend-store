@@ -4,7 +4,7 @@ import Home from './pages/Home';
 import ShoppingCart from './pages/ShoppingCart';
 import ProductDetails from './pages/ProductDetails';
 import './App.css';
-
+// App
 class App extends Component {
   constructor(props) {
     super(props);
