@@ -69,7 +69,6 @@ CartItem.propTypes = {
     thumbnail: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
   }).isRequired,
-  quantity: PropTypes.number.isRequired,
   handleIncrease: PropTypes.func.isRequired,
   handleDecrease: PropTypes.func.isRequired,
 };
