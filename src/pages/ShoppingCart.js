@@ -17,9 +17,9 @@ class ShoppingCart extends Component {
   }
 
   render() {
-    const { location: { state: shoppingCart } } = this.props;
+    const { shoppingCart } = this.props;
     const { value } = this.state;
-    if (shoppingCart.length === 0) return this.empyCart();
+    if (!shoppingCart.length) return this.empyCart();
 
     return (
       <main>
@@ -45,13 +45,7 @@ class ShoppingCart extends Component {
 }
 
 ShoppingCart.propTypes = {
-  location: PropTypes.shape({
-    state: PropTypes.arrayOf({
-      title: PropTypes.string.isRequired,
-      thumbnail: PropTypes.string,
-      price: PropTypes.number,
-    }).isRequired,
-  }).isRequired,
+  shoppingCart: PropTypes.arrayOf(Object).isRequired,
 };
 
 export default ShoppingCart;

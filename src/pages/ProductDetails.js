@@ -7,7 +7,6 @@ import ButtonCart from '../Components/ButtonCart';
 class ProductDetails extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       product: [],
     };
@@ -21,7 +20,6 @@ class ProductDetails extends Component {
 
   async fetchDetail() {
     const results = await getProductsFromCategoryAndQuery();
-    console.log('results', results);
     this.setState({
       product: results,
     });
@@ -31,9 +29,7 @@ class ProductDetails extends Component {
     const { location: {
       state: { title, thumbnail, price } } } = this.props;
     const { addToShoppingCart } = this.props;
-    console.log(addToShoppingCart);
     const { product } = this.state;
-    console.log('prod', product);
     return (
       <section data-testid="product-datail-container">
         <Link to="/">Home</Link>
@@ -48,7 +44,6 @@ class ProductDetails extends Component {
         <div data-testid="product-detail-container-description">
           <p>Descrição</p>
           <p>{ price }</p>
-          {/* button abaixo criado para requisito 9 */}
           <button
             type="button"
             data-testid="product-detail-add-to-cart"
