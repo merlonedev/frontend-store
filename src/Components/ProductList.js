@@ -31,7 +31,6 @@ class ProductList extends Component {
             >
               Adicionar ao carrinho
             </button>
-
           </section>
         ))}
 
