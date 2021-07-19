@@ -59,6 +59,15 @@ class ProductDetails extends Component {
             }
           </p>
         ))}
+        <form>
+          <label htmlFor="avaliation">
+            <textarea
+              id="avaliation"
+              data-testid="product-detail-evaluation"
+              type="text"
+            />
+          </label>
+        </form>
       </div>
     );
   }
