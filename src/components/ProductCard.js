@@ -1,12 +1,14 @@
-/* eslint-disable camelcase */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+
 import AddToCartButton from './AddToCartButton';
+import FreeShipping from './FreeShipping';
+import ProductSummary from './ProductSummary';
 
 class ProductCard extends Component {
   render() {
     const { product, renderDetailsCallBack, addToCartCallback } = this.props;
-    const { id, title, thumbnail, price } = product;
+    const { id } = product;
     return (
       <section>
         <button
@@ -14,11 +16,14 @@ class ProductCard extends Component {
           data-testid="product-detail-link"
           onClick={ () => { renderDetailsCallBack(id); } }
         >
-          <div data-testid="product">
-            <h3>{title}</h3>
-            <h4>{price}</h4>
-            <img src={ thumbnail } alt={ title } />
-          </div>
+          <ProductSummary
+            product={ product }
+          />
+          {
+            (product.shipping.free_shipping)
+              ? <FreeShipping />
+              : null
+          }
         </button>
         <AddToCartButton
           product={ product }
@@ -37,6 +42,9 @@ ProductCard.propTypes = {
     price: PropTypes.number,
     id: PropTypes.string,
     category_id: PropTypes.string,
+    shipping: PropTypes.shape({
+      free_shipping: PropTypes.bool,
+    }),
   }).isRequired,
   renderDetailsCallBack: PropTypes.func.isRequired,
   addToCartCallback: PropTypes.func.isRequired,
