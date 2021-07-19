@@ -32,12 +32,11 @@ class Home extends Component {
     this.renderCheckoutCallBack = this.renderCheckoutCallBack.bind(this);
     this.goBackCallBack = this.goBackCallBack.bind(this);
     this.loadShoppingCart = this.loadShoppingCart.bind(this);
-    // this.saveShoppingCart = this.saveShoppingCart.bind(this);
   }
 
-  // componentDidMount() {
-  //   this.loadShoppingCart();
-  // }
+  componentDidMount() {
+    this.loadShoppingCart();
+  }
 
   async getProductList(categoryid, query) {
     const productList = await API.getProductsFromCategoryAndQuery(categoryid, query);
@@ -70,26 +69,6 @@ class Home extends Component {
     }
   }
 
-  // saveShoppingCart() {
-  //   const { shoppingCartProductList } = this.state;
-  //   const storage = JSON.parse(localStorage
-  //     .getItem('shoppingCartProductList'));
-  //   if (storage) {
-  //     localStorage
-  //       .setItem('shoppingCartProductList',
-  //         JSON.stringify([...storage, ...shoppingCartProductList]));
-  //     this.setState({
-  //       shoppingCartProductList: [...storage, ...shoppingCartProductList],
-  //     });
-  //   } else {
-  //     localStorage
-  //       .setItem('shoppingCartProductList', JSON.stringify([...shoppingCartProductList]));
-  //     this.setState({
-  //       shoppingCartProductList: [...shoppingCartProductList],
-  //     });
-  //   }
-  // }
-
   addNewProductToCart(newCartProduct) {
     return ({
       id: newCartProduct.id,
@@ -114,6 +93,7 @@ class Home extends Component {
     this.setState({
       shoppingCartProductList: tempState,
     });
+    localStorage.setItem('shoppingCartProductList', JSON.stringify([...tempState]));
   }
 
   addToCart(product) {
@@ -121,10 +101,15 @@ class Home extends Component {
     if (shoppingCartProductList.some((prod) => prod.id === product.id)) {
       this.updateCartProduct(product, '+');
     } else {
-      this.setState((prev) => ({
-        shoppingCartProductList: [
-          ...prev.shoppingCartProductList, this.addNewProductToCart(product)],
-      }));
+      this.setState((prev) => {
+        localStorage
+          .setItem('shoppingCartProductList',
+            JSON.stringify([...prev.shoppingCartProductList,
+              this.addNewProductToCart(product)]));
+        const stateUpdate = { shoppingCartProductList: [
+          ...prev.shoppingCartProductList, this.addNewProductToCart(product)] };
+        return stateUpdate;
+      });
     }
   }
 
