@@ -102,12 +102,10 @@ class Home extends Component {
       this.updateCartProduct(product, '+');
     } else {
       this.setState((prev) => {
-        localStorage
-          .setItem('shoppingCartProductList',
-            JSON.stringify([...prev.shoppingCartProductList,
-              this.addNewProductToCart(product)]));
-        const stateUpdate = { shoppingCartProductList: [
-          ...prev.shoppingCartProductList, this.addNewProductToCart(product)] };
+        const stateValue = [...prev.shoppingCartProductList,
+          this.addNewProductToCart(product)];
+        localStorage.setItem('shoppingCartProductList', JSON.stringify(stateValue));
+        const stateUpdate = { shoppingCartProductList: stateValue };
         return stateUpdate;
       });
     }
