@@ -10,7 +10,7 @@
   width: 60%;
 }
 
-.cart-header svg{
+.cart-header svg {
   color: rgb(4, 41, 255);
   font-size: 26px;
   margin-bottom: -16px;
@@ -31,9 +31,9 @@
 .cart-title {
   font-size: 18px;
   margin: 0 auto;
-  text-align: center;
-  margin-top: -16px;
   margin-bottom: 8px;
+  margin-top: -16px;
+  text-align: center;
 }
 
 .cart-title i {
@@ -60,8 +60,8 @@
 }
 
 .checkout-btn {
-  border: 1px solid  rgb(240, 160, 11);
-  background-color:  rgb(240, 160, 11);
+  background-color: rgb(240, 160, 11);
+  border: 1px solid rgb(240, 160, 11);
   padding: 6px;
   border-radius: 4px;
   color: rgb(253, 253, 253);
@@ -80,7 +80,7 @@
 }
 
 .total-price {
-  font-weight: bold;
+  font-weight: 600;
   margin-left: 4px;
 }
 

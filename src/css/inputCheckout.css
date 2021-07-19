@@ -1,49 +1,48 @@
-
 .input-cep {
   border-radius: 6px;
-  margin: 4px 4px;
+  margin: 4px;
   padding: 4px;
   width: 100px;
 }
 
 .input-cpf {
   border-radius: 6px;
-  margin: 4px 4px;
+  margin: 4px;
   padding: 4px;
   width: 100px;
 }
 
 .input-checkout {
   border-radius: 6px;
-  margin: 4px 4px;
+  margin: 4px;
   padding: 4px;
   width: 200px;
 }
 
 .input-city {
   border-radius: 6px;
-  margin: 4px 4px;
+  margin: 4px;
   padding: 4px;
   width: 100px;
 }
 
 .input-number {
   border-radius: 6px;
-  margin: 4px 4px;
+  margin: 4px;
   padding: 4px;
   width: 100px;
 }
 
 .input-phone {
   border-radius: 6px;
-  margin: 4px 4px;
+  margin: 4px;
   padding: 4px;
   width: 100px;
 }
 
 .input-select {
   border-radius: 6px;
-  margin: 4px 4px;
+  margin: 4px;
   padding: 3px;
   width: 100px;
 }

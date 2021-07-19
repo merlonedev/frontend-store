@@ -4,14 +4,14 @@ body {
 
 .header-details {
   align-items: center;
+  background-color: whitesmoke;
   display: flex;
   margin-bottom: 8px;
-  background-color: whitesmoke;
   padding: 8px;
 }
 
-.header-details  i {
-  color: rgb(15, 15, 15)
+.header-details i {
+  color: rgb(15, 15, 15);
 }
 
 .header-details svg {
@@ -57,8 +57,8 @@ body {
 }
 
 .product-info button {
-  background-color:  rgb(240, 160, 11);
-  border: 1px solid  rgb(240, 160, 11);
+  background-color: rgb(240, 160, 11);
+  border: 1px solid rgb(240, 160, 11);
   border-radius: 4px;
   color: rgb(253, 253, 253);
   cursor: pointer;

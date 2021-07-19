@@ -12,7 +12,7 @@
 
 .product-review {
   align-items: center;
-  background-color: rgb(255, 255, 255);
+  background-color: white;
   border-radius: 12px;
   display: flex;
   flex-direction: column;
@@ -53,8 +53,8 @@
 }
 
 .price-checkout {
-  color: rgb(18, 153, 18);
   border-radius: 12px;
+  color: rgb(18, 153, 18);
   font-weight: 600;
   padding: 6px;
 }

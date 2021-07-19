@@ -36,13 +36,13 @@
 }
 
 .btn {
+  background-color: rgb(240, 160, 11);
   border: none;
   border-radius: 15px;
   box-shadow: 0 0 8px rgb(207, 207, 207);
-  background-color:  rgb(240, 160, 11);
   color: rgb(253, 253, 253);
-  font-size: 16px;
   cursor: pointer;
+  font-size: 16px;
   padding: 10px 10px 10px 5px;
   transition: background-color 0.2s;
   width: 660px;
