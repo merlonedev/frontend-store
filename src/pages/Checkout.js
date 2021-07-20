@@ -28,7 +28,8 @@ class Checkout extends React.Component {
   }
 
   handleSubmit(event) {
-    const { history } = this.props;
+    const { history, products } = this.props;
+
     event.preventDefault();
 
     const { isActive } = this.state;
@@ -46,6 +47,7 @@ class Checkout extends React.Component {
         address: '',
       });
       history.push('/');
+      products.length = 0;
     }
   }
 
