@@ -12,14 +12,17 @@ class CartItem extends Component {
 
   handleClick({ target: { name } }) {
     const { quantity } = this.state;
+    const { handleIncrease, handleDecrease } = this.props;
     if (name === 'increase') {
       this.setState({
         quantity: quantity + 1,
       });
+      handleIncrease();
     } else if (name === 'decrease') {
       this.setState({
         quantity: (quantity > 1 ? quantity - 1 : quantity),
       });
+      handleDecrease();
     }
   }
 
@@ -45,7 +48,7 @@ class CartItem extends Component {
         >
           -
         </button>
-        <p>{ `Quantidade: ${quantity}`}</p>
+        <p data-testid="shopping-cart-product-quantity">{ `Quantidade: ${quantity}`}</p>
         <p>{ ` R$ ${quantity * price}`}</p>
         <button
           data-testid="product-increase-quantity"
@@ -66,6 +69,8 @@ CartItem.propTypes = {
     thumbnail: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
   }).isRequired,
+  handleIncrease: PropTypes.func.isRequired,
+  handleDecrease: PropTypes.func.isRequired,
 };
 
 export default CartItem;
