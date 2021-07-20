@@ -18,6 +18,7 @@ class App extends React.Component {
     this.addToCart = this.addToCart.bind(this);
     this.loadCartQuantity = this.loadCartQuantity.bind(this);
     this.loadCartProducts = this.loadCartProducts.bind(this);
+    this.localstorageProducts = this.localstorageProducts.bind(this);
   }
 
   componentDidMount() {
@@ -31,7 +32,7 @@ class App extends React.Component {
       quantity: [...prevState.quantity, item],
     }), () => {
       const { quantity, cartList } = this.state;
-      localStorage.setItem('quantity', JSON.stringify(quantity.map((p) => p).length));
+      localStorage.setItem('quantity', JSON.stringify(quantity));
       localStorage.setItem('cartProducts', JSON.stringify(cartList));
     });
   }
@@ -53,17 +54,12 @@ class App extends React.Component {
     this.setState({ cartList });
   }
 
-  removeItem(item) {
+  localstorageProducts(item) {
     const { id } = item;
-    this.setState((prev) => {
-      const { cartList } = prev;
-      const filtro = cartList.filter((cartItem) => cartItem.id !== id);
-      return { cartList: filtro };
-    });
     const { cartList, quantity } = this.state;
     const productQuantity = (productId) => (
       Object.keys(cartList)
-        .filter((item1) => cartList[item1].id === productId).length
+        .filter((item1) => cartList[item1].id === productId)
     );
     const quantityObj = Object.keys(cartList).map((p) => (
       productQuantity(cartList[p].id)
@@ -71,14 +67,24 @@ class App extends React.Component {
     const cartProducts = cartList.findIndex((cart) => cart.id === id);
     const length = -1;
     if (cartProducts !== length) {
-      cartList.splice(cartProducts, quantityObj.length);
+      cartList.splice(cartProducts, quantityObj[0].length);
       localStorage.setItem('cartProducts', JSON.stringify(cartList));
     }
     const cartQuantity = quantity.findIndex((quant) => quant.id === id);
     if (cartQuantity !== length) {
-      quantity.splice(cartQuantity, quantity.length);
-      localStorage.setItem('quantity', JSON.stringify(quantity.map((p) => p).length));
+      quantity.splice(cartQuantity, quantityObj[0].length);
+      localStorage.setItem('quantity', JSON.stringify(quantity));
     }
+  }
+
+  removeItem(item) {
+    const { id } = item;
+    this.setState((prev) => {
+      const { cartList } = prev;
+      const filtro = cartList.filter((cartItem) => cartItem.id !== id);
+      return { cartList: filtro };
+    });
+    this.localstorageProducts(item);
   }
 
   render() {
