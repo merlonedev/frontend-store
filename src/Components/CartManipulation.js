@@ -6,9 +6,11 @@ import '../styles/cartManipulation.css';
 class CartManipulation extends React.Component {
   constructor() {
     super();
+
     this.state = {
-      productQuantity: 1,
+      productQuantity: 0,
     };
+
     this.addQuantity = this.addQuantity.bind(this);
     this.decreaseQuantity = this.decreaseQuantity.bind(this);
   }
@@ -17,6 +19,7 @@ class CartManipulation extends React.Component {
     const { item } = this.props;
     const availableQuantity = item.available_quantity;
     const { productQuantity } = nextState;
+    console.log(productQuantity);
     if (availableQuantity >= productQuantity && productQuantity > 0) return true;
     return false;
   }
@@ -34,8 +37,7 @@ class CartManipulation extends React.Component {
   }
 
   render() {
-    const { item, removeItem, item: { price } } = this.props;
-    const { productQuantity } = this.state;
+    const { item, removeItem, item: { price }, productQuantity } = this.props;
 
     return (
       <section className="cart-manipulation">
@@ -107,6 +109,7 @@ CartManipulation.propTypes = {
     price: PropTypes.number,
     available_quantity: PropTypes.number,
   }).isRequired,
+  productQuantity: PropTypes.number.isRequired,
   removeItem: PropTypes.func.isRequired,
 };
 

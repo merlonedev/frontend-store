@@ -12,12 +12,8 @@
   display: block;
   height: 102px;
   margin-bottom: 20px;
-
-  /* https://stackoverflow.com/questions/36652580/
-  how-to-add-three-dots-to-text-when-overflow-in-html/36653821 */
   overflow: hidden;
   text-align: center;
-  width: 230px;
 }
 
 .cart-manipulation-img {

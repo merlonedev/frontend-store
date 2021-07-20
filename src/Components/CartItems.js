@@ -6,15 +6,29 @@ import '../styles/cartItems.css';
 class CartItems extends Component {
   render() {
     const { cartList, removeItem } = this.props;
+
+    const productQuantity = (productId) => (
+      Object.keys(cartList)
+        .filter((item) => cartList[item].id === productId).length
+    );
+
+    const preventDuplicateProducts = cartList
+      .filter((v, i, a) => a.findIndex((t) => (t.id === v.id)) === i);
     return (
       <div>
         <h2 className="cart-items-text">
           Carrinho De Compras
         </h2>
         <div className="cart-items-content">
-          {cartList.map((item) => (
-            <div key={ item.id } className="cart-items-card">
-              <CartManipulation item={ item } removeItem={ removeItem } />
+          {Object.keys(preventDuplicateProducts).map((item) => (
+            <div key={ preventDuplicateProducts[item].id } className="cart-items-card">
+              <CartManipulation
+                item={ preventDuplicateProducts[item] }
+                removeItem={ removeItem }
+                productQuantity={
+                  productQuantity(preventDuplicateProducts[item].id)
+                }
+              />
             </div>
           ))}
         </div>

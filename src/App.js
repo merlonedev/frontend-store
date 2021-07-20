@@ -31,7 +31,7 @@ class App extends React.Component {
       quantity: [...prevState.quantity, item],
     }), () => {
       const { quantity, cartList } = this.state;
-      localStorage.setItem('quantity', JSON.stringify(quantity));
+      localStorage.setItem('quantity', JSON.stringify(quantity.map((p) => p).length));
       localStorage.setItem('cartProducts', JSON.stringify(cartList));
     });
   }
@@ -61,16 +61,23 @@ class App extends React.Component {
       return { cartList: filtro };
     });
     const { cartList, quantity } = this.state;
+    const productQuantity = (productId) => (
+      Object.keys(cartList)
+        .filter((item1) => cartList[item1].id === productId).length
+    );
+    const quantityObj = Object.keys(cartList).map((p) => (
+      productQuantity(cartList[p].id)
+    ));
     const cartProducts = cartList.findIndex((cart) => cart.id === id);
     const length = -1;
     if (cartProducts !== length) {
-      cartList.splice(cartProducts, 1);
+      cartList.splice(cartProducts, quantityObj.length);
       localStorage.setItem('cartProducts', JSON.stringify(cartList));
     }
     const cartQuantity = quantity.findIndex((quant) => quant.id === id);
     if (cartQuantity !== length) {
-      quantity.splice(cartQuantity, 1);
-      localStorage.setItem('quantity', JSON.stringify(quantity));
+      quantity.splice(cartQuantity, quantity.length);
+      localStorage.setItem('quantity', JSON.stringify(quantity.map((p) => p).length));
     }
   }
 
