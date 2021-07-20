@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Redirect } from 'react-router-dom';
 
 class Checkout extends React.Component {
   constructor() {
@@ -29,32 +28,29 @@ class Checkout extends React.Component {
   }
 
   handleSubmit(event) {
+    const { history, products } = this.props;
     event.preventDefault();
-    // console.log(Object.keys(this.state)); //Função de verificar os campos vazios e colocar seu background vermelho não foi implementada.
-    // const filledForm = Object.keys(this.state);
-    // const { state } = this;
-    // const notFilled = filledForm.map((item) => {
-    //   (state.item.length === 0 ? state.item.setActive(!isActive) : null)
-    // });
-    // const isFilled = Object.values(this.state);
-    // const notFilled = isFilled.map((item) => item.setActive(!isActive));
-    // const notFilled = isFilled.map((item) => item.setState({ isActive: !this.state.isActive }));
 
-    // if (notFilled.length === 0) {
-    this.setState({
-      fullName: '',
-      email: '',
-      cpf: '',
-      phone: '',
-      cep: '',
-      address: '',
-    });
-    return (
-      <Redirect to="/" />);
-    // }
+    const { isActive } = this.state;
+    this.setState({ isActive: !isActive });
+
+    const emptyFormAnswer = Object.values(this.state).filter((item) => item.length === 0);
+
+    if (emptyFormAnswer.length === 0) {
+      this.setState({
+        fullName: '',
+        email: '',
+        cpf: '',
+        phone: '',
+        cep: '',
+        address: '',
+      });
+      history.push('/');
+    }
   }
 
   render() {
+    const { isActive } = this.state;
     const { products } = this.props;
     const { fullName, email, cpf, phone, cep, address, info, number, city } = this.state;
     const total = products.reduce((acc, cur) => acc + cur.price * cur.quantityInCart, 0);
@@ -93,7 +89,7 @@ class Checkout extends React.Component {
 
             <legend>Informações do Comprador</legend>
             <input
-            //   className={ isActive ? 'active' : null }
+              className={ isActive ? 'active' : null }
               data-testid="checkout-fullname"
               id="fullName"
               name="fullName"
@@ -103,7 +99,7 @@ class Checkout extends React.Component {
               placeholder="Nome Completo"
             />
             <input
-            //   className={ isActive ? 'active' : null }
+              className={ isActive ? 'active' : null }
               data-testid="checkout-email"
               id="email"
               name="email"
@@ -113,7 +109,7 @@ class Checkout extends React.Component {
               placeholder="Email"
             />
             <input
-            //   className={ isActive ? 'active' : null }
+              className={ isActive ? 'active' : null }
               data-testid="checkout-cpf"
               id="cpf"
               name="cpf"
@@ -123,7 +119,7 @@ class Checkout extends React.Component {
               placeholder="CPF"
             />
             <input
-            //   className={ isActive ? 'active' : null }
+              className={ isActive ? 'active' : null }
               data-testid="checkout-phone"
               id="phone"
               name="phone"
@@ -133,7 +129,7 @@ class Checkout extends React.Component {
               placeholder="Telefone"
             />
             <input
-            //   className={ isActive ? 'active' : null }
+              className={ isActive ? 'active' : null }
               data-testid="checkout-cep"
               id="cep"
               name="cep"
@@ -143,7 +139,7 @@ class Checkout extends React.Component {
               placeholder="CEP"
             />
             <input
-            //   className={ isActive ? 'active' : null }
+              className={ isActive ? 'active' : null }
               data-testid="checkout-address"
               id="address"
               name="address"
@@ -153,7 +149,7 @@ class Checkout extends React.Component {
               placeholder="Endereço"
             />
             <input
-            //   className={ isActive ? 'active' : null }
+              className={ isActive ? 'active' : null }
               id="complemento"
               name="complemento"
               type="text"
@@ -162,7 +158,7 @@ class Checkout extends React.Component {
               placeholder="Complemento"
             />
             <input
-            //   className={ isActive ? 'active' : null }
+              className={ isActive ? 'active' : null }
               id="numero"
               name="numero"
               type="number"
@@ -171,7 +167,7 @@ class Checkout extends React.Component {
               placeholder="Número"
             />
             <input
-            //   className={ isActive ? 'active' : null }
+              className={ isActive ? 'active' : null }
               id="cidade"
               name="cidade"
               type="text"
@@ -220,6 +216,8 @@ Checkout.propTypes = {
     quantityInCart: PropTypes.number.isRequired,
     price: PropTypes.number.isRequired,
   }).isRequired).isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired }).isRequired,
 };
 
 export default Checkout;

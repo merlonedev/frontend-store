@@ -60,3 +60,6 @@ button {
   width: 1.5rem;
 }
 
+.active {
+  background-color: #f04040;
+}
