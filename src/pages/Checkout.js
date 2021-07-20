@@ -28,7 +28,7 @@ class Checkout extends React.Component {
   }
 
   handleSubmit(event) {
-    const { history, products } = this.props;
+    const { history } = this.props;
     event.preventDefault();
 
     const { isActive } = this.state;
