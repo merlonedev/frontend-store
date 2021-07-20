@@ -15,6 +15,7 @@ class App extends Component {
     };
     this.addToShoppingCart = this.addToShoppingCart.bind(this);
     this.getProducts = this.getProducts.bind(this);
+    this.removeProduct = this.removeProduct.bind(this);
   }
 
   getProducts(products) {
@@ -29,6 +30,15 @@ class App extends Component {
     this.setState(({ shoppingCart }) => ({
       shoppingCart: [...shoppingCart, product],
     }));
+  }
+
+  removeProduct(products) {
+    const { id } = products;
+    this.setState((prev) => {
+      const { shoppingCart } = prev;
+      const filter = shoppingCart.filter((product) => product.id !== id);
+      return { shoppingCart: filter };
+    });
   }
 
   render() {
@@ -50,6 +60,7 @@ class App extends Component {
             render={ (props) => (<ShoppingCart
               { ...props }
               shoppingCart={ shoppingCart }
+              removeProduct={ this.removeProduct }
             />) }
           />
           <Route
