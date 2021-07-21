@@ -195,9 +195,28 @@ body {
   width: 100%;
 }
 
+.free-shipping {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.free-shipping-title {
+  font-size: 12px;
+  margin: auto;
+  text-align: center;
+}
+
+.delivery {
+  color: black;
+  font-size: 18px;
+  margin-left: 0.5em;
+  text-decoration: none;
+}
+
 .product-image {
   margin: 0;
-  max-height: 7em;
+  max-height: 5em;
   max-width: 90%;
 }
 
@@ -332,7 +351,7 @@ body {
 .cart-item {
   display: flex;
   flex-direction: row;
-  justify-content: start;
+  justify-content: flex-start;
   margin-bottom: 0.2%;
 }
 
