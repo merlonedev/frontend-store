@@ -7,14 +7,16 @@ class ProductList extends Component {
   render() {
     const { productList = [], renderDetailsCallBack, addToCartCallback } = this.props;
     return (
-      productList
-        .map((product) => (
-          <ProductCard
-            key={ product.id }
-            product={ product }
-            renderDetailsCallBack={ () => renderDetailsCallBack(product) }
-            addToCartCallback={ addToCartCallback }
-          />))
+      <section>
+        {productList
+          .map((product) => (
+            <ProductCard
+              key={ product.id }
+              product={ product }
+              renderDetailsCallBack={ () => renderDetailsCallBack(product) }
+              addToCartCallback={ addToCartCallback }
+            />))}
+      </section>
     );
   }
 }
