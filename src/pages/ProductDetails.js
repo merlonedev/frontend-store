@@ -74,6 +74,7 @@ class ProductDetails extends Component {
   }
 
   render() {
+    const { totalCartItems } = this.state;
     const { location: { state: { product } } } = this.props;
     const { title, price, thumbnail, attributes } = product;
     const CORRECT_SIZE = -5;
@@ -83,7 +84,11 @@ class ProductDetails extends Component {
 
     return (
       <div className="details-container">
-        <DetailsHeader title={ title } price={ formatPrice } />
+        <DetailsHeader
+          title={ title }
+          price={ formatPrice }
+          totalCartItems={ totalCartItems }
+        />
         <div className="details-content">
           <div className="details-image-container">
             <img

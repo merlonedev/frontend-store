@@ -29,7 +29,12 @@ class SearchBar extends Component {
           </button>
         </div>
         <div className="cart-container">
-          <span className="total-cart-items">{ totalCartItems }</span>
+          <span
+            className="total-cart-items"
+            data-testid="shopping-cart-size"
+          >
+            { totalCartItems }
+          </span>
           <Link
             className="material-icons cart search-cart"
             data-testid="shopping-cart-button"
