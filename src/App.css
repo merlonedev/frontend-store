@@ -231,6 +231,7 @@ body {
   font-size: 35px;
   margin-bottom: 0.5%;
   text-decoration: none;
+  align-items: start;
 }
 
 .cart-nav-title {
@@ -385,4 +386,43 @@ body {
   margin-left: 20px;
   object-fit: fill;
   width: 100px;
+}
+
+.form-input {
+  list-style: none;
+  padding: 7px;
+  margin: 5px;
+}
+
+.payment {
+  font-size: 70px;
+  color: rgb(34, 33, 33);
+  margin: 20px -5px 0 35px;
+}
+
+.form-button {
+  margin: 50px;
+  padding: 10px 25px;
+  font-size: large;
+  border: none;
+  border-radius: 30px;
+  background-color: gray;
+}
+
+.form-link {
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+}
+
+.form-li {
+ display: inline-block;
+ vertical-align:middle;
+}
+
+.um {
+  margin: 20px -5px 0 -25px;
+}
+
+.dois {
+  margin: 0 -5px 0 -15px;
 }
