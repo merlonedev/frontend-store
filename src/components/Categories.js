@@ -31,22 +31,19 @@ class Categories extends Component {
   render() {
     const { categories } = this.state;
     return (
-      <ul>
+      <section>
         {categories.map((category) => (
-          <li
+          <button
             key={ category.id }
+            data-testid="category"
+            categoryid={ category.id }
+            type="button"
+            onClick={ this.handleClick }
           >
-            <button
-              data-testid="category"
-              categoryid={ category.id }
-              type="button"
-              onClick={ this.handleClick }
-            >
-              {category.name}
-            </button>
-          </li>
+            {category.name}
+          </button>
         ))}
-      </ul>
+      </section>
     );
   }
 }

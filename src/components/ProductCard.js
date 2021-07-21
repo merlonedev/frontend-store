@@ -10,7 +10,7 @@ class ProductCard extends Component {
     const { product, renderDetailsCallBack, addToCartCallback } = this.props;
     const { id } = product;
     return (
-      <section>
+      <div>
         <button
           type="button"
           data-testid="product-detail-link"
@@ -30,7 +30,7 @@ class ProductCard extends Component {
           addToCartCallback={ (prod) => addToCartCallback(prod) }
           dataTestId="product-add-to-cart"
         />
-      </section>
+      </div>
     );
   }
 }
