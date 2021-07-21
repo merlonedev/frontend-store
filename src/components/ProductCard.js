@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 class ProductCard extends Component {
   render() {
     const { product, addToCart } = this.props;
-    const { title, thumbnail, price, id } = product;
+    const { title, thumbnail, price, id, shipping } = product;
     const CORRECT_SIZE = -5;
 
     let formatPrice = String(parseFloat((price * 100) / 100).toFixed(2));
@@ -23,6 +23,14 @@ class ProductCard extends Component {
           </Link>
         </div>
         <div className="product-description-container">
+          { (shipping.free_shipping ? (
+            <div className="free-shipping" data-testid="free-shipping">
+              <span className="free-shipping-title"> Entrega Grátis </span>
+              <span className="material-icons delivery"> local_shipping </span>
+            </div>
+          ) : (
+            <> </>
+          )) }
           <Link
             className="product-link"
             data-testid="product-detail-link"
@@ -63,6 +71,9 @@ ProductCard.propTypes = {
     title: PropTypes.string,
     thumbnail: PropTypes.string,
     price: PropTypes.number,
+    shipping: PropTypes.shape({
+      free_shipping: PropTypes.bool,
+    }),
   }).isRequired,
   addToCart: PropTypes.func.isRequired,
   // cartHandleCounter: PropTypes.func.isRequired,
