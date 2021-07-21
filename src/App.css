@@ -227,11 +227,11 @@ body {
 }
 
 .previous {
+  align-items: start;
   color: black;
   font-size: 35px;
   margin-bottom: 0.5%;
   text-decoration: none;
-  align-items: start;
 }
 
 .cart-nav-title {
@@ -390,33 +390,33 @@ body {
 
 .form-input {
   list-style: none;
-  padding: 7px;
   margin: 5px;
+  padding: 7px;
 }
 
 .payment {
-  font-size: 70px;
   color: rgb(34, 33, 33);
+  font-size: 70px;
   margin: 20px -5px 0 35px;
 }
 
 .form-button {
-  margin: 50px;
-  padding: 10px 25px;
-  font-size: large;
+  background-color: gray;
   border: none;
   border-radius: 30px;
-  background-color: gray;
+  font-size: large;
+  margin: 50px;
+  padding: 10px 25px;
 }
 
 .form-link {
+  color: white;
   text-decoration: none;
-  color: rgb(255, 255, 255);
 }
 
 .form-li {
- display: inline-block;
- vertical-align:middle;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 .um {
