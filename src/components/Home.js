@@ -8,8 +8,9 @@ import ShoppingCart from './ShoppingCart';
 import ProductList from './ProductList';
 import Checkout from './Checkout';
 import ShoppingCartButton from './ShoppingCartButton';
+import SortProductList from './SortProductList';
 
-class Home extends Component {
+class Home extends Component { // aqui última  diferenças para componente funcional
   constructor(props) {
     super(props);
     this.state = {
@@ -32,6 +33,7 @@ class Home extends Component {
     this.renderCheckoutCallBack = this.renderCheckoutCallBack.bind(this);
     this.goBackCallBack = this.goBackCallBack.bind(this);
     this.loadShoppingCart = this.loadShoppingCart.bind(this);
+    this.sortProductList = this.sortProductList.bind(this);
   }
 
   componentDidMount() {
@@ -78,7 +80,7 @@ class Home extends Component {
     });
   }
 
-  updateCartProduct(productToBeUpdated, operation) {
+  updateCartProduct(productToBeUpdated, operation) { // aqui sugestão de refatoração?
     const { shoppingCartProductList } = this.state;
     const tempState = [...shoppingCartProductList];
     const productId = (productToBeUpdated.site_id === 'MLB'
@@ -104,7 +106,7 @@ class Home extends Component {
     if (shoppingCartProductList.some((prod) => prod.id === product.id)) {
       this.updateCartProduct(product, '+');
     } else {
-      this.setState((prev) => {
+      this.setState((prev) => { // aqui existe outra forma de fazer?
         const stateValue = [...prev.shoppingCartProductList,
           this.addNewProductToCart(product)];
         localStorage.setItem('shoppingCartProductList', JSON.stringify(stateValue));
@@ -120,6 +122,10 @@ class Home extends Component {
       renderDetails: false,
       renderCheckout: false,
     });
+  }
+
+  sortProductList() {
+    return null;
   }
 
   renderDetails(product) {
@@ -153,7 +159,7 @@ class Home extends Component {
       renderCheckout,
     } = this.state;
 
-    if (renderShoppingCart) {
+    if (renderShoppingCart) { // aqui vantagens da navegação por Route
       return (
         <ShoppingCart
           shoppingCartProductList={ shoppingCartProductList }
@@ -208,6 +214,9 @@ class Home extends Component {
         />
         <Categories
           getProductListByCategoryCallBack={ this.getProductListByCategory }
+        />
+        <SortProductList
+          sortProductListCallBack={ this.sortProductList }
         />
         <ProductList
           productList={ productList }
