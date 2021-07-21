@@ -227,6 +227,7 @@ body {
 }
 
 .previous {
+  align-items: start;
   color: black;
   font-size: 35px;
   margin-bottom: 0.5%;
@@ -385,4 +386,43 @@ body {
   margin-left: 20px;
   object-fit: fill;
   width: 100px;
+}
+
+.form-input {
+  list-style: none;
+  margin: 5px;
+  padding: 7px;
+}
+
+.payment {
+  color: rgb(34, 33, 33);
+  font-size: 70px;
+  margin: 20px -5px 0 35px;
+}
+
+.form-button {
+  background-color: gray;
+  border: none;
+  border-radius: 30px;
+  font-size: large;
+  margin: 50px;
+  padding: 10px 25px;
+}
+
+.form-link {
+  color: white;
+  text-decoration: none;
+}
+
+.form-li {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.um {
+  margin: 20px -5px 0 -25px;
+}
+
+.dois {
+  margin: 0 -5px 0 -15px;
 }

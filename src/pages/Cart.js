@@ -178,6 +178,15 @@ class Cart extends Component {
             </div>
           ))}
         </div>
+        <button type="button" className="search-button">
+          <Link
+            to="./checkout"
+            data-testid="checkout-products"
+            className="form-link form-button"
+          >
+            Comprar
+          </Link>
+        </button>
       </div>
     );
   }
