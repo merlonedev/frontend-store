@@ -33,9 +33,9 @@ class Checkout extends Component {
           <h2 className="checkout-text">Revise seus produtos</h2>
           <div>
             <div className="checkout-content-list">
-              {Object.keys(preventDuplicateProducts).map((item, index) => (
+              {Object.keys(preventDuplicateProducts).map((item) => (
                 <div
-                  key={ index }
+                  key={ preventDuplicateProducts[item].id }
                   className="checkout-list-products"
                 >
                   <p className="checkout-title">
@@ -65,8 +65,9 @@ class Checkout extends Component {
           <p className="checkout-total-price">
             Total: R$
             <span>
-              { Object.keys(cartList)
-                .reduce((acc, crr) => cartList.length * cartList[crr].price + acc, 0) }
+              { Object.keys(preventDuplicateProducts)
+                .reduce((acc, crr) => productQuantity(preventDuplicateProducts[crr].id)
+                * preventDuplicateProducts[crr].price + acc, 0).toFixed(2) }
             </span>
           </p>
         </div>
@@ -153,11 +154,6 @@ Checkout.propTypes = {
   cartList: PropTypes.arrayOf(
     PropTypes.object,
   ).isRequired,
-  length: PropTypes.number,
-};
-
-Checkout.defaultProps = {
-  length: 0,
 };
 
 export default Checkout;

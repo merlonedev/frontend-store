@@ -78,17 +78,22 @@ class Home extends React.Component {
           category={ categories }
           categoryAndQuery={ this.categorieAndQuery }
         />
-        <HomeProducts
-          addToCart={ addToCart }
-          quantity={ quantity }
-          homeProducts={ homeProducts }
-        />
-        <Products
-          productList={ productList }
-          addToCart={ addToCart }
-          quantity={ quantity }
-          homeProducts={ homeProducts }
-        />
+        {productList.length > 1
+          ? (
+            <Products
+              productList={ productList }
+              addToCart={ addToCart }
+              quantity={ quantity }
+            />
+          )
+
+          : (
+            <HomeProducts
+              addToCart={ addToCart }
+              quantity={ quantity }
+              homeProducts={ homeProducts }
+            />
+          )}
       </section>
     );
   }

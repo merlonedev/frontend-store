@@ -16,9 +16,11 @@ class App extends React.Component {
     };
     this.removeItem = this.removeItem.bind(this);
     this.addToCart = this.addToCart.bind(this);
+    this.decreaseFromCart = this.decreaseFromCart.bind(this);
     this.loadCartQuantity = this.loadCartQuantity.bind(this);
     this.loadCartProducts = this.loadCartProducts.bind(this);
-    this.localstorageProducts = this.localstorageProducts.bind(this);
+    this.localStorageProducts = this.localStorageProducts.bind(this);
+    this.saveOnLocalStorage = this.saveOnLocalStorage.bind(this);
   }
 
   componentDidMount() {
@@ -27,13 +29,33 @@ class App extends React.Component {
   }
 
   addToCart(item) {
+    const { cartList } = this.state;
+    const cartItems = cartList.filter((cart) => cart.id === item.id);
+    const availableQuantity = item.available_quantity;
+    if (cartItems.length >= availableQuantity) return;
     this.setState((prevState) => ({
       cartList: [...prevState.cartList, item],
       quantity: [...prevState.quantity, item],
     }), () => {
-      const { quantity, cartList } = this.state;
-      localStorage.setItem('quantity', JSON.stringify(quantity));
-      localStorage.setItem('cartProducts', JSON.stringify(cartList));
+      this.saveOnLocalStorage();
+    });
+  }
+
+  saveOnLocalStorage() {
+    const { cartList, quantity } = this.state;
+    localStorage.setItem('quantity', JSON.stringify(quantity));
+    localStorage.setItem('cartProducts', JSON.stringify(cartList));
+  }
+
+  decreaseFromCart(item) {
+    const { cartList } = this.state;
+    const index = cartList.indexOf(item.id);
+    cartList.splice(index, 1).sort();
+    this.setState((prevState) => ({
+      ...prevState.cartList,
+      quantity: prevState.cartList,
+    }), () => {
+      this.saveOnLocalStorage();
     });
   }
 
@@ -54,7 +76,7 @@ class App extends React.Component {
     this.setState({ cartList });
   }
 
-  localstorageProducts(item) {
+  localStorageProducts(item) {
     const { id } = item;
     const { cartList, quantity } = this.state;
     const productQuantity = (productId) => (
@@ -66,11 +88,13 @@ class App extends React.Component {
     ));
     const cartProducts = cartList.findIndex((cart) => cart.id === id);
     const length = -1;
+
     if (cartProducts !== length) {
       cartList.splice(cartProducts, quantityObj[0].length);
       localStorage.setItem('cartProducts', JSON.stringify(cartList));
     }
     const cartQuantity = quantity.findIndex((quant) => quant.id === id);
+
     if (cartQuantity !== length) {
       quantity.splice(cartQuantity, quantityObj[0].length);
       localStorage.setItem('quantity', JSON.stringify(quantity));
@@ -84,7 +108,7 @@ class App extends React.Component {
       const filtro = cartList.filter((cartItem) => cartItem.id !== id);
       return { cartList: filtro };
     });
-    this.localstorageProducts(item);
+    this.localStorageProducts(item);
   }
 
   render() {
@@ -99,8 +123,10 @@ class App extends React.Component {
             render={ (props) => (<CartBasket
               { ...props }
               cartList={ cartList }
-              removeItem={ this.removeItem }
               quantity={ quantity }
+              removeItem={ this.removeItem }
+              addToCart={ this.addToCart }
+              decreaseFromCart={ this.decreaseFromCart }
             />) }
           />
           <Route

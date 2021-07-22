@@ -5,7 +5,7 @@ import '../styles/cartItems.css';
 
 class CartItems extends Component {
   render() {
-    const { cartList, removeItem } = this.props;
+    const { cartList, removeItem, addToCart, decreaseFromCart } = this.props;
 
     const productQuantity = (productId) => (
       Object.keys(cartList)
@@ -14,6 +14,7 @@ class CartItems extends Component {
 
     const preventDuplicateProducts = cartList
       .filter((v, i, a) => a.findIndex((t) => (t.id === v.id)) === i);
+
     return (
       <div>
         <h2 className="cart-items-text">
@@ -27,6 +28,10 @@ class CartItems extends Component {
                 removeItem={ removeItem }
                 productQuantity={
                   productQuantity(preventDuplicateProducts[item].id)
+                }
+                addToCart={ () => addToCart(preventDuplicateProducts[item]) }
+                decreaseFromCart={
+                  () => decreaseFromCart(preventDuplicateProducts[item])
                 }
               />
             </div>
@@ -42,6 +47,8 @@ CartItems.propTypes = {
     PropTypes.object,
   ).isRequired,
   removeItem: PropTypes.func.isRequired,
+  addToCart: PropTypes.func.isRequired,
+  decreaseFromCart: PropTypes.func.isRequired,
 };
 
 export default CartItems;

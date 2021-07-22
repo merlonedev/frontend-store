@@ -7,7 +7,13 @@ import '../styles/cartBasket.css';
 
 class CartBasket extends Component {
   render() {
-    const { cartList, removeItem, quantity } = this.props;
+    const {
+      cartList,
+      removeItem,
+      quantity,
+      addToCart,
+      decreaseFromCart,
+    } = this.props;
     if (cartList.length === 0) {
       return (
         <main>
@@ -31,7 +37,12 @@ class CartBasket extends Component {
         </div>
         <Link to="/">Página Inicial</Link>
         <div className="cart-basket-content">
-          <CartItems cartList={ cartList } removeItem={ removeItem } />
+          <CartItems
+            addToCart={ addToCart }
+            decreaseFromCart={ decreaseFromCart }
+            cartList={ cartList }
+            removeItem={ removeItem }
+          />
           <Link
             className="cart-basket-link"
             to="/checkout"
@@ -55,6 +66,8 @@ CartBasket.propTypes = {
     PropTypes.object,
   ).isRequired,
   removeItem: PropTypes.func.isRequired,
+  addToCart: PropTypes.func.isRequired,
+  decreaseFromCart: PropTypes.func.isRequired,
   quantity: PropTypes.arrayOf(
     PropTypes.object,
   ).isRequired,

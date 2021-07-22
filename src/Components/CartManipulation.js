@@ -4,37 +4,15 @@ import { MdDelete, MdAdd, MdRemove } from 'react-icons/md';
 import '../styles/cartManipulation.css';
 
 class CartManipulation extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      productQuantity: 1,
-    };
-    this.addQuantity = this.addQuantity.bind(this);
-    this.decreaseQuantity = this.decreaseQuantity.bind(this);
-  }
-
-  shouldComponentUpdate(_nextProps, nextState) {
-    const { item } = this.props;
-    const availableQuantity = item.available_quantity;
-    const { productQuantity } = nextState;
-    if (availableQuantity >= productQuantity && productQuantity > 0) return true;
-    return false;
-  }
-
-  addQuantity(quantity) {
-    this.setState({
-      productQuantity: quantity + 1,
-    });
-  }
-
-  decreaseQuantity(quantity) {
-    this.setState({
-      productQuantity: quantity - 1,
-    });
-  }
-
   render() {
-    const { item, removeItem, item: { price }, productQuantity } = this.props;
+    const {
+      item,
+      removeItem,
+      item: { price },
+      productQuantity,
+      addToCart,
+      decreaseFromCart,
+    } = this.props;
 
     return (
       <section className="cart-manipulation">
@@ -57,8 +35,6 @@ class CartManipulation extends React.Component {
               data-testid="shopping-cart-product-quantity"
               className="cart-manipulation-quantity"
             >
-              Quantidade:
-              {' '}
               { productQuantity }
             </p>
             <button
@@ -71,7 +47,7 @@ class CartManipulation extends React.Component {
             <button
               type="button"
               data-testid="product-increase-quantity"
-              onClick={ () => this.addQuantity(productQuantity) }
+              onClick={ () => addToCart(item) }
               className="cart-manipulation-add-btn"
             >
               <MdAdd size={ 20 } />
@@ -79,8 +55,8 @@ class CartManipulation extends React.Component {
             <button
               type="button"
               data-testid="product-decrease-quantity"
-              onClick={ () => this.decreaseQuantity(productQuantity) }
               className="cart-manipulation-decrease-btn"
+              onClick={ () => decreaseFromCart(item) }
             >
               <MdRemove size={ 20 } />
             </button>
@@ -107,6 +83,8 @@ CartManipulation.propTypes = {
     available_quantity: PropTypes.number,
   }).isRequired,
   productQuantity: PropTypes.number.isRequired,
+  addToCart: PropTypes.func.isRequired,
+  decreaseFromCart: PropTypes.func.isRequired,
   removeItem: PropTypes.func.isRequired,
 };
 
