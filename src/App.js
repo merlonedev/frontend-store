@@ -8,7 +8,7 @@ import ShoppingCart from './Components/ShoppingCart';
 import SearchBar from './Components/SearchBar';
 import InicialMessage from './Components/InicialMessage';
 import ProductDetail from './Components/ProductDetail';
-// 1
+// 12
 class App extends React.Component {
   constructor(props) {
     super(props);
