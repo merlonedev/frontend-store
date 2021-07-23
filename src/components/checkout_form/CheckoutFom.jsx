@@ -103,7 +103,7 @@ class CheckoutForm extends Component {
           <SelectStates
             name="state"
             value={ state }
-            onChange={ this.handleChange }
+            onChange={ ({ target }) => this.handleChange(target) }
           />
         </fieldset>
         <fieldset className="payments">
