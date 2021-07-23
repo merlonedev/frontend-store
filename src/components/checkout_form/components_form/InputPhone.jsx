@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import '../../../css/inputCheckout.css';
 
 class InputPhone extends Component {
   constructor(props) {

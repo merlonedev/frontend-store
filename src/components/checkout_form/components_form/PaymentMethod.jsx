@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import '../../../css/paymentsMethods.css';
 
 class PaymentMethod extends Component {
   constructor(props) {
