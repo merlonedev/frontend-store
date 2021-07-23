@@ -1,25 +1,28 @@
 .home {
   display: grid;
-  grid-template-columns: 1fr 3fr;
-  grid-template-rows: 20vh 70vh 10vh;
+  grid-gap: 5px;
+  grid-template: 20vh 70vh 10vh/1fr 4fr;
+  grid-template-areas: 'header header''aside main''footer footer';
+  max-height: 100vh;
 }
 
-.navbar {
+.header-home {
   align-items: center;
   background-color: whitesmoke;
-  box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.2);
-  display: flex;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+  display: grid;
+  grid-area: header;
+  grid-template-columns: 1fr 2fr 1fr;
   justify-content: space-between;
-  padding: 0 10px;
 }
 
-.nav-title {
+.header-title {
   color: rgb(240, 160, 11);
   font-size: 1.3rem;
   font-weight: 700;
 }
 
-.nav-input {
+.header-input {
   border: none;
   border-bottom: 1px solid #757575;
   border-radius: 10px;
@@ -28,7 +31,7 @@
   width: 200px;
 }
 
-.nav-btn {
+.header-btn {
   background-color: white;
   border: none;
   border-bottom: 1px solid #757575;
@@ -41,29 +44,29 @@
   padding: 10px;
 }
 
-.nav-input:focus, .nav-btn:focus {
+.header-input:focus, .header-btn:focus {
   outline: none;
 }
 
-.nav-btn:hover, .nav-input:hover {
+.header-btn:hover, .header-input:hover {
   transform: scale(1.03);
 }
 
-.nav-form {
+.header-form {
   align-items: center;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  max-width: 500px;
 }
 
-.nav-form label input {
+.header-form label input {
   margin-right: 10px;
 }
 
 .link-cart {
   color: rgb(15, 15, 15);
-  margin-right: 35px;
+  justify-self: end;
+  padding-right: 10px;
 }
 
 .categories-bar {
@@ -71,10 +74,9 @@
   border-radius: 10px;
   display: flex;
   flex-direction: column;
-  max-height: 80vh;
-  min-width: 20vw;
+  grid-area: aside;
   overflow-y: auto;
-  padding: 10px;
+  padding-left: 10px;
 }
 
 .categories-bar::-webkit-scrollbar {
@@ -110,24 +112,33 @@
   list-style: none;
 }
 
-.product-list {
+.main-home {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  grid-area: main;
+  justify-content: baseline;
   overflow: auto;
-  padding-top: 112px;
 }
 
-.product-list::-webkit-scrollbar {
+.main-home::-webkit-scrollbar {
   width: 20px;
 }
 
-.product-list::-webkit-scrollbar-track {
+.main-home::-webkit-scrollbar-track {
   background-color: whitesmoke;
   border-radius: 100px;
 }
 
-.product-list::-webkit-scrollbar-thumb {
+.main-home::-webkit-scrollbar-thumb {
   background-color: #cecece;
   border-radius: 15px;
+}
+
+.footer-home {
+  align-items: center;
+  background-color: whitesmoke;
+  border-top: 2px solid rgba(0, 0, 0, 0.2);
+  display: flex;
+  grid-area: footer;
+  justify-content: center;
 }
