@@ -127,7 +127,7 @@ class ListItems extends React.Component {
 
     return (
       <div className="home">
-        <nav className="navbar">
+        <header className="navbar">
           <span className="nav-title">Mufasa Commerce</span>
           <form className="nav-form">
             <label htmlFor="search-bar">
@@ -157,20 +157,21 @@ class ListItems extends React.Component {
           <Link to="/cart" className="link-cart" data-testid="shopping-cart-button">
             <CartIcon amount={ amountCart } />
           </Link>
-        </nav>
-        <section className="main">
-          <CategoriesFilter
-            categories={ categories }
-            onChange={ this.handleChangeCategory }
-          />
-          <div className="product-list">
-            {
-              loading
-                ? <Loading />
-                : this.renderItems()
-            }
-          </div>
-        </section>
+        </header>
+
+        <CategoriesFilter
+          categories={ categories }
+          onChange={ this.handleChangeCategory }
+        />
+
+        <main className="product-list">
+          {
+            loading
+              ? <Loading />
+              : this.renderItems()
+          }
+        </main>
+        <footer>Grupo Mufasa</footer>
       </div>
     );
   }
