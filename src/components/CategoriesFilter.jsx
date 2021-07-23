@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import '../css/categoriesFilter.css';
 
 class CategoriesFilter extends React.Component {
   render() {
