@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import '../css/form.css';
 import StarRatings from 'react-star-ratings';
 
 class Form extends Component {
