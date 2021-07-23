@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import states from './optionsStates';
-import '../../../css/inputCheckout.css';
 
 class SelectStates extends Component {
   constructor(props) {

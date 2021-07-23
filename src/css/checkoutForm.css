@@ -45,3 +45,74 @@
   font-weight: 600;
   margin-left: 4px;
 }
+
+.input-cep {
+  border-radius: 6px;
+  margin: 4px;
+  padding: 4px;
+  width: 100px;
+}
+
+.input-cpf {
+  border-radius: 6px;
+  margin: 4px;
+  padding: 4px;
+  width: 100px;
+}
+
+.input-checkout {
+  border-radius: 6px;
+  margin: 4px;
+  padding: 4px;
+  width: 200px;
+}
+
+.input-city {
+  border-radius: 6px;
+  margin: 4px;
+  padding: 4px;
+  width: 100px;
+}
+
+.input-number {
+  border-radius: 6px;
+  margin: 4px;
+  padding: 4px;
+  width: 100px;
+}
+
+.input-phone {
+  border-radius: 6px;
+  margin: 4px;
+  padding: 4px;
+  width: 100px;
+}
+
+.input-select {
+  border-radius: 6px;
+  margin: 4px;
+  padding: 3px;
+  width: 100px;
+}
+
+.card-method {
+  margin: 4px 0;
+}
+
+.card-method input {
+  margin: 0 6px 0 18px;
+}
+
+.methods-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.ticket-method {
+  margin: 4px 0;
+}
+
+.ticket-method input {
+  margin-right: 6px;
+}
