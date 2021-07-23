@@ -14,7 +14,7 @@ class InputAddress extends Component {
 
   addressCheck({ target }) {
     const { onChange } = this.props;
-    const check = target.value.match(/(\s|[a-záãéêíóôõúç\d]|'){0,200}/gi)[0];
+    const check = target.value.match(/(\s|[a-záãéêíóôõúç\d,]|'){0,200}/gi)[0];
     target.value = check;
     onChange(target);
   }
