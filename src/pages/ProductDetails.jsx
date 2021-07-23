@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import CartIcon from '../components/CartIcon';
 import Form from '../components/Form';
 import * as api from '../services/api';
+import '../css/productDetails.css';
 
 class ProductDetails extends React.Component {
   constructor() {
@@ -40,21 +41,26 @@ class ProductDetails extends React.Component {
     const { addToCartItems } = this.props;
     return (
       <div>
-        <Link to="/"><TiArrowBack /></Link>
-        <Link to="/cart" data-testid="shopping-cart-button">
-          <CartIcon amount={ amountCart } />
-        </Link>
-        <h2 data-testid="product-detail-name">
-          { `${title} - ${(price || 0).toLocaleString('pt-BR', {
-            minimumFractionDigits: 2, style: 'currency', currency: 'BRL' })}` }
-        </h2>
-        <div>
+        <div className="header-details">
+          <Link to="/"><TiArrowBack /></Link>
+          <Link to="/cart" data-testid="shopping-cart-button" className="header-title">
+            <CartIcon amount={ amountCart } />
+          </Link>
+        </div>
+        <div className="product-info">
+          <h2 data-testid="product-detail-name">
+            { `${title} - `}
+            <span className="product-price">
+              {` ${(price || 0).toLocaleString('pt-BR', {
+                minimumFractionDigits: 2, style: 'currency', currency: 'BRL' })}` }
+            </span>
+          </h2>
           <img
             src={ thumbnail ? thumbnail.replace('I.jpg', 'O.jpg')
               : '../images/imagem-indisponivel.jpg' }
             alt={ title }
           />
-          <div>
+          <div className="tec-infos">
             <h3>Especificações Técnicas</h3>
             <ul>
               { (attributes || []).map(({ id, name, value_name: value }) => (
@@ -65,15 +71,15 @@ class ProductDetails extends React.Component {
               )) }
             </ul>
           </div>
-        </div>
-        <div>
-          <button
-            data-testid="product-detail-add-to-cart"
-            type="button"
-            onClick={ () => addToCartItems(product) }
-          >
-            Adicionar ao carrinho
-          </button>
+          <div>
+            <button
+              data-testid="product-detail-add-to-cart"
+              type="button"
+              onClick={ () => addToCartItems(product) }
+            >
+              Adicionar ao carrinho
+            </button>
+          </div>
         </div>
         <div />
         <Form />

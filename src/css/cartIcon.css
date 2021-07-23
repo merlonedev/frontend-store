@@ -1,5 +1,6 @@
 .icon-cart {
   display: flex;
+  justify-content: center;
 }
 
 .ico-cart {

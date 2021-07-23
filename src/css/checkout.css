@@ -1,0 +1,30 @@
+.checkout {
+  margin: 0;
+}
+
+.goBack-checkout {
+  align-items: center;
+  color: rgb(4, 41, 255);
+  display: flex;
+  transition: transform 0.2s;
+}
+
+.goBack-checkout:hover {
+  transform: translateX(-6px);
+}
+
+.goBack-checkout svg {
+  font-size: 20px;
+}
+
+.header-checkout {
+  background-color: whitesmoke;
+  display: flex;
+  margin: 0;
+  padding: 16px;
+  width: 100vw;
+}
+
+.header-checkout h1 {
+  margin-left: 440px;
+}

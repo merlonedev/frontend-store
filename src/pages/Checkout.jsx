@@ -4,19 +4,27 @@ import { TiArrowBack } from 'react-icons/ti';
 import PropTypes from 'prop-types';
 import InfoCartCheckout from '../components/InfoCartCheckout';
 import CheckoutForm from '../components/checkout_form/CheckoutFom';
-import CartIcon from '../components/CartIcon';
+import '../css/checkout.css';
 
 class Checkout extends Component {
   render() {
     const { cartItems, amountCart } = this.props;
     return (
-      <div>
-        <h1>Checkout</h1>
-        <Link className="goBack-checkout" to="/cart"><TiArrowBack /></Link>
-        <Link to="/cart" data-testid="shopping-cart-button">
-          <CartIcon amount={ amountCart } />
-        </Link>
-        <InfoCartCheckout cartItems={ cartItems } />
+      <div className="checkout">
+        <header className="header-checkout">
+          <Link
+            className="goBack-checkout"
+            to="/cart"
+          >
+            <TiArrowBack />
+            Voltar ao Carrinho
+          </Link>
+          <h1>Checkout</h1>
+        </header>
+        <InfoCartCheckout
+          cartItems={ cartItems }
+          cartQty={ amountCart }
+        />
         <CheckoutForm />
       </div>
     );

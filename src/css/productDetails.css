@@ -1,0 +1,81 @@
+body {
+  background-color: rgb(228, 224, 224);
+}
+
+.header-details {
+  align-items: center;
+  background-color: whitesmoke;
+  display: flex;
+  margin-bottom: 8px;
+  padding: 8px;
+}
+
+.header-details i {
+  color: rgb(15, 15, 15);
+}
+
+.header-details svg {
+  color: rgb(4, 41, 255);
+  font-size: 26px;
+  margin-left: 8px;
+  transition: transform 0.2s;
+}
+
+.header-details svg:hover {
+  transform: translateX(-6px);
+}
+
+.header-title {
+  margin: 0 auto;
+}
+
+.product-info {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.product-info h2 {
+  font-size: 22px;
+}
+
+.product-info img {
+  height: 320px;
+  margin: 8px 0;
+  margin-left: 12px;
+  padding: 20px;
+  width: 320px;
+}
+
+.tec-infos {
+  text-align: center;
+}
+
+.tec-infos li {
+  list-style: none;
+  margin: 4px 0;
+}
+
+.product-info button {
+  background-color: rgb(240, 160, 11);
+  border: 1px solid rgb(240, 160, 11);
+  border-radius: 4px;
+  color: rgb(253, 253, 253);
+  cursor: pointer;
+  font-size: 16px;
+  margin: 8px 0;
+  padding: 6px;
+  transition: background-color 0.2s;
+}
+
+.product-info button:hover {
+  background-color: rgb(221, 147, 35);
+}
+
+.product-info button:active {
+  transform: scale(0.98);
+}
+
+.product-price {
+  color: rgb(18, 153, 18);
+}

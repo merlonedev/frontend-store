@@ -1,26 +1,27 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-class InputAddress extends Component {
+class InputEmail extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isOk: '',
     };
-    this.addressCheck = this.addressCheck.bind(this);
+    this.emailCheck = this.emailCheck.bind(this);
     this.isValid = this.isValid.bind(this);
   }
 
-  addressCheck({ target }) {
+  emailCheck({ target }) {
     const { onChange } = this.props;
-    const check = target.value.match(/(\s|[a-záãéêíóôõúç\d]|'){0,200}/gi)[0];
-    target.value = check;
+    const check = target.value.match(/(\w|\d|\.|@|-){0,50}/gi)[0];
+    target.value = check.toLowerCase();
     onChange(target);
   }
 
   isValid({ target: { value } }) {
-    const length = 5;
-    if (value.length > length) {
+    const length = 7;
+    const check = /\b[a-z]+(\.|-|\w|\d)*?@[a-z]+\.[a-z]{2,3}(\.br)?$/i.test(value);
+    if (check && value.length > length) {
       return this.setState({ isOk: 'yes' });
     }
     return this.setState({ isOk: 'not' });
@@ -34,36 +35,36 @@ class InputAddress extends Component {
       color = isOk === 'yes' ? 'lime' : 'red';
     }
     return (
-      <label htmlFor="input-address">
+      <label htmlFor="input-email">
         <input
           style={ { border: `2px solid ${color}` } }
           name={ name }
-          className="input-address"
-          id="input-address"
+          className="input-checkout"
+          id="input-email"
           value={ value }
           type="text"
-          placeholder="Endereço"
+          placeholder="Email"
           onChange={ (e) => {
-            this.addressCheck(e);
+            this.emailCheck(e);
           } }
           onBlur={ (e) => {
             this.isValid(e);
           } }
-          data-testid="checkout-address"
+          data-testid="checkout-email"
         />
       </label>
     );
   }
 }
 
-InputAddress.propTypes = {
+InputEmail.propTypes = {
   name: PropTypes.string.isRequired,
   value: PropTypes.string,
   onChange: PropTypes.func.isRequired,
 };
 
-InputAddress.defaultProps = {
+InputEmail.defaultProps = {
   value: '',
 };
 
-export default InputAddress;
+export default InputEmail;
