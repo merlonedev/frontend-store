@@ -19,7 +19,6 @@ class CartItems extends React.Component {
     this.totalCartCalculator = this.totalCartCalculator.bind(this);
     this.sumOfItens = this.sumOfItens.bind(this);
     this.subOfItens = this.subOfItens.bind(this);
-    this.cartInfos = [];
   }
 
   componentDidMount() {
@@ -50,11 +49,11 @@ class CartItems extends React.Component {
       });
     }
     this.setState({
-      ...setItemCart.reduce((newState, state) => {
-        newState.cartItems = [...newState.cartItems, state];
-        newState.totalItems += state.count;
-        newState.total += state.product.price * (state.count - 1);
-        return newState;
+      ...setItemCart.reduce((newStates, state) => {
+        newStates.cartItems = [...newStates.cartItems, state];
+        newStates.totalItems += state.count;
+        newStates.total += state.product.price * (state.count - 1);
+        return newStates;
       }, { cartItems: [], totalItems: 0, total: 0 }),
     });
   }
