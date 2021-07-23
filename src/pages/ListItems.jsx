@@ -127,12 +127,12 @@ class ListItems extends React.Component {
 
     return (
       <div className="home">
-        <header className="navbar">
-          <span className="nav-title">Mufasa Commerce</span>
-          <form className="nav-form">
+        <header className="header-home">
+          <span className="header-title">Mufasa Commerce</span>
+          <form className="header-form">
             <label htmlFor="search-bar">
               <input
-                className="nav-input"
+                className="header-input"
                 id="search-bar"
                 type="text"
                 data-testid="query-input"
@@ -142,7 +142,7 @@ class ListItems extends React.Component {
                 placeholder="Procure seu produto..."
               />
               <button
-                className="nav-btn"
+                className="header-btn"
                 type="submit"
                 data-testid="query-button"
                 onClick={ this.handleClick }
@@ -164,14 +164,14 @@ class ListItems extends React.Component {
           onChange={ this.handleChangeCategory }
         />
 
-        <main className="product-list">
+        <main className="main-home">
           {
             loading
               ? <Loading />
               : this.renderItems()
           }
         </main>
-        <footer>Grupo Mufasa</footer>
+        <footer className="footer-home">Grupo Mufasa</footer>
       </div>
     );
   }
