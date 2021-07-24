@@ -12,7 +12,7 @@ class CartButton extends Component {
       <section className="cart-button">
         <div className="cart-icon">
           <Link to="/cart-basket" data-testid="shopping-cart-button">
-            <AiOutlineShoppingCart size={ 50 } color="white" />
+            <AiOutlineShoppingCart size={ 40 } color="white" />
           </Link>
         </div>
         <p

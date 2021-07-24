@@ -6,6 +6,7 @@ import CartButton from '../Components/CartButton';
 import Category from '../Components/Category';
 import SearchInput from '../Components/SearchInput';
 import '../styles/home.css';
+import HomeProducts from '../Components/HomeProducts';
 
 class Home extends React.Component {
   constructor() {
@@ -14,19 +15,31 @@ class Home extends React.Component {
       search: '',
       productList: [],
       categories: [],
+      homeProducts: [],
     };
     this.inputList = this.inputList.bind(this);
     this.categorieAndQuery = this.categorieAndQuery.bind(this);
     this.getCategory = this.getCategory.bind(this);
+    this.getHomeProducts = this.getHomeProducts.bind(this);
   }
 
   componentDidMount() {
     this.getCategory();
+    this.getHomeProducts();
   }
 
   async getCategory() {
     const category = await api.getCategories();
     this.setState({ categories: category });
+  }
+
+  async getHomeProducts(id = 'MLB1648') {
+    const data = await
+    fetch(`https://api.mercadolibre.com/sites/MLB/search?category=${id}&limit=8`)
+      .then((response) => response.json())
+      .then((response) => this.setState({ homeProducts: response.results }));
+
+    return data;
   }
 
   inputList({ target }) {
@@ -46,7 +59,7 @@ class Home extends React.Component {
 
   render() {
     const { addToCart, quantity } = this.props;
-    const { productList, categories } = this.state;
+    const { productList, categories, homeProducts } = this.state;
     return (
       <section>
         <header>
@@ -61,16 +74,20 @@ class Home extends React.Component {
             />
           </div>
         </header>
-        <div className="product-list-home">
-          <Products
-            productList={ productList }
-            addToCart={ addToCart }
-            quantity={ quantity }
-          />
-        </div>
         <Category
           category={ categories }
           categoryAndQuery={ this.categorieAndQuery }
+        />
+        <HomeProducts
+          addToCart={ addToCart }
+          quantity={ quantity }
+          homeProducts={ homeProducts }
+        />
+        <Products
+          productList={ productList }
+          addToCart={ addToCart }
+          quantity={ quantity }
+          homeProducts={ homeProducts }
         />
       </section>
     );

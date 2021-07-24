@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { MdDelete, MdAdd, MdRemove } from 'react-icons/md';
+import '../styles/cartManipulation.css';
 
 class CartManipulation extends React.Component {
   constructor() {
@@ -8,7 +10,7 @@ class CartManipulation extends React.Component {
       productQuantity: 1,
     };
     this.addQuantity = this.addQuantity.bind(this);
-    this.retireQuantity = this.retireQuantity.bind(this);
+    this.decreaseQuantity = this.decreaseQuantity.bind(this);
   }
 
   shouldComponentUpdate(_nextProps, nextState) {
@@ -25,7 +27,7 @@ class CartManipulation extends React.Component {
     });
   }
 
-  retireQuantity(quantity) {
+  decreaseQuantity(quantity) {
     this.setState({
       productQuantity: quantity - 1,
     });
@@ -33,35 +35,63 @@ class CartManipulation extends React.Component {
 
   render() {
     const { item, removeItem, item: { price } } = this.props;
-    console.log(item);
     const { productQuantity } = this.state;
     return (
-      <section>
-        <div key={ item.id }>
-          <h1 data-testid="shopping-cart-product-name">{ item.title }</h1>
-          <p data-testid="shopping-cart-product-quantity">{ productQuantity }</p>
-          <button type="button" onClick={ () => removeItem(item) }>
-            X
-          </button>
-          <button
-            type="button"
-            data-testid="product-increase-quantity"
-            onClick={ () => this.addQuantity(productQuantity) }
+      <section className="cart-manipulation">
+        <div key={ item.id } className="cart-manipulation-content">
+          <img
+            src={ item.thumbnail }
+            alt="Foto do produto"
+            className="cart-manipulation-img"
+          />
+          <h1
+            data-testid="shopping-cart-product-name"
+            className="cart-manipulation-title"
           >
-            +
-          </button>
-          <button
-            type="button"
-            data-testid="product-decrease-quantity"
-            onClick={ () => this.retireQuantity(productQuantity) }
-          >
-            -
-          </button>
-          <p>
-            {
-              (`R$ ${productQuantity * price}`)
-            }
-          </p>
+            Produto:
+            {' '}
+            { item.title }
+          </h1>
+          <div className="cart-manipulation-div02">
+            <p
+              data-testid="shopping-cart-product-quantity"
+              className="cart-manipulation-quantity"
+            >
+              Quantidade:
+              {' '}
+              { productQuantity }
+            </p>
+            <button
+              type="button"
+              onClick={ () => removeItem(item) }
+              className="cart-manipulation-remove-btn"
+            >
+              <MdDelete size={ 20 } />
+            </button>
+            <button
+              type="button"
+              data-testid="product-increase-quantity"
+              onClick={ () => this.addQuantity(productQuantity) }
+              className="cart-manipulation-add-btn"
+            >
+              <MdAdd size={ 20 } />
+            </button>
+            <button
+              type="button"
+              data-testid="product-decrease-quantity"
+              onClick={ () => this.decreaseQuantity(productQuantity) }
+              className="cart-manipulation-decrease-btn"
+            >
+              <MdRemove size={ 20 } />
+            </button>
+            <p className="cart-manipulation-price">
+              Preço total:
+              {' '}
+              {
+                (`R$ ${productQuantity * price}`)
+              }
+            </p>
+          </div>
         </div>
       </section>
     );
@@ -69,8 +99,12 @@ class CartManipulation extends React.Component {
 }
 
 CartManipulation.propTypes = {
-  item: PropTypes.objectOf({
-    price: PropTypes.number.isRequired,
+  item: PropTypes.shape({
+    id: PropTypes.string,
+    thumbnail: PropTypes.string,
+    title: PropTypes.string,
+    price: PropTypes.number,
+    available_quantity: PropTypes.number,
   }).isRequired,
   removeItem: PropTypes.func.isRequired,
 };

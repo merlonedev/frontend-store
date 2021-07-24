@@ -6,7 +6,7 @@ class Category extends Component {
   render() {
     const { category, categoryAndQuery } = this.props;
     return (
-      <div className="category-content">
+      <aside className="category-content">
         <h4>Categorias:</h4>
         <ul className="category-ul">
           {
@@ -25,7 +25,7 @@ class Category extends Component {
             ))
           }
         </ul>
-      </div>
+      </aside>
     );
   }
 }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { MdLocalShipping } from 'react-icons/md';
 import '../styles/productCard.css';
 
 class Cardproduct extends Component {
@@ -25,7 +26,20 @@ class Cardproduct extends Component {
             {' '}
             { price }
           </p>
-          { shipping.free_shipping && <p data-testid="free-shipping">Frete Grátis</p> }
+          { shipping.free_shipping
+            && (
+              <p
+                className="card-product-shipping"
+                data-testid="free-shipping"
+              >
+                <MdLocalShipping
+                  style={ { marginBottom: -2, marginRight: 5 } }
+                  size={ 14 }
+                  color="#ff9000"
+                />
+                Frete Grátis
+              </p>
+            )}
           <Link
             to={ `/product-details/${categoryId}/${id}` }
             data-testid="product-detail-link"
@@ -38,6 +52,7 @@ class Cardproduct extends Component {
           type="button"
           onClick={ () => addToCart(product) }
           data-testid="product-add-to-cart"
+          className="product-card-btn"
         >
           Adicionar ao Carrinho
         </button>
@@ -47,18 +62,22 @@ class Cardproduct extends Component {
 }
 
 Cardproduct.propTypes = {
-  product: PropTypes.oneOfType(
+  product: PropTypes.arrayOf(
     PropTypes.object,
-  ).isRequired,
+  ),
   title: PropTypes.string.isRequired,
   img: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
   id: PropTypes.string.isRequired,
   categoryId: PropTypes.string.isRequired,
   addToCart: PropTypes.func.isRequired,
-  shipping: PropTypes.objectOf({
-    free_shipping: PropTypes.bool.isRequired,
+  shipping: PropTypes.shape({
+    free_shipping: PropTypes.bool,
   }).isRequired,
+};
+
+Cardproduct.defaultProps = {
+  product: [{}],
 };
 
 export default Cardproduct;

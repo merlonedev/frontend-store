@@ -1,19 +1,18 @@
 .card-product {
-  padding: 20px 80px;
-  transition: all 0.2s ease-in-out;
-}
-
-.card-product:hover {
-  cursor: pointer;
-  transform: scale(1.05);
+  margin: 20px 80px;
 }
 
 .card-product-content {
   background-color: white;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  border-radius: 10px;
+  min-height: 360px;
   padding: 20px;
+  transition: all 0.2s ease-in-out;
   width: 200px;
+}
+
+.card-product-content:hover {
+  transform: scale(1.05);
 }
 
 .card-product-img {
@@ -21,9 +20,16 @@
 }
 
 .card-product-title {
+  display: block;
   font-size: 14px;
   font-weight: 500;
+  height: 105px;
+
+  /* https://stackoverflow.com/questions/36652580/
+  how-to-add-three-dots-to-text-when-overflow-in-html/36653821 */
+  overflow: hidden;
   text-align: center;
+  width: 200px;
 }
 
 .card-product-price {
@@ -33,9 +39,31 @@
   text-align: center;
 }
 
+.card-product-shipping {
+  font-weight: 500;
+  margin-top: 10px;
+  text-align: center;
+}
+
 .card-product-details {
+  color: #ff9000;
   display: flex;
+  font-weight: 600;
   justify-content: center;
   padding-top: 20px;
-  text-decoration: none;
+}
+
+.product-card-btn {
+  background-color: #ff9000;
+  border: none;
+  border-radius: 10px;
+  font-weight: 500;
+  margin-top: 10px;
+  padding: 10px 20px;
+  width: 240px;
+}
+
+.product-card-btn:hover {
+  background-color: #ffa733;
+  cursor: pointer;
 }
