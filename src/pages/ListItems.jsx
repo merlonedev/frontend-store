@@ -6,6 +6,7 @@ import ProductCard from '../components/ProductCard';
 import CategoriesFilter from '../components/CategoriesFilter';
 import Loading from '../components/Loading';
 import * as api from '../services/api';
+import mufasa from '../images/mufasa.gif';
 import '../css/listItens.css';
 
 class ListItems extends React.Component {
@@ -18,11 +19,13 @@ class ListItems extends React.Component {
       categories: [],
       categoryId: '',
       loading: false,
+      drop: false,
     };
 
     this.handleChangeSearch = this.handleChangeSearch.bind(this);
     this.handleChangeCategory = this.handleChangeCategory.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.handleCategoriesMenu = this.handleCategoriesMenu.bind(this);
     this.filterProductsForCategory = this.filterProductsForCategory.bind(this);
     this.searchProducts = this.searchProducts.bind(this);
     this.fetchCategories = this.fetchCategories.bind(this);
@@ -48,6 +51,10 @@ class ListItems extends React.Component {
   handleClick(event) {
     event.preventDefault();
     this.searchProducts();
+  }
+
+  handleCategoriesMenu({ target: { checked } }) {
+    this.setState({ drop: checked });
   }
 
   async filterProductsForCategory() {
@@ -121,6 +128,7 @@ class ListItems extends React.Component {
       search,
       categories,
       loading,
+      drop,
     } = this.state;
 
     const { amountCart } = this.props;
@@ -128,7 +136,10 @@ class ListItems extends React.Component {
     return (
       <div className="home">
         <header className="header-home">
-          <span className="header-title">Mufasa Commerce</span>
+          <span className="header-title">
+            <img className="logo-mufasa" src={ mufasa } alt="mufasa-gif" />
+            Mufasa Commerce
+          </span>
           <form className="header-form">
             <label htmlFor="search-bar">
               <input
@@ -158,19 +169,43 @@ class ListItems extends React.Component {
             <CartIcon amount={ amountCart } />
           </Link>
         </header>
+        <aside className="aside-home">
+          <label
+            className={ drop ? 'drop-checked' : 'drop-unchecked' }
+            htmlFor="drop-category"
+          >
+            <input
+              onChange={ this.handleCategoriesMenu }
+              type="checkbox"
+              id="drop-category"
+            />
+            <span>
+              <i className="bi bi-shop" />
+              {' Categorias'}
+            </span>
+          </label>
+          <div
+            className={ drop ? 'categories-checked' : 'categories-unchecked' }
+          >
+            <CategoriesFilter
+              categories={ categories }
+              onChange={ this.handleChangeCategory }
+            />
+          </div>
+        </aside>
 
-        <CategoriesFilter
-          categories={ categories }
-          onChange={ this.handleChangeCategory }
-        />
+        {
+          loading
+            ? <Loading />
+            : (
+              <main
+                className="main-home"
+              >
+                {this.renderItems()}
 
-        <main className="main-home">
-          {
-            loading
-              ? <Loading />
-              : this.renderItems()
-          }
-        </main>
+              </main>
+            )
+        }
         <footer className="footer-home">Grupo Mufasa</footer>
       </div>
     );
