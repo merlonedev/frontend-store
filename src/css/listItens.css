@@ -248,8 +248,8 @@
   }
 
   .header-form {
-    align-items: center;
     grid-area: formQuery;
+    grid-gap: 0 10px;
     margin: 0 auto;
   }
 
