@@ -6,7 +6,6 @@ import ProductCard from '../components/ProductCard';
 import CategoriesFilter from '../components/CategoriesFilter';
 import Loading from '../components/Loading';
 import * as api from '../services/api';
-import mufasa from '../images/mufasa.gif';
 import '../css/listItens.css';
 
 class ListItems extends React.Component {
@@ -137,7 +136,12 @@ class ListItems extends React.Component {
       <div className="home">
         <header className="header-home">
           <span className="header-title">
-            <img className="logo-mufasa" src={ mufasa } alt="mufasa-gif" />
+            <div
+              className="logo-mufasa"
+            >
+              <i className="bi bi-filter-right" />
+
+            </div>
             Mufasa Commerce
           </span>
           <form className="header-form">
@@ -152,15 +156,15 @@ class ListItems extends React.Component {
                 onChange={ this.handleChangeSearch }
                 placeholder="Procure seu produto..."
               />
-              <button
-                className="header-btn"
-                type="submit"
-                data-testid="query-button"
-                onClick={ this.handleClick }
-              >
-                Pesquisar
-              </button>
             </label>
+            <button
+              className="header-btn"
+              type="submit"
+              data-testid="query-button"
+              onClick={ this.handleClick }
+            >
+              Pesquisar
+            </button>
             <div data-testid="home-initial-message" className="info">
               Digite algum termo de pesquisa ou escolha uma categoria.
             </div>

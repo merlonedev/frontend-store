@@ -12,6 +12,7 @@
   border-bottom: 2px solid rgba(0, 0, 0, 0.2);
   display: grid;
   grid-area: header;
+  grid-gap: 5px;
   grid-template-columns: 1fr 2fr 1fr;
   justify-content: space-between;
   z-index: 9999;
@@ -23,8 +24,9 @@
   cursor: pointer;
   display: flex;
   font-family: Bangers , cursive;
-  font-size: 1.6rem;
+  font-size: clamp(0.5em, 0.5em + 3vw, 1.6em);
   font-weight: 700;
+  max-width: 200px;
   opacity: 0.9;
   text-shadow: 2px 2px 2px black;
 }
@@ -34,19 +36,30 @@
 }
 
 .logo-mufasa {
-  border-radius: 50%;
-  box-shadow: 2px 2px 2px black;
-  height: 60px;
-  margin-right: 10px;
-  width: 60px;
+  color: rgb(31, 31, 31);
+  font-size: clamp(1.4em, 1.4em + 3vw, 3em);
+}
+
+.header-form {
+  align-items: end;
+  display: grid;
+  grid-gap: 10px;
+  grid-template: 1fr 1fr/ 3fr 1fr;
+  grid-template-areas: 'query btnQuery' 'info info';
+  justify-content: center;
+}
+
+.header-form label {
+  grid-area: query;
 }
 
 .header-input {
   border: none;
   border-bottom: 1px solid #757575;
   border-radius: 10px;
-  font-size: 15px;
+  font-size: clamp(0.2em, 0.2em + 2vw, 0.8em);
   padding: 5px;
+  width: 98%;
 }
 
 .header-btn {
@@ -55,11 +68,15 @@
   border-bottom: 1px solid #757575;
   border-radius: 10px;
   cursor: pointer;
+  font-size: clamp(0.2em, 0.2em + 2vw, 0.8em);
+  grid-area: btnQuery;
   padding: 5px 10px;
 }
 
 .info {
-  padding: 10px;
+  font-size: clamp(0.2em, 0.2em + 2vw, 1em);
+  grid-area: info;
+  text-align: center;
 }
 
 .header-input:focus, .header-btn:focus {
@@ -68,13 +85,6 @@
 
 .header-btn:hover, .header-input:hover {
   transform: scale(1.03);
-}
-
-.header-form {
-  align-items: center;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
 }
 
 .drop-unchecked input, .drop-checked input {
@@ -212,6 +222,7 @@
   background-color: whitesmoke;
   border-top: 2px solid rgba(0, 0, 0, 0.2);
   display: flex;
+  font-size: clamp(0.2em, 0.2em + 3vw, 1em);
   grid-area: footer;
   justify-content: center;
 }
