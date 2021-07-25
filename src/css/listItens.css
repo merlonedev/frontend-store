@@ -3,7 +3,7 @@
   grid-gap: 5px;
   grid-template: 20vh 70vh 10vh/1fr 3.5fr;
   grid-template-areas: 'header header''aside main''footer footer';
-  max-height: 100vh;
+  height: 100vh;
 }
 
 .header-home {
@@ -13,7 +13,7 @@
   display: grid;
   grid-area: header;
   grid-gap: 5px;
-  grid-template-columns: 1fr 2fr 1fr;
+  grid-template: 100% /1fr 2fr 1fr;
   justify-content: space-between;
   z-index: 9999;
 }
@@ -24,9 +24,9 @@
   cursor: pointer;
   display: flex;
   font-family: Bangers , cursive;
-  font-size: clamp(0.5em, 0.5em + 3vw, 1.6em);
+  font-size: clamp(0.8em, 0.8em + 3vw, 1.6em);
   font-weight: 700;
-  max-width: 200px;
+  max-width: 120px;
   opacity: 0.9;
   text-shadow: 2px 2px 2px black;
 }
@@ -57,7 +57,7 @@
   border: none;
   border-bottom: 1px solid #757575;
   border-radius: 10px;
-  font-size: clamp(0.2em, 0.2em + 2vw, 0.8em);
+  font-size: clamp(0.3em, 0.3em + 2vw, 0.8em);
   padding: 5px;
   width: 98%;
 }
@@ -117,6 +117,7 @@
   display: flex;
   justify-content: center;
   opacity: 0.9;
+  width: 98%;
 }
 
 .drop-unchecked:hover {
@@ -132,6 +133,7 @@
   cursor: pointer;
   display: flex;
   justify-content: center;
+  width: 98%;
 }
 
 .drop-checked:hover {
@@ -225,4 +227,33 @@
   font-size: clamp(0.2em, 0.2em + 3vw, 1em);
   grid-area: footer;
   justify-content: center;
+}
+
+@media screen and ( max-width : 700px ) {
+
+  .home {
+    grid-gap: 0;
+    grid-template: 15vh 5vh 75vh 10vh;
+    grid-template-areas: 'header header''aside aside' 'main main''footer footer';
+  }
+
+  .header-home {
+    grid-template: 50% 50%/25vw 1fr 1fr;
+    grid-template-areas: '. titleHome cartHome' 'formQuery formQuery formQuery';
+  }
+
+  .header-title {
+    grid-area: titleHome;
+    justify-self: left;
+  }
+
+  .header-form {
+    align-items: center;
+    grid-area: formQuery;
+    margin: 0 auto;
+  }
+
+  .link-cart {
+    grid-area: cartHome;
+  }
 }
