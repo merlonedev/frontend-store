@@ -20,13 +20,22 @@
 .header-title {
   align-items: center;
   color: rgb(240, 160, 11);
+  cursor: pointer;
   display: flex;
-  font-size: 1.3rem;
+  font-family: Bangers , cursive;
+  font-size: 1.6rem;
   font-weight: 700;
+  opacity: 0.9;
+  text-shadow: 2px 2px 2px black;
+}
+
+.header-title:hover {
+  opacity: 1;
 }
 
 .logo-mufasa {
   border-radius: 50%;
+  box-shadow: 2px 2px 2px black;
   height: 60px;
   margin-right: 10px;
   width: 60px;
@@ -38,7 +47,6 @@
   border-radius: 10px;
   font-size: 15px;
   padding: 5px;
-  width: 200px;
 }
 
 .header-btn {
