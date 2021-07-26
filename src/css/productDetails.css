@@ -33,6 +33,7 @@ body {
   align-items: center;
   display: flex;
   flex-direction: column;
+  text-align: center;
 }
 
 .product-info h2 {
@@ -40,6 +41,7 @@ body {
 }
 
 .product-info img {
+  border-radius: 40px;
   height: 320px;
   margin: 8px 0;
   margin-left: 12px;
@@ -49,6 +51,10 @@ body {
 
 .tec-infos {
   text-align: center;
+}
+
+.tec-infos h3 {
+  margin-bottom: 12px;
 }
 
 .tec-infos li {
@@ -69,7 +75,8 @@ body {
 }
 
 .product-info button:hover {
-  background-color: rgb(221, 147, 35);
+  box-shadow: -10px 0 10px rgb(206, 129, 13);
+  transform: rotateY(25deg);
 }
 
 .product-info button:active {
@@ -78,4 +85,117 @@ body {
 
 .product-price {
   color: rgb(18, 153, 18);
+}
+
+.star-form {
+  display: flex;
+  justify-content: center;
+}
+
+.label-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 50px;
+}
+
+.email-input {
+  border: none;
+  border-bottom: 1px solid #757575;
+  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3);
+  font-size: 18px;
+  margin-bottom: 2%;
+  margin-right: 2%;
+  padding: 10px 10px 10px 5px;
+  width: 300px;
+}
+
+.email-input, .textarea {
+  outline: none;
+}
+
+.textarea {
+  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3);
+  font-size: 18px;
+  margin-bottom: 2%;
+  margin-right: 2%;
+  padding: 10px 10px 10px 5px;
+  resize: none;
+  width: 640px;
+}
+
+.btn {
+  background-color: rgb(240, 160, 11);
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 0 8px rgb(207, 207, 207);
+  color: rgb(253, 253, 253);
+  cursor: pointer;
+  font-size: 16px;
+  padding: 10px 10px 10px 5px;
+  transition: background-color 0.2s;
+  width: 660px;
+}
+
+.btn:hover {
+  background-color: rgb(221, 147, 35);
+}
+
+@media screen and ( max-width : 700px ) {
+
+  .email-star {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 8px auto;
+    width: 240px;
+  }
+
+  .email-input {
+    font-size: 14px;
+    margin-bottom: 8px;
+    width: 180px;
+  }
+
+  .label-form {
+    margin: 30px;
+  }
+
+  .product-info button {
+    margin-bottom: 0;
+  }
+
+  .product-info h2 {
+    font-size: 16px;
+  }
+
+  .product-info img {
+    height: 220px;
+    margin: 8px 0;
+    width: 220px;
+  }
+
+  .tec-infos h3 {
+    font-size: 16px;
+  }
+
+  .tec-infos li {
+    font-size: 14px;
+    list-style: none;
+    margin: 4px 0;
+  }
+
+  .textarea {
+    font-size: 14px;
+    margin: 8px auto;
+    width: 300px;
+  }
+
+  .btn {
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 4px;
+    width: 320px;
+  }
 }
