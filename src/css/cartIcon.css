@@ -4,7 +4,7 @@
 }
 
 .ico-cart {
-  font-size: 40px;
+  font-size: clamp(30px, 1em + 3vw, 40px);
 }
 
 .count-cart {
@@ -13,7 +13,12 @@
   border: none;
   border-radius: 50%;
   display: flex;
-  height: 28px;
+  font-size: clamp(0.2em, 0.2em + 3vw, 1em);
+  height: 3vw;
   justify-content: center;
-  width: 28px;
+  max-height: 28px;
+  max-width: 28px;
+  min-height: 18px;
+  min-width: 18px;
+  width: 3vw;
 }

@@ -30,8 +30,8 @@ class ProductInCart extends React.Component {
 
   componentWillUnmount() {
     const { onChange } = this.props;
-    const { price } = this.state;
-    onChange(-price);
+    const { totalPrice } = this.state;
+    onChange(-totalPrice);
     this.mounted = false;
   }
 
@@ -70,6 +70,7 @@ class ProductInCart extends React.Component {
         subCountProduct(id);
         return onChange(-price);
       }
+      onChange(-price);
       subCountProduct(id, false);
       onChangeExclude(id);
     });

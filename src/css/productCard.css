@@ -8,8 +8,6 @@
   flex-direction: column;
   height: 420px;
   justify-content: space-between;
-  margin: 20px;
-  width: 300px;
 }
 
 .shipping-free {
@@ -54,9 +52,9 @@
   border-radius: 8px;
   display: flex;
   flex-direction: column;
-  height: 200px;
   justify-content: center;
-  width: 80%;
+  max-height: 200px;
+  max-width: 80%;
 }
 
 .movie-list {

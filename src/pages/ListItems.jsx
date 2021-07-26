@@ -18,11 +18,13 @@ class ListItems extends React.Component {
       categories: [],
       categoryId: '',
       loading: false,
+      drop: false,
     };
 
     this.handleChangeSearch = this.handleChangeSearch.bind(this);
     this.handleChangeCategory = this.handleChangeCategory.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.handleCategoriesMenu = this.handleCategoriesMenu.bind(this);
     this.filterProductsForCategory = this.filterProductsForCategory.bind(this);
     this.searchProducts = this.searchProducts.bind(this);
     this.fetchCategories = this.fetchCategories.bind(this);
@@ -42,12 +44,19 @@ class ListItems extends React.Component {
     const { name, value } = event.target;
     this.setState({
       [name]: value,
+      drop: false,
     }, () => this.filterProductsForCategory());
   }
 
   handleClick(event) {
     event.preventDefault();
     this.searchProducts();
+  }
+
+  handleCategoriesMenu({ target: { checked } }) {
+    this.setState({
+      drop: checked,
+    });
   }
 
   async filterProductsForCategory() {
@@ -62,7 +71,7 @@ class ListItems extends React.Component {
         loading: false,
       });
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   }
 
@@ -121,18 +130,27 @@ class ListItems extends React.Component {
       search,
       categories,
       loading,
+      drop,
     } = this.state;
 
     const { amountCart } = this.props;
 
     return (
       <div className="home">
-        <nav className="navbar">
-          <span className="nav-title">Mufasa Commerce</span>
-          <form className="nav-form">
+        <header className="header-home">
+          <span className="header-title">
+            <div
+              className="logo-mufasa"
+            >
+              <i className="bi bi-filter-right" />
+
+            </div>
+            Mufasa Commerce
+          </span>
+          <form className="header-form">
             <label htmlFor="search-bar">
               <input
-                className="nav-input"
+                className="header-input"
                 id="search-bar"
                 type="text"
                 data-testid="query-input"
@@ -141,15 +159,15 @@ class ListItems extends React.Component {
                 onChange={ this.handleChangeSearch }
                 placeholder="Procure seu produto..."
               />
-              <button
-                className="nav-btn"
-                type="submit"
-                data-testid="query-button"
-                onClick={ this.handleClick }
-              >
-                Pesquisar
-              </button>
             </label>
+            <button
+              className="header-btn"
+              type="submit"
+              data-testid="query-button"
+              onClick={ this.handleClick }
+            >
+              Pesquisar
+            </button>
             <div data-testid="home-initial-message" className="info">
               Digite algum termo de pesquisa ou escolha uma categoria.
             </div>
@@ -157,20 +175,46 @@ class ListItems extends React.Component {
           <Link to="/cart" className="link-cart" data-testid="shopping-cart-button">
             <CartIcon amount={ amountCart } />
           </Link>
-        </nav>
-        <section className="main">
-          <CategoriesFilter
-            categories={ categories }
-            onChange={ this.handleChangeCategory }
-          />
-          <div className="product-list">
-            {
-              loading
-                ? <Loading />
-                : this.renderItems()
-            }
+        </header>
+        <aside className="aside-home">
+          <label
+            className={ drop ? 'drop-checked' : 'drop-unchecked' }
+            htmlFor="drop-category"
+          >
+            <input
+              onChange={ this.handleCategoriesMenu }
+              type="checkbox"
+              id="drop-category"
+              checked={ drop }
+            />
+            <span>
+              <i className={ `bi ${drop ? 'bi-arrow-return-left' : 'bi-list-task'}` } />
+              {' Categorias'}
+            </span>
+          </label>
+          <div
+            className={ drop ? 'categories-checked' : 'categories-unchecked' }
+          >
+            <CategoriesFilter
+              categories={ categories }
+              onChange={ this.handleChangeCategory }
+            />
           </div>
-        </section>
+        </aside>
+
+        {
+          loading
+            ? <Loading />
+            : (
+              <main
+                className="main-home"
+              >
+                {this.renderItems()}
+
+              </main>
+            )
+        }
+        <footer className="footer-home">Grupo Mufasa</footer>
       </div>
     );
   }
