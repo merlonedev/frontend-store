@@ -1,8 +1,8 @@
 .home {
   display: grid;
   grid-gap: 5px;
-  grid-template: 20vh 70vh 10vh/1fr 3.5fr;
-  grid-template-areas: 'header header''aside main''footer footer';
+  grid-template-areas: 'header header''aside aside' 'main main''footer footer';
+  grid-template-rows: 18vh 5vh 68vh 7vh;
   height: 100vh;
 }
 
@@ -14,8 +14,6 @@
   grid-area: header;
   grid-gap: 5px;
   grid-template: 100% /1fr 2fr 1fr;
-  justify-content: space-between;
-  z-index: 9999;
 }
 
 .header-title {
@@ -24,7 +22,7 @@
   cursor: pointer;
   display: flex;
   font-family: Bangers , cursive;
-  font-size: clamp(0.8em, 0.8em + 3vw, 1.6em);
+  font-size: clamp(1em, 0.8em + 3vw, 1.6em);
   font-weight: 700;
   max-width: 120px;
   opacity: 0.9;
@@ -37,7 +35,7 @@
 
 .logo-mufasa {
   color: rgb(31, 31, 31);
-  font-size: clamp(1.4em, 1.4em + 3vw, 3em);
+  font-size: clamp(1.6em, 1.4em + 3vw, 3em);
 }
 
 .header-form {
@@ -74,7 +72,7 @@
 }
 
 .info {
-  font-size: clamp(0.2em, 0.2em + 2vw, 1em);
+  font-size: clamp(0.6em, 0.3em + 1vw, 1em);
   grid-area: info;
   text-align: center;
 }
@@ -105,7 +103,8 @@
   display: grid;
   grid-area: aside;
   grid-gap: 5px 0;
-  grid-template-rows: 7% 93%;
+  grid-template-rows: 100%;
+  padding-bottom: 5px;
 }
 
 .drop-unchecked {
@@ -116,8 +115,10 @@
   cursor: pointer;
   display: flex;
   justify-content: center;
+  margin: 0 auto;
   opacity: 0.9;
-  width: 98%;
+  transition: all 1s;
+  width: 80%;
 }
 
 .drop-unchecked:hover {
@@ -133,7 +134,10 @@
   cursor: pointer;
   display: flex;
   justify-content: center;
-  width: 98%;
+  margin: 0 auto;
+  opacity: 0.9;
+  transition: all 1s;
+  width: 100%;
 }
 
 .drop-checked:hover {
@@ -142,7 +146,7 @@
 }
 
 .categories-unchecked {
-  margin-left: -100vw;
+  margin-left: -150vw;
   transition: all 1s;
   width: 0;
 }
@@ -158,9 +162,13 @@
   border-radius: 10px;
   display: flex;
   flex-direction: column;
-  max-height: 100%;
+  height: 68vh;
   overflow-y: auto;
   padding-left: 10px;
+  position: absolute;
+  text-align: center;
+  width: 100vw;
+  z-index: 999;
 }
 
 .categories-bar::-webkit-scrollbar {
@@ -179,7 +187,7 @@
 
 .rad-label {
   cursor: pointer;
-  font-size: 22px;
+  font-size: clamp(1em, 0.5em + 2vw, 22px);
   padding: 15px 0;
   transition: 0.3s;
 }
@@ -202,6 +210,7 @@
   grid-gap: 20px;
   grid-template-columns: repeat(auto-fill, minmax(300px, 300px));
   justify-content: center;
+  margin: 0 2px;
   overflow: auto;
 }
 
@@ -229,12 +238,17 @@
   justify-content: center;
 }
 
+@media screen and ( max-width : 1024px ) {
+
+  .home {
+    grid-template-columns: 2fr 3.5fr;
+  }
+}
+
 @media screen and ( max-width : 700px ) {
 
   .home {
-    grid-gap: 0;
-    grid-template: 15vh 5vh 75vh 10vh;
-    grid-template-areas: 'header header''aside aside' 'main main''footer footer';
+    grid-template-rows: 25vh 5vh 63vh 5vh;
   }
 
   .header-home {
@@ -244,10 +258,10 @@
 
   .header-title {
     grid-area: titleHome;
-    justify-self: left;
   }
 
   .header-form {
+    align-items: center;
     grid-area: formQuery;
     grid-gap: 0 10px;
     margin: 0 auto;
@@ -256,4 +270,9 @@
   .link-cart {
     grid-area: cartHome;
   }
+
+  .categories-bar {
+    height: 63vh;
+  }
+
 }

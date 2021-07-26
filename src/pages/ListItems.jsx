@@ -44,6 +44,7 @@ class ListItems extends React.Component {
     const { name, value } = event.target;
     this.setState({
       [name]: value,
+      drop: false,
     }, () => this.filterProductsForCategory());
   }
 
@@ -53,7 +54,9 @@ class ListItems extends React.Component {
   }
 
   handleCategoriesMenu({ target: { checked } }) {
-    this.setState({ drop: checked });
+    this.setState({
+      drop: checked,
+    });
   }
 
   async filterProductsForCategory() {
@@ -182,9 +185,10 @@ class ListItems extends React.Component {
               onChange={ this.handleCategoriesMenu }
               type="checkbox"
               id="drop-category"
+              checked={ drop }
             />
             <span>
-              <i className="bi bi-shop" />
+              <i className={ `bi ${drop ? 'bi-arrow-return-left' : 'bi-list-task'}` } />
               {' Categorias'}
             </span>
           </label>
