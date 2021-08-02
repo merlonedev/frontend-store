@@ -7,7 +7,7 @@ class MarketButton extends React.Component {
     return (
       <div>
         <Link to="/shopping-cart" data-testid="shopping-cart-button">
-          <FiShoppingCart color="green" />
+          <FiShoppingCart color="blue" />
         </Link>
       </div>
     );
