@@ -16,6 +16,9 @@ function App() {
         >
           Learn React
         </a>
+        <div>
+          Mad word
+        </div>
       </header>
     </div>
   );
