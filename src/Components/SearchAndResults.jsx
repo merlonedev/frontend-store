@@ -45,23 +45,23 @@ class SearchAndResults extends React.Component {
     return (
       <div>
         <input
-        type="text"
-        data-testid="query-input"
-        onChange={ this.getInput }
-      />
-      <p
-        data-testid="home-initial-message"
-      >
-        Digite algum termo de pesquisa ou escolha uma categoria.
-      </p>
-      <button
-        type="button"
-        data-testid="query-button"
-        onClick={ this.getProducts }
-      >
-        Search
-      </button>
-      <Products productList={ productList } />
+          type="text"
+          data-testid="query-input"
+          onChange={ this.getInput }
+        />
+        <p
+          data-testid="home-initial-message"
+        >
+          Digite algum termo de pesquisa ou escolha uma categoria.
+        </p>
+        <button
+          type="button"
+          data-testid="query-button"
+          onClick={ this.getProducts }
+        >
+          Search
+        </button>
+        <Products productList={ productList } />
       </div>
     );
   }
