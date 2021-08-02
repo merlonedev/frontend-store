@@ -28,7 +28,7 @@ class FilterCategories extends Component {
     const { getCategory } = this.props;
     getCategory(name, id);
   }
-  
+
   render() {
     const { categories } = this.state;
     return (
