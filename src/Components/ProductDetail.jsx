@@ -26,12 +26,20 @@ class ProductDetail extends Component {
   render() {
     const { product } = this.state;
     const { price, title, thumbnail } = product;
+    const { setCartStorage } = this.props;
     return (
-      <div>
+      <div className="card">
         <img className="card-image" src={ thumbnail } alt={ title } />
         <div>
           <p className="card-title" data-testid="product-detail-name">{ title }</p>
           <p>{`R$: ${price}`}</p>
+          <button
+            type="button"
+            data-testid="product-detail-add-to-cart"
+            onClick={ () => setCartStorage({ title, price, thumbnail }) }
+          >
+            Adicionar ao carrinho
+          </button>
         </div>
       </div>
     );
@@ -45,6 +53,7 @@ ProductDetail.propTypes = {
     }),
   }).isRequired,
   search: PropTypes.string.isRequired,
+  setCartStorage: PropTypes.func.isRequired,
 };
 
 export default ProductDetail;
