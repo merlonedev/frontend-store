@@ -32,7 +32,8 @@ class ShoppingCart extends Component {
   }
 
   changeCheckoutState() {
-    this.setState({ checkout: true });
+    const { checkout } = this.state;
+    this.setState({ checkout: !checkout });
   }
 
   renderCheckout() {
@@ -48,28 +49,33 @@ class ShoppingCart extends Component {
     }
     return (
       <div>
-        <p>{`Total: ${total.toFixed(2)}`}</p>
-        {
-          cartList.map((
-            { id, price, quantity, thumbnail, title }, index,
-          ) => (<CartItem
-            key={ index }
-            id={ id }
-            price={ price }
-            quantity={ quantity }
-            thumbnail={ thumbnail }
-            title={ title }
-            removeItem={ removeItem }
-            setQuantity={ setQuantity }
-          />))
-        }
-        <button
-          type="button"
-          data-testid="checkout-products"
-          onClick={ this.changeCheckoutState }
-        >
-          Finalizar compra
-        </button>
+        <div className="shopping-cart">
+          <div className="cards-div">
+            <p>{`Total: ${total.toFixed(2)}`}</p>
+            {
+              cartList.map((
+                { id, price, quantity, thumbnail, title, availableQuantity }, index,
+              ) => (<CartItem
+                key={ index }
+                id={ id }
+                price={ price }
+                quantity={ quantity }
+                thumbnail={ thumbnail }
+                title={ title }
+                removeItem={ removeItem }
+                setQuantity={ setQuantity }
+                availableQuantity={ availableQuantity }
+              />))
+            }
+          </div>
+          <button
+            type="button"
+            data-testid="checkout-products"
+            onClick={ this.changeCheckoutState }
+          >
+            Finalizar compra
+          </button>
+        </div>
         { this.renderCheckout() }
       </div>
     );

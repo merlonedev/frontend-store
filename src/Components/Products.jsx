@@ -10,9 +10,17 @@ class Products extends Component {
     }
     return (
       <div className="cards-div">
-        { productList.map(({ id, price, title, thumbnail }) => (
+        { productList.map(({
+          id,
+          price,
+          title,
+          thumbnail,
+          shipping,
+          available_quantity: availableQuantity,
+        }) => (
           <div key={ id } data-testid="product" className="card" idproduct={ id }>
             <p className="card-title">{ title }</p>
+            { shipping.free_shipping && <p data-testid="free-shipping">Frete Grátis</p>}
             <img className="card-image" src={ thumbnail } alt={ title } />
             <p>{`R$: ${price}`}</p>
             <Link
@@ -24,7 +32,13 @@ class Products extends Component {
             <button
               type="button"
               data-testid="product-add-to-cart"
-              onClick={ () => setCartStorage({ id, title, price, thumbnail }) }
+              onClick={ () => setCartStorage({
+                id,
+                title,
+                price,
+                thumbnail,
+                availableQuantity,
+              }) }
             >
               Adicionar ao carrinho
             </button>

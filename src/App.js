@@ -8,7 +8,6 @@ import ShoppingCart from './Components/ShoppingCart';
 import SearchBar from './Components/SearchBar';
 import ProductDetail from './Components/ProductDetail';
 import InicialMessage from './Components/InicialMessage';
-import Checkout from './Components/Checkout';
 
 class App extends React.Component {
   constructor(props) {
@@ -16,20 +15,21 @@ class App extends React.Component {
     this.state = {
       category: '',
       search: '',
-      itemList: [],
       cartList: [],
     };
     this.getState = this.getState.bind(this);
     this.setCartStorage = this.setCartStorage.bind(this);
     this.setQuantity = this.setQuantity.bind(this);
-    this.addQuantity = this.addQuantity.bind(this);
     this.removeItem = this.removeItem.bind(this);
   }
 
   setCartStorage(obj) {
-    this.setState((previousState) => ({
-      itemList: [...previousState.itemList, obj],
-    }), () => this.addQuantity());
+    const { id } = obj;
+    const { cartList } = this.state;
+    const includes = cartList.find((item) => item.id === id);
+    if (includes) return this.setQuantity(includes.quantity + 1, id);
+    obj.quantity = 1;
+    this.setState((prevState) => ({ cartList: [...prevState.cartList, obj] }));
   }
 
   getState(name, value) {
@@ -48,22 +48,11 @@ class App extends React.Component {
     });
   }
 
-  addQuantity() {
-    const { itemList } = this.state;
-    const cartList = itemList.reduce((list, item) => {
-      const includes = list.some(({ id }) => item.id === id);
-      if (includes) return list;
-      item.quantity = itemList.filter(({ id }) => id === item.id).length;
-      return [...list, item];
-    }, []);
-    this.setState({ cartList });
-  }
-
   removeItem(idItem) {
     this.setState((prev) => {
-      const clearList = prev.itemList.filter(({ id }) => id !== idItem);
-      return { itemList: clearList };
-    }, () => this.addQuantity());
+      const clearList = prev.cartList.filter(({ id }) => id !== idItem);
+      return { cartList: clearList };
+    });
   }
 
   render() {
@@ -109,7 +98,6 @@ class App extends React.Component {
                     setCartStorage={ this.setCartStorage }
                   />) }
               />
-              <Route path="/shopping-cart/checkout" component={ Checkout } />
             </Switch>
           </main>
         </BrowserRouter>

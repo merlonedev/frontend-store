@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import * as api from '../services/api';
-import RatingArea from './RatingArea';
+import RatingArea from './RatingArea'
 
 class ProductDetail extends Component {
   constructor(props) {
@@ -9,6 +9,7 @@ class ProductDetail extends Component {
     this.fetchProduct = this.fetchProduct.bind(this);
     this.state = {
       product: {},
+      freeShipping: false,
     };
   }
 
@@ -21,11 +22,12 @@ class ProductDetail extends Component {
     const products = await api.getProductsFromCategoryAndQuery('', search);
     const rightProduct = await products.results;
     const findRightProduct = rightProduct.find((product) => product.id === id);
-    this.setState({ product: findRightProduct });
+    const freeShippingState = findRightProduct.shipping.free_shipping;
+    this.setState({ product: findRightProduct, freeShipping: freeShippingState });
   }
 
   render() {
-    const { product } = this.state;
+    const { product, freeShipping } = this.state;
     const { id, price, title, thumbnail } = product;
     const { setCartStorage } = this.props;
     return (
@@ -34,6 +36,7 @@ class ProductDetail extends Component {
           <img className="card-image-detail" src={ thumbnail } alt={ title } />
           <div>
             <p className="card-title" data-testid="product-detail-name">{ title }</p>
+            { freeShipping && <p> Frete Grátis </p>}
             <p>{`R$: ${price}`}</p>
             <button
               type="button"
