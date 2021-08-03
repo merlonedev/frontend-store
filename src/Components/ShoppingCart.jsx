@@ -1,34 +1,72 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import CartItem from './CartItem';
 
 class ShoppingCart extends Component {
+  constructor() {
+    super();
+    this.state = {
+      total: 0,
+    };
+  }
+
+  componentDidMount() {
+    this.sumPrice();
+  }
+
+  componentDidUpdate() {
+    this.sumPrice();
+  }
+
+  sumPrice() {
+    const { total } = this.state;
+    const { cartList } = this.props;
+    const sumTotal = cartList
+      .map(({ price, quantity }) => price * quantity)
+      .reduce((totalPrice, price) => totalPrice + price, 0);
+    if (total !== sumTotal) this.setState({ total: sumTotal });
+  }
+
   render() {
-    const { cart } = this.props;
-    if (cart.length === 0) {
+    const { total } = this.state;
+    const { cartList, removeItem, setQuantity } = this.props;
+    if (cartList.length === 0) {
       return <h1 data-testid="shopping-cart-empty-message">Seu carrinho está vazio</h1>;
     }
     return (
       <div>
-        <p data-testid="shopping-cart-product-quantity">{cart.length}</p>
-        {cart.map(({ title, thumbnail, price }) => (
-          <div className="card" key="title">
-            <p
-              className="card-title"
-              data-testid="shopping-cart-product-name"
-            >
-              { title }
-            </p>
-            <img className="card-image" src={ thumbnail } alt={ title } />
-            <p>{`R$: ${price}`}</p>
-          </div>
-        ))}
+        <p>{`Total: ${total.toFixed(2)}`}</p>
+        {
+          cartList.map((
+            { id, price, quantity, thumbnail, title }, index,
+          ) => (<CartItem
+            key={ index }
+            id={ id }
+            price={ price }
+            quantity={ quantity }
+            thumbnail={ thumbnail }
+            title={ title }
+            removeItem={ removeItem }
+            setQuantity={ setQuantity }
+          />))
+        }
       </div>
     );
   }
 }
 
 ShoppingCart.propTypes = {
-  cart: PropTypes.arrayOf(Array).isRequired,
+  cartList: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      price: PropTypes.number.isRequired,
+      quantity: PropTypes.number.isRequired,
+      thumbnail: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+    }),
+  ).isRequired,
+  removeItem: PropTypes.func.isRequired,
+  setQuantity: PropTypes.func.isRequired,
 };
 
 export default ShoppingCart;
