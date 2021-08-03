@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import CartItem from './CartItem';
+import Checkout from './Checkout';
 
 class ShoppingCart extends Component {
   constructor() {
     super();
+    this.changeCheckoutState = this.changeCheckoutState.bind(this);
+    this.renderCheckout = this.renderCheckout.bind(this);
     this.state = {
       total: 0,
+      checkout: false,
     };
   }
 
@@ -25,6 +29,15 @@ class ShoppingCart extends Component {
       .map(({ price, quantity }) => price * quantity)
       .reduce((totalPrice, price) => totalPrice + price, 0);
     if (total !== sumTotal) this.setState({ total: sumTotal });
+  }
+
+  changeCheckoutState() {
+    this.setState({ checkout: true });
+  }
+
+  renderCheckout() {
+    const { checkout } = this.state;
+    return checkout === true && <Checkout />;
   }
 
   render() {
@@ -50,6 +63,14 @@ class ShoppingCart extends Component {
             setQuantity={ setQuantity }
           />))
         }
+        <button
+          type="button"
+          data-testid="checkout-products"
+          onClick={ this.changeCheckoutState }
+        >
+          Finalizar compra
+        </button>
+        { this.renderCheckout() }
       </div>
     );
   }

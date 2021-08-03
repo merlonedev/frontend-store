@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import * as api from '../services/api';
+import RatingArea from './RatingArea';
 
 class ProductDetail extends Component {
   constructor(props) {
@@ -25,22 +26,27 @@ class ProductDetail extends Component {
 
   render() {
     const { product } = this.state;
-    const { price, title, thumbnail } = product;
+    const { id, price, title, thumbnail } = product;
     const { setCartStorage } = this.props;
     return (
-      <div className="card">
-        <img className="card-image" src={ thumbnail } alt={ title } />
-        <div>
-          <p className="card-title" data-testid="product-detail-name">{ title }</p>
-          <p>{`R$: ${price}`}</p>
-          <button
-            type="button"
-            data-testid="product-detail-add-to-cart"
-            onClick={ () => setCartStorage({ title, price, thumbnail }) }
-          >
-            Adicionar ao carrinho
-          </button>
+      <div className="product-detail">
+        <div className="card-detail">
+          <img className="card-image-detail" src={ thumbnail } alt={ title } />
+          <div>
+            <p className="card-title" data-testid="product-detail-name">{ title }</p>
+            <p>{`R$: ${price}`}</p>
+            <button
+              type="button"
+              data-testid="product-detail-add-to-cart"
+              onClick={ () => setCartStorage({ id, title, price, thumbnail }) }
+            >
+              Adicionar ao carrinho
+            </button>
+          </div>
         </div>
+        <section className="rating">
+          <RatingArea />
+        </section>
       </div>
     );
   }
