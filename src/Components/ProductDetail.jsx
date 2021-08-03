@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import * as api from '../services/api';
-import RatingArea from './RatingArea'
+import RatingArea from './RatingArea';
 
 class ProductDetail extends Component {
   constructor(props) {
