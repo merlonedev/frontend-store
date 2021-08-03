@@ -1,49 +1,53 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 
-class ProductCard extends React.Component {
+import AddToCartButton from './AddToCartButton';
+import FreeShipping from './FreeShipping';
+import ProductSummary from './ProductSummary';
+
+class ProductCard extends Component {
   render() {
-    const { product, detailsHandler, localChanger } = this.props;
-
+    const { product, renderDetailsCallBack, addToCartCallback } = this.props;
+    const { id } = product;
     return (
-      <div data-testid="product">
-        <h1>{ product.title}</h1>
-        <Link
-          to={ { pathname: `/details/${product.id}`, state: { product } } }
-          onClick={ () => detailsHandler(product) }
-          data-testid="product-detail-link"
-        >
-          <img
-            src={ product.thumbnail }
-            alt={ product.id }
-          />
-        </Link>
-
-        <p>
-          R$
-          {product.price}
-        </p>
+      <section>
         <button
-          onClick={ () => localChanger(product) }
-          data-testid="product-add-to-cart"
           type="button"
+          data-testid="product-detail-link"
+          onClick={ () => { renderDetailsCallBack(id); } }
         >
-          Adicionar ao Carrinho
+          <ProductSummary
+            product={ product }
+          />
+          {
+            (product.shipping.free_shipping)
+              ? <FreeShipping />
+              : null
+          }
         </button>
-      </div>
+        <AddToCartButton
+          product={ product }
+          addToCartCallback={ (prod) => addToCartCallback(prod) }
+          dataTestId="product-add-to-cart"
+        />
+      </section>
     );
   }
 }
 
 ProductCard.propTypes = {
-  product: PropTypes.objectOf(String),
-  detailsHandler: PropTypes.func.isRequired,
-  localChanger: PropTypes.func.isRequired,
-};
-
-ProductCard.defaultProps = {
-  product: undefined,
+  product: PropTypes.shape({
+    title: PropTypes.string,
+    thumbnail: PropTypes.string,
+    price: PropTypes.number,
+    id: PropTypes.string,
+    category_id: PropTypes.string,
+    shipping: PropTypes.shape({
+      free_shipping: PropTypes.bool,
+    }),
+  }).isRequired,
+  renderDetailsCallBack: PropTypes.func.isRequired,
+  addToCartCallback: PropTypes.func.isRequired,
 };
 
 export default ProductCard;

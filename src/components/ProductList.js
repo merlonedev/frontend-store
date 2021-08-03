@@ -1,45 +1,28 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+
 import ProductCard from './ProductCard';
 
-class ProductList extends React.Component {
+class ProductList extends Component {
   render() {
-    const { products, detailsHandler, localChanger } = this.props;
-
-    if (products && products.length !== 0) {
-      return (
-        <section>
-          {
-            products.map((product) => (
-              <ProductCard
-                localChanger={ localChanger }
-                key={ product.id }
-                product={ product }
-                detailsHandler={ detailsHandler }
-              />
-            ))
-          }
-        </section>
-      );
-    }
+    const { productList = [], renderDetailsCallBack, addToCartCallback } = this.props;
     return (
-      <section>
-        <h1 data-testid="home-initial-message">
-          Digite algum termo de pesquisa ou escolha uma categoria.
-        </h1>
-      </section>
+      productList
+        .map((product) => (
+          <ProductCard
+            key={ product.id }
+            product={ product }
+            renderDetailsCallBack={ () => renderDetailsCallBack(product) }
+            addToCartCallback={ addToCartCallback }
+          />))
     );
   }
 }
 
 ProductList.propTypes = {
-  products: PropTypes.arrayOf(Object),
-  detailsHandler: PropTypes.func.isRequired,
-  localChanger: PropTypes.func.isRequired,
-};
-
-ProductList.defaultProps = {
-  products: undefined,
+  renderDetailsCallBack: PropTypes.func.isRequired,
+  addToCartCallback: PropTypes.func.isRequired,
+  productList: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default ProductList;
