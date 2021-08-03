@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import * as api from '../services/api';
 import { Link } from 'react-router-dom';
+import * as api from '../services/api';
 
 class FilterCategories extends Component {
   constructor(props) {
