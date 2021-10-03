@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { HashRouter, Route, Switch } from 'react-router-dom';
 import SearchBar from './components/SearchBar';
 import ShoppingCart from './components/ShoppingCart';
 import CategoriesBar from './components/CategoriesBar';
@@ -164,7 +164,7 @@ export default class App extends Component {
     const { categories, products, cartItems, quantity, sorting } = this.state;
     return (
       <div className="App">
-        <BrowserRouter>
+        <HashRouter>
           <div className="body">
             <Switch>
               <Route
@@ -239,7 +239,7 @@ export default class App extends Component {
               <Route component={ NotFound } />
             </Switch>
           </div>
-        </BrowserRouter>
+        </HashRouter>
       </div>
     );
   }
