@@ -1,0 +1,29 @@
+{
+  "files": {
+    "main.css": "/frontend-store/static/css/main.34e14d01.chunk.css",
+    "main.js": "/frontend-store/static/js/main.32593ec3.chunk.js",
+    "main.js.map": "/frontend-store/static/js/main.32593ec3.chunk.js.map",
+    "runtime-main.js": "/frontend-store/static/js/runtime-main.80ae7912.js",
+    "runtime-main.js.map": "/frontend-store/static/js/runtime-main.80ae7912.js.map",
+    "static/js/2.8e2a1a10.chunk.js": "/frontend-store/static/js/2.8e2a1a10.chunk.js",
+    "static/js/2.8e2a1a10.chunk.js.map": "/frontend-store/static/js/2.8e2a1a10.chunk.js.map",
+    "index.html": "/frontend-store/index.html",
+    "precache-manifest.bb6de1e1ad24d9d68fa8ab7ad5d25147.js": "/frontend-store/precache-manifest.bb6de1e1ad24d9d68fa8ab7ad5d25147.js",
+    "service-worker.js": "/frontend-store/service-worker.js",
+    "static/css/main.34e14d01.chunk.css.map": "/frontend-store/static/css/main.34e14d01.chunk.css.map",
+    "static/js/2.8e2a1a10.chunk.js.LICENSE.txt": "/frontend-store/static/js/2.8e2a1a10.chunk.js.LICENSE.txt",
+    "static/media/App.css": "/frontend-store/static/media/TipoPress-DgaW.89abd579.ttf",
+    "static/media/elo.png": "/frontend-store/static/media/elo.9217ca38.png",
+    "static/media/faustao-errou.gif": "/frontend-store/static/media/faustao-errou.aee1c181.gif",
+    "static/media/faustao.gif": "/frontend-store/static/media/faustao.545819e1.gif",
+    "static/media/master.png": "/frontend-store/static/media/master.4c4f5d3b.png",
+    "static/media/se_vira_logo.png": "/frontend-store/static/media/se_vira_logo.2c23636a.png",
+    "static/media/visa.png": "/frontend-store/static/media/visa.f7d8cd98.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.80ae7912.js",
+    "static/js/2.8e2a1a10.chunk.js",
+    "static/css/main.34e14d01.chunk.css",
+    "static/js/main.32593ec3.chunk.js"
+  ]
+}
